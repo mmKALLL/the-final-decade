@@ -1,0 +1,21 @@
+{
+  "name": "superintelligence-is-hard",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "preact": "^10.25.3",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.9.3",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5"
+  }
+}
