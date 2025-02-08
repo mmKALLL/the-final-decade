@@ -1,10 +1,8 @@
-import { useState } from 'preact/hooks'
+import { useGameState } from '../gamestate-hooks'
+import { Action } from '../types'
 
-export function Button() {
-  const [count, setCount] = useState(0)
-  return (
-    <button onClick={() => setCount((count) => count + 1)}>
-      count is {count}
-    </button>
-  )
+export function Button({ text, action }: { text: string; action: Action }) {
+  const { dispatch } = useGameState()
+
+  return <button onClick={() => dispatch(action)}>{text}</button>
 }
