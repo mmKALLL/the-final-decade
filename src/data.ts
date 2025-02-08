@@ -86,10 +86,6 @@ export const initialGameState: GameState = {
 
   bossContracts: bossContracts,
   availableActions: initialActions,
-
-  recentActions: [],
-
-  recentGS: [],
 }
 
 // Humans for the game, in the style of Rimworld

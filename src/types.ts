@@ -51,9 +51,9 @@ export type GameState = {
   bossContracts: Contract[]
 
   availableActions: Action[]
-  recentActions: Action[]
 
-  recentGS: GameState[]
+  // recentActions: Action[]
+  // recentGS: GameState[]
 
   // Organization playerOrganization: Organization('Meta AI', -30, FeatureName.automation);
   // organizations: Organization[]
