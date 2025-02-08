@@ -4,5 +4,9 @@ import { Action } from '../types'
 export function Button({ text, action }: { text: string; action: Action }) {
   const { dispatch } = useGameState()
 
-  return <button onClick={() => dispatch(action)}>{text}</button>
+  return (
+    <div>
+      <button onClick={() => dispatch(action)}>{text}</button>
+    </div>
+  )
 }
