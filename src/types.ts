@@ -9,7 +9,7 @@ export type CurrentScreen =
   | 'humanAllocation' // unused
   | 'contracts'
 
-export type Language = 'en-US' | 'jp-JP'
+export type Language = 'en-US' | 'jp-FI'
 
 export type GameState = {
   currentScreen: 'main' | 'selection'
@@ -18,7 +18,7 @@ export type GameState = {
   turn: number // Each unit of time represents one month
 
   // -5 - 5. Public view of alignment. ASI outcome is shifted by this amount each turn. Decreases by 1 every year. Originally one of the win/loss conditions, influences what rate of org breakthroughs lead to alignment improvements. Second-order effect on asiOutcome.
-  alignmentAcceptance: number
+  alignmentFocus: number
 
   // 0-100. Shifted whenever breakthroughs are made, by the level of the feature receiving the breakthrough. 0: capabilities win; misaligned ASI. 100: aligned ASI.
   asiOutcome: number
@@ -26,7 +26,7 @@ export type GameState = {
   // 0-200. Trust towards your organization. Gain or lose depending on how your fund/contract money is handled. If you have high trust you'll get better contracts and recruits
   trust: number
 
-  // 0-200. Influence is a percentage multiplier to the effect of your social actions (like increasing alignment acceptance)
+  // 0-200. Influence is a percentage multiplier to the effect of your social actions (like increasing alignment focus)
   influence: number
 
   // The various turn-based actions have an passive and active component - passive is gained each turn, active when a turn is used to take that action
@@ -48,7 +48,7 @@ export type GameState = {
   upgradeSelections: Upgrade[][]
   contractSelections: Contract[][]
 
-  bossContracts: Contract[]
+  yearlyContracts: Contract[]
 
   availableActions: Action[]
 
@@ -89,7 +89,7 @@ export type Human = {
   spGeneration: number
   epGeneration: number
   rpGeneration: number
-  // specialEffects?: Effect
+  specialEffects?: Effect
 }
 
 export type Upgrade = {
@@ -116,7 +116,7 @@ export type Param =
   | 'turn'
   | 'money'
   | 'trust'
-  | 'alignmentAcceptance'
+  | 'alignmentFocus'
   | 'asiOutcome'
   | 'influence'
   | 'rp'
@@ -128,12 +128,17 @@ export type Contract = {
   rarity: Rarity
   // acceptDescription: Record<Language, string>
   successDescription: Record<Language, string>
-  // failureDescription: Record<Language, string>
   requirementDescription: Record<Language, string>
+  costDescription: Record<Language, string>
   // onAccept: Effect
   onSuccess: Effect
   // onFailure: Effect
   requirements: Effect
+  costs: Effect
+}
+
+export type YearlyContract = Contract & {
+  year: number
 }
 
 export type Action = {
@@ -150,7 +155,7 @@ export type SingleEffect = {
   source?: string
   condition?: (gs: GameState, paramEffected: Param, baseAmount: number) => boolean
   paramEffected: Param
-  apply: (value: number) => number
+  amount: number
 }
 
 export type Effect = SingleEffect[]

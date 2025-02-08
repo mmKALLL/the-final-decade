@@ -13,13 +13,13 @@ export function GameView() {
     humanSelections: undefined,
     upgradeSelections: undefined,
     contractSelections: undefined,
-    bossContracts: undefined,
+    yearlyContracts: undefined,
   }
   return (
     <div>
       <h1>{labels[gs.language].gameTitle}</h1>
       {gs.availableActions.map((action) => (
-        <Button text={action.name[gs.language]} action={action} />
+        <Button action={action} />
       ))}
 
       <p>

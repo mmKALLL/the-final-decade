@@ -1,5 +1,5 @@
 import { createContext, JSX } from 'preact'
-import { initialGameState } from './data'
+import { initialGameState } from './data/data'
 import { useContext, useReducer } from 'preact/hooks'
 import { Action, Effect, GameState } from './types'
 
@@ -49,17 +49,16 @@ export function reduceAction(gs: GameState, action: Action): GameState {
 
 export function reduceEffect(effect: Effect, gameState: GameState, depth: number): GameState {
   return effect.reduce((gs, singleEffect) => {
-    const { apply, paramEffected } = singleEffect
+    const { amount, paramEffected } = singleEffect
     const currentValue = gs[paramEffected]
-    const updatedValue = apply(currentValue)
-    const baseAmount = updatedValue - currentValue
+    const updatedValue = currentValue + amount
     const updatedGs = { ...gs, [singleEffect.paramEffected]: updatedValue }
 
     // If this is the first effect on stack, apply effects from upgrades
-    if (baseAmount > 0 && depth === 0) {
+    if (amount > 0 && depth === 0) {
       const upgradeEffects = gameState.upgrades
         .flatMap((upgrade) => upgrade.effect)
-        .filter((effect) => !effect.condition || effect.condition(gs, paramEffected, baseAmount))
+        .filter((effect) => !effect.condition || effect.condition(gs, paramEffected, amount))
       return reduceEffect(upgradeEffects, updatedGs, depth + 1)
     }
 
