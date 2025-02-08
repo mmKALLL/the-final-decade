@@ -1,6 +1,7 @@
-import { contracts, upgrades, yearlyContracts } from "./data";
-import { Action, Contract, Human, Upgrade, } from "../types";
+import { contracts, upgrades, } from "./data-gamestate";
+import { Action, Contract, Human, Upgrade, YearlyContract, } from "../types";
 import { humans } from "./data-humans";
+import { yearlyContracts } from "./data-contracts";
 
 export function generateHuman(
   // _rarity: Rarity
@@ -22,8 +23,11 @@ export function generateActionDescription(action: Action): string {
   }).join(', ')
 }
 
-export function generateYearlyContracts(): Contract[] {
-  return yearlyContracts
+export function generateYearlyContracts(): YearlyContract[] {
+  return [2025, 2026, 2027, 2028, 2029].map((year) => {
+    const currentYearContracts = yearlyContracts.filter((contract) => contract.year === year)
+    return currentYearContracts[Math.floor(Math.random() * currentYearContracts.length)]
+  })
 }
 
 export function generateContract(): Contract {

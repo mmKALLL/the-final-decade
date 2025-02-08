@@ -1,5 +1,5 @@
 import { createContext, JSX } from 'preact'
-import { initialGameState } from './data/data'
+import { initialGameState } from './data/data-gamestate'
 import { useContext, useReducer } from 'preact/hooks'
 import { Action, Effect, GameState } from './types'
 
