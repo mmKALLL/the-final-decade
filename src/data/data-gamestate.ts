@@ -1,6 +1,6 @@
 import { generateHuman, generateUpgrade, generateYearlyContracts } from './data-generators'
 import { Action, GameState, Upgrade } from '../types'
-import { generateContract } from './contract-generator'
+import { getRandomContract } from './contract-generator'
 
 const initialActions: Action[] = [
   {
@@ -41,13 +41,12 @@ const initialActions: Action[] = [
   },
   {
     name: { 'en-US': 'Find new contracts', 'jp-FI': '契約を探す' },
-    description: { 'en-US': '', 'jp-FI': '' },
     turnCost: 1,
     turnsInvested: 0,
     effect: [{ paramEffected: 'ep', amount: -5 }],
     functionEffect: (gs) => ({
       ...gs,
-      contracts: [generateContract(), generateContract(), generateContract()],
+      contracts: [getRandomContract(gs), getRandomContract(gs), getRandomContract(gs)],
     }),
   },
   {
@@ -81,9 +80,9 @@ export const initialGameState: GameState = {
   influence: 100,
   trust: 100,
 
-  rp: 5,
-  ep: 5,
   sp: 5,
+  ep: 5,
+  rp: 5,
 
   humans: [],
   upgrades: [],

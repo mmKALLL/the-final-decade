@@ -2,6 +2,7 @@ import { createContext, JSX } from 'preact'
 import { initialGameState } from './data/data-gamestate'
 import { useContext, useReducer } from 'preact/hooks'
 import { Action, Effect, GameState } from './types'
+import { generateHuman, generateUpgrade } from './data/data-generators'
 
 export const GameStateContext = createContext(initialGameState)
 export const DispatchContext = createContext((_action: Action) => {})
@@ -50,6 +51,16 @@ export function reduceAction(gs: GameState, action: Action): GameState {
 export function reduceEffect(effect: Effect, gameState: GameState, depth: number): GameState {
   return effect.reduce((gs, singleEffect) => {
     const { amount, paramEffected } = singleEffect
+    if (paramEffected === 'humanSelection') {
+      return { ...gs, humanSelections: [...gs.humanSelections, [generateHuman(amount), generateHuman(amount), generateHuman(amount)]] }
+    }
+    if (paramEffected === 'upgradeSelection') {
+      return {
+        ...gs,
+        upgradeSelections: [...gs.upgradeSelections, [generateUpgrade(amount), generateUpgrade(amount), generateUpgrade(amount)]],
+      }
+    }
+
     const currentValue = gs[paramEffected]
     const updatedValue = currentValue + amount
     const updatedGs = { ...gs, [singleEffect.paramEffected]: updatedValue }

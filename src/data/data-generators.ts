@@ -3,14 +3,13 @@ import { Action, Human, Upgrade, YearlyContract } from '../types'
 import { humans } from './data-humans'
 import { yearlyContracts } from './data-contracts'
 
-export function generateHuman(): Human {
-  // _rarity: Rarity
+export function generateHuman(_rarity?: number): Human {
   // Return random human for now
   // TODO: Don't give duplicates
   return humans[Math.floor(Math.random() * humans.length)]
 }
 
-export function generateUpgrade(): Upgrade {
+export function generateUpgrade(_rarity?: number): Upgrade {
   // Return random upgrade for now
   return upgrades[Math.floor(Math.random() * upgrades.length)]
 }

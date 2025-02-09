@@ -122,6 +122,8 @@ export type Param =
   | 'rp'
   | 'ep'
   | 'sp'
+  | 'humanSelection'
+  | 'upgradeSelection'
 
 export type Contract = {
   name: Record<Language, string>

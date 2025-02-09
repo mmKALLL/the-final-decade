@@ -4,7 +4,7 @@ import { Action } from '../types'
 
 export function Button({ action }: { action: Action }) {
   const { gs, dispatch } = useGameState()
-  const description = action.description ?? generateActionDescription(action)
+  const description = action.description?.[gs.language] || generateActionDescription(action)
 
   return (
     <div>
