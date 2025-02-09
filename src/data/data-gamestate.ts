@@ -1,5 +1,5 @@
 import { generateHuman, generateUpgrade, generateYearlyContracts } from './data-generators'
-import { Action, GameState, Upgrade } from '../types'
+import { Action, GameState } from '../types'
 import { getRandomContract } from './contract-generator'
 
 const initialActions: Action[] = [
@@ -95,14 +95,3 @@ export const initialGameState: GameState = {
   yearlyContracts: generateYearlyContracts(),
   availableActions: initialActions,
 }
-
-export const upgrades: Upgrade[] = [
-  {
-    name: { 'en-US': 'Upgrade 1', 'jp-FI': 'アップグレード1' },
-    description: { 'en-US': 'desc', 'jp-FI': 'desc' },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 1,
-    effect: [{ paramEffected: 'rp', amount: 10 }],
-  },
-]

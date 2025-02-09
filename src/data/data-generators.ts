@@ -1,7 +1,7 @@
-import { upgrades } from './data-gamestate'
 import { Action, Human, Upgrade, YearlyContract } from '../types'
 import { humans } from './data-humans'
 import { yearlyContracts } from './data-contracts'
+import { upgrades } from './data-upgrades'
 
 export function generateHuman(_rarity?: number): Human {
   // Return random human for now
