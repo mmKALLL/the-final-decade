@@ -10,6 +10,7 @@ export type CurrentScreen =
   | 'contracts'
 
 export type Language = 'en-US' | 'jp-FI'
+export type Label = Record<Language, string>
 
 export type GameState = {
   currentScreen: 'main' | 'selection'
@@ -81,7 +82,7 @@ export type GameState = {
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'epic'
 
 export type Human = {
-  name: Record<Language, string>
+  name: Label
   // description: string
   rarity: Rarity
   wage: number
@@ -93,8 +94,8 @@ export type Human = {
 }
 
 export type Upgrade = {
-  name: Record<Language, string>
-  description: Record<Language, string>
+  name: Label
+  description: Label
   rarity: Rarity
   level: number
   maxLevel: number
@@ -126,12 +127,12 @@ export type Param =
   | 'upgradeSelection'
 
 export type Contract = {
-  name: Record<Language, string>
+  name: Label
   rarity: Rarity
-  // acceptDescription: Record<Language, string>
-  successDescription: Record<Language, string>
-  requirementDescription: Record<Language, string>
-  costDescription: Record<Language, string>
+  // acceptDescription: Label
+  successDescription: Label
+  requirementDescription: Label
+  costDescription: Label
   // onAccept: Effect
   onSuccess: Effect
   // onFailure: Effect
@@ -144,8 +145,8 @@ export type YearlyContract = Contract & {
 }
 
 export type Action = {
-  name: Record<Language, string>
-  description?: Record<Language, string>
+  name: Label
+  description?: Label
   enabledCondition?: (gs: GameState) => boolean
   turnCost: number
   turnsInvested: number
