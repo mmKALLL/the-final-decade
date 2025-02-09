@@ -1,11 +1,10 @@
-import { contracts, upgrades, } from "./data-gamestate";
-import { Action, Contract, Human, Upgrade, YearlyContract, } from "../types";
-import { humans } from "./data-humans";
-import { yearlyContracts } from "./data-contracts";
+import { upgrades } from './data-gamestate'
+import { Action, Human, Upgrade, YearlyContract } from '../types'
+import { humans } from './data-humans'
+import { yearlyContracts } from './data-contracts'
 
-export function generateHuman(
+export function generateHuman(): Human {
   // _rarity: Rarity
-): Human {
   // Return random human for now
   // TODO: Don't give duplicates
   return humans[Math.floor(Math.random() * humans.length)]
@@ -17,10 +16,12 @@ export function generateUpgrade(): Upgrade {
 }
 
 export function generateActionDescription(action: Action): string {
-  return action.effect.map((effect) => {
-    const { amount } = effect
-    return `${effect.paramEffected} ${amount >= 0 ? '+' : ''}${amount}`
-  }).join(', ')
+  return action.effect
+    .map((effect) => {
+      const { amount } = effect
+      return `${effect.paramEffected} ${amount >= 0 ? '+' : ''}${amount}`
+    })
+    .join(', ')
 }
 
 export function generateYearlyContracts(): YearlyContract[] {
@@ -28,9 +29,4 @@ export function generateYearlyContracts(): YearlyContract[] {
     const currentYearContracts = yearlyContracts.filter((contract) => contract.year === year)
     return currentYearContracts[Math.floor(Math.random() * currentYearContracts.length)]
   })
-}
-
-export function generateContract(): Contract {
-  // Return random contract for now
-  return contracts[Math.floor(Math.random() * contracts.length)]
 }
