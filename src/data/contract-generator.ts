@@ -1,10 +1,11 @@
 import { Contract, Effect, GameState, SingleEffect } from '../types'
+import { getRandomContractName } from './data-contracts'
 
 function getYearIndex(turn: number): number {
   return Math.floor(turn / 12)
 }
 
-export function getRandomContract(gs: GameState): Contract {
+export function generateContract(gs: GameState): Contract {
   // Setup base parameters that control complexity
   const isAlignmentContract = Math.random() < 0.5
   let difficulty = 50 + Math.floor(Math.random() * (getYearIndex(gs.turn) * 50 + 75))
@@ -43,8 +44,8 @@ export function getRandomContract(gs: GameState): Contract {
   const requirements: Effect = []
 
   return {
-    name: { 'en-US': 'Generated Contract', 'jp-FI': '生成された契約' },
-    rarity: 'common',
+    name: getRandomContractName(),
+    rarity: difficulty > 200 ? 'rare' : difficulty > 150 ? 'uncommon' : 'common',
     successDescription: { 'en-US': effectListToString(modifiedOnSuccess), 'jp-FI': effectListToString(modifiedOnSuccess) },
     requirementDescription: { 'en-US': effectListToString(requirements), 'jp-FI': effectListToString(requirements) },
     costDescription: { 'en-US': effectListToString(costs), 'jp-FI': effectListToString(costs) },

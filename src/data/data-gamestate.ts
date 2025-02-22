@@ -1,6 +1,6 @@
 import { generateHuman, generateUpgrade, generateYearlyContracts } from './data-generators'
 import { Action, GameState } from '../types'
-import { getRandomContract } from './contract-generator'
+import { generateContract } from './contract-generator'
 
 const initialActions: Action[] = [
   {
@@ -46,7 +46,7 @@ const initialActions: Action[] = [
     effect: [{ paramEffected: 'ep', amount: -5 }],
     functionEffect: (gs) => ({
       ...gs,
-      contracts: [getRandomContract(gs), getRandomContract(gs), getRandomContract(gs)],
+      contracts: [generateContract(gs), generateContract(gs), generateContract(gs)],
     }),
   },
   {
@@ -68,7 +68,7 @@ const initialActions: Action[] = [
   },
 ]
 
-export const initialGameState: GameState = {
+const baseGameState: GameState = {
   currentScreen: 'main',
   language: 'en-US',
 
@@ -94,4 +94,9 @@ export const initialGameState: GameState = {
 
   yearlyContracts: generateYearlyContracts(),
   availableActions: initialActions,
+}
+
+export const initialGameState: GameState = {
+  ...baseGameState,
+  contracts: [generateContract(baseGameState), generateContract(baseGameState), generateContract(baseGameState)],
 }
