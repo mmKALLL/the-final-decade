@@ -7,6 +7,7 @@ export const ContractList = () => {
 
   return (
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <h2>Current contracts:</h2>
       {[...contracts, ...yearlyContracts].map((contract) => (
         <ContractItem contract={contract} language={language} />
       ))}

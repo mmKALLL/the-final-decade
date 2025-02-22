@@ -23,7 +23,7 @@ export function useGameState() {
 }
 
 export function reduceAction(gs: GameState, action: Action): GameState {
-  if (action.enabledCondition && action.enabledCondition(gs)) {
+  if (action.enabledCondition && !action.enabledCondition(gs)) {
     return gs // Return early if action is not applicable
   }
 

@@ -36,6 +36,7 @@ const initialActions: Action[] = [
     effect: [{ paramEffected: 'sp', amount: -5 }],
     functionEffect: (gs) => ({
       ...gs,
+      currentScreen: 'selection',
       humanSelections: [...gs.humanSelections, [generateHuman(), generateHuman(), generateHuman()]],
     }),
   },
@@ -46,7 +47,8 @@ const initialActions: Action[] = [
     effect: [{ paramEffected: 'ep', amount: -5 }],
     functionEffect: (gs) => ({
       ...gs,
-      contracts: [generateContract(gs), generateContract(gs), generateContract(gs)],
+      currentScreen: 'selection',
+      contractSelections: [...gs.contractSelections, [generateContract(gs), generateContract(gs), generateContract(gs)]],
     }),
   },
   {
@@ -56,6 +58,7 @@ const initialActions: Action[] = [
     effect: [{ paramEffected: 'rp', amount: -5 }],
     functionEffect: (gs) => ({
       ...gs,
+      currentScreen: 'selection',
       upgradeSelections: [...gs.upgradeSelections, [generateUpgrade(), generateUpgrade(), generateUpgrade()]],
     }),
   },
