@@ -1,17 +1,18 @@
-import { Action, Human, Upgrade, YearlyContract } from '../types'
+import { Action, GameState, Human, Upgrade, YearlyContract } from '../types'
 import { humans } from './data-humans'
 import { yearlyContracts } from './data-contracts'
 import { upgrades } from './data-upgrades'
 
-export function generateHuman(_rarity?: number): Human {
+export function generateHuman(gs: GameState, _rarity?: number): Human {
   // Return random human for now
-  // TODO: Don't give duplicates
-  return humans[Math.floor(Math.random() * humans.length)]
+  const filteredHumans = humans.filter((h) => !gs.humans.includes(h))
+  return filteredHumans[Math.floor(Math.random() * filteredHumans.length)]
 }
 
-export function generateUpgrade(_rarity?: number): Upgrade {
+export function generateUpgrade(gs: GameState, _rarity?: number): Upgrade {
   // Return random upgrade for now
-  return upgrades[Math.floor(Math.random() * upgrades.length)]
+  const filteredUpgrades = upgrades.filter((u) => !gs.upgrades.includes(u))
+  return filteredUpgrades[Math.floor(Math.random() * filteredUpgrades.length)]
 }
 
 export function generateActionDescription(action: Action): string {

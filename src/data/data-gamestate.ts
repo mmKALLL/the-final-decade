@@ -36,7 +36,7 @@ const initialActions: Action[] = [
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
-      humanSelections: [...gs.humanSelections, [generateHuman(), generateHuman(), generateHuman()]],
+      humanSelections: [...gs.humanSelections, [generateHuman(gs), generateHuman(gs), generateHuman(gs)]],
     }),
   },
   {
@@ -58,7 +58,7 @@ const initialActions: Action[] = [
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
-      upgradeSelections: [...gs.upgradeSelections, [generateUpgrade(), generateUpgrade(), generateUpgrade()]],
+      upgradeSelections: [...gs.upgradeSelections, [generateUpgrade(gs), generateUpgrade(gs), generateUpgrade(gs)]],
     }),
   },
   {

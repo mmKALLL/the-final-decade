@@ -52,12 +52,18 @@ export function reduceEffect(effect: Effect, gameState: GameState, depth: number
   return effect.reduce((gs, singleEffect) => {
     const { amount, paramEffected } = singleEffect
     if (paramEffected === 'humanSelection') {
-      return { ...gs, humanSelections: [...gs.humanSelections, [generateHuman(amount), generateHuman(amount), generateHuman(amount)]] }
+      return {
+        ...gs,
+        humanSelections: [...gs.humanSelections, [generateHuman(gs, amount), generateHuman(gs, amount), generateHuman(gs, amount)]],
+      }
     }
     if (paramEffected === 'upgradeSelection') {
       return {
         ...gs,
-        upgradeSelections: [...gs.upgradeSelections, [generateUpgrade(amount), generateUpgrade(amount), generateUpgrade(amount)]],
+        upgradeSelections: [
+          ...gs.upgradeSelections,
+          [generateUpgrade(gs, amount), generateUpgrade(gs, amount), generateUpgrade(gs, amount)],
+        ],
       }
     }
 
