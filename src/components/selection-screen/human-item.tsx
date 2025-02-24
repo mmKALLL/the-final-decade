@@ -1,4 +1,5 @@
 import { Human } from '../../types'
+import { effectToString } from '../../util'
 
 export const HumanItem = ({ human, onSelect }: { human: Human; onSelect: () => void }) => {
   return (
@@ -22,7 +23,14 @@ export const HumanItem = ({ human, onSelect }: { human: Human; onSelect: () => v
         {human.name['en-US']} ({human.rank})
       </span>
       <span>
-        💰 {human.wage} | ⚙️ {human.spGeneration} / 🔧 {human.epGeneration} / 📜 {human.rpGeneration}
+        💰 -{human.wage} / month <br /> 💬 {human.spGeneration} / 🔧 {human.epGeneration} / 🧪 {human.rpGeneration}
+        {human.specialEffect && (
+          <>
+            <br />
+            {effectToString(human.specialEffect)}
+          </>
+        )}
+        {/** gear: ⚙️ */}
       </span>
     </button>
   )

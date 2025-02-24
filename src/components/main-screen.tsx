@@ -19,6 +19,7 @@ export const MainScreen = () => {
 
   return (
     <>
+      <h2>Available actions:</h2>
       {gs.availableActions.map((action) => (
         <Button action={action} />
       ))}

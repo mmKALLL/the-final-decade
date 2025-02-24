@@ -27,7 +27,7 @@ export const SelectionScreen = () => {
 
   return (
     <div style={{ padding: '10px', maxWidth: '600px', margin: 'auto' }}>
-      <h2 style={{ textAlign: 'center', color: '#fff' }}>Selection Screen</h2>
+      {/* <h2 style={{ textAlign: 'center', color: '#fff' }}>Selection Screen</h2> */}
 
       {/* Human Selection (only first group) */}
       {gs.humanSelections.length > 0 && (

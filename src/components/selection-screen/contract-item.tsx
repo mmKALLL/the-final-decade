@@ -1,4 +1,5 @@
 import { Contract } from '../../types'
+import { effectToString } from '../../util'
 
 export const ContractItem = ({ contract, onSelect }: { contract: Contract; onSelect: () => void }) => {
   return (
@@ -19,7 +20,7 @@ export const ContractItem = ({ contract, onSelect }: { contract: Contract; onSel
       }}
     >
       <span>{contract.name['en-US']}</span>
-      <span>✅ {contract.onSuccess.map((e) => `${e.paramEffected}: +${e.amount}`).join(', ')}</span>
+      <span>✅ {effectToString(contract.onSuccess)}</span>
     </button>
   )
 }

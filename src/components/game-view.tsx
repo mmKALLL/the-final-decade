@@ -10,7 +10,6 @@ export function GameView() {
   return (
     <div>
       <h1>{labels[gs.language].gameTitle}</h1>
-      <h2>Available actions:</h2>
 
       {gs.currentScreen === 'main' ? (
         <MainScreen />
