@@ -91,7 +91,7 @@ export type Human = {
   spGeneration: number
   epGeneration: number
   rpGeneration: number
-  specialEffects?: Effect
+  specialEffect?: Effect
 }
 
 export type Upgrade = {
