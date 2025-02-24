@@ -87,7 +87,7 @@ export type Human = {
   // description: string
   rarity: Rarity
   wage: number
-  rank: 'volunteer' | 'junior' | 'intermediate' | 'senior' | 'lead' // seniors and leads multiply the output of others, but at high cost
+  rank: 'volunteer' | 'junior' | 'medior' | 'senior' | 'lead' // seniors and leads multiply the output of others, but at high cost
   spGeneration: number
   epGeneration: number
   rpGeneration: number

@@ -28,7 +28,6 @@ const initialActions: Action[] = [
     turnsInvested: 0,
     effect: [{ paramEffected: 'rp', amount: 2 }],
   },
-
   {
     name: { 'en-US': 'Recruit a human', 'jp-FI': '人材を増やす' },
     turnCost: 1,
