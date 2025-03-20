@@ -68,8 +68,8 @@ export const ContractItem = ({ contract, language }: ContractItemProps) => {
       {/* Compact Effect Details */}
       <div style={{ fontSize: '0.85em', flex: '1', overflow: 'hidden' }}>
         <p style={{ color: '#333', margin: '4px 0' }}>✅ {contract.successDescription[language]}</p>
-        <p style={{ color: '#1565C0', margin: '4px 0' }}>🔷 {contract.requirementDescription[language]}</p>
         <p style={{ color: '#D32F2F', margin: '4px 0' }}>⚠️ {contract.costDescription[language]}</p>
+        <p style={{ color: '#1565C0', margin: '4px 0' }}>🔷 {contract.requirementDescription[language]}</p>
       </div>
     </div>
   )
