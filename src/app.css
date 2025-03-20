@@ -1,10 +1,399 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   text-align: left;
+  font-size: 0.85rem;
+  height: 100%;
 }
 
 .card {
-  padding: 2em;
+  padding: 0.6em;
+}
+
+/* Game Container */
+.game-container {
+  max-width: 360px;
+  margin: 0 auto;
+  background-color: rgba(20, 20, 35, 0.8);
+  border-radius: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header with date and resources */
+.game-header {
+  background-color: rgba(40, 40, 60, 0.9);
+  padding: 0.6rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(100, 100, 150, 0.3);
+}
+
+.date-display {
+  padding-left: 0.6rem;
+}
+
+.turn-counter {
+  background-color: rgba(60, 60, 80, 0.8);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-weight: 600;
+  color: #e2e8f0;
+  font-size: 0.7rem;
+}
+
+.game-meta {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  padding-right: 0.6rem;
+}
+
+/* Resource pills in header */
+.resource-pill {
+  display: flex;
+  align-items: center;
+  background-color: rgba(60, 60, 80, 0.8);
+  border-radius: 3px;
+  padding: 0.2rem 0.4rem;
+  gap: 0.2rem;
+}
+
+.resource-icon {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #a0aec0;
+}
+
+.resource-value {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.game-content {
+  padding: 0.5rem 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Main Screen Layout */
+.main-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Action section styling */
+.action-section {
+  background-color: rgba(30, 30, 50, 0.7);
+  border-radius: 0;
+  padding: 0.6rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.action-section h2 {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  padding-left: 0.1rem;
+}
+
+/* Action buttons section */
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.action-buttons button {
+  background-color: #4a5568;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+}
+
+.action-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.action-name {
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: #e2e8f0;
+}
+
+.action-description {
+  font-size: 0.6rem;
+  opacity: 0.9;
+  color: #cbd5e0;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.action-buttons button:hover {
+  background-color: #2d3748;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Game state display styling */
+.game-state-section {
+  background-color: rgba(30, 30, 50, 0.7);
+  border-radius: 0;
+  padding: 0.6rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.game-state-section h2 {
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  padding-left: 0.1rem;
+}
+
+/* Stat categories container */
+.stat-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Stat category styling */
+.stat-category {
+  margin-bottom: 0.4rem;
+  flex: 1 1 100%;
+  min-width: 100px;
+}
+
+.category-title {
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  margin: 0.3rem 0 0.2rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid rgba(100, 100, 150, 0.3);
+}
+
+.game-state-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.35rem;
+  margin-top: 0.3rem;
+}
+
+.stat-card {
+  background-color: rgba(60, 60, 80, 0.7);
+  border-radius: 4px;
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.stat-name {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #a0aec0;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.stat-value {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+/* Contract list styling */
+.contract-section {
+  background-color: rgba(30, 30, 50, 0.7);
+  border-radius: 0;
+  padding: 0.6rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  margin-top: 0.75rem;
+}
+
+.contracts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.contract-section h2 {
+  color: #e2e8f0;
+  margin-bottom: 0.3rem;
+  margin-top: 0;
+  font-size: 1rem;
+  padding-left: 0.1rem;
+}
+
+.contract-card {
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 0.5rem;
+  background-color: rgba(60, 60, 80, 0.7);
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.contract-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.contract-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.contract-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80%;
+  margin: 0;
+}
+
+.contract-rarity {
+  font-size: 0.6rem;
+  font-weight: 700;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  text-transform: capitalize;
+}
+
+.contract-details {
+  font-size: 0.7rem;
+  flex: 1;
+}
+
+.contract-success,
+.contract-cost,
+.contract-requirement {
+  margin: 0.15rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+
+.contract-icon {
+  flex-shrink: 0;
+  font-weight: bold;
+  width: 0.8rem;
+  display: inline-block;
+  text-align: center;
+}
+
+.contract-success {
+  color: #4caf50;
+}
+
+.contract-cost {
+  color: #f44336;
+}
+
+.contract-requirement {
+  color: #2196f3;
+}
+
+/* Footer for language toggle */
+.game-footer {
+  background-color: rgba(40, 40, 60, 0.9);
+  padding: 0.5rem;
+  border-top: 1px solid rgba(100, 100, 150, 0.3);
+  text-align: center;
+}
+
+.footer-button {
+  background-color: transparent;
+  border: 1px solid rgba(100, 100, 150, 0.5);
+  color: #e2e8f0;
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer-button:hover {
+  background-color: rgba(100, 100, 150, 0.2);
+}
+
+/* Improve button component */
+.button {
+  width: 100%;
+}
+
+/* Screen width adjustments for larger screens */
+@media (min-width: 400px) {
+  .game-content {
+    padding: 0.6rem 0;
+  }
+  
+  .stat-category {
+    flex: 1 1 calc(50% - 0.25rem);
+  }
+  
+  .action-buttons button {
+    padding: 0.4rem;
+    font-size: 0.75rem;
+  }
+  
+  .action-content {
+    gap: 0.2rem;
+  }
+  
+  .action-name {
+    font-size: 0.8rem;
+  }
+  
+  .action-description {
+    font-size: 0.65rem;
+    line-height: 1.3;
+  }
 }

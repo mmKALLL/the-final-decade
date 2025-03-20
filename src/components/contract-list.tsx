@@ -6,11 +6,13 @@ export const ContractList = () => {
   const { contracts, yearlyContracts, language } = gs
 
   return (
-    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      <h2>Current contracts:</h2>
-      {[...contracts, ...yearlyContracts].map((contract) => (
-        <ContractItem contract={contract} language={language} />
-      ))}
+    <div className="contract-section">
+      <h2>Contracts:</h2>
+      <div className="contracts-grid">
+        {[...contracts, ...yearlyContracts].map((contract, index) => (
+          <ContractItem key={`contract-${index}`} contract={contract} language={language} />
+        ))}
+      </div>
     </div>
   )
 }
@@ -20,7 +22,7 @@ interface ContractItemProps {
   language: 'en-US' | 'jp-FI'
 }
 
-// Define rarity colors using inline styles
+// Define rarity colors
 const rarityColors: Record<Contract['rarity'], string> = {
   common: '#7E7E7E', // Gray
   uncommon: '#2166D3', // Blue
@@ -29,47 +31,37 @@ const rarityColors: Record<Contract['rarity'], string> = {
 }
 
 export const ContractItem = ({ contract, language }: ContractItemProps) => {
+  // Get compact versions of descriptions
+  const getCompactDescription = (text: string) => {
+    return text.length > 45 ? text.substring(0, 42) + '...' : text
+  }
+
   return (
-    <div
-      style={{
-        border: '1px solid #ccc',
-        borderRadius: '12px',
-        padding: '10px',
-        backgroundColor: '#fff',
-        width: '100%',
-        maxWidth: '350px',
-        maxHeight: '200px',
-        overflow: 'hidden',
-        margin: '8px 0',
-        boxShadow: '2px 2px 8px rgba(0, 0, 0, 0.1)',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}
-    >
+    <div className="contract-card" style={{ borderColor: rarityColors[contract.rarity] }}>
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2
-          style={{
-            color: rarityColors[contract.rarity],
-            fontSize: '1.1em',
-            fontWeight: 'bold',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            maxWidth: '80%',
-          }}
-        >
+      <div className="contract-header">
+        <h3 className="contract-title" style={{ color: rarityColors[contract.rarity] }}>
           {contract.name[language] || contract.name['en-US']}
-        </h2>
-        <span style={{ fontSize: '0.8em', color: rarityColors[contract.rarity], fontWeight: 'bold' }}>{contract.rarity.toUpperCase()}</span>
+        </h3>
+        <span className="contract-rarity" style={{ color: rarityColors[contract.rarity] }}>
+          {contract.rarity}
+        </span>
       </div>
 
-      {/* Compact Effect Details */}
-      <div style={{ fontSize: '0.85em', flex: '1', overflow: 'hidden' }}>
-        <p style={{ color: '#333', margin: '4px 0' }}>✅ {contract.successDescription[language]}</p>
-        <p style={{ color: '#D32F2F', margin: '4px 0' }}>⚠️ {contract.costDescription[language]}</p>
-        <p style={{ color: '#1565C0', margin: '4px 0' }}>🔷 {contract.requirementDescription[language]}</p>
+      {/* Effect Details - More compact display */}
+      <div className="contract-details">
+        <p className="contract-success">
+          <span className="contract-icon">✓</span>
+          <span>{getCompactDescription(contract.successDescription[language])}</span>
+        </p>
+        <p className="contract-cost">
+          <span className="contract-icon">!</span>
+          <span>{getCompactDescription(contract.costDescription[language])}</span>
+        </p>
+        <p className="contract-requirement">
+          <span className="contract-icon">•</span>
+          <span>{getCompactDescription(contract.requirementDescription[language])}</span>
+        </p>
       </div>
     </div>
   )

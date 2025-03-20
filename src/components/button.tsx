@@ -7,9 +7,12 @@ export function Button({ action }: { action: Action }) {
   const description = action.description?.[gs.language] || generateActionDescription(action)
 
   return (
-    <div>
-      <button onClick={() => dispatch(action)}>
-        {action.name[gs.language]} {description ? `(${description})` : ''}
+    <div className="button">
+      <button onClick={() => dispatch(action)} title={description || undefined}>
+        <div className="action-content">
+          <div className="action-name">{action.name[gs.language]}</div>
+          {description && <div className="action-description">{description}</div>}
+        </div>
       </button>
     </div>
   )
