@@ -110,62 +110,6 @@ interface WeightedSingleEffect {
   effect: SingleEffect
 }
 
-/**
- * 
-  if (totalEffects == 0) {
-    return [];
-  }
-
-  // success
-
-  List<WeightedEffect> alignmentEffectPool = [
-    WeightedEffect(10, ActionEffect(Param.alignmentAcceptance, getRandomValue(1, difficulty, 0.02))),
-    WeightedEffect(6, ActionEffect(Param.trust, getRandomValue(3, difficulty, 0.015))),
-    WeightedEffect(difficulty > 300 ? 1 : 0, ActionEffect(Param.freeHumans, 1)),
-    WeightedEffect(difficulty > 220 ? 1 : 0, ActionEffect(Param.upgradeSelection, getRandomValue(25, difficulty, 0.33))),
-    WeightedEffect(1, ActionEffect(Param.rp, getRandomValue(1, difficulty, 0.005))),
-    WeightedEffect(4, ActionEffect(Param.influence, getRandomValue(3, difficulty, 0.022))),
-    WeightedEffect(
-        1, ActionEffect(Param.money, (getContractMoneyValue(difficulty, totalEffects, isAlignmentContract, trust) * 0.25).round())),
-    WeightedEffect(5, ActionEffect(Param.asiOutcome, getRandomValue(1, difficulty, 0.01))),
-  ];
-
-  List<WeightedEffect> capabilityEffectPool = [
-    WeightedEffect(20, ActionEffect(Param.alignmentAcceptance, -getRandomValue(1, difficulty, 0.02))),
-    WeightedEffect(
-        3, ActionEffect(Param.money, (getContractMoneyValue(difficulty, totalEffects, isAlignmentContract, trust) * 0.2).round())),
-    WeightedEffect(6, ActionEffect(Param.trust, getRandomValue(3, difficulty, 0.015))),
-    WeightedEffect(2, ActionEffect(Param.influence, getRandomValue(3, difficulty, 0.022))),
-    WeightedEffect(difficulty > 220 ? 1 : 0, ActionEffect(Param.freeHumans, 1)),
-    WeightedEffect(difficulty > 300 ? 1 : 0, ActionEffect(Param.upgradeSelection, getRandomValue(25, difficulty, 0.33))),
-    WeightedEffect(2, ActionEffect(Param.sp, getRandomValue(1, difficulty, 0.005))),
-  ];
-
-  // failure
-
-  List<WeightedEffect> alignmentEffectPool = [
-    WeightedEffect(4, ActionEffect(Param.alignmentAcceptance, -getRandomValue(2, difficulty, 0.04))),
-    WeightedEffect(2, ActionEffect(Param.trust, -getRandomValue(5, difficulty, 0.06))),
-    // WeightedEffect(1, ActionEffect(Param.freeHumans, 1)),
-    // WeightedEffect(1, ActionEffect(Param.upgradeSelection, getRandomValue(25, difficulty, 0.33))),
-    WeightedEffect(3, ActionEffect(Param.sp, -getRandomValue(1, difficulty, 0.013))),
-    WeightedEffect(3, ActionEffect(Param.influence, -getRandomValue(7, difficulty, 0.04))),
-    WeightedEffect(
-        2, ActionEffect(Param.money, -(getContractMoneyValue(difficulty, totalEffects, isAlignmentContract, trust) * 0.6).round())),
-  ];
-
-  List<WeightedEffect> capabilityEffectPool = [
-    WeightedEffect(1, ActionEffect(Param.alignmentAcceptance, -getRandomValue(2, difficulty, 0.04))),
-    WeightedEffect(4, ActionEffect(Param.trust, -getRandomValue(5, difficulty, 0.08))),
-    // WeightedEffect(1, ActionEffect(Param.freeHumans, 1)),
-    // WeightedEffect(1, ActionEffect(Param.upgradeSelection, getRandomValue(25, difficulty, 0.33))),
-    WeightedEffect(2, ActionEffect(Param.sp, -getRandomValue(1, difficulty, 0.01))),
-    WeightedEffect(3, ActionEffect(Param.influence, -getRandomValue(8, difficulty, 0.05))),
-    WeightedEffect(
-        4, ActionEffect(Param.money, -(getContractMoneyValue(difficulty, totalEffects, isAlignmentContract, trust) * 0.7).round())),
-  ];
- */
-
 // Function to get alignment-focused success effects
 function getAlignmentSuccessEffects(
   difficulty: number,
@@ -214,48 +158,6 @@ function getCapabilitySuccessEffects(
     { weight: 2, effect: { paramEffected: 'sp', amount: getRandomValue(1, difficulty, 0.005) } },
   ]
 }
-
-// function getAlignmentFailureEffects(
-//   difficulty: number,
-//   trust: number,
-//   totalEffects: number,
-//   isAlignmentContract: boolean
-// ): WeightedSingleEffect[] {
-//   return [
-//     { weight: 4, effect: { paramEffected: 'alignmentFocus', amount: -getRandomValue(2, difficulty, 0.04) } },
-//     { weight: 2, effect: { paramEffected: 'trust', amount: -getRandomValue(5, difficulty, 0.06) } },
-//     { weight: 3, effect: { paramEffected: 'sp', amount: -getRandomValue(1, difficulty, 0.013) } },
-//     { weight: 3, effect: { paramEffected: 'influence', amount: -getRandomValue(7, difficulty, 0.04) } },
-//     {
-//       weight: 2,
-//       effect: {
-//         paramEffected: 'money',
-//         amount: -Math.round(getContractMoneyValue(difficulty, totalEffects, isAlignmentContract, trust) * 0.6),
-//       },
-//     },
-//   ]
-// }
-
-// function getCapabilityFailureEffects(
-//   difficulty: number,
-//   trust: number,
-//   totalEffects: number,
-//   isAlignmentContract: boolean
-// ): WeightedSingleEffect[] {
-//   return [
-//     { weight: 1, effect: { paramEffected: 'alignmentFocus', amount: -getRandomValue(2, difficulty, 0.04) } },
-//     { weight: 4, effect: { paramEffected: 'trust', amount: -getRandomValue(5, difficulty, 0.08) } },
-//     { weight: 2, effect: { paramEffected: 'sp', amount: -getRandomValue(1, difficulty, 0.01) } },
-//     { weight: 3, effect: { paramEffected: 'influence', amount: -getRandomValue(8, difficulty, 0.05) } },
-//     {
-//       weight: 4,
-//       effect: {
-//         paramEffected: 'money',
-//         amount: -Math.round(getContractMoneyValue(difficulty, totalEffects, isAlignmentContract, trust) * 0.7),
-//       },
-//     },
-//   ]
-// }
 
 function effectListToString(effects: Effect): string {
   return effects.map((e) => `${e.paramEffected} ${e.amount > 0 ? '+' : ''}${e.amount}`).join(', ')
