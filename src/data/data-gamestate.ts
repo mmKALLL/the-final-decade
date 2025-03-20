@@ -17,7 +17,7 @@ const initialActions: Action[] = [
     effect: [{ paramEffected: 'sp', amount: 2 }],
   },
   {
-    name: { 'en-US': 'Independent development', 'jp-FI': '個人的な開発' },
+    name: { 'en-US': 'Independent engineering', 'jp-FI': '個人的な開発' },
     turnCost: 1,
     turnsInvested: 0,
     effect: [{ paramEffected: 'ep', amount: 2 }],
