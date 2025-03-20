@@ -25,39 +25,96 @@ export const SelectionScreen = () => {
     }
   }, [gs.humanSelections, gs.upgradeSelections, gs.contractSelections])
 
+  // Format value display to be more readable
+  const formatValue = (value: any) => {
+    if (typeof value === 'number') {
+      return value
+    }
+    if (Array.isArray(value)) {
+      return value.length // Just show the count for arrays
+    }
+    return JSON.stringify(value)
+  }
+
+  // More compact category names for mobile
+  const compactCategories = {
+    Resources: {
+      money: gs.money,
+      'passive income': gs.passiveMoneyGain,
+    },
+    Organization: {
+      trust: gs.trust,
+      influence: gs.influence,
+    },
+    ASI: {
+      outcome: gs.asiOutcome,
+      'public opinion': gs.publicOpinion,
+    },
+    Team: {
+      humans: gs.humans.length,
+      upgrades: gs.upgrades.length,
+    },
+  }
+
   return (
-    <div style={{ padding: '10px', maxWidth: '600px', margin: 'auto' }}>
-      {/* <h2 style={{ textAlign: 'center', color: '#fff' }}>Selection Screen</h2> */}
+    <div className="selection-screen">
+      <div className="selection-content">
+        {/* Human Selection (only first group) */}
+        {gs.humanSelections.length > 0 && (
+          <div className="selection-section">
+            <h3 className="selection-title">Human Selection</h3>
+            <div className="selection-grid">
+              {gs.humanSelections[0].map((human) => (
+                <HumanItem key={human.name['en-US']} human={human} onSelect={() => handleHumanSelect(human)} />
+              ))}
+            </div>
+          </div>
+        )}
 
-      {/* Human Selection (only first group) */}
-      {gs.humanSelections.length > 0 && (
-        <div>
-          <h3 style={{ color: '#FFD700' }}>Human Selection</h3>
-          {gs.humanSelections[0].map((human) => (
-            <HumanItem key={human.name['en-US']} human={human} onSelect={() => handleHumanSelect(human)} />
+        {/* Upgrade Selection (only first group) */}
+        {gs.upgradeSelections.length > 0 && (
+          <div className="selection-section">
+            <h3 className="selection-title">Upgrade Selection</h3>
+            <div className="selection-grid">
+              {gs.upgradeSelections[0].map((upgrade) => (
+                <UpgradeItem key={upgrade.name['en-US']} upgrade={upgrade} onSelect={() => handleUpgradeSelect(upgrade)} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Contract Selection (only first group) */}
+        {gs.contractSelections.length > 0 && (
+          <div className="selection-section">
+            <h3 className="selection-title">Contract Selection</h3>
+            <div className="selection-grid">
+              {gs.contractSelections[0].map((contract) => (
+                <ContractItem key={contract.name['en-US']} contract={contract} onSelect={() => handleContractSelect(contract)} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Game state display below selection */}
+      <div className="game-state-section">
+        <h2>Game state:</h2>
+        <div className="stat-categories">
+          {Object.entries(compactCategories).map(([category, stats]) => (
+            <div className="stat-category" key={`category-${category}`}>
+              <h3 className="category-title">{category}</h3>
+              <div className="game-state-grid">
+                {Object.entries(stats).map(([key, value]) => (
+                  <div className="stat-card" key={`stat-${category}-${key}`}>
+                    <div className="stat-name">{key}</div>
+                    <div className="stat-value">{formatValue(value)}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
-      )}
-
-      {/* Upgrade Selection (only first group) */}
-      {gs.upgradeSelections.length > 0 && (
-        <div>
-          <h3 style={{ color: '#00BFFF' }}>Upgrade Selection</h3>
-          {gs.upgradeSelections[0].map((upgrade) => (
-            <UpgradeItem key={upgrade.name['en-US']} upgrade={upgrade} onSelect={() => handleUpgradeSelect(upgrade)} />
-          ))}
-        </div>
-      )}
-
-      {/* Contract Selection (only first group) */}
-      {gs.contractSelections.length > 0 && (
-        <div>
-          <h3 style={{ color: '#9C27B0' }}>Contract Selection</h3>
-          {gs.contractSelections[0].map((contract) => (
-            <ContractItem key={contract.name['en-US']} contract={contract} onSelect={() => handleContractSelect(contract)} />
-          ))}
-        </div>
-      )}
+      </div>
     </div>
   )
 

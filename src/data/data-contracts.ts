@@ -10,8 +10,8 @@ export const yearlyContracts: YearlyContract[] = [
     requirementDescription: { 'en-US': 'Alignment focus >= 1', 'jp-FI': 'アラインメント受け入れ >= 1' },
     costDescription: { 'en-US': 'Alignment focus -2', 'jp-FI': 'アラインメント受け入れ -2' },
     onSuccess: [{ paramEffected: 'rp', amount: 10 }],
-    requirements: [{ paramEffected: 'alignmentFocus', amount: 1 }],
-    costs: [{ paramEffected: 'alignmentFocus', amount: -2 }],
+    requirements: [{ paramEffected: 'publicOpinion', amount: 1 }],
+    costs: [{ paramEffected: 'publicOpinion', amount: -2 }],
   },
   {
     name: { 'en-US': 'Quantum Computing Breakthrough', 'jp-FI': '量子コンピュータの飛躍' },
@@ -51,7 +51,7 @@ export const yearlyContracts: YearlyContract[] = [
     },
     costDescription: { 'en-US': 'Influence -20', 'jp-FI': '影響力 -20' },
     onSuccess: [
-      { paramEffected: 'alignmentFocus', amount: 3 },
+      { paramEffected: 'publicOpinion', amount: 3 },
       { paramEffected: 'trust', amount: -25 },
     ],
     requirements: [],
@@ -69,7 +69,7 @@ export const yearlyContracts: YearlyContract[] = [
     costDescription: { 'en-US': 'Influence -15', 'jp-FI': '影響力 -15' },
     onSuccess: [
       { paramEffected: 'trust', amount: 30 },
-      { paramEffected: 'alignmentFocus', amount: -2 },
+      { paramEffected: 'publicOpinion', amount: -2 },
     ],
     requirements: [{ paramEffected: 'rp', amount: 50 }],
     costs: [{ paramEffected: 'influence', amount: -15 }],
@@ -102,7 +102,7 @@ export const yearlyContracts: YearlyContract[] = [
     costDescription: { 'en-US': 'Trust -20', 'jp-FI': '信頼 -20' },
     onSuccess: [
       { paramEffected: 'money', amount: 50 },
-      { paramEffected: 'alignmentFocus', amount: -3 },
+      { paramEffected: 'publicOpinion', amount: -3 },
     ],
     requirements: [{ paramEffected: 'money', amount: 200 }],
     costs: [{ paramEffected: 'trust', amount: -20 }],
@@ -133,7 +133,7 @@ export const yearlyContracts: YearlyContract[] = [
       { paramEffected: 'trust', amount: -50 },
     ],
     requirements: [{ paramEffected: 'sp', amount: 100 }],
-    costs: [{ paramEffected: 'alignmentFocus', amount: -4 }],
+    costs: [{ paramEffected: 'publicOpinion', amount: -4 }],
   },
 
   // === 2028 ===
@@ -145,7 +145,7 @@ export const yearlyContracts: YearlyContract[] = [
     requirementDescription: { 'en-US': 'Influence >= 250', 'jp-FI': '影響力 >= 250' },
     costDescription: { 'en-US': 'Money -50', 'jp-FI': 'お金 -50' },
     onSuccess: [
-      { paramEffected: 'alignmentFocus', amount: 5 },
+      { paramEffected: 'publicOpinion', amount: 5 },
       { paramEffected: 'trust', amount: -30 },
     ],
     requirements: [{ paramEffected: 'influence', amount: 250 }],
@@ -178,7 +178,7 @@ export const yearlyContracts: YearlyContract[] = [
     costDescription: { 'en-US': 'Influence -30', 'jp-FI': '影響力 -30' },
     onSuccess: [
       { paramEffected: 'trust', amount: 50 },
-      { paramEffected: 'alignmentFocus', amount: 3 },
+      { paramEffected: 'publicOpinion', amount: 3 },
     ],
     requirements: [{ paramEffected: 'trust', amount: 200 }],
     costs: [{ paramEffected: 'influence', amount: -30 }],

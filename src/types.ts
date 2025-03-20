@@ -19,7 +19,7 @@ export type GameState = {
   turn: number // Each unit of time represents one month
 
   // -5 - 5. Public view of alignment. ASI outcome is shifted by this amount each turn. Decreases by 1 every year. Originally one of the win/loss conditions, influences what rate of org breakthroughs lead to alignment improvements. Second-order effect on asiOutcome.
-  alignmentFocus: number
+  publicOpinion: number
 
   // 0-100. Shifted whenever breakthroughs are made, by the level of the feature receiving the breakthrough. 0: capabilities win; misaligned ASI. 100: aligned ASI.
   asiOutcome: number
@@ -118,7 +118,7 @@ export type Param =
   | 'turn'
   | 'money'
   | 'trust'
-  | 'alignmentFocus'
+  | 'publicOpinion'
   | 'asiOutcome'
   | 'influence'
   | 'rp'

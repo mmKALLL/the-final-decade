@@ -2,7 +2,6 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
 }
 
 #app {
@@ -25,13 +24,12 @@ html, body {
   background-color: rgba(20, 20, 35, 0.8);
   border-radius: 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Header with date and resources */
+/* Game header styling */
 .game-header {
   background-color: rgba(40, 40, 60, 0.9);
   padding: 0.6rem 0;
@@ -86,7 +84,7 @@ html, body {
 .game-content {
   padding: 0.5rem 0;
   flex: 1;
-  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Main Screen Layout */
@@ -268,7 +266,6 @@ html, body {
   border-radius: 4px;
   padding: 0.5rem;
   background-color: rgba(60, 60, 80, 0.7);
-  width: 100%;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   display: flex;

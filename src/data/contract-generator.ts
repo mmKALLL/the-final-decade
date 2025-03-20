@@ -118,7 +118,7 @@ function getAlignmentSuccessEffects(
   isAlignmentContract: boolean
 ): WeightedSingleEffect[] {
   return [
-    { weight: 10, effect: { paramEffected: 'alignmentFocus', amount: getRandomValue(1, difficulty, 0.02) } },
+    { weight: 10, effect: { paramEffected: 'publicOpinion', amount: getRandomValue(1, difficulty, 0.02) } },
     { weight: 6, effect: { paramEffected: 'trust', amount: getRandomValue(3, difficulty, 0.015) } },
     { weight: difficulty > 300 ? 1 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(25, difficulty, 0.33) } },
     { weight: difficulty > 220 ? 2 : 0, effect: { paramEffected: 'upgradeSelection', amount: getRandomValue(25, difficulty, 0.33) } },
@@ -143,7 +143,7 @@ function getCapabilitySuccessEffects(
   isAlignmentContract: boolean
 ): WeightedSingleEffect[] {
   return [
-    { weight: 20, effect: { paramEffected: 'alignmentFocus', amount: -getRandomValue(1, difficulty, 0.02) } },
+    { weight: 20, effect: { paramEffected: 'publicOpinion', amount: -getRandomValue(1, difficulty, 0.02) } },
     {
       weight: 3,
       effect: {

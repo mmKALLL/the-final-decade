@@ -4,7 +4,7 @@ import { MainScreen } from './main-screen'
 import { SelectionScreen } from './selection-screen/selection-screen'
 
 export function GameView() {
-  const { gs, dispatch } = useGameState()
+  const { gs } = useGameState()
 
   // Convert turn to date format (2025 Jan + months)
   const getDateFromTurn = (turn: number) => {
@@ -18,7 +18,7 @@ export function GameView() {
   }
 
   return (
-    <div className="game-container">
+    <div className="app-container">
       <div className="game-header">
         <div className="date-display">
           <span className="turn-counter">{getDateFromTurn(gs.turn)}</span>
@@ -47,16 +47,6 @@ export function GameView() {
         ) : (
           assertNever(gs.currentScreen)
         )}
-      </div>
-
-      <div className="game-footer">
-        {gs.availableActions
-          .filter((action) => action.name[gs.language].includes('Toggle language'))
-          .map((action, index) => (
-            <button key={`footer-action-${index}`} className="footer-button" onClick={() => dispatch(action)}>
-              {action.name[gs.language]}
-            </button>
-          ))}
       </div>
     </div>
   )

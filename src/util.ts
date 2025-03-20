@@ -1,8 +1,8 @@
 import { Effect, GameState, Param, SingleEffect } from './types'
 
 export const getYear = (turn: number) => Math.floor(turn / 12) + 1
-export const isGameOver = (gs: GameState) => gs.asiOutcome <= 0 || gs.alignmentFocus <= 0 || gs.money <= 0
-export const isGameWon = (gs: GameState) => (getYear(gs.turn) >= 6 && gs.asiOutcome >= 100) || gs.alignmentFocus >= 100
+export const isGameOver = (gs: GameState) => gs.asiOutcome <= 0 || gs.publicOpinion <= 0 || gs.money <= 0
+export const isGameWon = (gs: GameState) => (getYear(gs.turn) >= 6 && gs.asiOutcome >= 100) || gs.publicOpinion >= 100
 
 export const assertNever = (x: never): never => {
   throw new Error('Unexpected object: ' + x)
@@ -21,7 +21,7 @@ const paramToLabel = (p: Param): string => {
     case 'turn':             return 'turn'
     case 'money':            return 'money'
     case 'trust':            return 'trust'
-    case 'alignmentFocus':   return 'alignment focus'
+    case 'publicOpinion':   return 'alignment focus'
     case 'asiOutcome':       return 'ASI outcome'
     case 'influence':        return 'influence'
     case 'rp':               return 'RP'

@@ -1,21 +1,10 @@
+import { languageToggleAction } from '../data/data-gamestate'
 import { useGameState } from '../gamestate-hooks'
-import { GameState } from '../types'
 import { Button } from './button'
 import { ContractList } from './contract-list'
 
 export const MainScreen = () => {
-  const { gs } = useGameState()
-  const printableGs: Partial<GameState> = {
-    ...gs,
-    currentScreen: undefined,
-    language: undefined,
-    availableActions: undefined,
-    humanSelections: undefined,
-    upgradeSelections: undefined,
-    contractSelections: undefined,
-    yearlyContracts: undefined,
-    contracts: undefined,
-  }
+  const { gs, dispatch } = useGameState()
 
   // Format value display to be more readable
   const formatValue = (value: any) => {
@@ -32,7 +21,7 @@ export const MainScreen = () => {
   const compactCategories = {
     Resources: {
       money: gs.money,
-      moneyGain: gs.passiveMoneyGain,
+      'passive income': gs.passiveMoneyGain,
     },
     Organization: {
       trust: gs.trust,
@@ -40,7 +29,7 @@ export const MainScreen = () => {
     },
     ASI: {
       outcome: gs.asiOutcome,
-      align: gs.alignmentFocus,
+      'public opinion': gs.publicOpinion,
     },
     Team: {
       humans: gs.humans.length,
@@ -50,6 +39,11 @@ export const MainScreen = () => {
 
   // Filter out Toggle language action since it's now in the footer
   const filteredActions = gs.availableActions.filter((action) => !action.name[gs.language].includes('Toggle language'))
+
+  // Get flag emoji based on current language
+  const getLanguageFlag = (language: string) => {
+    return language === 'en-US' ? '🇺🇸' : '🇯🇵'
+  }
 
   return (
     <div className="main-screen">
@@ -82,6 +76,14 @@ export const MainScreen = () => {
       </div>
 
       <ContractList />
+
+      {/* Language toggle section at the bottom */}
+      <div className="language-toggle-section">
+        <button className="language-toggle-button" onClick={() => dispatch(languageToggleAction)}>
+          <span className="language-flag">{getLanguageFlag(gs.language)} </span>
+          <span>{languageToggleAction.name[gs.language]}</span>
+        </button>
+      </div>
     </div>
   )
 }

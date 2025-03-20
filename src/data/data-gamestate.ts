@@ -61,14 +61,15 @@ const initialActions: Action[] = [
       upgradeSelections: [...gs.upgradeSelections, [generateUpgrade(gs), generateUpgrade(gs), generateUpgrade(gs)]],
     }),
   },
-  {
-    name: { 'en-US': 'Toggle language', 'jp-FI': '言語の切り替え' },
-    turnCost: 0,
-    turnsInvested: 0,
-    effect: [],
-    functionEffect: (gs) => ({ ...gs, language: gs.language === 'en-US' ? 'jp-FI' : 'en-US' }),
-  },
 ]
+
+export const languageToggleAction: Action = {
+  name: { 'en-US': 'Toggle language', 'jp-FI': '言語の切り替え' },
+  turnCost: 0,
+  turnsInvested: 0,
+  effect: [],
+  functionEffect: (gs) => ({ ...gs, language: gs.language === 'en-US' ? 'jp-FI' : 'en-US' }),
+}
 
 const baseGameState: GameState = {
   currentScreen: 'main',
@@ -78,7 +79,7 @@ const baseGameState: GameState = {
   money: 100,
   passiveMoneyGain: 0,
   asiOutcome: 50,
-  alignmentFocus: -1,
+  publicOpinion: -1,
   influence: 100,
   trust: 100,
 
