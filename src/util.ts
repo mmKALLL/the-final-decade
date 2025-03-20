@@ -13,7 +13,7 @@ export const effectToString = (e: Effect): string => e.map(singleEffectToString)
 const singleEffectToString = ({ paramEffected, amount }: SingleEffect) =>
   `${paramToLabel(paramEffected)} ${withPlusSign(Math.round(amount))}${paramEffected === 'money' ? 'k' : ''}`
 
-const withPlusSign = (value: number) => (value > 0 ? '+$value' : '$value')
+const withPlusSign = (value: number) => (value > 0 ? `+${value}` : `${value}`)
 
 const paramToLabel = (p: Param): string => {
   // prettier-ignore
