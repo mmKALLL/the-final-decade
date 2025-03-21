@@ -20,8 +20,9 @@ const paramToLabel = (p: Param): string => {
   switch (p) {
     case 'turn':             return 'turn'
     case 'money':            return 'money'
+    case 'passiveIncome':    return 'passive income'
     case 'trust':            return 'trust'
-    case 'publicUnity':    return 'public unity'
+    case 'publicUnity':      return 'public unity'
     case 'asiOutcome':       return 'ASI outcome'
     case 'influence':        return 'influence'
     case 'rp':               return 'RP'

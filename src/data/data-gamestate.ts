@@ -83,7 +83,7 @@ const baseGameState: GameState = {
 
   turn: 0,
   money: 100,
-  passiveMoneyGain: 0,
+  passiveIncome: 0,
   asiOutcome: 50,
   publicUnity: -1,
   influence: 100,

@@ -21,7 +21,7 @@ export const MainScreen = () => {
   const compactCategories = {
     Resources: {
       money: gs.money,
-      'passive income': gs.passiveMoneyGain,
+      'passive income': gs.passiveIncome,
     },
     Organization: {
       trust: gs.trust,

@@ -32,8 +32,7 @@ export type GameState = {
 
   // The various turn-based actions have an passive and active component - passive is gained each turn, active when a turn is used to take that action
   money: number
-  passiveMoneyGain: number
-  // TODO: Add inflation which affects costs of all actions, future humans, and contract difficulty
+  passiveIncome: number
 
   // getTeamPerformance: () => number // (30 / (25 + freeHumans)) // Unused. Effectiveness of each person. Having more decreases their efficiency.
 
@@ -118,6 +117,7 @@ export type Upgrade = {
 export type Param =
   | 'turn'
   | 'money'
+  | 'passiveIncome'
   | 'trust'
   | 'publicUnity'
   | 'asiOutcome'

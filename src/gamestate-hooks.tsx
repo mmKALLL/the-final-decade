@@ -84,7 +84,7 @@ export function reduceEffect(effect: Effect, gameState: GameState, depth: number
 }
 
 export function handleTurn(gs: GameState): GameState {
-  const moneyGain = gs.passiveMoneyGain
+  const moneyGain = gs.passiveIncome
   const spGain = gs.humans.reduce((acc, human) => acc + human.spGeneration, 0)
   const epGain = gs.humans.reduce((acc, human) => acc + human.epGeneration, 0)
   const rpGain = gs.humans.reduce((acc, human) => acc + human.rpGeneration, 0)

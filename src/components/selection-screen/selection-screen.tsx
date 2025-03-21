@@ -40,7 +40,7 @@ export const SelectionScreen = () => {
   const compactCategories = {
     Resources: {
       money: gs.money,
-      'passive income': gs.passiveMoneyGain,
+      'passive income': gs.passiveIncome,
     },
     Organization: {
       trust: gs.trust,
