@@ -3,19 +3,20 @@ import { Label, YearlyContract } from '../types'
 export const yearlyContracts: YearlyContract[] = [
   // === 2025 ===
   {
-    name: { 'en-US': 'Global Energy Crisis', 'jp-FI': '世界的エネルギー危機' },
+    name: { 'en-US': 'Interpretability Divestment', 'jp-FI': '解釈可能性の放棄' },
     rarity: 'epic',
     year: 2025,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': 'EP -30, SP -10', 'jp-FI': '信頼 -10' },
-    requirementDescription: { 'en-US': '(none)', 'jp-FI': 'お金 >= 50' },
-    onSuccess: [
-      { paramEffected: 'influence', amount: 20 },
-      { paramEffected: 'money', amount: 30 },
+    costDescription: { 'en-US': 'SP -20, Passive income -10', 'jp-FI': 'SP -20、受動的収入 -10' },
+    requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
+    onSuccess: [{ paramEffected: 'upgradeSelection', amount: 300 }],
+    requirements: [],
+    costs: [
+      { paramEffected: 'sp', amount: -20 },
+      { paramEffected: 'passiveIncome', amount: -10 },
     ],
-    requirements: [{ paramEffected: 'money', amount: 50 }],
-    costs: [{ paramEffected: 'trust', amount: -10 }],
   },
+
   {
     name: { 'en-US': 'Global Energy Crisis', 'jp-FI': '世界的エネルギー危機' },
     rarity: 'epic',
