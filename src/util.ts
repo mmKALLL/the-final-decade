@@ -33,3 +33,5 @@ const paramToLabel = (p: Param): string => {
     default: return assertNever(p)
   }
 }
+
+export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)

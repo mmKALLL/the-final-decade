@@ -1,5 +1,6 @@
 import { useGameState } from '../gamestate-hooks'
-import { Contract } from '../types'
+import { Contract, YearlyContract } from '../types'
+import { capitalize } from '../util'
 
 export const ContractList = () => {
   const { gs } = useGameState()
@@ -18,7 +19,7 @@ export const ContractList = () => {
 }
 
 interface ContractItemProps {
-  contract: Contract
+  contract: Contract | YearlyContract
   language: 'en-US' | 'jp-FI'
 }
 
@@ -39,7 +40,8 @@ export const ContractItem = ({ contract, language }: ContractItemProps) => {
           {contract.name[language] || contract.name['en-US']}
         </h3>
         <span className="contract-rarity" style={{ color: rarityColors[contract.rarity] }}>
-          {contract.rarity}
+          {'year' in contract && `${contract.year} - `}
+          {capitalize(contract.rarity)}
         </span>
       </div>
 
