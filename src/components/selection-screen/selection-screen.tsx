@@ -48,7 +48,7 @@ export const SelectionScreen = () => {
     },
     ASI: {
       outcome: gs.asiOutcome,
-      'public opinion': gs.publicOpinion,
+      'public unity': gs.publicUnity,
     },
     Team: {
       humans: gs.humans.length,

@@ -14,25 +14,25 @@ const initialActions: Action[] = [
     name: { 'en-US': 'Independent outreach', 'jp-FI': '個人的なネットワーキング' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'sp', amount: 2 }],
+    effect: [{ paramEffected: 'sp', amount: 3 }],
   },
   {
     name: { 'en-US': 'Independent engineering', 'jp-FI': '個人的な開発' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'ep', amount: 2 }],
+    effect: [{ paramEffected: 'ep', amount: 3 }],
   },
   {
     name: { 'en-US': 'Independent research', 'jp-FI': '個人的な研究' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'rp', amount: 2 }],
+    effect: [{ paramEffected: 'rp', amount: 3 }],
   },
   {
     name: { 'en-US': 'Recruit a human', 'jp-FI': '人材を増やす' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'sp', amount: -5 }],
+    effect: [{ paramEffected: 'sp', amount: -10 }],
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
@@ -40,10 +40,10 @@ const initialActions: Action[] = [
     }),
   },
   {
-    name: { 'en-US': 'Find new contracts', 'jp-FI': '契約を探す' },
+    name: { 'en-US': 'Refresh contracts', 'jp-FI': '契約を探す' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'ep', amount: -5 }],
+    effect: [{ paramEffected: 'ep', amount: -10 }],
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
@@ -51,15 +51,21 @@ const initialActions: Action[] = [
     }),
   },
   {
-    name: { 'en-US': 'Research an upgrade', 'jp-FI': 'アップグレードを研究する' },
+    name: { 'en-US': 'Research a breakthrough', 'jp-FI': '突破を研究する' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'rp', amount: -5 }],
+    effect: [{ paramEffected: 'rp', amount: -10 }],
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
       upgradeSelections: [...gs.upgradeSelections, [generateUpgrade(gs), generateUpgrade(gs), generateUpgrade(gs)]],
     }),
+  },
+  {
+    name: { 'en-US': 'Work on upgrades', 'jp-FI': 'アップグレード作業' },
+    turnCost: 1,
+    turnsInvested: 0,
+    effect: [{ paramEffected: 'up', amount: 1 }],
   },
 ]
 
@@ -79,13 +85,14 @@ const baseGameState: GameState = {
   money: 100,
   passiveMoneyGain: 0,
   asiOutcome: 50,
-  publicOpinion: -1,
+  publicUnity: -1,
   influence: 100,
   trust: 100,
 
-  sp: 5,
-  ep: 5,
-  rp: 5,
+  sp: 10,
+  ep: 10,
+  rp: 10,
+  up: 0,
 
   humans: [],
   upgrades: [],

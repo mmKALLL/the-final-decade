@@ -21,7 +21,7 @@ export const spHumans: Human[] = [
     spGeneration: 1,
     epGeneration: 0,
     rpGeneration: 0,
-    specialEffect: [{ paramEffected: 'publicOpinion', amount: -1 }],
+    specialEffect: [{ paramEffected: 'publicUnity', amount: -1 }],
   },
   {
     name: { 'en-US': 'Aoi Takahashi', 'jp-FI': '高橋 葵' },
@@ -105,7 +105,7 @@ export const spHumans: Human[] = [
     spGeneration: 2,
     epGeneration: 0,
     rpGeneration: 0,
-    specialEffect: [{ paramEffected: 'publicOpinion', amount: 1 }],
+    specialEffect: [{ paramEffected: 'publicUnity', amount: 1 }],
   },
   {
     name: { 'en-US': 'Renji Oda', 'jp-FI': '織田 蓮司' },
@@ -221,7 +221,7 @@ export const spHumans: Human[] = [
     spGeneration: 3,
     epGeneration: 1,
     rpGeneration: 3,
-    specialEffect: [{ paramEffected: 'publicOpinion', amount: -2 }],
+    specialEffect: [{ paramEffected: 'publicUnity', amount: -2 }],
   },
   {
     name: { 'en-US': 'Veronika Ivanova', 'jp-FI': 'ベロニカ・イヴァノヴァ' },
@@ -259,7 +259,7 @@ export const epHumans: Human[] = [
     spGeneration: 0,
     epGeneration: 1,
     rpGeneration: 0,
-    specialEffect: [{ paramEffected: 'publicOpinion', amount: -1 }],
+    specialEffect: [{ paramEffected: 'publicUnity', amount: -1 }],
   },
   {
     name: { 'en-US': 'Aria Sinclair', 'jp-FI': 'アリア・シンクレア' },
@@ -393,7 +393,7 @@ export const epHumans: Human[] = [
     spGeneration: 0,
     epGeneration: 3,
     rpGeneration: 1,
-    specialEffect: [{ paramEffected: 'publicOpinion', amount: 2 }],
+    specialEffect: [{ paramEffected: 'publicUnity', amount: 2 }],
   },
   {
     name: { 'en-US': 'Louis Tremblay', 'jp-FI': 'ルイ・トランブレ' },
@@ -445,7 +445,7 @@ export const epHumans: Human[] = [
     rpGeneration: 3,
     specialEffect: [
       { paramEffected: 'ep', amount: 3 },
-      { paramEffected: 'publicOpinion', amount: -2 },
+      { paramEffected: 'publicUnity', amount: -2 },
     ],
   },
   {
@@ -494,7 +494,7 @@ export const rpHumans: Human[] = [
     spGeneration: 0,
     epGeneration: 0,
     rpGeneration: 1,
-    specialEffect: [{ paramEffected: 'publicOpinion', amount: -1 }],
+    specialEffect: [{ paramEffected: 'publicUnity', amount: -1 }],
   },
   {
     name: { 'en-US': 'Haruka Aizawa', 'jp-FI': '相沢 春香' },
@@ -578,7 +578,7 @@ export const rpHumans: Human[] = [
     spGeneration: 1,
     epGeneration: 0,
     rpGeneration: 2,
-    specialEffect: [{ paramEffected: 'publicOpinion', amount: 1 }],
+    specialEffect: [{ paramEffected: 'publicUnity', amount: 1 }],
   },
   {
     name: { 'en-US': 'Theo Vasquez', 'jp-FI': 'テオ・バスケス' },
@@ -588,7 +588,7 @@ export const rpHumans: Human[] = [
     spGeneration: 1,
     epGeneration: 0,
     rpGeneration: 2,
-    specialEffect: [{ paramEffected: 'publicOpinion', amount: 1 }],
+    specialEffect: [{ paramEffected: 'publicUnity', amount: 1 }],
   },
   {
     name: { 'en-US': 'Mirai Yoshida', 'jp-FI': '吉田 未来' },
@@ -676,7 +676,7 @@ export const rpHumans: Human[] = [
     spGeneration: 1,
     epGeneration: 0,
     rpGeneration: 5,
-    specialEffect: [{ paramEffected: 'publicOpinion', amount: 2 }],
+    specialEffect: [{ paramEffected: 'publicUnity', amount: 2 }],
   },
   {
     name: { 'en-US': 'Stefan Kozlov', 'jp-FI': 'ステファン・コズロフ' },
@@ -708,7 +708,7 @@ export const rpHumans: Human[] = [
     spGeneration: 2,
     epGeneration: 0,
     rpGeneration: 6,
-    specialEffect: [{ paramEffected: 'publicOpinion', amount: 3 }],
+    specialEffect: [{ paramEffected: 'publicUnity', amount: 3 }],
   },
   {
     name: { 'en-US': 'Maximilian Zhang', 'jp-FI': 'マクシミリアン・チャン' },

@@ -18,16 +18,16 @@ export type GameState = {
 
   turn: number // Each unit of time represents one month
 
-  // -5 - 5. Public view of alignment. ASI outcome is shifted by this amount each turn. Decreases by 1 every year. Originally one of the win/loss conditions, influences what rate of org breakthroughs lead to alignment improvements. Second-order effect on asiOutcome.
-  publicOpinion: number
+  // -5 - 5 in most cases. Public view of alignment. ASI outcome is shifted by this amount each turn. Decreases by 1 every year. Originally one of the win/loss conditions, influences what rate of org breakthroughs lead to alignment improvements. Second-order effect on asiOutcome.
+  publicUnity: number
 
   // 0-100. Shifted whenever breakthroughs are made, by the level of the feature receiving the breakthrough. 0: capabilities win; misaligned ASI. 100: aligned ASI.
   asiOutcome: number
 
-  // 0-200. Trust towards your organization. Gain or lose depending on how your fund/contract money is handled. If you have high trust you'll get better contracts and recruits
+  // 0-200. Trust towards your organization. Gain or lose depending on whether your engineering is more focused alignment or capabilities. If you have high trust you'll get better contracts and cheaper recruits
   trust: number
 
-  // 0-200. Influence is a percentage multiplier to the effect of your social actions (like increasing alignment focus)
+  // 0-200. Influence is a percentage multiplier to the effect of your social actions (like increasing public unity). It is bought using money.
   influence: number
 
   // The various turn-based actions have an passive and active component - passive is gained each turn, active when a turn is used to take that action
@@ -37,10 +37,11 @@ export type GameState = {
 
   // getTeamPerformance: () => number // (30 / (25 + freeHumans)) // Unused. Effectiveness of each person. Having more decreases their efficiency.
 
-  // Variables to track gain of SP/EP/RP
+  // Variables to track gain of SP/EP/RP/UP
   sp: number
   ep: number
   rp: number
+  up: number
 
   humans: Human[]
   contracts: Contract[]
@@ -118,12 +119,13 @@ export type Param =
   | 'turn'
   | 'money'
   | 'trust'
-  | 'publicOpinion'
+  | 'publicUnity'
   | 'asiOutcome'
   | 'influence'
   | 'rp'
   | 'ep'
   | 'sp'
+  | 'up'
   | 'humanSelection'
   | 'upgradeSelection'
 

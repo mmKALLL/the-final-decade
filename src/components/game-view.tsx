@@ -10,19 +10,15 @@ export function GameView() {
   const getDateFromTurn = (turn: number) => {
     const startYear = 2025
     const year = startYear + Math.floor(turn / 12)
-    const month = turn % 12
+    const month = (turn % 12) + 1
 
-    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
-    return `${year} ${monthNames[month]}`
+    return `${year}-${month < 10 ? '0' : ''}${month}`
   }
 
   return (
     <div className="app-container">
       <div className="game-header">
-        <div className="date-display">
-          <span className="turn-counter">{getDateFromTurn(gs.turn)}</span>
-        </div>
+        <div className="date-display">{getDateFromTurn(gs.turn)}</div>
         <div className="game-meta">
           <div className="resource-pill">
             <span className="resource-icon">SP</span>
@@ -35,6 +31,10 @@ export function GameView() {
           <div className="resource-pill">
             <span className="resource-icon">RP</span>
             <span className="resource-value">{gs.rp}</span>
+          </div>
+          <div className="resource-pill">
+            <span className="resource-icon">UP</span>
+            <span className="resource-value">{gs.up}</span>
           </div>
         </div>
       </div>
