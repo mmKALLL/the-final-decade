@@ -190,8 +190,8 @@ export const yearlyContracts: YearlyContract[] = [
     successDescription: { 'en-US': 'Peaceful singularity', 'jp-FI': '人類絶滅なしのシンギュラリティ' },
     costDescription: { 'en-US': 'Humans are gone forever', 'jp-FI': '人類の終わり' },
     requirementDescription: {
-      'en-US': 'You must have 100+ ASI outcome by end of 2029',
-      'jp-FI': '2029年が終わるまでに百以上のASI受け入れが必然です',
+      'en-US': 'ASI outcome >= 100',
+      'jp-FI': 'ASIの結果 >= 100',
     },
     onSuccess: [],
     requirements: [{ paramEffected: 'asiOutcome', amount: 100 }],
