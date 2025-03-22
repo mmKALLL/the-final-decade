@@ -233,6 +233,29 @@ html, body {
   word-break: break-word;
 }
 
+/* Selection list styling */
+.selection-section {
+  background-color: rgba(30, 30, 50, 0.7);
+  border-radius: 0;
+  padding: 0.2rem 0.4rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  margin: 0.75rem 0;
+}
+
+.selection-section h3 {
+  color: #e2e8f0;
+  margin-bottom: 0.3rem;
+  margin-top: 0;
+  font-size: 1rem;
+  padding-left: 0.1rem;
+}
+
+.selection-section div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 /* Contract list styling */
 .contract-section {
   background-color: rgba(30, 30, 50, 0.7);

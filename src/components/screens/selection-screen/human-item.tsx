@@ -1,5 +1,5 @@
 import { Human } from '../../../types'
-import { effectToString } from '../../../util'
+import { effectToString, rarityColors } from '../../../util'
 
 export const HumanItem = ({ human, onSelect }: { human: Human; onSelect: () => void }) => {
   return (
@@ -9,12 +9,12 @@ export const HumanItem = ({ human, onSelect }: { human: Human; onSelect: () => v
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%',
+        width: '96vw',
         backgroundColor: '#333',
-        border: '1px solid #FFD700',
+        border: `1px solid ${rarityColors[human.rarity]}`,
         borderRadius: '6px',
         padding: '6px',
-        color: '#fff',
+        color: human.rarity === 'common' ? rarityColors.common : '#fff',
         cursor: 'pointer',
         fontSize: '0.85em',
       }}
@@ -22,7 +22,7 @@ export const HumanItem = ({ human, onSelect }: { human: Human; onSelect: () => v
       <span>
         {human.name['en-US']} ({human.rank})
       </span>
-      <span>
+      <span className="human-item-stats" style={{ lineHeight: 1.5 }}>
         💰 -{human.wage} / month <br /> 💬 {human.spGeneration} / 🔧 {human.epGeneration} / 🧪 {human.rpGeneration}
         {human.specialEffect && (
           <>

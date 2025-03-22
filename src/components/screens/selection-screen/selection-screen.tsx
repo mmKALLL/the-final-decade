@@ -57,49 +57,48 @@ export const SelectionScreen = () => {
   }
 
   return (
-    <div className="selection-screen">
-      <div className="selection-content">
-        {/* Human Selection (only first group) */}
-        {gs.humanSelections.length > 0 && (
-          <div className="selection-section">
-            <h3 className="selection-title">Human Selection</h3>
-            <div className="selection-grid">
-              {gs.humanSelections[0].map((human) => (
-                <HumanItem key={human.name['en-US']} human={human} onSelect={() => handleHumanSelect(human)} />
-              ))}
+    <>
+      <div className="selection-screen">
+        <div className="selection-content">
+          {gs.humanSelections.length > 0 && (
+            <div className="selection-section">
+              <h3 className="selection-title">Human Selection</h3>
+              <div className="selection-grid">
+                {gs.humanSelections[0].map((human) => (
+                  <HumanItem key={human.name['en-US']} human={human} onSelect={() => handleHumanSelect(human)} />
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Breakthrough Selection (only first group) */}
-        {gs.breakthroughSelections.length > 0 && (
-          <div className="selection-section">
-            <h3 className="selection-title">Breakthrough Selection</h3>
-            <div className="selection-grid">
-              {gs.breakthroughSelections[0].map((breakthrough) => (
-                <BreakthroughItem
-                  key={breakthrough.name['en-US']}
-                  breakthrough={breakthrough}
-                  onSelect={() => handleBreakthroughSelect(breakthrough)}
-                />
-              ))}
+          {gs.breakthroughSelections.length > 0 && (
+            <div className="selection-section">
+              <h3 className="selection-title">Breakthrough Selection</h3>
+              <div className="selection-grid">
+                {gs.breakthroughSelections[0].map((breakthrough) => (
+                  <BreakthroughItem
+                    key={breakthrough.name['en-US']}
+                    breakthrough={breakthrough}
+                    onSelect={() => handleBreakthroughSelect(breakthrough)}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Contract Selection (only first group) */}
-        {gs.contractSelections.length > 0 && (
-          <div className="selection-section">
-            <h3 className="selection-title">Contract Selection</h3>
-            <div className="selection-grid">
-              {gs.contractSelections[0].map(
-                (contract) =>
-                  // <ContractItem key={contract.name['en-US']} contract={contract} onSelect={() => handleContractSelect(contract)} />
-                  'Something went wrong and we now have a contract selection'
-              )}
+          {gs.contractSelections.length > 0 && (
+            <div className="selection-section">
+              <h3 className="selection-title">Contract Selection</h3>
+              <div className="selection-grid">
+                {gs.contractSelections[0].map(
+                  (contract) =>
+                    // <ContractItem key={contract.name['en-US']} contract={contract} onSelect={() => handleContractSelect(contract)} />
+                    'Something went wrong and we now have a contract selection'
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Game state display in compact row format */}
@@ -121,7 +120,7 @@ export const SelectionScreen = () => {
         </div>
       </div>
       <ContractList editable={false} />
-    </div>
+    </>
   )
 
   // Handle selecting a human

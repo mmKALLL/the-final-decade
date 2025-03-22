@@ -77,3 +77,10 @@ export function pickWeighted<T>(items: Weighted<T>[]): T {
   // Fallback in case of rounding errors
   return items[items.length - 1].value
 }
+
+export const rarityColors = {
+  common: '#CCC',
+  uncommon: '#00BFFF',
+  rare: '#FFD700',
+  epic: '#FF4500',
+}

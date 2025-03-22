@@ -45,9 +45,9 @@ export const initialGameState: GameState = {
   ],
   breakthroughSelections: [
     [
-      generateBreakthrough(baseGameState, 100, 'common'),
-      generateBreakthrough(baseGameState, 100, 'common'),
-      generateBreakthrough(baseGameState, 100, 'common'),
+      generateBreakthrough(baseGameState, 100, 'uncommon'),
+      generateBreakthrough(baseGameState, 100, 'uncommon'),
+      generateBreakthrough(baseGameState, 100, 'uncommon'),
     ],
   ],
 }
