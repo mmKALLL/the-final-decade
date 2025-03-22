@@ -1,5 +1,13 @@
 import { Contract, Effect, GameState, SingleEffect } from '../types'
+import { pickListOfWeighted } from '../util'
 import { getRandomContractName } from './data-contracts'
+
+export const refreshContracts = (gs: GameState): GameState => ({
+  ...gs,
+  contracts: Array(gs.maxContracts)
+    .fill(null)
+    .map(() => generateContract(gs)),
+})
 
 function getYearIndex(turn: number): number {
   return Math.floor(turn / 12)
@@ -163,26 +171,4 @@ function getCapabilitySuccessEffects(
 
 function effectListToString(effects: Effect): string {
   return effects.map((e) => `${e.paramEffected} ${e.amount > 0 ? '+' : ''}${e.amount}`).join(', ')
-}
-
-function pickListOfWeighted<T extends { weight: number }>(elementsToPick: number, originalPool: T[]): T[] {
-  const pool = [...originalPool] // Shallow copy
-
-  return Array.from({ length: Math.min(elementsToPick, pool.length) }, () => {
-    const totalWeight = pool.reduce((acc, cur) => acc + cur.weight, 0)
-    if (totalWeight === 0) throw new Error(`totalWeight became 0, pool=${JSON.stringify(pool)}`)
-
-    let weightIndex = Math.floor(Math.random() * totalWeight) + 1 // Random value in range [1, totalWeight]
-
-    for (let i = 0; i < pool.length; i++) {
-      weightIndex -= pool[i].weight
-      if (weightIndex <= 0) {
-        const selected = pool[i]
-        pool.splice(i, 1) // Remove element to avoid duplicates
-        return selected
-      }
-    }
-
-    throw new Error(`Was not able to pick an effect, totalWeight=${totalWeight}, weightIndex=${weightIndex}, pool=${JSON.stringify(pool)}`)
-  })
 }
