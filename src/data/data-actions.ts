@@ -7,19 +7,19 @@ export const firstOrderActions: (gs: GameState) => Action[] = (gs) => [
     name: { 'en-US': 'Independent outreach', 'jp-FI': '個人的なネットワーキング' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'sp', amount: gs.debug ? 10 : 3 }],
+    effect: [{ paramEffected: 'sp', amount: 3 }],
   },
   {
     name: { 'en-US': 'Independent engineering', 'jp-FI': '個人的な開発' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'ep', amount: gs.debug ? 10 : 3 }],
+    effect: [{ paramEffected: 'ep', amount: 3 }],
   },
   {
     name: { 'en-US': 'Independent research', 'jp-FI': '個人的な研究' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'rp', amount: gs.debug ? 10 : 3 }],
+    effect: [{ paramEffected: 'rp', amount: 3 }],
   },
   {
     name: { 'en-US': 'Apply for funding', 'jp-FI': 'お金を募集する' },

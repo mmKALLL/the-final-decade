@@ -2,8 +2,10 @@ import { generateYearlyContracts } from './data-generators'
 import { GameState } from '../types'
 import { generateContract } from './contract-generator'
 
+const debug = true
+
 const baseGameState: GameState = {
-  debug: true,
+  debug,
   currentScreen: 'main',
   language: 'en-US',
 
@@ -15,9 +17,9 @@ const baseGameState: GameState = {
   influence: 100,
   trust: 100,
 
-  sp: 10,
-  ep: 10,
-  rp: 10,
+  sp: 10 * (debug ? 10 : 1),
+  ep: 10 * (debug ? 10 : 1),
+  rp: 10 * (debug ? 10 : 1),
   up: 0,
 
   humans: [],
