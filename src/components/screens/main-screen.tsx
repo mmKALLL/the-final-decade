@@ -1,5 +1,5 @@
 import { firstOrderActions, languageToggleAction, secondOrderActions, thirdOrderActions } from '../../data/data-actions'
-import { useGameState } from '../../gamestate-hooks'
+import { getMoneyGain, useGameState } from '../../gamestate-hooks'
 import { Button } from '../button'
 import { ContractList } from '../contract-list'
 
@@ -45,9 +45,6 @@ export const MainScreen = () => {
     }
   }
 
-  // Calculate total wage costs
-  const totalWages = gs.humans.reduce((acc, human) => acc + human.wage, 0)
-
   // Get resource production details
   const resourceProduction = calculateResourceProduction()
 
@@ -55,7 +52,7 @@ export const MainScreen = () => {
   const compactCategories = {
     Resources: {
       money: gs.money,
-      'passive income': gs.passiveIncome - totalWages,
+      'passive income': getMoneyGain(gs),
     },
     Organization: {
       influence: gs.influence,

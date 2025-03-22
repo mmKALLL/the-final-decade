@@ -14,6 +14,14 @@ export const GameOverScreen = ({ gs, turn }: { gs: GameState; turn: number }) =>
         ? gs.language === 'en-US'
           ? `Your company was shut down on ${getDateFromTurn(gs.turn)}, as a result of careless attitudes towards AI alignment.`
           : `あなたの会社は${getDateFromTurn(gs.turn)}に、AIの整合性に対する無頓着な態度の結果として閉鎖されました。`
+        : gs.trust <= 0
+        ? gs.language === 'en-US'
+          ? `Your company failed to maintain trust with your stakeholders on ${getDateFromTurn(gs.turn)}.`
+          : `${getDateFromTurn(gs.turn)}までに従業員との信頼関係を維持できませんでした。`
+        : gs.influence <= 0
+        ? gs.language === 'en-US'
+          ? `Your company was discredited by the public on ${getDateFromTurn(gs.turn)}.`
+          : `${getDateFromTurn(gs.turn)}までに公衆の支持を失いました。`
         : gs.language === 'en-US'
         ? `Your company failed to meet the annual breakthrough goals by ${getDateFromTurn(gs.turn)}.`
         : `${getDateFromTurn(gs.turn)}までに年間突破目標を達成できませんでした。`}

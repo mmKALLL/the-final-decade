@@ -92,8 +92,12 @@ export function reduceEffect(effect: Effect, gameState: GameState, depth: number
   }, gameState)
 }
 
+export function getMoneyGain(gs: GameState): number {
+  return gs.passiveIncome - gs.humans.reduce((acc, human) => acc + human.wage, 0)
+}
+
 export function handleTurn(gs: GameState): GameState {
-  const moneyGain = gs.passiveIncome
+  const moneyGain = getMoneyGain(gs)
   const spGain = gs.humans.reduce((acc, human) => acc + human.spGeneration, 0)
   const epGain = gs.humans.reduce((acc, human) => acc + human.epGeneration, 0)
   const rpGain = gs.humans.reduce((acc, human) => acc + human.rpGeneration, 0)
@@ -116,7 +120,7 @@ export function handleTurn(gs: GameState): GameState {
   }
 
   // Handle game over triggers
-  if (updatedGs.money <= 0 || updatedGs.asiOutcome <= 0) {
+  if (updatedGs.money <= 0 || updatedGs.asiOutcome <= 0 || updatedGs.trust <= 0 || updatedGs.influence <= 0) {
     return {
       ...updatedGs,
       currentScreen: 'game-over',
