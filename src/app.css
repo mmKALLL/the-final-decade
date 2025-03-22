@@ -97,14 +97,17 @@ html, body {
   border-radius: 0;
   padding: 0.6rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
 }
 
 .action-section h2 {
   font-size: 1rem;
   margin-top: 0;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0;
   padding-left: 0.1rem;
 }
+
 
 /* Action buttons section */
 .action-buttons {
@@ -112,6 +115,7 @@ html, body {
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
   margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .action-buttons button {

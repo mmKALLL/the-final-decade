@@ -16,10 +16,24 @@ export function generateUpgrade(gs: GameState, _rarity?: number): Upgrade {
 }
 
 export function generateActionDescription(action: Action): string {
+  function paramToLabel(param: string): string {
+    switch (param) {
+      case 'asiOutcome':
+        return 'ASI outcome'
+      case 'passiveIncome':
+        return 'income'
+      case 'publicUnity':
+        return 'unity'
+
+      default:
+        return param
+    }
+  }
+
   return action.effect
     .map((effect) => {
       const { amount } = effect
-      return `${effect.paramEffected} ${amount >= 0 ? '+' : ''}${amount}`
+      return `${paramToLabel(effect.paramEffected)} ${amount >= 0 ? '+' : ''}${amount}`
     })
     .join(', ')
 }

@@ -27,19 +27,10 @@ export function reduceAction(gs: GameState, action: Action): GameState {
     return gs // Return early if action is not applicable
   }
 
-  action.turnsInvested++
-  if (action.turnCost <= action.turnsInvested) {
-    action.turnsInvested = 0
-  }
+  let updatedGs: GameState = { ...gs }
 
-  // Advance the action's turnsInvested in GS
-  const updatedActions = gs.availableActions.map((a) => (a.name === action.name ? action : a))
-  let updatedGs = { ...gs, availableActions: updatedActions }
-
-  if (action.turnsInvested === 0) {
-    updatedGs = action.functionEffect ? action.functionEffect(updatedGs) : updatedGs
-    updatedGs = reduceEffect(action.effect, updatedGs, 0)
-  }
+  updatedGs = action.functionEffect ? action.functionEffect(updatedGs) : updatedGs
+  updatedGs = reduceEffect(action.effect, updatedGs, 0)
 
   if (action.turnCost != 0) {
     updatedGs = handleTurn(updatedGs)

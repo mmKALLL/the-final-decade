@@ -1,4 +1,4 @@
-import { languageToggleAction } from '../data/data-actions'
+import { firstOrderActions, languageToggleAction, secondOrderActions, thirdOrderActions } from '../data/data-actions'
 import { useGameState } from '../gamestate-hooks'
 import { Button } from './button'
 import { ContractList } from './contract-list'
@@ -24,8 +24,8 @@ export const MainScreen = () => {
       'passive income': gs.passiveIncome,
     },
     Organization: {
-      trust: gs.trust,
       influence: gs.influence,
+      trust: gs.trust,
     },
     ASI: {
       outcome: gs.asiOutcome,
@@ -37,15 +37,6 @@ export const MainScreen = () => {
     },
   }
 
-  // Order actions in two columns, so that they are sequantially in each column (e.g. [1, 2, 3, 4, 5, 6] -> [1, 4, 2, 5, 3, 6])
-  const reorderedActions = Array(gs.availableActions.length)
-    .fill(null)
-    .map((_, i) => {
-      const halfLength = Math.ceil(gs.availableActions.length / 2)
-      const currentRow = Math.floor(i / 2)
-      return i % 2 === 0 ? gs.availableActions[currentRow] : gs.availableActions[currentRow + halfLength]
-    })
-
   // Get flag emoji based on current language
   const getLanguageFlag = (language: string) => {
     return language === 'en-US' ? '🇺🇸' : '🇯🇵'
@@ -54,9 +45,21 @@ export const MainScreen = () => {
   return (
     <div className="main-screen">
       <div className="action-section">
-        <h2>Available actions:</h2>
+        <h2>First-order actions:</h2>
         <div className="action-buttons">
-          {reorderedActions.map((action, index) => (
+          {firstOrderActions(gs).map((action, index) => (
+            <Button key={`action-${index}`} action={action} />
+          ))}
+        </div>
+        <h2>Second-order actions:</h2>
+        <div className="action-buttons">
+          {secondOrderActions(gs).map((action, index) => (
+            <Button key={`action-${index}`} action={action} />
+          ))}
+        </div>
+        <h2>Third-order actions:</h2>
+        <div className="action-buttons">
+          {thirdOrderActions(gs).map((action, index) => (
             <Button key={`action-${index}`} action={action} />
           ))}
         </div>

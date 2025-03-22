@@ -52,7 +52,7 @@ export type GameState = {
 
   yearlyContracts: Contract[]
 
-  availableActions: Action[]
+  additionalActions: Action[] // Any actions that are granted by breakthroughs
 
   // recentActions: Action[]
   // recentGS: GameState[]

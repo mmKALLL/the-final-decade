@@ -1,7 +1,7 @@
 import { generateYearlyContracts } from './data-generators'
 import { GameState } from '../types'
 import { generateContract } from './contract-generator'
-import { initialActions } from './data-actions'
+
 const baseGameState: GameState = {
   currentScreen: 'main',
   language: 'en-US',
@@ -28,7 +28,7 @@ const baseGameState: GameState = {
   contractSelections: [],
 
   yearlyContracts: generateYearlyContracts(),
-  availableActions: initialActions,
+  additionalActions: [],
 }
 
 export const initialGameState: GameState = {
