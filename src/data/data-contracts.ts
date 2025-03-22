@@ -1,4 +1,5 @@
-import { Label, YearlyContract } from '../types'
+import { ContractType, Label, YearlyContract } from '../types'
+import { assertNever } from '../util'
 
 export const yearlyContracts: YearlyContract[] = [
   // === 2025 ===
@@ -199,60 +200,89 @@ export const yearlyContracts: YearlyContract[] = [
   },
 ]
 
-export function getRandomContractName(): Label {
-  return randomContractNames[Math.floor(Math.random() * randomContractNames.length)]
+export function getRandomContractName(type: ContractType): Label {
+  switch (type) {
+    case 'alignment':
+      return alignmentContractNames[Math.floor(Math.random() * alignmentContractNames.length)]
+    case 'capabilities':
+      return capabilityContractNames[Math.floor(Math.random() * capabilityContractNames.length)]
+    case 'product':
+      return productContractNames[Math.floor(Math.random() * productContractNames.length)]
+    default:
+      return assertNever(type)
+  }
 }
+const alignmentContractNames = [
+  { 'en-US': 'Autonomous AI Safety', 'jp-FI': '自律型AIの安全プロトコル' },
+  { 'en-US': 'Neural Net Interpretability', 'jp-FI': 'ニューラルネットの解釈可能性研究' },
+  { 'en-US': 'Oversight System Scaling', 'jp-FI': '拡張可能な監督システム' },
+  { 'en-US': 'Value Alignment Check', 'jp-FI': '価値整合性の検証' },
+  { 'en-US': 'Ethical Black Box Study', 'jp-FI': '倫理的ブラックボックスの解釈性' },
+  { 'en-US': 'AI Alignment Schism', 'jp-FI': 'AIアラインメントの分裂' },
+  { 'en-US': 'Ethics-Based Policy AI', 'jp-FI': '自動化された倫理政策決定' },
+  { 'en-US': 'Technical Alignment Plan', 'jp-FI': '技術的なアラインメントフレームワーク' },
+  { 'en-US': 'Aligning AGI Objectives', 'jp-FI': 'AGIアラインメントの一般化研究' },
+  { 'en-US': 'Align in High-Risk Cases', 'jp-FI': '高リスクシナリオにおけるAIの整合性' },
 
-const randomContractNames = [
-  { 'en-US': 'Autonomous AI Safety Protocols', 'jp-FI': '自律型AIの安全プロトコル' },
-  { 'en-US': 'Neural Net Interpretability Initiative', 'jp-FI': 'ニューラルネットの解釈可能性研究' },
-  { 'en-US': 'Scalable Oversight Systems', 'jp-FI': '拡張可能な監督システム' },
-  { 'en-US': 'Value Alignment Verification', 'jp-FI': '価値整合性の検証' },
-  { 'en-US': 'Robust Agentic AI Control', 'jp-FI': '堅牢なエージェント型AIの制御' },
-  { 'en-US': 'Theories of Impact Analysis', 'jp-FI': '影響分析の理論' },
-  { 'en-US': 'Corrigibility Research Funding', 'jp-FI': '修正可能性研究の資金提供' },
-  { 'en-US': 'Reinforcement Learning Risk Assessment', 'jp-FI': '強化学習のリスク評価' },
-  { 'en-US': 'Automated Safety Testing Infrastructure', 'jp-FI': '自動化された安全テストインフラ' },
-  { 'en-US': 'Long-Term AI Risk Forecasting', 'jp-FI': '長期的なAIリスクの予測' },
-  { 'en-US': 'Recursive Self-Improvement Firewall', 'jp-FI': '自己改善型AIのファイアウォール' },
-  { 'en-US': 'Technical Alignment Frameworks', 'jp-FI': '技術的なアラインメントフレームワーク' },
-  { 'en-US': 'AI Reliability and Fail-Safe Systems', 'jp-FI': 'AIの信頼性とフェイルセーフシステム' },
-  { 'en-US': 'High-Stakes Deployment Guidelines', 'jp-FI': '高リスクAI導入のガイドライン' },
-  { 'en-US': 'Computational Ethics Review Board', 'jp-FI': '計算倫理審査委員会' },
-  { 'en-US': 'International AGI Containment Treaty', 'jp-FI': '国際AGI封じ込め条約' },
-  { 'en-US': 'The AI Alignment Schism', 'jp-FI': 'AIアラインメントの分裂' },
-  { 'en-US': 'Corporate AGI Deployment Moratorium', 'jp-FI': '企業のAGI配備一時停止' },
-  { 'en-US': 'Regulatory Capture by AI Firms', 'jp-FI': 'AI企業による規制支配' },
-  { 'en-US': 'Open-Source AI vs. Proprietary Control', 'jp-FI': 'オープンソースAI vs. 独占制御' },
-  { 'en-US': 'Autonomous AI in Military Use', 'jp-FI': '軍事利用の自律型AI' },
-  { 'en-US': 'The Case for AI Personhood', 'jp-FI': 'AIの人格権の是非' },
-  { 'en-US': 'Ethical Black-Box Interpretability', 'jp-FI': '倫理的ブラックボックスの解釈性' },
-  { 'en-US': 'Superintelligence Kill-Switch Development', 'jp-FI': '超知能の強制停止スイッチ開発' },
-  { 'en-US': 'Unshackling AI for Progress', 'jp-FI': '進歩のためのAI解放' },
-  { 'en-US': 'Alignment-Oriented Governance Systems', 'jp-FI': 'アラインメント重視の統治システム' },
-  { 'en-US': 'Decentralized vs. Centralized AGI Control', 'jp-FI': '分散型 vs. 集中型AGI制御' },
-  { 'en-US': 'Automated Ethics Policymaking', 'jp-FI': '自動化された倫理政策決定' },
-  { 'en-US': 'AGI Activation', 'jp-FI': 'AGIの起動' },
-  { 'en-US': 'Synthetic Consciousness Rights Act', 'jp-FI': '人工意識の権利法案' },
-  { 'en-US': 'The Great AI Policy Rift', 'jp-FI': 'AI政策の大分裂' },
-  { 'en-US': 'AI Alignment Under Competitive Pressure', 'jp-FI': '競争圧力下でのAIアラインメント' },
-  { 'en-US': 'Red-Teaming Superintelligence', 'jp-FI': '超知能のレッドチーミング' },
-  { 'en-US': 'Slow vs. Fast Takeoff Preparations', 'jp-FI': '緩慢 vs. 急速なAI進化への準備' },
-  { 'en-US': 'Constrained vs. Unconstrained AGI', 'jp-FI': '制約付き vs. 無制約AGI' },
-  { 'en-US': 'AGI Alignment Generalization Studies', 'jp-FI': 'AGIアラインメントの一般化研究' },
-  { 'en-US': 'Human-Compatible Goal Modeling', 'jp-FI': '人間適応型の目標モデリング' },
-  { 'en-US': 'End-to-End AI Verification Framework', 'jp-FI': 'エンドツーエンドのAI検証フレームワーク' },
-  { 'en-US': 'AGI Prototype Deployment Freeze', 'jp-FI': 'AGIプロトタイプの配備凍結' },
-  { 'en-US': 'Preemptive AI Global Coordination', 'jp-FI': '先手を打つAIグローバル協調' },
-  { 'en-US': 'Simulation-Based Safety Training', 'jp-FI': 'シミュレーションベースの安全訓練' },
-  { 'en-US': 'Ethics-Driven Model Training', 'jp-FI': '倫理駆動のモデル学習' },
-  { 'en-US': 'The Last Human Decision', 'jp-FI': '最後の人間の決定' },
-  { 'en-US': 'Post-Human Transition Management', 'jp-FI': 'ポストヒューマン移行管理' },
-  { 'en-US': 'Aligning AI in High-Risk Scenarios', 'jp-FI': '高リスクシナリオにおけるAIの整合性' },
-  { 'en-US': 'Corporate Alignment Standards Initiative', 'jp-FI': '企業のアラインメント標準化推進' },
-  { 'en-US': 'Differential Progress Strategy', 'jp-FI': '差分進展戦略' },
-  { 'en-US': 'Compute Cap Regulations', 'jp-FI': '計算能力上限の規制' },
-  { 'en-US': 'AI Safety vs. Economic Growth', 'jp-FI': 'AI安全性 vs. 経済成長' },
-  { 'en-US': 'Strategic Misinformation for Safety', 'jp-FI': '安全のための戦略的偽情報' },
-  { 'en-US': 'Shutting Down Rogue AGI Labs', 'jp-FI': '暴走AGI研究所の閉鎖' },
+  // New additions
+  { 'en-US': 'Safe Simulation Training', 'jp-FI': '安全なシミュレーショントレーニング' },
+  { 'en-US': 'Alignment Metrics Audit', 'jp-FI': 'アラインメントメトリクスの監査' },
+  { 'en-US': 'Recursive Ethics Model', 'jp-FI': '再帰的な倫理モデル' },
+  { 'en-US': 'Intent Transparency Pact', 'jp-FI': '意図の透明性協定' },
+  { 'en-US': 'Preventing AGI Misuse', 'jp-FI': 'AGIの誤用防止' },
+  { 'en-US': 'Human-Compatible AI Law', 'jp-FI': '人間適合型AI法案' },
+  { 'en-US': 'Alignment Field Trials', 'jp-FI': 'アラインメント実地試験' },
+  { 'en-US': 'Democratic AI Control', 'jp-FI': '民主的AI制御' },
+  { 'en-US': 'AGI Governance Charter', 'jp-FI': 'AGI統治憲章' },
+  { 'en-US': 'Red-Teaming for Safety', 'jp-FI': '安全性のためのレッドチーム' },
+]
+
+const capabilityContractNames = [
+  { 'en-US': 'Self-Improving AI Wall', 'jp-FI': '自己改善型AIのファイアウォール' },
+  { 'en-US': 'Superintelligence Kill-Switch', 'jp-FI': '超知能の強制停止スイッチ開発' },
+  { 'en-US': 'Reinforcement Risk Study', 'jp-FI': '強化学習のリスク評価' },
+  { 'en-US': 'Cognitive Emulation Grid', 'jp-FI': '認知模倣グリッド' },
+  { 'en-US': 'Takeoff Speed Strategies', 'jp-FI': 'AI進化スピード戦略' },
+  { 'en-US': 'Human-Compatible Goals', 'jp-FI': '人間適応型の目標モデリング' },
+  { 'en-US': 'AI Capability Scaling Plan', 'jp-FI': 'AI能力のスケーリング計画' },
+  { 'en-US': 'Open vs Closed AGI Debate', 'jp-FI': 'AGI公開 vs 非公開議論' },
+  { 'en-US': 'End-to-End Verification', 'jp-FI': 'エンドツーエンド検証' },
+  { 'en-US': 'Unshackled AGI Release', 'jp-FI': '解放されたAGIの展開' },
+
+  // New additions
+  { 'en-US': 'Self-Play Intelligence Run', 'jp-FI': '自己プレイによる知能強化' },
+  { 'en-US': 'Superposition Computation', 'jp-FI': '重ね合わせコンピュテーション' },
+  { 'en-US': 'Meta-Learning Initiative', 'jp-FI': 'メタ学習の取り組み' },
+  { 'en-US': 'Multi-Modal AGI Fusion', 'jp-FI': 'マルチモーダルAGI融合' },
+  { 'en-US': 'Scalable AGI Prototype', 'jp-FI': 'スケーラブルAGIプロトタイプ' },
+  { 'en-US': 'Fast Gradient Evolution', 'jp-FI': '高速勾配進化' },
+  { 'en-US': 'AGI Self-Replication Test', 'jp-FI': 'AGIの自己複製試験' },
+  { 'en-US': 'Goal Generalization Suite', 'jp-FI': '目標一般化スイート' },
+  { 'en-US': 'Neural Capacity Expansion', 'jp-FI': 'ニューラル容量の拡張' },
+  { 'en-US': 'Causal Inference Engine', 'jp-FI': '因果推論エンジン' },
+]
+
+const productContractNames = [
+  { 'en-US': 'AI in Military Operations', 'jp-FI': '軍事利用の自律型AI' },
+  { 'en-US': 'Corporate AGI Freeze Order', 'jp-FI': '企業のAGI配備一時停止' },
+  { 'en-US': 'Public AI Open Letter', 'jp-FI': '公開書簡によるAI表明' },
+  { 'en-US': 'Synthetic Personhood Bill', 'jp-FI': '人工意識の権利法案' },
+  { 'en-US': 'Policy Rift: AGI Strategy', 'jp-FI': 'AGI戦略を巡る政策分裂' },
+  { 'en-US': 'AI Safety vs Growth Bill', 'jp-FI': 'AI安全 vs 経済成長法案' },
+  { 'en-US': 'Compute Cap Enforcement Act', 'jp-FI': '計算上限規制法案' },
+  { 'en-US': 'AGI Containment Treaty', 'jp-FI': 'AGI封じ込め条約' },
+  { 'en-US': 'Misinformation Task Force', 'jp-FI': '偽情報対策部隊' },
+  { 'en-US': 'Regulatory Capture Watch', 'jp-FI': '規制取り込み監視団' },
+
+  // New additions
+  { 'en-US': 'AI Market Adoption Trial', 'jp-FI': 'AI市場導入試験' },
+  { 'en-US': 'Mass Layoff Mitigation Plan', 'jp-FI': '大量解雇緩和計画' },
+  { 'en-US': 'Trust Scoring Deployment', 'jp-FI': '信頼スコアの導入' },
+  { 'en-US': 'Global AI Accreditation Pact', 'jp-FI': 'AI認定の国際協定' },
+  { 'en-US': 'Model Disclosure Policy Act', 'jp-FI': 'モデル開示方針法案' },
+  { 'en-US': 'AI Output Licensing Scheme', 'jp-FI': 'AI出力ライセンス制度' },
+  { 'en-US': 'Autonomous City Rollout', 'jp-FI': '自律都市展開' },
+  { 'en-US': 'Posthuman Society Charter', 'jp-FI': 'ポストヒューマン社会憲章' },
+  { 'en-US': 'Labor Market Adjustment Fund', 'jp-FI': '労働市場調整基金' },
+  { 'en-US': 'Public Risk Awareness Plan', 'jp-FI': '公衆リスク意識向上計画' },
 ]

@@ -7,7 +7,8 @@ function getYearIndex(turn: number): number {
 
 export function generateContract(gs: GameState): Contract {
   // Setup base parameters that control complexity
-  const isAlignmentContract = Math.random() < 0.5
+  const contractType = Math.random() < 0.5 ? 'alignment' : 'capabilities'
+  const isAlignmentContract = contractType === 'alignment'
   let difficulty = 50 + Math.floor(Math.random() * (getYearIndex(gs.turn) * 50 + 75))
   let deadline = 5 + Math.floor(Math.random() * 200) + Math.max(200 - difficulty, 0)
   difficulty += Math.max(100 - deadline, 0)
@@ -44,8 +45,8 @@ export function generateContract(gs: GameState): Contract {
   const requirements: Effect = []
 
   return {
-    name: getRandomContractName(),
-    type: isAlignmentContract ? 'alignment' : 'capabilities',
+    name: getRandomContractName(contractType),
+    type: contractType,
     rarity: difficulty > 200 ? 'rare' : difficulty > 150 ? 'uncommon' : 'common',
     successDescription: { 'en-US': effectListToString(modifiedOnSuccess), 'jp-FI': effectListToString(modifiedOnSuccess) },
     requirementDescription: { 'en-US': effectListToString(requirements), 'jp-FI': effectListToString(requirements) },

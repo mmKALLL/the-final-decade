@@ -159,9 +159,11 @@ export type Param =
   | 'humanSelection'
   | 'breakthroughSelection'
 
+export type ContractType = 'alignment' | 'capabilities' | 'product'
+
 export type Contract = {
   name: Label
-  type?: 'alignment' | 'capabilities'
+  type?: ContractType
   rarity: Rarity
   // acceptDescription: Label
   successDescription: Label
