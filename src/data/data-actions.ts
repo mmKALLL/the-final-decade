@@ -1,15 +1,9 @@
 import { generateUpgrade } from './data-generators'
-import { Action } from '../types'
+import { Action, GameState } from '../types'
 import { generateContract } from './contract-generator'
 import { generateHuman } from './data-generators'
 
-export const initialActions: Action[] = [
-  {
-    name: { 'en-US': 'Apply for funding', 'jp-FI': 'お金を募集する' },
-    turnCost: 1,
-    turnsInvested: 0,
-    effect: [{ paramEffected: 'money', amount: 10 }],
-  },
+export const firstOrderActions: (gs: GameState) => Action[] = (gs) => [
   {
     name: { 'en-US': 'Independent outreach', 'jp-FI': '個人的なネットワーキング' },
     turnCost: 1,
@@ -29,11 +23,14 @@ export const initialActions: Action[] = [
     effect: [{ paramEffected: 'rp', amount: 3 }],
   },
   {
-    name: { 'en-US': 'Work on upgrades', 'jp-FI': 'アップグレード作業' },
+    name: { 'en-US': 'Apply for funding', 'jp-FI': 'お金を募集する' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'up', amount: 1 }],
+    effect: [{ paramEffected: 'money', amount: Math.round((10 * gs.trust) / 100) }],
   },
+]
+
+export const secondOrderActions: (gs: GameState) => Action[] = (_gs) => [
   {
     name: { 'en-US': 'Recruit a human', 'jp-FI': '人材を増やす' },
     turnCost: 1,
@@ -66,6 +63,52 @@ export const initialActions: Action[] = [
       currentScreen: 'selection',
       upgradeSelections: [...gs.upgradeSelections, [generateUpgrade(gs), generateUpgrade(gs), generateUpgrade(gs)]],
     }),
+  },
+  {
+    name: { 'en-US': 'Work on upgrades', 'jp-FI': 'アップグレード作業' },
+    turnCost: 1,
+    turnsInvested: 0,
+    effect: [{ paramEffected: 'up', amount: 1 }],
+  },
+]
+
+export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
+  {
+    name: { 'en-US': 'Build trust', 'jp-FI': '信頼を作る' },
+    turnCost: 1,
+    turnsInvested: 0,
+    effect: [
+      { paramEffected: 'trust', amount: 10 },
+      { paramEffected: 'sp', amount: -40 },
+    ],
+  },
+  {
+    name: { 'en-US': 'Marketing campaign', 'jp-FI': '影響力を増やす' },
+    turnCost: 1,
+    turnsInvested: 0,
+    effect: [
+      { paramEffected: 'influence', amount: 10 },
+      { paramEffected: 'money', amount: -100 },
+    ],
+  },
+  {
+    name: { 'en-US': 'Alignment research', 'jp-FI': 'アライメント研究' },
+    turnCost: 1,
+    turnsInvested: 0,
+    effect: [
+      { paramEffected: 'asiOutcome', amount: 10 },
+      { paramEffected: 'rp', amount: -gs.asiOutcome },
+    ],
+  },
+  {
+    name: { 'en-US': 'Government lobbying', 'jp-FI': '治安を安定する' },
+    turnCost: 1,
+    turnsInvested: 0,
+    effect: [
+      { paramEffected: 'publicUnity', amount: 1 },
+      { paramEffected: 'passiveIncome', amount: -10 },
+      { paramEffected: 'sp', amount: -50 },
+    ],
   },
 ]
 
