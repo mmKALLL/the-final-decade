@@ -27,7 +27,7 @@ export const yearlyContracts: YearlyContract[] = [
     requirementDescription: { 'en-US': 'Trust >= 110', 'jp-FI': '信頼 >= 110' },
     onSuccess: [{ paramEffected: 'breakthroughSelection', amount: 300 }],
     requirements: [{ paramEffected: 'trust', amount: 110 }],
-    costs: [{ paramEffected: 'ep', amount: -40 }],
+    costs: [{ paramEffected: 'ep', amount: -30 }],
   },
   {
     name: { 'en-US': 'Agentic Researchers', 'jp-FI': 'エージェント型研究AI' },

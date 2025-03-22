@@ -107,11 +107,20 @@ export function handleTurn(gs: GameState): GameState {
     sp: gs.sp + spGain,
     ep: gs.ep + epGain,
     rp: gs.rp + rpGain,
+    asiOutcome: gs.asiOutcome + gs.publicUnity,
   }
 
   // Check if this is the end of a year (turn divisible by 12)
   if (newTurn % 12 === 0) {
     return handleEndOfYear(updatedGs)
+  }
+
+  // Handle game over triggers
+  if (updatedGs.money <= 0 || updatedGs.asiOutcome <= 0) {
+    return {
+      ...updatedGs,
+      currentScreen: 'game-over',
+    }
   }
 
   return updatedGs
@@ -143,10 +152,11 @@ export function handleEndOfYear(gs: GameState): GameState {
   // If the first goal has been reached, apply its effects
   updatedGs = reduceEffect(contractAction.effect, updatedGs, 0)
 
-  // Remove the first goal from gs.yearlyContracts
+  // Remove the first goal from gs.yearlyContracts and go to breakthrough selection screen
   updatedGs = {
     ...updatedGs,
     yearlyContracts: updatedGs.yearlyContracts.slice(1),
+    currentScreen: 'selection',
   }
 
   // Reduce public unity by 1 and increase passive income by 1 for each 100 money the player has (floored)

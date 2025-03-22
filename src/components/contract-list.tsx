@@ -14,7 +14,7 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
   return (
     <>
       <div className="contract-section">
-        <h2>Contracts - tap to complete:</h2>
+        <h2>Contracts - {editable ? 'tap to complete' : 'view only'}</h2>
         <div className="contracts-grid">
           {contracts.map((contract, index) => (
             <ContractItem key={`contract-${index}`} contract={contract} language={language} editable={editable} />
