@@ -1,5 +1,5 @@
 import { useEffect } from 'preact/hooks'
-import { useGameState } from '../../../gamestate-hooks'
+import { reduceAction, useGameState } from '../../../gamestate-hooks'
 import { HumanItem } from './human-item'
 import { BreakthroughItem } from './breakthrough-item'
 import { Human, Breakthrough } from '../../../types'
@@ -146,16 +146,24 @@ export const SelectionScreen = () => {
   function handleBreakthroughSelect(breakthrough: Breakthrough) {
     dispatch({
       eventId: 'internalStateChange',
-      name: { 'en-US': `Acquired ${breakthrough.name['en-US']}`, 'jp-FI': `取得: ${breakthrough.name['jp-FI']}` },
+      name: { 'en-US': `Acquired ${breakthrough.name['en-US']}, applying all effects`, 'jp-FI': `取得: ${breakthrough.name['jp-FI']}` },
       turnCost: 0,
       turnsInvested: 0,
       effect: [],
       functionEffect: (gs) => {
-        return {
+        const gsWithBreakthrough = {
           ...gs,
           breakthroughs: [...gs.breakthroughs, breakthrough],
           breakthroughSelections: gs.breakthroughSelections.slice(1), // Remove first breakthrough group after selection
         }
+        return reduceAction(gsWithBreakthrough, {
+          ...breakthrough,
+          eventId: 'internalStateChange',
+          description: { 'en-US': '', 'jp-FI': '' },
+          turnCost: 0,
+          turnsInvested: 0,
+          effect: breakthrough.effect ?? [],
+        })
       },
     })
   }

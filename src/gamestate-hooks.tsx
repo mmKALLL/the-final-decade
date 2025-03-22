@@ -50,6 +50,7 @@ export function reduceAction(gs: GameState, action: Action): GameState {
   // Apply all effects in the stack
   const effectStack = createEffectStack(gs, action)
   updatedGs = reduceEffect(effectStack, updatedGs, 0)
+  updatedGs = action.functionEffect ? action.functionEffect(updatedGs) : updatedGs
 
   // Handle turn advancement if needed
   if (action.turnCost != 0) {
@@ -292,7 +293,7 @@ export function handleEndOfYear(gs: GameState): GameState {
     }
   }
 
-  // Apply the contract action, which will trigger action handlers
+  // Apply the contract action, which will trigger action handlers. Don't use reduceAction since it would trigger turn end again
   updatedGs = reduceEffect(
     contractAction.effect.map((e) => ({ ...e, depth: 0 })),
     updatedGs,

@@ -774,15 +774,15 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: BreakthroughId.ColdAlignmentForge,
     name: { 'en-US': 'Cold Alignment Forge', 'jp-FI': '冷たいアラインメント炉' },
     description: {
-      'en-US': (l) => `+10 alignment focus, but lose 10 trust`,
+      'en-US': (l) => `+5 public unity, but lose 50 trust`,
       'jp-FI': (l) => `アラインメントフォーカス+10、信頼-10`,
     },
     rarity: 'epic',
     level: 0,
     maxLevel: 1,
     effect: [
-      { paramEffected: 'publicUnity', amount: 10 },
-      { paramEffected: 'trust', amount: -10 },
+      { paramEffected: 'publicUnity', amount: 5 },
+      { paramEffected: 'trust', amount: -50 },
     ],
     modifiers: [],
     actionEventHandlers: [],
