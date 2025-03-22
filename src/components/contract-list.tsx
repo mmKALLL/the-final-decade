@@ -12,14 +12,24 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
   const { contracts, yearlyContracts, language } = gs
 
   return (
-    <div className="contract-section">
-      <h2>Contracts - tap to complete:</h2>
-      <div className="contracts-grid">
-        {[...contracts, ...yearlyContracts].map((contract, index) => (
-          <ContractItem key={`contract-${index}`} contract={contract} language={language} editable={editable} />
-        ))}
+    <>
+      <div className="contract-section">
+        <h2>Contracts - tap to complete:</h2>
+        <div className="contracts-grid">
+          {contracts.map((contract, index) => (
+            <ContractItem key={`contract-${index}`} contract={contract} language={language} editable={editable} />
+          ))}
+        </div>
       </div>
-    </div>
+      <div className="contract-section">
+        <h2>Yearly Goals</h2>
+        <div className="contracts-grid">
+          {yearlyContracts.map((contract, index) => (
+            <ContractItem key={`contract-${index}`} contract={contract} language={language} editable={false} />
+          ))}
+        </div>
+      </div>
+    </>
   )
 }
 

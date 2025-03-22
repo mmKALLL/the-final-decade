@@ -30,6 +30,8 @@ export function reduceAction(gs: GameState, action: Action): GameState {
       (e) =>
         e.paramEffected !== 'humanSelection' &&
         e.paramEffected !== 'breakthroughSelection' &&
+        e.paramEffected !== 'publicUnity' &&
+        e.paramEffected !== 'passiveIncome' &&
         e.amount < 0 &&
         gs[e.paramEffected] < -e.amount
     )
