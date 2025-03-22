@@ -15,6 +15,13 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
     <>
       <div className="contract-section">
         <h2>Contracts - {editable ? 'tap to complete' : 'view only'}</h2>
+        {contracts.length === 0 && (
+          <p className="contract-empty">
+            {gs.language === 'en-US'
+              ? 'No contracts left. Wait until end of year or use the refresh action.'
+              : '契約がなくなりました。年末まで待つか、リフレッシュアクションを使用してください。'}
+          </p>
+        )}
         <div className="contracts-grid">
           {contracts.map((contract, index) => (
             <ContractItem key={`contract-${index}`} contract={contract} language={language} editable={editable} />
