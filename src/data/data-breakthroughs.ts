@@ -63,35 +63,32 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: BreakthroughId.RewardHacking,
     name: { 'en-US': 'Reward Hacking', 'jp-FI': 'リワードハッキング' },
     description: {
-      'en-US': (l) => `${l * 8}% chance to get an extra point when receiving RP/EP/SP`,
-      'jp-FI': (l) => `RP/EP/SPを受け取るとき、${l * 8}%の確率で追加ポイントを得る`,
+      'en-US': (l) => `RP/EP/SP gain is increased by ${l * 8}%`,
+      'jp-FI': (l) => `RP/EP/SP獲得、+${l * 8}%`,
     },
     rarity: 'common',
     level: 0,
     maxLevel: 5,
     effect: [],
-    modifiers: [],
-    actionEventHandlers: [],
-    paramEventHandlers: [
+    modifiers: [
       {
-        trigger: 'rp',
-        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
-          if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'rp', amount: 1 })
-        },
+        param: 'rp',
+        type: ModifierType.Multiply,
+        apply: (value: number, level: number) => value * (1 + 0.08 * level),
       },
       {
-        trigger: 'ep',
-        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
-          if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'ep', amount: 1 })
-        },
+        param: 'ep',
+        type: ModifierType.Multiply,
+        apply: (value: number, level: number) => value * (1 + 0.08 * level),
       },
       {
-        trigger: 'sp',
-        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
-          if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'sp', amount: 1 })
-        },
+        param: 'sp',
+        type: ModifierType.Multiply,
+        apply: (value: number, level: number) => value * (1 + 0.08 * level),
       },
     ],
+    actionEventHandlers: [],
+    paramEventHandlers: [],
   },
   {
     id: BreakthroughId.Duplicator,

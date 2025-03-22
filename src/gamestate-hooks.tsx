@@ -1,7 +1,7 @@
 import { createContext, JSX } from 'preact'
 import { initialGameState } from './data/data-gamestate'
 import { useContext, useReducer } from 'preact/hooks'
-import { Action, Effect, GameState } from './types'
+import { Action, EventId, GameState, ModifierType, Param, SingleEffect } from './types'
 import { generateHuman, generateBreakthrough } from './data/data-generators'
 import { refreshContracts } from './data/contract-generator'
 import { convertContractToAction } from './util'
@@ -47,9 +47,11 @@ export function reduceAction(gs: GameState, action: Action): GameState {
 
   let updatedGs: GameState = { ...gs }
 
-  updatedGs = action.functionEffect ? action.functionEffect(updatedGs) : updatedGs
-  updatedGs = reduceEffect(action.effect, updatedGs, 0)
+  // Apply all effects in the stack
+  const effectStack = createEffectStack(gs, action)
+  updatedGs = reduceEffect(effectStack, updatedGs, 0)
 
+  // Handle turn advancement if needed
   if (action.turnCost != 0) {
     updatedGs = handleTurn(updatedGs)
   }
@@ -57,40 +59,156 @@ export function reduceAction(gs: GameState, action: Action): GameState {
   return updatedGs
 }
 
-export function reduceEffect(effect: Effect, gameState: GameState, depth: number): GameState {
-  return effect.reduce((gs, singleEffect) => {
-    const { amount, paramEffected } = singleEffect
-    if (paramEffected === 'humanSelection') {
-      return {
-        ...gs,
-        humanSelections: [...gs.humanSelections, [generateHuman(gs, amount), generateHuman(gs, amount), generateHuman(gs, amount)]],
-      }
-    }
-    if (paramEffected === 'breakthroughSelection') {
-      return {
-        ...gs,
-        breakthroughSelections: [
-          ...gs.breakthroughSelections,
-          [generateBreakthrough(gs, amount), generateBreakthrough(gs, amount), generateBreakthrough(gs, amount)],
+function createEffectStack(gs: GameState, action: Action): SingleEffect[] {
+  let updatedGs = { ...gs }
+
+  // Apply function effect if exists
+  updatedGs = action.functionEffect ? action.functionEffect(updatedGs) : updatedGs
+
+  // Create effect stack to track all effects that should be applied
+  const effectStack: SingleEffect[] = action.effect
+
+  // Trigger action event handlers for this action
+  if (action.eventId) {
+    updatedGs = applyActionEventHandlers(updatedGs, effectStack, action.eventId)
+  }
+
+  return effectStack
+}
+
+function applyActionEventHandlers(gs: GameState, effectStack: SingleEffect[], eventId: EventId): GameState {
+  // Make a copy of the game state to work with
+  const updatedGs = { ...gs }
+
+  // Get all action event handlers from all breakthroughs
+  const allHandlers = gs.breakthroughs.flatMap((breakthrough) =>
+    breakthrough.actionEventHandlers
+      ? breakthrough.actionEventHandlers
+          .filter((handler) => handler.trigger === eventId || handler.trigger === 'allActions')
+          .map((handler) => ({ handler, level: breakthrough.level }))
+      : []
+  )
+
+  // Apply each handler, allowing it to modify the effect stack
+  allHandlers.forEach(({ handler, level }) => {
+    handler.apply(updatedGs, effectStack, eventId, level)
+  })
+
+  return updatedGs
+}
+
+function applyParamEventHandlers(gs: GameState, effectStack: SingleEffect[], param: Param, value: number): GameState {
+  // Make a copy of the game state to work with
+  const updatedGs = { ...gs }
+
+  // Get all param event handlers from all breakthroughs
+  const allHandlers = gs.breakthroughs.flatMap((breakthrough) =>
+    breakthrough.paramEventHandlers
+      ? breakthrough.paramEventHandlers
+          .filter((handler) => handler.trigger === param)
+          .map((handler) => ({ handler, level: breakthrough.level }))
+      : []
+  )
+
+  // Apply each handler, allowing it to modify the effect stack
+  allHandlers.forEach(({ handler, level }) => {
+    handler.apply(updatedGs, effectStack, param, value, level)
+  })
+
+  return updatedGs
+}
+
+function applyModifiers(gs: GameState, param: Param, value: number): number {
+  // Skip modifying if value is zero
+  if (value === 0) return value
+
+  // Get all modifiers from all breakthroughs that apply to this param
+  const modifiers = gs.breakthroughs.flatMap((breakthrough) =>
+    breakthrough.modifiers
+      ? breakthrough.modifiers
+          .filter((mod) => mod.param === param)
+          .filter((mod) => mod.filter === undefined || mod.filter())
+          .map((mod) => ({ mod, level: breakthrough.level }))
+      : []
+  )
+
+  // Group modifiers by type
+  const addModifiers = modifiers.filter(({ mod }) => mod.type === ModifierType.Add)
+  const multiplyModifiers = modifiers.filter(({ mod }) => mod.type === ModifierType.Multiply)
+  const functionModifiers = modifiers.filter(({ mod }) => mod.type === ModifierType.Function)
+
+  // Apply modifiers in the correct order: add -> multiply -> function
+  let modifiedValue = value
+
+  // Apply add modifiers
+  addModifiers.forEach(({ mod, level }) => {
+    modifiedValue = mod.apply(modifiedValue, level)
+  })
+
+  // Apply multiply modifiers
+  multiplyModifiers.forEach(({ mod, level }) => {
+    modifiedValue = mod.apply(modifiedValue, level)
+  })
+
+  // Apply function modifiers
+  functionModifiers.forEach(({ mod, level }) => {
+    modifiedValue = mod.apply(modifiedValue, level)
+  })
+
+  return modifiedValue
+}
+
+function reduceEffect(effectStack: SingleEffect[], gs: GameState, depth: number): GameState {
+  if (effectStack.length === 0 || depth >= 10) {
+    return gs
+  }
+
+  let updatedGs = { ...gs }
+
+  const { paramEffected, amount } = effectStack[0]
+
+  // Handle special cases for selections
+  if (paramEffected === 'humanSelection') {
+    return reduceEffect(
+      effectStack.slice(1),
+      {
+        ...updatedGs,
+        humanSelections: [
+          ...updatedGs.humanSelections,
+          [generateHuman(updatedGs, amount), generateHuman(updatedGs, amount), generateHuman(updatedGs, amount)],
         ],
-      }
-    }
+      },
+      depth
+    )
+  }
 
-    const currentValue = gs[paramEffected]
-    const updatedValue = currentValue + amount
-    const updatedGs = { ...gs, [singleEffect.paramEffected]: updatedValue }
+  if (paramEffected === 'breakthroughSelection') {
+    return reduceEffect(
+      effectStack.slice(1),
+      {
+        ...updatedGs,
+        breakthroughSelections: [
+          ...updatedGs.breakthroughSelections,
+          [generateBreakthrough(updatedGs, amount), generateBreakthrough(updatedGs, amount), generateBreakthrough(updatedGs, amount)],
+        ],
+      },
+      depth
+    )
+  }
 
-    // If this is the first effect on stack, apply effects from breakthroughs
-    if (amount > 0 && depth === 0) {
-      const breakthroughEffects = gameState.breakthroughs
-        .flatMap((breakthrough) => breakthrough.effect)
-        .filter((effect) => effect !== undefined)
-        .filter((effect) => !effect.condition || effect.condition(gs, paramEffected, amount))
-      return reduceEffect(breakthroughEffects, updatedGs, depth + 1)
-    }
+  const currentValue: number = updatedGs[paramEffected]
 
-    return updatedGs
-  }, gameState)
+  // Apply modifiers to the amount
+  const modifiedAmount = currentValue > 0 ? applyModifiers(updatedGs, paramEffected, amount) : currentValue
+  const newValue = currentValue + modifiedAmount
+
+  // Update the game state
+  updatedGs = { ...updatedGs, [paramEffected]: newValue }
+
+  // Trigger param event handlers
+  updatedGs = applyParamEventHandlers(updatedGs, effectStack, paramEffected, modifiedAmount)
+
+  return reduceEffect(effectStack.slice(1), updatedGs, depth)
 }
 
 export function getMoneyGain(gs: GameState): number {
@@ -105,15 +223,24 @@ export function handleTurn(gs: GameState): GameState {
 
   const newTurn = gs.turn + 1
 
-  const updatedGs = {
-    ...gs,
-    turn: newTurn,
-    money: gs.money + moneyGain,
-    sp: gs.sp + spGain,
-    ep: gs.ep + epGain,
-    rp: gs.rp + rpGain,
-    asiOutcome: gs.asiOutcome + gs.publicUnity,
-  }
+  // Create effect stack for turn changes
+  const effectStack: SingleEffect[] = [
+    { paramEffected: 'money', amount: moneyGain },
+    { paramEffected: 'sp', amount: spGain },
+    { paramEffected: 'ep', amount: epGain },
+    { paramEffected: 'rp', amount: rpGain },
+    { paramEffected: 'asiOutcome', amount: gs.publicUnity },
+    { paramEffected: 'turn', amount: 1 },
+  ]
+
+  // Create a base updated game state
+  let updatedGs = { ...gs, turn: newTurn }
+
+  // Apply dayChange event handlers
+  updatedGs = applyActionEventHandlers(updatedGs, effectStack, 'dayChange')
+
+  // Apply all effects
+  updatedGs = reduceEffect(effectStack, updatedGs, 0)
 
   // Check if this is the end of a year (turn divisible by 12)
   if (newTurn % 12 === 0) {
@@ -135,6 +262,18 @@ export function handleEndOfYear(gs: GameState): GameState {
   // Create a new game state that we'll modify
   let updatedGs: GameState = { ...gs }
 
+  // Create effect stack for year change
+  const effectStack: SingleEffect[] = [
+    { paramEffected: 'publicUnity', amount: -1 },
+    { paramEffected: 'passiveIncome', amount: Math.floor(updatedGs.money / 100) },
+  ]
+
+  // Apply yearChange event handlers
+  updatedGs = applyActionEventHandlers(updatedGs, effectStack, 'yearChange')
+
+  // Apply the year change effects
+  updatedGs = reduceEffect(effectStack, updatedGs, 0)
+
   // Refresh non-yearly contracts
   updatedGs = refreshContracts(updatedGs)
 
@@ -151,7 +290,7 @@ export function handleEndOfYear(gs: GameState): GameState {
     }
   }
 
-  // If the first goal has been reached, apply its effects
+  // Apply the contract action, which will trigger action handlers
   updatedGs = reduceEffect(contractAction.effect, updatedGs, 0)
 
   // Remove the first goal from gs.yearlyContracts and go to breakthrough selection screen
@@ -159,13 +298,6 @@ export function handleEndOfYear(gs: GameState): GameState {
     ...updatedGs,
     yearlyContracts: updatedGs.yearlyContracts.slice(1),
     currentScreen: 'selection',
-  }
-
-  // Reduce public unity by 1 and increase passive income by 1 for each 100 money the player has (floored)
-  updatedGs = {
-    ...updatedGs,
-    publicUnity: updatedGs.publicUnity - 1,
-    passiveIncome: updatedGs.passiveIncome + Math.floor(updatedGs.money / 100),
   }
 
   // Show victory screen if all yearly contracts have been completed
