@@ -1,5 +1,5 @@
-import { Human } from '../../types'
-import { effectToString } from '../../util'
+import { Human } from '../../../types'
+import { effectToString } from '../../../util'
 
 export const HumanItem = ({ human, onSelect }: { human: Human; onSelect: () => void }) => {
   return (

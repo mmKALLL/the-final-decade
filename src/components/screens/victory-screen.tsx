@@ -1,4 +1,4 @@
-import { GameState } from '../types'
+import { GameState } from '../../types'
 
 // Victory Screen Component
 export const VictoryScreen = ({ gs }: { gs: GameState }) => (

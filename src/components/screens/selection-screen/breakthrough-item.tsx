@@ -1,4 +1,4 @@
-import { Breakthrough } from '../../types'
+import { Breakthrough } from '../../../types'
 
 export const BreakthroughItem = ({ breakthrough, onSelect }: { breakthrough: Breakthrough; onSelect: () => void }) => {
   return (

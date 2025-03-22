@@ -1,5 +1,5 @@
-import { GameState } from '../types'
-import { getDateFromTurn } from '../util'
+import { GameState } from '../../types'
+import { getDateFromTurn } from '../../util'
 
 // Game Over Screen Component
 export const GameOverScreen = ({ gs, turn }: { gs: GameState; turn: number }) => (

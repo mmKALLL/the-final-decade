@@ -1,7 +1,7 @@
-import { firstOrderActions, languageToggleAction, secondOrderActions, thirdOrderActions } from '../data/data-actions'
-import { useGameState } from '../gamestate-hooks'
-import { Button } from './button'
-import { ContractList } from './contract-list'
+import { firstOrderActions, languageToggleAction, secondOrderActions, thirdOrderActions } from '../../data/data-actions'
+import { useGameState } from '../../gamestate-hooks'
+import { Button } from '../button'
+import { ContractList } from '../contract-list'
 
 export const MainScreen = () => {
   const { gs, dispatch } = useGameState()

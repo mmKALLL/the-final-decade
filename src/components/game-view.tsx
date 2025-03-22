@@ -1,9 +1,9 @@
 import { useGameState } from '../gamestate-hooks'
 import { assertNever, getDateFromTurn } from '../util'
-import { GameOverScreen } from './game-over-screen'
-import { MainScreen } from './main-screen'
-import { SelectionScreen } from './selection-screen/selection-screen'
-import { VictoryScreen } from './victory-screen'
+import { GameOverScreen } from './screens/game-over-screen'
+import { MainScreen } from './screens/main-screen'
+import { SelectionScreen } from './screens/selection-screen/selection-screen'
+import { VictoryScreen } from './screens/victory-screen'
 
 export function GameView() {
   const { gs } = useGameState()

@@ -1,9 +1,9 @@
 import { useEffect } from 'preact/hooks'
-import { useGameState } from '../../gamestate-hooks'
+import { useGameState } from '../../../gamestate-hooks'
 import { HumanItem } from './human-item'
 import { BreakthroughItem } from './breakthrough-item'
-import { Human, Breakthrough } from '../../types'
-import { ContractList } from '../contract-list'
+import { Human, Breakthrough } from '../../../types'
+import { ContractList } from '../../contract-list'
 
 export const SelectionScreen = () => {
   const { gs, dispatch } = useGameState()
