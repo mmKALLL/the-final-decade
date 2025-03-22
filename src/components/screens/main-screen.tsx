@@ -8,7 +8,7 @@ export const MainScreen = () => {
 
   // Format value display to be more readable
   const formatValue = (value: any) => {
-    if (typeof value === 'number') {
+    if (typeof value === 'number' || typeof value === 'string') {
       return value
     }
     if (Array.isArray(value)) {
@@ -17,11 +17,45 @@ export const MainScreen = () => {
     return JSON.stringify(value)
   }
 
+  // Calculate team multipliers based on senior and lead ranks
+  const calculateTeamMultipliers = () => {
+    const seniors = gs.humans.filter((human) => human.rank === 'senior').length
+    const leads = gs.humans.filter((human) => human.rank === 'lead').length
+
+    // Seniors give 10% boost per senior, Leads give 25% boost per lead. The boosts are multiplicative.
+    return Math.pow(1.1, seniors) * Math.pow(1.25, leads)
+  }
+
+  // Calculate resource production broken down by type
+  const calculateResourceProduction = () => {
+    const baseSpProduction = gs.humans.reduce((acc, human) => acc + human.spGeneration, 0)
+    const baseEpProduction = gs.humans.reduce((acc, human) => acc + human.epGeneration, 0)
+    const baseRpProduction = gs.humans.reduce((acc, human) => acc + human.rpGeneration, 0)
+
+    const teamMultiplier = calculateTeamMultipliers()
+
+    const totalSpProduction = Math.round(baseSpProduction * teamMultiplier)
+    const totalEpProduction = Math.round(baseEpProduction * teamMultiplier)
+    const totalRpProduction = Math.round(baseRpProduction * teamMultiplier)
+
+    return {
+      sp: { base: baseSpProduction, multiplier: teamMultiplier.toFixed(1), total: totalSpProduction },
+      ep: { base: baseEpProduction, multiplier: teamMultiplier.toFixed(1), total: totalEpProduction },
+      rp: { base: baseRpProduction, multiplier: teamMultiplier.toFixed(1), total: totalRpProduction },
+    }
+  }
+
+  // Calculate total wage costs
+  const totalWages = gs.humans.reduce((acc, human) => acc + human.wage, 0)
+
+  // Get resource production details
+  const resourceProduction = calculateResourceProduction()
+
   // Create more compact category names for mobile
   const compactCategories = {
     Resources: {
       money: gs.money,
-      'passive income': gs.passiveIncome - gs.humans.reduce((acc, human) => acc + human.wage, 0),
+      'passive income': gs.passiveIncome - totalWages,
     },
     Organization: {
       influence: gs.influence,
@@ -32,8 +66,10 @@ export const MainScreen = () => {
       'public unity': gs.publicUnity,
     },
     Team: {
-      humans: gs.humans.length,
       breakthroughs: gs.breakthroughs.length,
+      'SP gain': `${resourceProduction.sp.base} * ${resourceProduction.sp.multiplier} = ${resourceProduction.sp.total}`,
+      'EP gain': `${resourceProduction.ep.base} * ${resourceProduction.ep.multiplier} = ${resourceProduction.ep.total}`,
+      'RP gain': `${resourceProduction.rp.base} * ${resourceProduction.rp.multiplier} = ${resourceProduction.rp.total}`,
     },
   }
 
