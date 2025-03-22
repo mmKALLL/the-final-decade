@@ -1,3 +1,5 @@
+import { BreakthroughId } from './data/data-breakthroughs'
+
 export type CurrentScreen =
   | 'mainMenu' // unused
   | 'gameOver'
@@ -11,6 +13,7 @@ export type CurrentScreen =
 
 export type Language = 'en-US' | 'jp-FI'
 export type Label = Record<Language, string>
+export type LabelByLevel = Record<Language, (level: number) => string>
 
 export type GameState = {
   currentScreen: 'main' | 'selection'
@@ -95,23 +98,50 @@ export type Human = {
 }
 
 export type Breakthrough = {
+  id: BreakthroughId
   name: Label
-  description: Label
+  description: LabelByLevel
   rarity: Rarity
   level: number
-  maxLevel: number
+  maxLevel: number // Should be 3 for everything
   effect: Effect
+  modifiers: Modifier[] // mods that affect resource gain
+  actionEventHandlers: ActionEventHandler[] // handlers that can perform additional reductions when actions are taken
+  paramEventHandlers: ParamEventHandler[] // handlers that can stack more effects when a parameter's value has been changed
+}
 
-  // List<Modifier> modifiers = []; // mods that affect resource gain
-  // List<ParamEventHandler> paramEventHandlers = []; // handlers that can stack more effects when a parameter's value has been changed
-  // List<ActionEventHandler> eventHandlers = []; // handlers that can perform additional reductions when actions are taken
-  // List<Modifier> contractModifiers = []; // mods that affect contract generation
-  // List<Modifier> organizationModifiers = []; // mods that affect organization generation
-  // bool owned = false;
-  // int level = 0;
-  // int getLevel() => level;
-  // final int maxLevel;
-  // final bool alwaysAppear; // Debug use only, can result in duplicates (see shuffleNextBreakthroughs)
+// Types for Breakthrough modifiers and event handlers
+
+export enum ModifierType {
+  Add = 'add',
+  Multiply = 'multiply',
+  Function = 'function',
+}
+
+export interface ActionEffect {
+  paramEffected: Param
+  amount: number
+}
+
+export type ModifierFunction = (value: number, level: number) => number
+export type CurriedModifier = (value: number) => number
+
+export class Modifier {
+  constructor(public param: Param, public type: ModifierType, public apply: ModifierFunction, public filter: () => boolean = () => true) {}
+}
+
+export type EventId = 'dayChange' | string // Extendable
+
+export type ActionEventHandlerFunction = (gs: GameState, effectStack: ActionEffect[], eventId: EventId, level: number) => void
+
+export class ActionEventHandler {
+  constructor(public trigger: EventId, public apply: ActionEventHandlerFunction) {}
+}
+
+export type ParamEventHandlerFunction = (gs: GameState, effectStack: ActionEffect[], param: Param, value: number, level: number) => void
+
+export class ParamEventHandler {
+  constructor(public trigger: Param, public apply: ParamEventHandlerFunction) {}
 }
 
 export type Param =
