@@ -48,8 +48,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (_gs) => [
     effect: [{ paramEffected: 'ep', amount: -10 }],
     functionEffect: (gs) => ({
       ...gs,
-      currentScreen: 'selection',
-      contractSelections: [...gs.contractSelections, [generateContract(gs), generateContract(gs), generateContract(gs)]],
+      contracts: [generateContract(gs), generateContract(gs), generateContract(gs)],
     }),
   },
   {

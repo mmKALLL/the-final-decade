@@ -161,6 +161,7 @@ export type Param =
 
 export type Contract = {
   name: Label
+  type?: 'alignment' | 'capabilities'
   rarity: Rarity
   // acceptDescription: Label
   successDescription: Label

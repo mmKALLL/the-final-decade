@@ -36,3 +36,11 @@ const paramToLabel = (p: Param): string => {
 }
 
 export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
+
+export const convertRequirementsToCondition = (requirements: Effect): ((gs: GameState) => boolean) => {
+  return (gs: GameState) =>
+    requirements.every(
+      (req) =>
+        req.paramEffected !== 'humanSelection' && req.paramEffected !== 'breakthroughSelection' && gs[req.paramEffected] >= req.amount
+    )
+}

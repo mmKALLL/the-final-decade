@@ -23,7 +23,17 @@ export function useGameState() {
 }
 
 export function reduceAction(gs: GameState, action: Action): GameState {
-  if (action.enabledCondition && !action.enabledCondition(gs)) {
+  if (
+    (action.enabledCondition && !action.enabledCondition(gs)) ||
+    action.effect.some((e) => e.condition && e.condition(gs, e.paramEffected, e.amount)) ||
+    action.effect.some(
+      (e) =>
+        e.paramEffected !== 'humanSelection' &&
+        e.paramEffected !== 'breakthroughSelection' &&
+        e.amount < 0 &&
+        gs[e.paramEffected] < -e.amount
+    )
+  ) {
     return gs // Return early if action is not applicable
   }
 

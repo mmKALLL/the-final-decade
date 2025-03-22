@@ -38,13 +38,14 @@ export function generateContract(gs: GameState): Contract {
   // Requirements scale exponentially with difficulty. They are mapped to costs for now
   const totalRequirement = Math.round(Math.pow((100 + difficulty) / 100, 1.7))
   const alignmentRequirement = totalRequirement >= 2 && isAlignmentContract ? Math.round(totalRequirement * 0.64) : 0
-  const alignmentCosts: Effect = alignmentRequirement > 0 ? [{ paramEffected: 'rp', amount: -alignmentRequirement }] : []
-  const capabilityCosts: Effect = [{ paramEffected: 'ep', amount: -(totalRequirement - alignmentRequirement) }]
+  const alignmentCosts: Effect = alignmentRequirement > 0 ? [{ paramEffected: 'rp', amount: -alignmentRequirement * 5 }] : []
+  const capabilityCosts: Effect = [{ paramEffected: 'ep', amount: -(totalRequirement - alignmentRequirement) * 5 }]
   const costs: Effect = [...alignmentCosts, ...capabilityCosts]
   const requirements: Effect = []
 
   return {
     name: getRandomContractName(),
+    type: isAlignmentContract ? 'alignment' : 'capabilities',
     rarity: difficulty > 200 ? 'rare' : difficulty > 150 ? 'uncommon' : 'common',
     successDescription: { 'en-US': effectListToString(modifiedOnSuccess), 'jp-FI': effectListToString(modifiedOnSuccess) },
     requirementDescription: { 'en-US': effectListToString(requirements), 'jp-FI': effectListToString(requirements) },

@@ -2,8 +2,7 @@ import { useEffect } from 'preact/hooks'
 import { useGameState } from '../../gamestate-hooks'
 import { HumanItem } from './human-item'
 import { BreakthroughItem } from './breakthrough-item'
-import { Contract, Human, Breakthrough } from '../../types'
-import { ContractItem } from './contract-item'
+import { Human, Breakthrough } from '../../types'
 import { ContractList } from '../contract-list'
 
 export const SelectionScreen = () => {
@@ -93,9 +92,11 @@ export const SelectionScreen = () => {
           <div className="selection-section">
             <h3 className="selection-title">Contract Selection</h3>
             <div className="selection-grid">
-              {gs.contractSelections[0].map((contract) => (
-                <ContractItem key={contract.name['en-US']} contract={contract} onSelect={() => handleContractSelect(contract)} />
-              ))}
+              {gs.contractSelections[0].map(
+                (contract) =>
+                  // <ContractItem key={contract.name['en-US']} contract={contract} onSelect={() => handleContractSelect(contract)} />
+                  'Something went wrong and we now have a contract selection'
+              )}
             </div>
           </div>
         )}
@@ -151,22 +152,6 @@ export const SelectionScreen = () => {
         return {
           ...gs,
           breakthroughSelections: gs.breakthroughSelections.slice(1), // Remove first breakthrough group after selection
-        }
-      },
-    })
-  }
-
-  // Handle selecting a contract
-  function handleContractSelect(contract: Contract) {
-    dispatch({
-      name: { 'en-US': `Accepted ${contract.name['en-US']}`, 'jp-FI': `契約: ${contract.name['jp-FI']}` },
-      turnCost: 0,
-      turnsInvested: 0,
-      effect: [],
-      functionEffect: (gs) => {
-        return {
-          ...gs,
-          contractSelections: gs.contractSelections.slice(1), // Remove first contract group after selection
         }
       },
     })

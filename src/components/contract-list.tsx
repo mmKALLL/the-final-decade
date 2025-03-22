@@ -1,6 +1,6 @@
 import { useGameState } from '../gamestate-hooks'
 import { Contract, YearlyContract } from '../types'
-import { capitalize } from '../util'
+import { capitalize, convertRequirementsToCondition } from '../util'
 
 // Type guard to check if a contract is a YearlyContract
 function isYearlyContract(contract: Contract | YearlyContract): contract is YearlyContract {
@@ -40,18 +40,16 @@ const rarityColors: Record<Contract['rarity'], string> = {
 export const ContractItem = ({ contract, language, editable }: ContractItemProps) => {
   const { dispatch } = useGameState()
 
-  // Function to complete a contract
   const completeContract = (contract: Contract | YearlyContract) => {
-    // Implement contract completion logic here
     dispatch({
       name: { 'en-US': `Completed ${contract.name['en-US']}`, 'jp-FI': `達成: ${contract.name['jp-FI']}` },
       turnCost: 1,
       turnsInvested: 0,
-      effect: contract.onSuccess,
+      effect: [...contract.onSuccess, ...contract.costs],
+      enabledCondition: convertRequirementsToCondition(contract.requirements),
+      // Remove the contract from the GS, filter based on name since there's no id
       functionEffect: (gs) => {
-        // For simplicity, just remove the contract (in a real app, you'd check requirements first)
         if (isYearlyContract(contract)) {
-          // Handle yearly contract - filter based on name since there's no id
           return {
             ...gs,
             yearlyContracts: gs.yearlyContracts.filter(
@@ -59,7 +57,6 @@ export const ContractItem = ({ contract, language, editable }: ContractItemProps
             ),
           }
         } else {
-          // Handle regular contract - filter based on name since there's no id
           return {
             ...gs,
             contracts: gs.contracts.filter((c) => c.name['en-US'] !== contract.name['en-US']),
@@ -82,6 +79,7 @@ export const ContractItem = ({ contract, language, editable }: ContractItemProps
         </h3>
         <span className="contract-rarity" style={{ color: rarityColors[contract.rarity] }}>
           {isYearlyContract(contract) && `${contract.year} - `}
+          {contract.type && `${contract.type === 'alignment' ? 'Align' : 'Capab'} - `}
           {capitalize(contract.rarity)}
         </span>
       </div>
