@@ -105,10 +105,10 @@ html, body {
 }
 
 .action-section h2 {
-  font-size: 1rem;
+  font-size: 0.85rem;
   margin-top: 0;
   margin-bottom: 0;
-  padding-left: 0.1rem;
+  padding-left: 0.2rem;
 }
 
 
@@ -184,12 +184,11 @@ html, body {
 .stat-categories {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 /* Stat category styling */
 .stat-category {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.2rem;
   flex: 1 1 100%;
   min-width: 100px;
 }
@@ -198,15 +197,12 @@ html, body {
   color: #e2e8f0;
   font-size: 0.85rem;
   margin: 0.3rem 0 0.2rem;
-  padding-bottom: 0.2rem;
-  border-bottom: 1px solid rgba(100, 100, 150, 0.3);
 }
 
 .game-state-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.35rem;
-  margin-top: 0.3rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 0.5rem;
 }
 
 .stat-card {
@@ -214,8 +210,9 @@ html, body {
   border-radius: 4px;
   padding: 0.4rem;
   display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   transition: all 0.2s ease;
 }
 
