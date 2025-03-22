@@ -26,8 +26,8 @@ export function useGameState() {
 
 export function canApplyAction(gs: GameState, action: Action): boolean {
   return (
-    (action.enabledCondition === undefined || (action.enabledCondition && action.enabledCondition(gs))) &&
-    action.effect.every((e) => e.condition && e.condition(gs, e.paramEffected, e.amount)) &&
+    (action.enabledCondition === undefined || action.enabledCondition(gs)) &&
+    action.effect.every((e) => e.condition === undefined || e.condition(gs, e.paramEffected, e.amount)) &&
     action.effect.every(
       (e) =>
         e.paramEffected === 'humanSelection' ||
@@ -99,6 +99,7 @@ export function handleTurn(gs: GameState): GameState {
   const rpGain = gs.humans.reduce((acc, human) => acc + human.rpGeneration, 0)
 
   const newTurn = gs.turn + 1
+
   const updatedGs = {
     ...gs,
     turn: newTurn,
