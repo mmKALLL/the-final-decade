@@ -151,6 +151,7 @@ export const SelectionScreen = () => {
       functionEffect: (gs) => {
         return {
           ...gs,
+          breakthroughs: [...gs.breakthroughs, breakthrough],
           breakthroughSelections: gs.breakthroughSelections.slice(1), // Remove first breakthrough group after selection
         }
       },
