@@ -127,23 +127,45 @@ export interface ActionEffect {
 export type ModifierFunction = (value: number, level: number) => number
 export type CurriedModifier = (value: number) => number
 
-export class Modifier {
-  constructor(public param: Param, public type: ModifierType, public apply: ModifierFunction, public filter: () => boolean = () => true) {}
+export type Modifier = {
+  param: Param
+  type: ModifierType
+  apply: ModifierFunction
+  filter: () => boolean
 }
 
-export type EventId = 'dayChange' | string // Extendable
+export type EventId =
+  // First-order actions
+  | 'independentOutreach'
+  | 'independentEngineering'
+  | 'independentResearch'
+  | 'applyForFunding'
+
+  // Second-order actions
+  | 'researchBreakthrough'
+  | 'refreshContracts'
+  | 'recruitHuman'
+  | 'gainUpgradePoint'
+
+  // Third-order actions
+  | 'influenceAsiOutcome'
+  | 'influencePublicUnity'
+  | 'increaseInfluence'
+  | 'buildTrust'
+
+  // Game state related
+  | 'contractSuccess'
+  | 'dayChange'
+  | 'yearChange'
+  | 'internalStateChange' // Should not be listened to in most cases
 
 export type ActionEventHandlerFunction = (gs: GameState, effectStack: ActionEffect[], eventId: EventId, level: number) => void
 
-export class ActionEventHandler {
-  constructor(public trigger: EventId, public apply: ActionEventHandlerFunction) {}
-}
+export type ActionEventHandler = { trigger: EventId; apply: ActionEventHandlerFunction }
 
 export type ParamEventHandlerFunction = (gs: GameState, effectStack: ActionEffect[], param: Param, value: number, level: number) => void
 
-export class ParamEventHandler {
-  constructor(public trigger: Param, public apply: ParamEventHandlerFunction) {}
-}
+export type ParamEventHandler = { trigger: Param; apply: ParamEventHandlerFunction }
 
 export type Param =
   | 'turn'
@@ -182,6 +204,7 @@ export type YearlyContract = Contract & {
 }
 
 export type Action = {
+  eventId: EventId
   name: Label
   description?: Label
   enabledCondition?: (gs: GameState) => boolean
@@ -199,16 +222,6 @@ export type SingleEffect = {
 }
 
 export type Effect = SingleEffect[]
-
-// const initialOrganizations = [
-//   Organization('Meta AI', -20, FeatureName.automation, 0),
-//   Organization('Anthropic', -5, FeatureName.boundedness, 0),
-//   Organization('Noeon', -20, FeatureName.interpretability, 0),
-//   Organization('OpenAI', 10, FeatureName.strategy, 0),
-//   Organization('DeepMind', 0, FeatureName.predictability, 0),
-//   Organization('Deepseek', 0, FeatureName.predictability, 0),
-//   Organization('Neuroqueen', 0, FeatureName.predictability, 0),
-// ]
 
 export type Weighted<T> = {
   value: T

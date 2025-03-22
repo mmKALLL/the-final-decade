@@ -4,24 +4,28 @@ import { generateHuman, generateBreakthrough } from './data-generators'
 
 export const firstOrderActions: (gs: GameState) => Action[] = (gs) => [
   {
+    eventId: 'independentOutreach',
     name: { 'en-US': 'Independent outreach', 'jp-FI': '個人的なネットワーキング' },
     turnCost: 1,
     turnsInvested: 0,
     effect: [{ paramEffected: 'sp', amount: 3 }],
   },
   {
+    eventId: 'independentEngineering',
     name: { 'en-US': 'Independent engineering', 'jp-FI': '個人的な開発' },
     turnCost: 1,
     turnsInvested: 0,
     effect: [{ paramEffected: 'ep', amount: 3 }],
   },
   {
+    eventId: 'independentResearch',
     name: { 'en-US': 'Independent research', 'jp-FI': '個人的な研究' },
     turnCost: 1,
     turnsInvested: 0,
     effect: [{ paramEffected: 'rp', amount: 3 }],
   },
   {
+    eventId: 'applyForFunding',
     name: { 'en-US': 'Apply for funding', 'jp-FI': 'お金を募集する' },
     turnCost: 1,
     turnsInvested: 0,
@@ -31,6 +35,7 @@ export const firstOrderActions: (gs: GameState) => Action[] = (gs) => [
 
 export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
   {
+    eventId: 'recruitHuman',
     name: { 'en-US': 'Recruit a human', 'jp-FI': '人材を増やす' },
     turnCost: 1,
     turnsInvested: 0,
@@ -42,6 +47,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     }),
   },
   {
+    eventId: 'refreshContracts',
     name: { 'en-US': 'Refresh contracts', 'jp-FI': '契約を探す' },
     turnCost: 1,
     turnsInvested: 0,
@@ -52,6 +58,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     }),
   },
   {
+    eventId: 'researchBreakthrough',
     name: { 'en-US': 'Make a breakthrough', 'jp-FI': '突破を研究する' },
     turnCost: 1,
     turnsInvested: 0,
@@ -66,6 +73,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     }),
   },
   {
+    eventId: 'gainUpgradePoint',
     name: { 'en-US': 'Work on upgrades', 'jp-FI': 'アップグレード作業' },
     turnCost: 1,
     turnsInvested: 0,
@@ -75,6 +83,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
 
 export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
   {
+    eventId: 'buildTrust',
     name: { 'en-US': 'Build trust', 'jp-FI': '信頼を作る' },
     turnCost: 1,
     turnsInvested: 0,
@@ -84,6 +93,7 @@ export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
     ],
   },
   {
+    eventId: 'increaseInfluence',
     name: { 'en-US': 'Marketing campaign', 'jp-FI': '影響力を増やす' },
     turnCost: 1,
     turnsInvested: 0,
@@ -93,6 +103,7 @@ export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
     ],
   },
   {
+    eventId: 'influenceAsiOutcome',
     name: { 'en-US': 'Alignment research', 'jp-FI': 'アライメント研究' },
     turnCost: 1,
     turnsInvested: 0,
@@ -102,6 +113,7 @@ export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
     ],
   },
   {
+    eventId: 'influencePublicUnity',
     name: { 'en-US': 'Government lobbying', 'jp-FI': '治安を安定する' },
     turnCost: 1,
     turnsInvested: 0,
@@ -114,6 +126,7 @@ export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
 ]
 
 export const languageToggleAction: Action = {
+  eventId: 'internalStateChange',
   name: { 'en-US': 'Toggle language', 'jp-FI': '言語の切り替え' },
   turnCost: 0,
   turnsInvested: 0,
