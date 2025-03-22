@@ -193,10 +193,10 @@ export const spHumans: Human[] = [
     rarity: 'rare',
     wage: 25,
     rank: 'lead',
-    spGeneration: 5,
+    spGeneration: 4,
     epGeneration: 0,
     rpGeneration: 2,
-    specialEffect: [{ paramEffected: 'trust', amount: 10 }],
+    specialEffect: [{ paramEffected: 'sp', amount: 40 }],
   },
 
   // EPIC (3 total)
@@ -209,8 +209,8 @@ export const spHumans: Human[] = [
     epGeneration: 3,
     rpGeneration: 0,
     specialEffect: [
-      { paramEffected: 'influence', amount: 10 },
-      { paramEffected: 'trust', amount: 10 },
+      { paramEffected: 'influence', amount: 15 },
+      { paramEffected: 'trust', amount: 15 },
     ],
   },
   {
@@ -231,7 +231,10 @@ export const spHumans: Human[] = [
     spGeneration: 10,
     epGeneration: 0,
     rpGeneration: 4,
-    specialEffect: [{ paramEffected: 'sp', amount: 80 }],
+    specialEffect: [
+      { paramEffected: 'humanSelection', amount: 100 },
+      { paramEffected: 'humanSelection', amount: 100 },
+    ],
   },
 ]
 
@@ -704,8 +707,8 @@ export const rpHumans: Human[] = [
     epGeneration: 0,
     rpGeneration: 12,
     specialEffect: [
-      { paramEffected: 'breakthroughSelection', amount: 200 },
-      { paramEffected: 'breakthroughSelection', amount: 200 },
+      { paramEffected: 'breakthroughSelection', amount: 100 },
+      { paramEffected: 'breakthroughSelection', amount: 100 },
     ],
   },
 ]
