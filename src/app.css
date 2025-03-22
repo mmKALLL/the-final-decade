@@ -216,11 +216,6 @@ html, body {
   transition: all 0.2s ease;
 }
 
-.stat-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-}
-
 .stat-name {
   font-size: 0.65rem;
   font-weight: 600;
@@ -274,8 +269,8 @@ html, body {
   transition: all 0.2s ease;
 }
 
-.contract-card:hover {
-  transform: translateY(-1px);
+.contract-card.editable:hover {
+  transform: translateY(-2px);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 

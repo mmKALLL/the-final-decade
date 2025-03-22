@@ -4,6 +4,7 @@ import { HumanItem } from './human-item'
 import { UpgradeItem } from './upgrade-item'
 import { Contract, Human, Upgrade } from '../../types'
 import { ContractItem } from './contract-item'
+import { ContractList } from '../contract-list'
 
 export const SelectionScreen = () => {
   const { gs, dispatch } = useGameState()
@@ -96,9 +97,8 @@ export const SelectionScreen = () => {
         )}
       </div>
 
-      {/* Game state display below selection */}
+      {/* Game state display in compact row format */}
       <div className="game-state-section">
-        <h2>Game state:</h2>
         <div className="stat-categories">
           {Object.entries(compactCategories).map(([category, stats]) => (
             <div className="stat-category" key={`category-${category}`}>
@@ -115,6 +115,7 @@ export const SelectionScreen = () => {
           ))}
         </div>
       </div>
+      <ContractList editable={false} />
     </div>
   )
 

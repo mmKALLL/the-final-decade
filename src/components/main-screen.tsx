@@ -66,7 +66,6 @@ export const MainScreen = () => {
       </div>
 
       <div className="game-state-section">
-        <h2>Game state:</h2>
         <div className="stat-categories">
           {Object.entries(compactCategories).map(([category, stats]) => (
             <div className="stat-category" key={`category-${category}`}>
@@ -84,7 +83,7 @@ export const MainScreen = () => {
         </div>
       </div>
 
-      <ContractList />
+      <ContractList editable={true} />
 
       {/* Language toggle section at the bottom */}
       <div className="language-toggle-section">
