@@ -39,9 +39,15 @@ export const initialGameState: GameState = {
   currentScreen: 'selection',
   contracts: [generateContract(baseGameState), generateContract(baseGameState), generateContract(baseGameState)],
   humanSelections: [
-    [generateHuman(baseGameState), generateHuman(baseGameState), generateHuman(baseGameState)],
-    [generateHuman(baseGameState), generateHuman(baseGameState), generateHuman(baseGameState)],
-    [generateHuman(baseGameState), generateHuman(baseGameState), generateHuman(baseGameState)],
+    [generateHuman(baseGameState, 100, 'common'), generateHuman(baseGameState, 100, 'common'), generateHuman(baseGameState, 100, 'common')],
+    [generateHuman(baseGameState, 100, 'common'), generateHuman(baseGameState, 100, 'common'), generateHuman(baseGameState, 100, 'common')],
+    [generateHuman(baseGameState, 100, 'common'), generateHuman(baseGameState, 100, 'common'), generateHuman(baseGameState, 100, 'common')],
   ],
-  breakthroughSelections: [[generateBreakthrough(baseGameState), generateBreakthrough(baseGameState), generateBreakthrough(baseGameState)]],
+  breakthroughSelections: [
+    [
+      generateBreakthrough(baseGameState, 100, 'common'),
+      generateBreakthrough(baseGameState, 100, 'common'),
+      generateBreakthrough(baseGameState, 100, 'common'),
+    ],
+  ],
 }

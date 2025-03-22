@@ -209,3 +209,8 @@ export type Effect = SingleEffect[]
 //   Organization('Deepseek', 0, FeatureName.predictability, 0),
 //   Organization('Neuroqueen', 0, FeatureName.predictability, 0),
 // ]
+
+export type Weighted<T> = {
+  value: T
+  weight: number
+}

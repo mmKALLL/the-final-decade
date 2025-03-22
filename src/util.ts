@@ -1,4 +1,4 @@
-import { Action, Contract, Effect, GameState, Param, SingleEffect } from './types'
+import { Action, Contract, Effect, GameState, Param, SingleEffect, Weighted } from './types'
 
 export const getYear = (turn: number) => Math.floor(turn / 12) + 1
 export const isGameOver = (gs: GameState) => gs.asiOutcome <= 0 || gs.publicUnity <= 0 || gs.money <= 0
@@ -62,4 +62,18 @@ export const getDateFromTurn = (turn: number) => {
   const month = (turn % 12) + 1
 
   return `${year}-${month < 10 ? '0' : ''}${month}`
+}
+
+export function pickWeighted<T>(items: Weighted<T>[]): T {
+  const totalWeight = items.reduce((sum, item) => sum + item.weight, 0)
+  const roll = Math.random() * totalWeight
+
+  let cumulative = 0
+  for (const item of items) {
+    cumulative += item.weight
+    if (roll < cumulative) return item.value
+  }
+
+  // Fallback in case of rounding errors
+  return items[items.length - 1].value
 }
