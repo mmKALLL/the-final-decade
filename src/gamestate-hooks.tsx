@@ -1,7 +1,7 @@
 import { createContext, JSX } from 'preact'
 import { initialGameState } from './data/data-gamestate'
 import { useContext, useReducer } from 'preact/hooks'
-import { Action, EventId, GameState, ModifierType, Param, SingleEffect } from './types'
+import { Action, Effect, EffectStack, EventId, GameState, ModifierType, Param } from './types'
 import { generateHuman, generateBreakthrough } from './data/data-generators'
 import { refreshContracts } from './data/contract-generator'
 import { convertContractToAction } from './util'
@@ -59,24 +59,24 @@ export function reduceAction(gs: GameState, action: Action): GameState {
   return updatedGs
 }
 
-function createEffectStack(gs: GameState, action: Action): SingleEffect[] {
+function createEffectStack(gs: GameState, action: Action): EffectStack {
   let updatedGs = { ...gs }
 
   // Apply function effect if exists
   updatedGs = action.functionEffect ? action.functionEffect(updatedGs) : updatedGs
 
   // Create effect stack to track all effects that should be applied
-  const effectStack: SingleEffect[] = action.effect
+  const effectStack: EffectStack = action.effect.map((e) => ({ ...e, depth: 0 }))
 
   // Trigger action event handlers for this action
   if (action.eventId) {
-    updatedGs = applyActionEventHandlers(updatedGs, effectStack, action.eventId)
+    updatedGs = applyActionEventHandlers(updatedGs, effectStack, action.eventId, 0)
   }
 
   return effectStack
 }
 
-function applyActionEventHandlers(gs: GameState, effectStack: SingleEffect[], eventId: EventId): GameState {
+function applyActionEventHandlers(gs: GameState, effectStack: EffectStack, eventId: EventId, depth: number): GameState {
   // Make a copy of the game state to work with
   const updatedGs = { ...gs }
 
@@ -91,13 +91,13 @@ function applyActionEventHandlers(gs: GameState, effectStack: SingleEffect[], ev
 
   // Apply each handler, allowing it to modify the effect stack
   allHandlers.forEach(({ handler, level }) => {
-    handler.apply(updatedGs, effectStack, eventId, level)
+    handler.apply(updatedGs, effectStack, eventId, level, depth)
   })
 
   return updatedGs
 }
 
-function applyParamEventHandlers(gs: GameState, effectStack: SingleEffect[], param: Param, value: number): GameState {
+function applyParamEventHandlers(gs: GameState, effectStack: EffectStack, param: Param, value: number, depth: number): GameState {
   // Make a copy of the game state to work with
   const updatedGs = { ...gs }
 
@@ -112,7 +112,7 @@ function applyParamEventHandlers(gs: GameState, effectStack: SingleEffect[], par
 
   // Apply each handler, allowing it to modify the effect stack
   allHandlers.forEach(({ handler, level }) => {
-    handler.apply(updatedGs, effectStack, param, value, level)
+    handler.apply(updatedGs, effectStack, param, value, level, depth)
   })
 
   return updatedGs
@@ -158,7 +158,7 @@ function applyModifiers(gs: GameState, param: Param, value: number): number {
   return modifiedValue
 }
 
-function reduceEffect(effectStack: SingleEffect[], gs: GameState, depth: number): GameState {
+function reduceEffect(effectStack: EffectStack, gs: GameState, depth: number): GameState {
   if (effectStack.length === 0 || depth >= 10) {
     return gs
   }
@@ -206,7 +206,7 @@ function reduceEffect(effectStack: SingleEffect[], gs: GameState, depth: number)
   updatedGs = { ...updatedGs, [paramEffected]: newValue }
 
   // Trigger param event handlers
-  updatedGs = applyParamEventHandlers(updatedGs, effectStack, paramEffected, modifiedAmount)
+  updatedGs = applyParamEventHandlers(updatedGs, effectStack, paramEffected, modifiedAmount, depth)
 
   return reduceEffect(effectStack.slice(1), updatedGs, depth)
 }
@@ -224,7 +224,7 @@ export function handleTurn(gs: GameState): GameState {
   const newTurn = gs.turn + 1
 
   // Create effect stack for turn changes
-  const effectStack: SingleEffect[] = [
+  const effect: Effect = [
     { paramEffected: 'money', amount: moneyGain },
     { paramEffected: 'sp', amount: spGain },
     { paramEffected: 'ep', amount: epGain },
@@ -232,12 +232,13 @@ export function handleTurn(gs: GameState): GameState {
     { paramEffected: 'asiOutcome', amount: gs.publicUnity },
     { paramEffected: 'turn', amount: 1 },
   ]
+  const effectStack: EffectStack = effect.map((e) => ({ ...e, depth: 0 }))
 
   // Create a base updated game state
   let updatedGs = { ...gs, turn: newTurn }
 
   // Apply dayChange event handlers
-  updatedGs = applyActionEventHandlers(updatedGs, effectStack, 'dayChange')
+  updatedGs = applyActionEventHandlers(updatedGs, effectStack, 'dayChange', 0)
 
   // Apply all effects
   updatedGs = reduceEffect(effectStack, updatedGs, 0)
@@ -263,13 +264,14 @@ export function handleEndOfYear(gs: GameState): GameState {
   let updatedGs: GameState = { ...gs }
 
   // Create effect stack for year change
-  const effectStack: SingleEffect[] = [
+  const effect: Effect = [
     { paramEffected: 'publicUnity', amount: -1 },
     { paramEffected: 'passiveIncome', amount: Math.floor(updatedGs.money / 100) },
   ]
+  const effectStack: EffectStack = effect.map((e) => ({ ...e, depth: 0 }))
 
   // Apply yearChange event handlers
-  updatedGs = applyActionEventHandlers(updatedGs, effectStack, 'yearChange')
+  updatedGs = applyActionEventHandlers(updatedGs, effectStack, 'yearChange', 0)
 
   // Apply the year change effects
   updatedGs = reduceEffect(effectStack, updatedGs, 0)
@@ -291,7 +293,11 @@ export function handleEndOfYear(gs: GameState): GameState {
   }
 
   // Apply the contract action, which will trigger action handlers
-  updatedGs = reduceEffect(contractAction.effect, updatedGs, 0)
+  updatedGs = reduceEffect(
+    contractAction.effect.map((e) => ({ ...e, depth: 0 })),
+    updatedGs,
+    0
+  )
 
   // Remove the first goal from gs.yearlyContracts and go to breakthrough selection screen
   updatedGs = {

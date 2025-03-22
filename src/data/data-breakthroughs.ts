@@ -1,6 +1,6 @@
 // TypeScript version of the Dart Upgrade definitions, renamed to Breakthrough
 
-import { Breakthrough, ModifierType, Param, GameState, EventId, SingleEffect } from '../types'
+import { Breakthrough, ModifierType, Param, GameState, EventId, SingleEffect, EffectStack } from '../types'
 
 // Extend Param type through declaration merging to include alignmentFocus
 declare global {
@@ -106,8 +106,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     paramEventHandlers: [
       {
         trigger: 'ep',
-        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
-          if (Math.random() < 0.25 * l) stack.push({ paramEffected: 'rp', amount: 1 })
+        apply: (gs: GameState, stack: EffectStack, param: Param, value: number, l: number, depth: number) => {
+          if (Math.random() < 0.25 * l) stack.push({ paramEffected: 'rp', amount: 1, depth: depth + 1 })
         },
       },
     ],

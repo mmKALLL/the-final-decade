@@ -158,11 +158,18 @@ export type EventId =
   | 'yearChange'
   | 'internalStateChange' // Should not be listened to in most cases
 
-export type ActionEventHandlerFunction = (gs: GameState, effectStack: SingleEffect[], eventId: EventId, level: number) => void
+export type ActionEventHandlerFunction = (gs: GameState, effectStack: EffectStack, eventId: EventId, level: number, depth: number) => void
 
 export type ActionEventHandler = { trigger: EventId; apply: ActionEventHandlerFunction }
 
-export type ParamEventHandlerFunction = (gs: GameState, effectStack: SingleEffect[], param: Param, value: number, level: number) => void
+export type ParamEventHandlerFunction = (
+  gs: GameState,
+  effectStack: EffectStack,
+  param: Param,
+  value: number,
+  level: number,
+  depth: number
+) => void
 
 export type ParamEventHandler = { trigger: Param; apply: ParamEventHandlerFunction }
 
@@ -221,6 +228,7 @@ export type SingleEffect = {
 }
 
 export type Effect = SingleEffect[]
+export type EffectStack = (SingleEffect & { depth: number })[]
 
 export type Weighted<T> = {
   value: T
