@@ -1,6 +1,6 @@
 import { useGameState } from '../gamestate-hooks'
 import { Contract, YearlyContract } from '../types'
-import { capitalize, convertRequirementsToCondition } from '../util'
+import { capitalize, convertContractToAction } from '../util'
 
 // Type guard to check if a contract is a YearlyContract
 function isYearlyContract(contract: Contract | YearlyContract): contract is YearlyContract {
@@ -52,25 +52,12 @@ export const ContractItem = ({ contract, language, editable }: ContractItemProps
 
   const completeContract = (contract: Contract | YearlyContract) => {
     dispatch({
-      name: { 'en-US': `Completed ${contract.name['en-US']}`, 'jp-FI': `達成: ${contract.name['jp-FI']}` },
-      turnCost: 1,
-      turnsInvested: 0,
-      effect: [...contract.onSuccess, ...contract.costs],
-      enabledCondition: convertRequirementsToCondition(contract.requirements),
+      ...convertContractToAction(contract),
       // Remove the contract from the GS, filter based on name since there's no id
       functionEffect: (gs) => {
-        if (isYearlyContract(contract)) {
-          return {
-            ...gs,
-            yearlyContracts: gs.yearlyContracts.filter(
-              (c) => !isYearlyContract(c) || c.name['en-US'] !== contract.name['en-US'] || c.year !== contract.year
-            ),
-          }
-        } else {
-          return {
-            ...gs,
-            contracts: gs.contracts.filter((c) => c.name['en-US'] !== contract.name['en-US']),
-          }
+        return {
+          ...gs,
+          contracts: gs.contracts.filter((c) => c.name['en-US'] !== contract.name['en-US']),
         }
       },
     })

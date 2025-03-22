@@ -16,7 +16,7 @@ export type Label = Record<Language, string>
 export type LabelByLevel = Record<Language, (level: number) => string>
 
 export type GameState = {
-  currentScreen: 'main' | 'selection'
+  currentScreen: 'main' | 'selection' | 'game-over' | 'victory'
   language: Language
 
   turn: number // Each unit of time represents one month

@@ -3,6 +3,8 @@ import { initialGameState } from './data/data-gamestate'
 import { useContext, useReducer } from 'preact/hooks'
 import { Action, Effect, GameState } from './types'
 import { generateHuman, generateBreakthrough } from './data/data-generators'
+import { generateContract } from './data/contract-generator'
+import { convertContractToAction } from './util'
 
 export const GameStateContext = createContext(initialGameState)
 export const DispatchContext = createContext((_action: Action) => {})
@@ -96,12 +98,70 @@ export function handleTurn(gs: GameState): GameState {
   const epGain = gs.humans.reduce((acc, human) => acc + human.epGeneration, 0)
   const rpGain = gs.humans.reduce((acc, human) => acc + human.rpGeneration, 0)
 
-  return {
+  const newTurn = gs.turn + 1
+  const updatedGs = {
     ...gs,
-    turn: gs.turn + 1,
+    turn: newTurn,
     money: gs.money + moneyGain,
     sp: gs.sp + spGain,
     ep: gs.ep + epGain,
     rp: gs.rp + rpGain,
   }
+
+  // Check if this is the end of a year (turn divisible by 12)
+  if (newTurn % 12 === 0) {
+    return handleEndOfYear(updatedGs)
+  }
+
+  return updatedGs
+}
+
+export function handleEndOfYear(gs: GameState): GameState {
+  // Create a new game state that we'll modify
+  let updatedGs: GameState = { ...gs }
+
+  // Refresh non-yearly contracts
+  updatedGs = {
+    ...updatedGs,
+    contracts: [generateContract(updatedGs), generateContract(updatedGs), generateContract(updatedGs)],
+  }
+
+  // Check the first yearly goal and generate an action for it
+  const firstYearlyContract = updatedGs.yearlyContracts[0]
+  const contractAction = convertContractToAction(firstYearlyContract)
+
+  // If the contract condition is false or canApplyAction is false, enable game over screen
+  const canApply = canApplyAction(updatedGs, contractAction)
+  if (!canApply) {
+    return {
+      ...updatedGs,
+      currentScreen: 'game-over',
+    }
+  }
+
+  // If the first goal has been reached, apply its effects
+  updatedGs = reduceEffect(contractAction.effect, updatedGs, 0)
+
+  // Remove the first goal from gs.yearlyContracts
+  updatedGs = {
+    ...updatedGs,
+    yearlyContracts: updatedGs.yearlyContracts.slice(1),
+  }
+
+  // Reduce public unity by 1 and increase passive income by 1 for each 100 money the player has (floored)
+  updatedGs = {
+    ...updatedGs,
+    publicUnity: updatedGs.publicUnity - 1,
+    passiveIncome: updatedGs.passiveIncome + Math.floor(updatedGs.money / 100),
+  }
+
+  // Show victory screen if all yearly contracts have been completed
+  if (updatedGs.yearlyContracts.length === 0) {
+    return {
+      ...updatedGs,
+      currentScreen: 'victory',
+    }
+  }
+
+  return updatedGs
 }

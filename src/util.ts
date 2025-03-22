@@ -1,4 +1,4 @@
-import { Effect, GameState, Param, SingleEffect } from './types'
+import { Action, Contract, Effect, GameState, Param, SingleEffect } from './types'
 
 export const getYear = (turn: number) => Math.floor(turn / 12) + 1
 export const isGameOver = (gs: GameState) => gs.asiOutcome <= 0 || gs.publicUnity <= 0 || gs.money <= 0
@@ -37,10 +37,20 @@ const paramToLabel = (p: Param): string => {
 
 export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
-export const convertRequirementsToCondition = (requirements: Effect): ((gs: GameState) => boolean) => {
+const convertRequirementsToCondition = (requirements: Effect): ((gs: GameState) => boolean) => {
   return (gs: GameState) =>
     requirements.every(
       (req) =>
         req.paramEffected !== 'humanSelection' && req.paramEffected !== 'breakthroughSelection' && gs[req.paramEffected] >= req.amount
     )
+}
+
+export const convertContractToAction = (contract: Contract): Action => {
+  return {
+    ...contract,
+    enabledCondition: convertRequirementsToCondition(contract.requirements),
+    effect: [...contract.onSuccess, ...contract.costs],
+    turnCost: 0,
+    turnsInvested: 0,
+  }
 }
