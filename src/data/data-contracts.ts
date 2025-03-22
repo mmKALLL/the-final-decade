@@ -9,7 +9,7 @@ export const yearlyContracts: YearlyContract[] = [
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
     costDescription: { 'en-US': 'SP -20, Passive income -10', 'jp-FI': 'SP -20、受動的収入 -10' },
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
-    onSuccess: [{ paramEffected: 'upgradeSelection', amount: 300 }],
+    onSuccess: [{ paramEffected: 'breakthroughSelection', amount: 300 }],
     requirements: [],
     costs: [
       { paramEffected: 'sp', amount: -20 },
@@ -38,7 +38,7 @@ export const yearlyContracts: YearlyContract[] = [
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
     costDescription: { 'en-US': 'RP -20, ASI Outcome -20', 'jp-FI': 'RP -20, ASIの結果 -20' },
     requirementDescription: { 'en-US': 'RP >= 40', 'jp-FI': 'アラインメント受け入れ >= 1' },
-    onSuccess: [{ paramEffected: 'upgradeSelection', amount: 300 }],
+    onSuccess: [{ paramEffected: 'breakthroughSelection', amount: 300 }],
     requirements: [{ paramEffected: 'publicUnity', amount: 1 }],
     costs: [{ paramEffected: 'publicUnity', amount: -2 }],
   },

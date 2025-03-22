@@ -29,8 +29,8 @@ const paramToLabel = (p: Param): string => {
     case 'ep':               return 'EP'
     case 'sp':               return 'SP'
     case 'up':               return 'UP'
-    case 'humanSelection':   return 'human selection'
-    case 'upgradeSelection': return 'upgrade selection'
+    case 'humanSelection':   return 'new human'
+    case 'breakthroughSelection': return 'new breakthrough'
     default: return assertNever(p)
   }
 }

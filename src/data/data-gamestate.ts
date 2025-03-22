@@ -20,11 +20,11 @@ const baseGameState: GameState = {
   up: 0,
 
   humans: [],
-  upgrades: [],
+  breakthroughs: [],
   contracts: [],
 
   humanSelections: [],
-  upgradeSelections: [],
+  breakthroughSelections: [],
   contractSelections: [],
 
   yearlyContracts: generateYearlyContracts(),

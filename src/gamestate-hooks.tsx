@@ -2,7 +2,7 @@ import { createContext, JSX } from 'preact'
 import { initialGameState } from './data/data-gamestate'
 import { useContext, useReducer } from 'preact/hooks'
 import { Action, Effect, GameState } from './types'
-import { generateHuman, generateUpgrade } from './data/data-generators'
+import { generateHuman, generateBreakthrough } from './data/data-generators'
 
 export const GameStateContext = createContext(initialGameState)
 export const DispatchContext = createContext((_action: Action) => {})
@@ -48,12 +48,12 @@ export function reduceEffect(effect: Effect, gameState: GameState, depth: number
         humanSelections: [...gs.humanSelections, [generateHuman(gs, amount), generateHuman(gs, amount), generateHuman(gs, amount)]],
       }
     }
-    if (paramEffected === 'upgradeSelection') {
+    if (paramEffected === 'breakthroughSelection') {
       return {
         ...gs,
-        upgradeSelections: [
-          ...gs.upgradeSelections,
-          [generateUpgrade(gs, amount), generateUpgrade(gs, amount), generateUpgrade(gs, amount)],
+        breakthroughSelections: [
+          ...gs.breakthroughSelections,
+          [generateBreakthrough(gs, amount), generateBreakthrough(gs, amount), generateBreakthrough(gs, amount)],
         ],
       }
     }
@@ -62,12 +62,12 @@ export function reduceEffect(effect: Effect, gameState: GameState, depth: number
     const updatedValue = currentValue + amount
     const updatedGs = { ...gs, [singleEffect.paramEffected]: updatedValue }
 
-    // If this is the first effect on stack, apply effects from upgrades
+    // If this is the first effect on stack, apply effects from breakthroughs
     if (amount > 0 && depth === 0) {
-      const upgradeEffects = gameState.upgrades
-        .flatMap((upgrade) => upgrade.effect)
+      const breakthroughEffects = gameState.breakthroughs
+        .flatMap((breakthrough) => breakthrough.effect)
         .filter((effect) => !effect.condition || effect.condition(gs, paramEffected, amount))
-      return reduceEffect(upgradeEffects, updatedGs, depth + 1)
+      return reduceEffect(breakthroughEffects, updatedGs, depth + 1)
     }
 
     return updatedGs

@@ -1,6 +1,6 @@
-import { Upgrade } from '../../types'
+import { Breakthrough } from '../../types'
 
-export const UpgradeItem = ({ upgrade, onSelect }: { upgrade: Upgrade; onSelect: () => void }) => {
+export const BreakthroughItem = ({ breakthrough, onSelect }: { breakthrough: Breakthrough; onSelect: () => void }) => {
   return (
     <button
       onClick={onSelect}
@@ -19,10 +19,10 @@ export const UpgradeItem = ({ upgrade, onSelect }: { upgrade: Upgrade; onSelect:
       }}
     >
       <span>
-        {upgrade.name['en-US']} (Lv. {upgrade.level}/{upgrade.maxLevel})
+        {breakthrough.name['en-US']} (Lv. {breakthrough.level}/{breakthrough.maxLevel})
       </span>
       <span>
-        {upgrade.effect.map((e) => (
+        {breakthrough.effect.map((e) => (
           <>
             | ⚡ {e.amount} {e.paramEffected}
           </>

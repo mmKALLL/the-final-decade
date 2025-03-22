@@ -4,8 +4,8 @@ export type CurrentScreen =
   | 'victory'
   | 'introduction' // unused
   | 'ingame'
-  | 'upgrades'
-  | 'upgradeSelection'
+  | 'breakthroughs'
+  | 'breakthroughSelection'
   | 'humanAllocation' // unused
   | 'contracts'
 
@@ -44,10 +44,10 @@ export type GameState = {
 
   humans: Human[]
   contracts: Contract[]
-  upgrades: Upgrade[]
+  breakthroughs: Breakthrough[]
 
   humanSelections: Human[][]
-  upgradeSelections: Upgrade[][]
+  breakthroughSelections: Breakthrough[][]
   contractSelections: Contract[][]
 
   yearlyContracts: Contract[]
@@ -94,7 +94,7 @@ export type Human = {
   specialEffect?: Effect
 }
 
-export type Upgrade = {
+export type Breakthrough = {
   name: Label
   description: Label
   rarity: Rarity
@@ -111,7 +111,7 @@ export type Upgrade = {
   // int level = 0;
   // int getLevel() => level;
   // final int maxLevel;
-  // final bool alwaysAppear; // Debug use only, can result in duplicates (see shuffleNextUpgrades)
+  // final bool alwaysAppear; // Debug use only, can result in duplicates (see shuffleNextBreakthroughs)
 }
 
 export type Param =
@@ -127,7 +127,7 @@ export type Param =
   | 'sp'
   | 'up'
   | 'humanSelection'
-  | 'upgradeSelection'
+  | 'breakthroughSelection'
 
 export type Contract = {
   name: Label

@@ -1,7 +1,6 @@
-import { generateUpgrade } from './data-generators'
 import { Action, GameState } from '../types'
 import { generateContract } from './contract-generator'
-import { generateHuman } from './data-generators'
+import { generateHuman, generateBreakthrough } from './data-generators'
 
 export const firstOrderActions: (gs: GameState) => Action[] = (gs) => [
   {
@@ -61,7 +60,10 @@ export const secondOrderActions: (gs: GameState) => Action[] = (_gs) => [
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
-      upgradeSelections: [...gs.upgradeSelections, [generateUpgrade(gs), generateUpgrade(gs), generateUpgrade(gs)]],
+      breakthroughSelections: [
+        ...gs.breakthroughSelections,
+        [generateBreakthrough(gs), generateBreakthrough(gs), generateBreakthrough(gs)],
+      ],
     }),
   },
   {

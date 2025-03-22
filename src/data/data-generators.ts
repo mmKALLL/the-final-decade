@@ -1,7 +1,7 @@
-import { Action, GameState, Human, Upgrade, YearlyContract } from '../types'
+import { Action, GameState, Human, Breakthrough, YearlyContract } from '../types'
 import { humans } from './data-humans'
+import { breakthroughs } from './data-breakthroughs'
 import { yearlyContracts } from './data-contracts'
-import { upgrades } from './data-upgrades'
 
 export function generateHuman(gs: GameState, _rarity?: number): Human {
   // Return random human for now
@@ -9,10 +9,10 @@ export function generateHuman(gs: GameState, _rarity?: number): Human {
   return filteredHumans[Math.floor(Math.random() * filteredHumans.length)]
 }
 
-export function generateUpgrade(gs: GameState, _rarity?: number): Upgrade {
-  // Return random upgrade for now
-  const filteredUpgrades = upgrades.filter((u) => !gs.upgrades.includes(u))
-  return filteredUpgrades[Math.floor(Math.random() * filteredUpgrades.length)]
+export function generateBreakthrough(gs: GameState, _rarity?: number): Breakthrough {
+  // Return random breakthrough for now
+  const filteredBreakthroughs = breakthroughs.filter((b) => !gs.breakthroughs.includes(b))
+  return filteredBreakthroughs[Math.floor(Math.random() * filteredBreakthroughs.length)]
 }
 
 export function generateActionDescription(action: Action): string {

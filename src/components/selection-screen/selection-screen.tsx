@@ -1,8 +1,8 @@
 import { useEffect } from 'preact/hooks'
 import { useGameState } from '../../gamestate-hooks'
 import { HumanItem } from './human-item'
-import { UpgradeItem } from './upgrade-item'
-import { Contract, Human, Upgrade } from '../../types'
+import { BreakthroughItem } from './breakthrough-item'
+import { Contract, Human, Breakthrough } from '../../types'
 import { ContractItem } from './contract-item'
 import { ContractList } from '../contract-list'
 
@@ -10,7 +10,7 @@ export const SelectionScreen = () => {
   const { gs, dispatch } = useGameState()
 
   useEffect(() => {
-    if (gs.humanSelections.length === 0 && gs.upgradeSelections.length === 0 && gs.contractSelections.length === 0) {
+    if (gs.humanSelections.length === 0 && gs.breakthroughSelections.length === 0 && gs.contractSelections.length === 0) {
       dispatch({
         name: { 'en-US': 'End selection screen', 'jp-FI': '選択画面終了' },
         turnCost: 0,
@@ -24,7 +24,7 @@ export const SelectionScreen = () => {
         },
       })
     }
-  }, [gs.humanSelections, gs.upgradeSelections, gs.contractSelections])
+  }, [gs.humanSelections, gs.breakthroughSelections, gs.contractSelections])
 
   // Format value display to be more readable
   const formatValue = (value: any) => {
@@ -53,7 +53,7 @@ export const SelectionScreen = () => {
     },
     Team: {
       humans: gs.humans.length,
-      upgrades: gs.upgrades.length,
+      breakthroughs: gs.breakthroughs.length,
     },
   }
 
@@ -72,13 +72,17 @@ export const SelectionScreen = () => {
           </div>
         )}
 
-        {/* Upgrade Selection (only first group) */}
-        {gs.upgradeSelections.length > 0 && (
+        {/* Breakthrough Selection (only first group) */}
+        {gs.breakthroughSelections.length > 0 && (
           <div className="selection-section">
-            <h3 className="selection-title">Upgrade Selection</h3>
+            <h3 className="selection-title">Breakthrough Selection</h3>
             <div className="selection-grid">
-              {gs.upgradeSelections[0].map((upgrade) => (
-                <UpgradeItem key={upgrade.name['en-US']} upgrade={upgrade} onSelect={() => handleUpgradeSelect(upgrade)} />
+              {gs.breakthroughSelections[0].map((breakthrough) => (
+                <BreakthroughItem
+                  key={breakthrough.name['en-US']}
+                  breakthrough={breakthrough}
+                  onSelect={() => handleBreakthroughSelect(breakthrough)}
+                />
               ))}
             </div>
           </div>
@@ -136,17 +140,17 @@ export const SelectionScreen = () => {
     })
   }
 
-  // Handle selecting an upgrade
-  function handleUpgradeSelect(upgrade: Upgrade) {
+  // Handle selecting a breakthrough
+  function handleBreakthroughSelect(breakthrough: Breakthrough) {
     dispatch({
-      name: { 'en-US': `Acquired ${upgrade.name['en-US']}`, 'jp-FI': `取得: ${upgrade.name['jp-FI']}` },
+      name: { 'en-US': `Acquired ${breakthrough.name['en-US']}`, 'jp-FI': `取得: ${breakthrough.name['jp-FI']}` },
       turnCost: 0,
       turnsInvested: 0,
       effect: [],
       functionEffect: (gs) => {
         return {
           ...gs,
-          upgradeSelections: gs.upgradeSelections.slice(1), // Remove first upgrade group after selection
+          breakthroughSelections: gs.breakthroughSelections.slice(1), // Remove first breakthrough group after selection
         }
       },
     })

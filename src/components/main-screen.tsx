@@ -33,7 +33,7 @@ export const MainScreen = () => {
     },
     Team: {
       humans: gs.humans.length,
-      upgrades: gs.upgrades.length,
+      breakthroughs: gs.breakthroughs.length,
     },
   }
 
