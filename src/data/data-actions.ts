@@ -34,7 +34,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (_gs) => [
     name: { 'en-US': 'Recruit a human', 'jp-FI': '人材を増やす' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'sp', amount: -10 }],
+    effect: [{ paramEffected: 'sp', amount: -40 }],
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
@@ -52,10 +52,10 @@ export const secondOrderActions: (gs: GameState) => Action[] = (_gs) => [
     }),
   },
   {
-    name: { 'en-US': 'Research a breakthrough', 'jp-FI': '突破を研究する' },
+    name: { 'en-US': 'Make a breakthrough', 'jp-FI': '突破を研究する' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'rp', amount: -10 }],
+    effect: [{ paramEffected: 'rp', amount: -80 }],
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
