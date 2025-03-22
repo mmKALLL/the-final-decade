@@ -54,6 +54,7 @@ export type GameState = {
   breakthroughSelections: Breakthrough[][]
   contractSelections: Contract[][]
 
+  maxContracts: number
   yearlyContracts: Contract[]
 
   additionalActions: Action[] // Any actions that are granted by breakthroughs
@@ -105,10 +106,11 @@ export type Breakthrough = {
   rarity: Rarity
   level: number
   maxLevel: number // Should be 3 for everything
-  effect: Effect
-  modifiers: Modifier[] // mods that affect resource gain
-  actionEventHandlers: ActionEventHandler[] // handlers that can perform additional reductions when actions are taken
-  paramEventHandlers: ParamEventHandler[] // handlers that can stack more effects when a parameter's value has been changed
+  effect?: Effect
+  functionEffect?: (gs: GameState) => GameState
+  modifiers?: Modifier[] // mods that affect resource gain
+  actionEventHandlers?: ActionEventHandler[] // handlers that can perform additional reductions when actions are taken
+  paramEventHandlers?: ParamEventHandler[] // handlers that can stack more effects when a parameter's value has been changed
 }
 
 // Types for Breakthrough modifiers and event handlers
@@ -131,10 +133,12 @@ export type Modifier = {
   param: Param
   type: ModifierType
   apply: ModifierFunction
-  filter: () => boolean
+  filter?: () => boolean
 }
 
 export type EventId =
+  | 'allActions'
+
   // First-order actions
   | 'independentOutreach'
   | 'independentEngineering'

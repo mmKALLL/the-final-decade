@@ -1,5 +1,5 @@
 import { Action, GameState } from '../types'
-import { generateContract } from './contract-generator'
+import { refreshContracts } from './contract-generator'
 import { generateHuman, generateBreakthrough } from './data-generators'
 
 export const firstOrderActions: (gs: GameState) => Action[] = (gs) => [
@@ -52,10 +52,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     turnCost: 1,
     turnsInvested: 0,
     effect: [{ paramEffected: 'ep', amount: -10 }],
-    functionEffect: (gs) => ({
-      ...gs,
-      contracts: [generateContract(gs), generateContract(gs), generateContract(gs)],
-    }),
+    functionEffect: refreshContracts,
   },
   {
     eventId: 'researchBreakthrough',

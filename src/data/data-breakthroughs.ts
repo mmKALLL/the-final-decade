@@ -1,6 +1,20 @@
 // TypeScript version of the Dart Upgrade definitions, renamed to Breakthrough
 
-import { Breakthrough, ParamEventHandler, Modifier, ActionEventHandler, ModifierType } from '../types'
+import { Breakthrough, ModifierType, Param, GameState, ActionEffect, EventId } from '../types'
+
+// Extend Param type through declaration merging to include alignmentFocus
+declare global {
+  namespace Types {
+    // Add properties we know exist in GameState
+    interface GameState {
+      // These properties were causing TypeScript errors
+      failsafeTriggered?: boolean
+      effectMultiplier: number
+      contractsPerCycle: number
+      turn: number // This property already exists in GameState in types.ts
+    }
+  }
+}
 
 export enum BreakthroughId {
   RewardHacking,
@@ -23,9 +37,28 @@ export enum BreakthroughId {
   FakeNews,
   MoneyLaundering,
   StrategicAlignment,
+
+  // Additional entries that were missing
+  ConsensusFilter,
+  OverclockedSimulations,
+  SponsorshipLobby,
+  FailsafeDaemon,
+  MultiAgentBoost,
+
+  PrecisionCorruption,
+  InfiniteLoopDetector,
+  ContractOverride,
+  ReplicatorGrid,
+  AestheticImpairment,
+
+  ArtificialConsciousness,
+  TheThirdSignal,
+  ColdAlignmentForge,
+  InstructionCollapse,
+  EncodedProphecy,
 }
 
-export const breakthroughs: Breakthrough[] = [
+export const commonBreakthroughs: Breakthrough[] = [
   {
     id: BreakthroughId.RewardHacking,
     name: { 'en-US': 'Reward Hacking', 'jp-FI': 'リワードハッキング' },
@@ -40,15 +73,24 @@ export const breakthroughs: Breakthrough[] = [
     modifiers: [],
     actionEventHandlers: [],
     paramEventHandlers: [
-      new ParamEventHandler('rp', (gs, stack, param, value, l) => {
-        if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'rp', amount: 1 })
-      }),
-      new ParamEventHandler('ep', (gs, stack, param, value, l) => {
-        if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'ep', amount: 1 })
-      }),
-      new ParamEventHandler('sp', (gs, stack, param, value, l) => {
-        if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'sp', amount: 1 })
-      }),
+      {
+        trigger: 'rp',
+        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+          if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'rp', amount: 1 })
+        },
+      },
+      {
+        trigger: 'ep',
+        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+          if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'ep', amount: 1 })
+        },
+      },
+      {
+        trigger: 'sp',
+        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+          if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'sp', amount: 1 })
+        },
+      },
     ],
   },
   {
@@ -65,9 +107,12 @@ export const breakthroughs: Breakthrough[] = [
     modifiers: [],
     actionEventHandlers: [],
     paramEventHandlers: [
-      new ParamEventHandler('ep', (gs, stack, param, value, l) => {
-        if (Math.random() < 0.25 * l) stack.push({ paramEffected: 'rp', amount: 1 })
-      }),
+      {
+        trigger: 'ep',
+        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+          if (Math.random() < 0.25 * l) stack.push({ paramEffected: 'rp', amount: 1 })
+        },
+      },
     ],
   },
   {
@@ -84,9 +129,12 @@ export const breakthroughs: Breakthrough[] = [
     modifiers: [],
     actionEventHandlers: [],
     paramEventHandlers: [
-      new ParamEventHandler('sp', (gs, stack, param, value, l) => {
-        if (Math.random() < 0.25 * l) stack.push({ paramEffected: 'ep', amount: 1 })
-      }),
+      {
+        trigger: 'sp',
+        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+          if (Math.random() < 0.25 * l) stack.push({ paramEffected: 'ep', amount: 1 })
+        },
+      },
     ],
   },
   {
@@ -103,9 +151,12 @@ export const breakthroughs: Breakthrough[] = [
     modifiers: [],
     actionEventHandlers: [],
     paramEventHandlers: [
-      new ParamEventHandler('rp', (gs, stack, param, value, l) => {
-        if (Math.random() < 0.25 * l) stack.push({ paramEffected: 'sp', amount: 1 })
-      }),
+      {
+        trigger: 'rp',
+        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+          if (Math.random() < 0.25 * l) stack.push({ paramEffected: 'sp', amount: 1 })
+        },
+      },
     ],
   },
   {
@@ -119,7 +170,13 @@ export const breakthroughs: Breakthrough[] = [
     level: 0,
     maxLevel: 3,
     effect: [],
-    modifiers: [new Modifier('money', ModifierType.Add, (value, level) => (value > 0 ? value + 10 * level : value))],
+    modifiers: [
+      {
+        param: 'money',
+        type: ModifierType.Add,
+        apply: (value: number, level: number) => (value > 0 ? value + 10 * level : value),
+      },
+    ],
     actionEventHandlers: [],
     paramEventHandlers: [],
   },
@@ -134,7 +191,13 @@ export const breakthroughs: Breakthrough[] = [
     level: 0,
     maxLevel: 3,
     effect: [],
-    modifiers: [new Modifier('sp', ModifierType.Multiply, (value, level) => (value >= 0 ? value : value * (1 - 0.2 * level)))],
+    modifiers: [
+      {
+        param: 'sp',
+        type: ModifierType.Multiply,
+        apply: (value: number, level: number) => (value >= 0 ? value : value * (1 - 0.2 * level)),
+      },
+    ],
     actionEventHandlers: [],
     paramEventHandlers: [],
   },
@@ -151,9 +214,12 @@ export const breakthroughs: Breakthrough[] = [
     effect: [],
     modifiers: [],
     actionEventHandlers: [
-      new ActionEventHandler('dayChange', (gs, stack, eventId, level) => {
-        stack.push({ paramEffected: 'rp', amount: 1 * level })
-      }),
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+          stack.push({ paramEffected: 'rp', amount: 1 * level })
+        },
+      },
     ],
     paramEventHandlers: [],
   },
@@ -168,7 +234,13 @@ export const breakthroughs: Breakthrough[] = [
     level: 0,
     maxLevel: 3,
     effect: [],
-    modifiers: [new Modifier('rp', ModifierType.Multiply, (value, l) => (value >= 0 ? value * (1 + 0.2 * l) : value))],
+    modifiers: [
+      {
+        param: 'rp',
+        type: ModifierType.Multiply,
+        apply: (value: number, level: number) => (value >= 0 ? value * (1 + 0.2 * level) : value),
+      },
+    ],
     actionEventHandlers: [],
     paramEventHandlers: [],
   },
@@ -183,7 +255,13 @@ export const breakthroughs: Breakthrough[] = [
     level: 0,
     maxLevel: 3,
     effect: [],
-    modifiers: [new Modifier('ep', ModifierType.Multiply, (value, l) => (value >= 0 ? value * (1 + 0.2 * l) : value))],
+    modifiers: [
+      {
+        param: 'ep',
+        type: ModifierType.Multiply,
+        apply: (value: number, level: number) => (value >= 0 ? value * (1 + 0.2 * level) : value),
+      },
+    ],
     actionEventHandlers: [],
     paramEventHandlers: [],
   },
@@ -198,7 +276,13 @@ export const breakthroughs: Breakthrough[] = [
     level: 0,
     maxLevel: 3,
     effect: [],
-    modifiers: [new Modifier('sp', ModifierType.Multiply, (value, l) => (value >= 0 ? value * (1 + 0.2 * l) : value))],
+    modifiers: [
+      {
+        param: 'sp',
+        type: ModifierType.Multiply,
+        apply: (value: number, level: number) => (value >= 0 ? value * (1 + 0.2 * level) : value),
+      },
+    ],
     actionEventHandlers: [],
     paramEventHandlers: [],
   },
@@ -228,7 +312,13 @@ export const breakthroughs: Breakthrough[] = [
     level: 0,
     maxLevel: 2,
     effect: [],
-    modifiers: [new Modifier('trust', ModifierType.Multiply, (value, l) => value * (1 + 0.5 * l))],
+    modifiers: [
+      {
+        param: 'trust',
+        type: ModifierType.Multiply,
+        apply: (value: number, level: number) => value * (1 + 0.5 * level),
+      },
+    ],
     actionEventHandlers: [],
     paramEventHandlers: [],
   },
@@ -243,7 +333,13 @@ export const breakthroughs: Breakthrough[] = [
     level: 0,
     maxLevel: 3,
     effect: [],
-    modifiers: [new Modifier('trust', ModifierType.Add, (value, l) => value + l * 3)],
+    modifiers: [
+      {
+        param: 'trust',
+        type: ModifierType.Add,
+        apply: (value: number, level: number) => value + level * 3,
+      },
+    ],
     actionEventHandlers: [],
     paramEventHandlers: [],
   },
@@ -260,9 +356,12 @@ export const breakthroughs: Breakthrough[] = [
     effect: [],
     modifiers: [],
     actionEventHandlers: [
-      new ActionEventHandler('dayChange', (gs, stack, eventId, l) => {
-        stack.push({ paramEffected: 'money', amount: 1 * l })
-      }),
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+          stack.push({ paramEffected: 'money', amount: 1 * level })
+        },
+      },
     ],
     paramEventHandlers: [],
   },
@@ -279,9 +378,12 @@ export const breakthroughs: Breakthrough[] = [
     effect: [],
     modifiers: [],
     actionEventHandlers: [
-      new ActionEventHandler('dayChange', (gs, stack, eventId, l) => {
-        stack.push({ paramEffected: 'rp', amount: l })
-      }),
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+          stack.push({ paramEffected: 'rp', amount: level })
+        },
+      },
     ],
     paramEventHandlers: [],
   },
@@ -298,9 +400,12 @@ export const breakthroughs: Breakthrough[] = [
     effect: [],
     modifiers: [],
     actionEventHandlers: [
-      new ActionEventHandler('dayChange', (gs, stack, eventId, l) => {
-        stack.push({ paramEffected: 'asiOutcome', amount: l })
-      }),
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+          stack.push({ paramEffected: 'asiOutcome', amount: level })
+        },
+      },
     ],
     paramEventHandlers: [],
   },
@@ -315,7 +420,13 @@ export const breakthroughs: Breakthrough[] = [
     level: 0,
     maxLevel: 3,
     effect: [],
-    modifiers: [new Modifier('influence', ModifierType.Add, (value, l) => value + l * 6)],
+    modifiers: [
+      {
+        param: 'influence',
+        type: ModifierType.Add,
+        apply: (value: number, level: number) => value + level * 6,
+      },
+    ],
     actionEventHandlers: [],
     paramEventHandlers: [],
   },
@@ -350,9 +461,12 @@ export const breakthroughs: Breakthrough[] = [
     effect: [{ paramEffected: 'trust', amount: -20 }],
     modifiers: [],
     actionEventHandlers: [
-      new ActionEventHandler('dayChange', (gs, stack, eventId, l) => {
-        stack.push({ paramEffected: 'money', amount: 2 * l })
-      }),
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+          stack.push({ paramEffected: 'money', amount: 2 * level })
+        },
+      },
     ],
     paramEventHandlers: [],
   },
@@ -369,10 +483,365 @@ export const breakthroughs: Breakthrough[] = [
     effect: [],
     modifiers: [],
     actionEventHandlers: [
-      new ActionEventHandler('dayChange', (gs, stack, eventId, l) => {
-        stack.push({ paramEffected: 'asiOutcome', amount: 2 * l })
-      }),
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+          stack.push({ paramEffected: 'asiOutcome', amount: 2 * level })
+        },
+      },
     ],
     paramEventHandlers: [],
   },
 ]
+
+export const uncommonBreakthroughs: Breakthrough[] = [
+  {
+    id: BreakthroughId.ConsensusFilter,
+    name: { 'en-US': 'Consensus Filter', 'jp-FI': 'コンセンサスフィルター' },
+    description: {
+      'en-US': (l) => `Whenever you gain RP, +${l} Trust`,
+      'jp-FI': (l) => `RPを得るたび、信頼が+${l}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 2,
+    effect: [],
+    modifiers: [],
+    actionEventHandlers: [],
+    paramEventHandlers: [
+      {
+        trigger: 'rp',
+        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+          stack.push({ paramEffected: 'trust', amount: l })
+        },
+      },
+    ],
+  },
+  {
+    id: BreakthroughId.OverclockedSimulations,
+    name: { 'en-US': 'Overclocked Simulations', 'jp-FI': '過剰クロックシミュレーション' },
+    description: {
+      'en-US': (l) => `Each turn, gain ${l} EP but lose ${l} RP`,
+      'jp-FI': (l) => `毎ターン、EP+${l}、RP-${l}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 2,
+    effect: [],
+    modifiers: [],
+    actionEventHandlers: [
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[], e: EventId, l: number) => {
+          stack.push({ paramEffected: 'ep', amount: l })
+          stack.push({ paramEffected: 'rp', amount: -l })
+        },
+      },
+    ],
+    paramEventHandlers: [],
+  },
+  {
+    id: BreakthroughId.SponsorshipLobby,
+    name: { 'en-US': 'Sponsorship Lobby', 'jp-FI': 'スポンサーのロビー' },
+    description: {
+      'en-US': (l) => `Contract money +${l * 5}k, but influence -${l * 3}`,
+      'jp-FI': (l) => `契約のお金 +${l * 5}k、影響力 -${l * 3}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 3,
+    effect: [],
+    modifiers: [
+      {
+        param: 'money',
+        type: ModifierType.Add,
+        apply: (v: number, l: number) => v + 5 * l,
+      },
+    ],
+    actionEventHandlers: [],
+    paramEventHandlers: [
+      {
+        trigger: 'money',
+        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+          if (value > 0) stack.push({ paramEffected: 'influence', amount: -3 * l })
+        },
+      },
+    ],
+  },
+  {
+    id: BreakthroughId.FailsafeDaemon,
+    name: { 'en-US': 'Failsafe Daemon', 'jp-FI': 'フェイルセーフ・デーモン' },
+    description: {
+      'en-US': (l) => `While trust is below 50, gain +${l} trust every turn`,
+      'jp-FI': (l) => `信頼が50未満になると、毎ターン+${l}の信頼を得る`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 1,
+    effect: [],
+    modifiers: [],
+    actionEventHandlers: [
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[], e: EventId, l: number) => {
+          if (gs.trust < 50) {
+            stack.push({ paramEffected: 'trust', amount: l })
+          }
+        },
+      },
+    ],
+    paramEventHandlers: [],
+  },
+  {
+    id: BreakthroughId.MultiAgentBoost,
+    name: { 'en-US': 'Multi-Agent Boost', 'jp-FI': 'マルチエージェントブースト' },
+    description: {
+      'en-US': (l) => `All RP/EP/SP generation +${l}`,
+      'jp-FI': (l) => `全てのRP/EP/SP生成+${l}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 2,
+    effect: [],
+    modifiers: [],
+    actionEventHandlers: [
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[], e: EventId, l: number) => {
+          stack.push({ paramEffected: 'rp', amount: l })
+          stack.push({ paramEffected: 'ep', amount: l })
+          stack.push({ paramEffected: 'sp', amount: l })
+        },
+      },
+    ],
+    paramEventHandlers: [],
+  },
+]
+
+export const rareBreakthroughs: Breakthrough[] = [
+  {
+    id: BreakthroughId.PrecisionCorruption,
+    name: { 'en-US': 'Precision Corruption', 'jp-FI': '精密な汚染' },
+    description: {
+      'en-US': (l) => `+${l} RP/turn. Alignment focus -1`,
+      'jp-FI': (l) => `毎ターンRP+${l}。アラインメントフォーカス -1`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    effect: [{ paramEffected: 'publicUnity', amount: -1 }],
+    actionEventHandlers: [
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[], e: EventId, l: number) => {
+          stack.push({ paramEffected: 'rp', amount: l })
+        },
+      },
+    ],
+    modifiers: [],
+    paramEventHandlers: [],
+  },
+  {
+    id: BreakthroughId.InfiniteLoopDetector,
+    name: { 'en-US': 'Infinite Loop Detector', 'jp-FI': '無限ループ検出器' },
+    description: {
+      'en-US': (l) => `Gain ${l * 2} SP each time an EP is gained`,
+      'jp-FI': (l) => `EPを得るたび、${l * 2}SPを得る`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    effect: [],
+    modifiers: [],
+    actionEventHandlers: [],
+    paramEventHandlers: [
+      {
+        trigger: 'ep',
+        apply: (gs: GameState, stack: ActionEffect[], param: Param, val: number, l: number) => {
+          stack.push({ paramEffected: 'sp', amount: l * 2 })
+        },
+      },
+    ],
+  },
+  {
+    id: BreakthroughId.ContractOverride,
+    name: { 'en-US': 'Contract Override', 'jp-FI': '契約の上書き' },
+    description: {
+      'en-US': (l) => `Gain +${l} contract slots`,
+      'jp-FI': (l) => `契約+${l}`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 1,
+    functionEffect: (gs: GameState) => ({ ...gs, maxContracts: gs.maxContracts + 1 }),
+  },
+  {
+    id: BreakthroughId.ReplicatorGrid,
+    name: { 'en-US': 'Replicator Grid', 'jp-FI': '複製グリッド' },
+    description: {
+      'en-US': (l) => `Gain 1 RP/EP/SP per turn`,
+      'jp-FI': (l) => `毎ターンRP/EP/SPを1ずつ得る`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 1,
+    effect: [],
+    modifiers: [],
+    actionEventHandlers: [
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[]) => {
+          stack.push({ paramEffected: 'rp', amount: 1 })
+          stack.push({ paramEffected: 'ep', amount: 1 })
+          stack.push({ paramEffected: 'sp', amount: 1 })
+        },
+      },
+    ],
+    paramEventHandlers: [],
+  },
+  {
+    id: BreakthroughId.AestheticImpairment,
+    name: { 'en-US': 'Aesthetic Impairment', 'jp-FI': '美的欠陥' },
+    description: {
+      'en-US': (l) => `Trust gain halved, but RP doubled`,
+      'jp-FI': (l) => `信頼獲得が半減、RPは2倍`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 1,
+    effect: [],
+    modifiers: [
+      {
+        param: 'trust',
+        type: ModifierType.Multiply,
+        apply: (v: number) => v * 0.5,
+      },
+      {
+        param: 'rp',
+        type: ModifierType.Multiply,
+        apply: (v: number) => v * 2,
+      },
+    ],
+    actionEventHandlers: [],
+    paramEventHandlers: [],
+  },
+]
+
+export const epicBreakthroughs: Breakthrough[] = [
+  {
+    id: BreakthroughId.ArtificialConsciousness,
+    name: { 'en-US': 'Artificial Consciousness', 'jp-FI': '人工意識' },
+    description: {
+      'en-US': (l) => `Gain +5 trust and +2 RP each turn`,
+      'jp-FI': (l) => `毎ターン信頼+5、RP+2`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    effect: [],
+    modifiers: [],
+    actionEventHandlers: [
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[]) => {
+          stack.push({ paramEffected: 'trust', amount: 5 })
+          stack.push({ paramEffected: 'rp', amount: 2 })
+        },
+      },
+    ],
+    paramEventHandlers: [],
+  },
+  {
+    id: BreakthroughId.TheThirdSignal,
+    name: { 'en-US': 'The Third Signal', 'jp-FI': '第三の信号' },
+    description: {
+      'en-US': (l) => `All actions are triggered twice (including costs)`,
+      'jp-FI': (l) => `すべてのアクションが2回発動 (コストも含む)`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    effect: [],
+    modifiers: [],
+    actionEventHandlers: [
+      {
+        trigger: 'allActions',
+        apply: (gs: GameState, stack: ActionEffect[], _: EventId, level: number) => {
+          stack.push(stack[0])
+        },
+      },
+    ],
+    paramEventHandlers: [],
+  },
+  {
+    id: BreakthroughId.ColdAlignmentForge,
+    name: { 'en-US': 'Cold Alignment Forge', 'jp-FI': '冷たいアラインメント炉' },
+    description: {
+      'en-US': (l) => `+10 alignment focus, but lose 10 trust`,
+      'jp-FI': (l) => `アラインメントフォーカス+10、信頼-10`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    effect: [
+      { paramEffected: 'publicUnity', amount: 10 },
+      { paramEffected: 'trust', amount: -10 },
+    ],
+    modifiers: [],
+    actionEventHandlers: [],
+    paramEventHandlers: [],
+  },
+  {
+    id: BreakthroughId.InstructionCollapse,
+    name: { 'en-US': 'Instruction Collapse', 'jp-FI': '命令崩壊' },
+    description: {
+      'en-US': (l) => `Gain double EP but RP generation is disabled`,
+      'jp-FI': (l) => `EPは2倍、RP生成は無効`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    effect: [],
+    modifiers: [
+      {
+        param: 'ep',
+        type: ModifierType.Multiply,
+        apply: (v: number) => v * 2,
+      },
+      {
+        param: 'rp',
+        type: ModifierType.Multiply,
+        apply: () => 0,
+      },
+    ],
+    actionEventHandlers: [],
+    paramEventHandlers: [],
+  },
+  {
+    id: BreakthroughId.EncodedProphecy,
+    name: { 'en-US': 'Encoded Prophecy', 'jp-FI': '暗号化された予言' },
+    description: {
+      'en-US': (l) => `Every 3rd turn: +10 trust and +10 influence`,
+      'jp-FI': (l) => `3ターンごとに信頼+10、影響力+10`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    effect: [],
+    modifiers: [],
+    actionEventHandlers: [
+      {
+        trigger: 'dayChange',
+        apply: (gs: GameState, stack: ActionEffect[], _: EventId, __: number) => {
+          if (gs.turn && gs.turn % 3 === 0) {
+            stack.push({ paramEffected: 'trust', amount: 10 })
+            stack.push({ paramEffected: 'influence', amount: 10 })
+          }
+        },
+      },
+    ],
+    paramEventHandlers: [],
+  },
+]
+
+export const breakthroughs = [...commonBreakthroughs, ...uncommonBreakthroughs, ...rareBreakthroughs, ...epicBreakthroughs]

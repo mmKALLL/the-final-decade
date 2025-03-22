@@ -11,6 +11,7 @@ export const SelectionScreen = () => {
   useEffect(() => {
     if (gs.humanSelections.length === 0 && gs.breakthroughSelections.length === 0 && gs.contractSelections.length === 0) {
       dispatch({
+        eventId: 'internalStateChange',
         name: { 'en-US': 'End selection screen', 'jp-FI': '選択画面終了' },
         turnCost: 0,
         turnsInvested: 0,
@@ -126,6 +127,7 @@ export const SelectionScreen = () => {
   // Handle selecting a human
   function handleHumanSelect(human: Human) {
     dispatch({
+      eventId: 'internalStateChange',
       name: { 'en-US': `Selected ${human.name['en-US']}`, 'jp-FI': `選択: ${human.name['jp-FI']}` },
       turnCost: 0,
       turnsInvested: 0,
@@ -143,6 +145,7 @@ export const SelectionScreen = () => {
   // Handle selecting a breakthrough
   function handleBreakthroughSelect(breakthrough: Breakthrough) {
     dispatch({
+      eventId: 'internalStateChange',
       name: { 'en-US': `Acquired ${breakthrough.name['en-US']}`, 'jp-FI': `取得: ${breakthrough.name['jp-FI']}` },
       turnCost: 0,
       turnsInvested: 0,

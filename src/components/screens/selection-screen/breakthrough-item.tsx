@@ -8,7 +8,6 @@ export const BreakthroughItem = ({ breakthrough, onSelect }: { breakthrough: Bre
       style={{
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center',
         width: '96vw',
         backgroundColor: '#222',
         border: `1px solid ${rarityColors[breakthrough.rarity]}`,
@@ -19,15 +18,10 @@ export const BreakthroughItem = ({ breakthrough, onSelect }: { breakthrough: Bre
         fontSize: '0.85em',
       }}
     >
-      <span>
+      <span style={{ textAlign: 'left', lineHeight: '1.5' }}>
         {breakthrough.name['en-US']} (Lv. {breakthrough.level}/{breakthrough.maxLevel})
-      </span>
-      <span>
-        {breakthrough.effect.map((e) => (
-          <>
-            | ⚡ {e.amount} {e.paramEffected}
-          </>
-        ))}
+        <br />
+        {breakthrough.description['en-US'](breakthrough.level + 1)}
       </span>
     </button>
   )

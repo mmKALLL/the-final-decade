@@ -3,7 +3,7 @@ import { initialGameState } from './data/data-gamestate'
 import { useContext, useReducer } from 'preact/hooks'
 import { Action, Effect, GameState } from './types'
 import { generateHuman, generateBreakthrough } from './data/data-generators'
-import { generateContract } from './data/contract-generator'
+import { refreshContracts } from './data/contract-generator'
 import { convertContractToAction } from './util'
 
 export const GameStateContext = createContext(initialGameState)
@@ -135,10 +135,7 @@ export function handleEndOfYear(gs: GameState): GameState {
   let updatedGs: GameState = { ...gs }
 
   // Refresh non-yearly contracts
-  updatedGs = {
-    ...updatedGs,
-    contracts: [generateContract(updatedGs), generateContract(updatedGs), generateContract(updatedGs)],
-  }
+  updatedGs = refreshContracts(updatedGs)
 
   // Check the first yearly goal and generate an action for it
   const firstYearlyContract = updatedGs.yearlyContracts[0]

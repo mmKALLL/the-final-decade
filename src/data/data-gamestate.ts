@@ -1,6 +1,6 @@
 import { generateYearlyContracts, generateHuman, generateBreakthrough } from './data-generators'
 import { GameState } from '../types'
-import { generateContract } from './contract-generator'
+import { refreshContracts } from './contract-generator'
 
 const debug = true
 
@@ -30,14 +30,14 @@ const baseGameState: GameState = {
   breakthroughSelections: [],
   contractSelections: [],
 
+  maxContracts: 3,
   yearlyContracts: generateYearlyContracts(),
   additionalActions: [],
 }
 
 export const initialGameState: GameState = {
-  ...baseGameState,
+  ...refreshContracts(baseGameState),
   currentScreen: 'selection',
-  contracts: [generateContract(baseGameState), generateContract(baseGameState), generateContract(baseGameState)],
   humanSelections: [
     [generateHuman(baseGameState, 100, 'common'), generateHuman(baseGameState, 100, 'common'), generateHuman(baseGameState, 100, 'common')],
     [generateHuman(baseGameState, 100, 'common'), generateHuman(baseGameState, 100, 'common'), generateHuman(baseGameState, 100, 'common')],

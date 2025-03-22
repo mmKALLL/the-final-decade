@@ -45,15 +45,14 @@ const convertRequirementsToCondition = (requirements: Effect): ((gs: GameState) 
     )
 }
 
-export const convertContractToAction = (contract: Contract): Action => {
-  return {
-    ...contract,
-    enabledCondition: convertRequirementsToCondition(contract.requirements),
-    effect: [...contract.onSuccess, ...contract.costs],
-    turnCost: 0,
-    turnsInvested: 0,
-  }
-}
+export const convertContractToAction = (contract: Contract): Action => ({
+  ...contract,
+  eventId: 'internalStateChange',
+  enabledCondition: convertRequirementsToCondition(contract.requirements),
+  effect: [...contract.onSuccess, ...contract.costs],
+  turnCost: 0,
+  turnsInvested: 0,
+})
 
 // Convert turn to date format (2025 Jan + months)
 export const getDateFromTurn = (turn: number) => {
