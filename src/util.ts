@@ -54,3 +54,12 @@ export const convertContractToAction = (contract: Contract): Action => {
     turnsInvested: 0,
   }
 }
+
+// Convert turn to date format (2025 Jan + months)
+export const getDateFromTurn = (turn: number) => {
+  const startYear = 2025
+  const year = startYear + Math.floor(turn / 12)
+  const month = (turn % 12) + 1
+
+  return `${year}-${month < 10 ? '0' : ''}${month}`
+}

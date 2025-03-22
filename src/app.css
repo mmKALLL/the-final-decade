@@ -393,3 +393,108 @@ html, body {
     line-height: 1.3;
   }
 }
+
+/* Game Over and Victory Screens */
+.game-over-screen,
+.victory-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  color: white;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.game-over-screen h1,
+.victory-screen h1 {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.game-over-screen h1 {
+  color: #ff5555;
+}
+
+.victory-screen h1 {
+  color: #55ff55;
+}
+
+.game-over-screen p,
+.victory-screen p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+.game-over-stats,
+.victory-stats {
+  background-color: rgba(50, 50, 50, 0.7);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 500px;
+}
+
+.game-over-stats h2,
+.victory-stats h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+.game-over-stats p,
+.victory-stats p {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.restart-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 1rem;
+}
+
+.restart-button:hover {
+  background-color: #0069d9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .game-over-screen h1,
+  .victory-screen h1 {
+    font-size: 2.2rem;
+  }
+  
+  .game-over-screen p,
+  .victory-screen p {
+    font-size: 1rem;
+  }
+  
+  .game-over-stats,
+  .victory-stats {
+    padding: 1rem;
+  }
+  
+  .restart-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+  }
+}

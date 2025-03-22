@@ -1,19 +1,12 @@
 import { useGameState } from '../gamestate-hooks'
-import { assertNever } from '../util'
+import { assertNever, getDateFromTurn } from '../util'
+import { GameOverScreen } from './game-over-screen'
 import { MainScreen } from './main-screen'
 import { SelectionScreen } from './selection-screen/selection-screen'
+import { VictoryScreen } from './victory-screen'
 
 export function GameView() {
   const { gs } = useGameState()
-
-  // Convert turn to date format (2025 Jan + months)
-  const getDateFromTurn = (turn: number) => {
-    const startYear = 2025
-    const year = startYear + Math.floor(turn / 12)
-    const month = (turn % 12) + 1
-
-    return `${year}-${month < 10 ? '0' : ''}${month}`
-  }
 
   return (
     <div className="app-container">
@@ -44,6 +37,10 @@ export function GameView() {
           <MainScreen />
         ) : gs.currentScreen === 'selection' ? (
           <SelectionScreen />
+        ) : gs.currentScreen === 'game-over' ? (
+          <GameOverScreen gs={gs} turn={gs.turn} />
+        ) : gs.currentScreen === 'victory' ? (
+          <VictoryScreen gs={gs} />
         ) : (
           assertNever(gs.currentScreen)
         )}
