@@ -6,8 +6,8 @@ export const VictoryScreen = ({ gs }: { gs: GameState }) => (
     <h1>{gs.language === 'en-US' ? 'Victory!' : '勝利！'}</h1>
     <p>
       {gs.language === 'en-US'
-        ? `Your company has successfully navigated the AI race and reached 2030 with aligned ASI.`
-        : 'あなたの会社はAIレースを上手く乗り切り、整列されたASIで2030年に到達しました。'}
+        ? `Your company has successfully navigated the AI race and deployed an aligned ASI at the start of 2030.`
+        : 'あなたの会社はAIレースを上手く乗り切り、2030年に整列されたASIを展開しました。'}
     </p>
     <p>
       {gs.language === 'en-US'
@@ -26,7 +26,7 @@ export const VictoryScreen = ({ gs }: { gs: GameState }) => (
         {gs.language === 'en-US' ? 'Breakthroughs' : '突破'}: {gs.breakthroughs.length}
       </p>
       <p>
-        {gs.language === 'en-US' ? 'Total Money Earned' : '稼いだ合計金額'}: {gs.money}
+        {gs.language === 'en-US' ? 'Money Left' : '金額'}: {gs.money}
       </p>
     </div>
     <button className="restart-button" onClick={() => window.location.reload()}>

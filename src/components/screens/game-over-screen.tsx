@@ -6,7 +6,15 @@ export const GameOverScreen = ({ gs, turn }: { gs: GameState; turn: number }) =>
   <div className="game-over-screen">
     <h1>{gs.language === 'en-US' ? 'Game Over' : 'ゲームオーバー'}</h1>
     <p>
-      {gs.language === 'en-US'
+      {gs.money < 0
+        ? gs.language === 'en-US'
+          ? `Your company failed to remain profitable and went bankrupt on ${getDateFromTurn(gs.turn)}.`
+          : `${getDateFromTurn(gs.turn)}までに利益を維持できず、倒産しました。`
+        : gs.asiOutcome < 0
+        ? gs.language === 'en-US'
+          ? `Your company was shut down on ${getDateFromTurn(gs.turn)}, as a result of careless attitudes towards AI alignment.`
+          : `あなたの会社は${getDateFromTurn(gs.turn)}に、AIの整合性に対する無頓着な態度の結果として閉鎖されました。`
+        : gs.language === 'en-US'
         ? `Your company failed to meet the annual breakthrough goals by ${getDateFromTurn(gs.turn)}.`
         : `${getDateFromTurn(gs.turn)}までに年間突破目標を達成できませんでした。`}
     </p>
@@ -27,7 +35,7 @@ export const GameOverScreen = ({ gs, turn }: { gs: GameState; turn: number }) =>
         {gs.language === 'en-US' ? 'Breakthroughs' : '突破'}: {gs.breakthroughs.length}
       </p>
       <p>
-        {gs.language === 'en-US' ? 'Total Money Earned' : '稼いだ合計金額'}: {gs.money}
+        {gs.language === 'en-US' ? 'Money Left' : '金額'}: {gs.money}
       </p>
     </div>
     <button className="restart-button" onClick={() => window.location.reload()}>
