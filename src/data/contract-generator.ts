@@ -31,8 +31,8 @@ export function generateContract(gs: GameState): Contract {
   // const onAccept: Effect = getAcceptEffects(difficulty, acceptEffects, isAlignmentContract, gs.trust)
   const onSuccess: Effect = [
     ...getAcceptEffects(difficulty, acceptEffects, isAlignmentContract, gs.trust), // Monetary reward from accepting is included into success now
-    { paramEffected: 'trust', amount: Math.round((isAlignmentContract ? 2 : 1) * ((2 * difficulty) / 100)) },
     ...getSuccessEffects(difficulty, successEffects, isAlignmentContract, gs.trust),
+    ...(isAlignmentContract ? [{ paramEffected: 'trust', amount: Math.round(2 * ((2 * difficulty) / 100)) } as const] : []),
   ]
   // const onFailure: Effect = [
   //   { paramEffected: 'trust', amount: Math.round((-6 * (difficulty + 100)) / 100) },
@@ -48,7 +48,10 @@ export function generateContract(gs: GameState): Contract {
   const totalRequirement = Math.round(Math.pow((100 + difficulty) / 100, 1.7))
   const alignmentRequirement = totalRequirement >= 2 && isAlignmentContract ? Math.round(totalRequirement * 0.64) : 0
   const alignmentCosts: Effect = alignmentRequirement > 0 ? [{ paramEffected: 'rp', amount: -alignmentRequirement * 5 }] : []
-  const capabilityCosts: Effect = [{ paramEffected: 'ep', amount: -(totalRequirement - alignmentRequirement) * 5 }]
+  const capabilityCosts: Effect = [
+    { paramEffected: 'ep', amount: -(totalRequirement - alignmentRequirement) * 5 },
+    { paramEffected: 'trust', amount: Math.floor(-1 * ((2 * difficulty) / 100)) },
+  ]
   const costs: Effect = [...alignmentCosts, ...capabilityCosts]
   const requirements: Effect = []
 

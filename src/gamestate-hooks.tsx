@@ -84,6 +84,7 @@ export function reduceEffect(effect: Effect, gameState: GameState, depth: number
     if (amount > 0 && depth === 0) {
       const breakthroughEffects = gameState.breakthroughs
         .flatMap((breakthrough) => breakthrough.effect)
+        .filter((effect) => effect !== undefined)
         .filter((effect) => !effect.condition || effect.condition(gs, paramEffected, amount))
       return reduceEffect(breakthroughEffects, updatedGs, depth + 1)
     }

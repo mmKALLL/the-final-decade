@@ -259,7 +259,7 @@ export const epHumans: Human[] = [
     spGeneration: 0,
     epGeneration: 1,
     rpGeneration: 0,
-    specialEffect: [{ paramEffected: 'up', amount: -1 }],
+    specialEffect: [{ paramEffected: 'up', amount: -3 }],
   },
   {
     name: { 'en-US': 'Lucille Fontaine', 'jp-FI': 'ルシール・フォンテーヌ' },
