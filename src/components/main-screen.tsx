@@ -1,4 +1,4 @@
-import { languageToggleAction } from '../data/data-gamestate'
+import { languageToggleAction } from '../data/data-actions'
 import { useGameState } from '../gamestate-hooks'
 import { Button } from './button'
 import { ContractList } from './contract-list'
@@ -37,8 +37,14 @@ export const MainScreen = () => {
     },
   }
 
-  // Filter out Toggle language action since it's now in the footer
-  const filteredActions = gs.availableActions.filter((action) => !action.name[gs.language].includes('Toggle language'))
+  // Order actions in two columns, so that they are sequantially in each column (e.g. [1, 2, 3, 4, 5, 6] -> [1, 4, 2, 5, 3, 6])
+  const reorderedActions = Array(gs.availableActions.length)
+    .fill(null)
+    .map((_, i) => {
+      const halfLength = Math.ceil(gs.availableActions.length / 2)
+      const currentRow = Math.floor(i / 2)
+      return i % 2 === 0 ? gs.availableActions[currentRow] : gs.availableActions[currentRow + halfLength]
+    })
 
   // Get flag emoji based on current language
   const getLanguageFlag = (language: string) => {
@@ -50,7 +56,7 @@ export const MainScreen = () => {
       <div className="action-section">
         <h2>Available actions:</h2>
         <div className="action-buttons">
-          {filteredActions.map((action, index) => (
+          {reorderedActions.map((action, index) => (
             <Button key={`action-${index}`} action={action} />
           ))}
         </div>
