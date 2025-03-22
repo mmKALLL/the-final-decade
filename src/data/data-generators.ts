@@ -11,7 +11,7 @@ export function generateHuman(gs: GameState, _rarity?: number): Human {
 
 export function generateBreakthrough(gs: GameState, _rarity?: number): Breakthrough {
   // Return random breakthrough for now
-  const filteredBreakthroughs = breakthroughs.filter((b) => !gs.breakthroughs.includes(b))
+  const filteredBreakthroughs = breakthroughs.filter((b) => !gs.breakthroughs.some((existing) => existing.id === b.id))
   return filteredBreakthroughs[Math.floor(Math.random() * filteredBreakthroughs.length)]
 }
 
