@@ -22,20 +22,24 @@ export function useGameState() {
   return { gs, dispatch }
 }
 
-export function reduceAction(gs: GameState, action: Action): GameState {
-  if (
-    (action.enabledCondition && !action.enabledCondition(gs)) ||
-    action.effect.some((e) => e.condition && e.condition(gs, e.paramEffected, e.amount)) ||
-    action.effect.some(
+export function canApplyAction(gs: GameState, action: Action): boolean {
+  return (
+    (action.enabledCondition === undefined || (action.enabledCondition && action.enabledCondition(gs))) &&
+    action.effect.every((e) => e.condition && e.condition(gs, e.paramEffected, e.amount)) &&
+    action.effect.every(
       (e) =>
-        e.paramEffected !== 'humanSelection' &&
-        e.paramEffected !== 'breakthroughSelection' &&
-        e.paramEffected !== 'publicUnity' &&
-        e.paramEffected !== 'passiveIncome' &&
-        e.amount < 0 &&
-        gs[e.paramEffected] < -e.amount
+        e.paramEffected === 'humanSelection' ||
+        e.paramEffected === 'breakthroughSelection' ||
+        e.paramEffected === 'publicUnity' ||
+        e.paramEffected === 'passiveIncome' ||
+        e.amount >= 0 ||
+        gs[e.paramEffected] >= -e.amount
     )
-  ) {
+  )
+}
+
+export function reduceAction(gs: GameState, action: Action): GameState {
+  if (!canApplyAction(gs, action)) {
     return gs // Return early if action is not applicable
   }
 
