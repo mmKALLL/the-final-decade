@@ -16,6 +16,7 @@ export type Label = Record<Language, string>
 export type LabelByLevel = Record<Language, (level: number) => string>
 
 export type GameState = {
+  debug: boolean
   currentScreen: 'main' | 'selection' | 'game-over' | 'victory'
   language: Language
 

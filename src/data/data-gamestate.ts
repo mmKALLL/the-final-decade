@@ -3,6 +3,7 @@ import { GameState } from '../types'
 import { generateContract } from './contract-generator'
 
 const baseGameState: GameState = {
+  debug: true,
   currentScreen: 'main',
   language: 'en-US',
 

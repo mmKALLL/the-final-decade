@@ -17,7 +17,6 @@ export const yearlyContracts: YearlyContract[] = [
       { paramEffected: 'passiveIncome', amount: -20 },
     ],
   },
-
   {
     name: { 'en-US': 'Global Energy Crisis', 'jp-FI': '世界的エネルギー危機' },
     rarity: 'epic',
