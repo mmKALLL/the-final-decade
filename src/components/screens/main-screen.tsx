@@ -21,7 +21,7 @@ export const MainScreen = () => {
   const compactCategories = {
     Resources: {
       money: gs.money,
-      'passive income': gs.passiveIncome,
+      'passive income': gs.passiveIncome - gs.humans.reduce((acc, human) => acc + human.wage, 0),
     },
     Organization: {
       influence: gs.influence,

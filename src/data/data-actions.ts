@@ -29,12 +29,12 @@ export const firstOrderActions: (gs: GameState) => Action[] = (gs) => [
   },
 ]
 
-export const secondOrderActions: (gs: GameState) => Action[] = (_gs) => [
+export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
   {
     name: { 'en-US': 'Recruit a human', 'jp-FI': '人材を増やす' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'sp', amount: -40 }],
+    effect: [{ paramEffected: 'sp', amount: gs.humans.length * -10 - 20 }],
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
