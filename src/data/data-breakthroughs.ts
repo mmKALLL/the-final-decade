@@ -1,6 +1,6 @@
 // TypeScript version of the Dart Upgrade definitions, renamed to Breakthrough
 
-import { Breakthrough, ModifierType, Param, GameState, ActionEffect, EventId } from '../types'
+import { Breakthrough, ModifierType, Param, GameState, EventId, SingleEffect } from '../types'
 
 // Extend Param type through declaration merging to include alignmentFocus
 declare global {
@@ -75,19 +75,19 @@ export const commonBreakthroughs: Breakthrough[] = [
     paramEventHandlers: [
       {
         trigger: 'rp',
-        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
           if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'rp', amount: 1 })
         },
       },
       {
         trigger: 'ep',
-        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
           if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'ep', amount: 1 })
         },
       },
       {
         trigger: 'sp',
-        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
           if (Math.random() <= 0.08 * l) stack.push({ paramEffected: 'sp', amount: 1 })
         },
       },
@@ -109,7 +109,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     paramEventHandlers: [
       {
         trigger: 'ep',
-        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
           if (Math.random() < 0.25 * l) stack.push({ paramEffected: 'rp', amount: 1 })
         },
       },
@@ -131,7 +131,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     paramEventHandlers: [
       {
         trigger: 'sp',
-        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
           if (Math.random() < 0.25 * l) stack.push({ paramEffected: 'ep', amount: 1 })
         },
       },
@@ -153,7 +153,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     paramEventHandlers: [
       {
         trigger: 'rp',
-        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
           if (Math.random() < 0.25 * l) stack.push({ paramEffected: 'sp', amount: 1 })
         },
       },
@@ -216,7 +216,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], eventId: EventId, level: number) => {
           stack.push({ paramEffected: 'rp', amount: 1 * level })
         },
       },
@@ -358,7 +358,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], eventId: EventId, level: number) => {
           stack.push({ paramEffected: 'money', amount: 1 * level })
         },
       },
@@ -380,7 +380,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], eventId: EventId, level: number) => {
           stack.push({ paramEffected: 'rp', amount: level })
         },
       },
@@ -402,7 +402,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], eventId: EventId, level: number) => {
           stack.push({ paramEffected: 'asiOutcome', amount: level })
         },
       },
@@ -463,7 +463,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], eventId: EventId, level: number) => {
           stack.push({ paramEffected: 'money', amount: 2 * level })
         },
       },
@@ -485,7 +485,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[], eventId: EventId, level: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], eventId: EventId, level: number) => {
           stack.push({ paramEffected: 'asiOutcome', amount: 2 * level })
         },
       },
@@ -511,7 +511,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     paramEventHandlers: [
       {
         trigger: 'rp',
-        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
           stack.push({ paramEffected: 'trust', amount: l })
         },
       },
@@ -532,7 +532,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[], e: EventId, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], e: EventId, l: number) => {
           stack.push({ paramEffected: 'ep', amount: l })
           stack.push({ paramEffected: 'rp', amount: -l })
         },
@@ -562,7 +562,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     paramEventHandlers: [
       {
         trigger: 'money',
-        apply: (gs: GameState, stack: ActionEffect[], param: Param, value: number, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], param: Param, value: number, l: number) => {
           if (value > 0) stack.push({ paramEffected: 'influence', amount: -3 * l })
         },
       },
@@ -583,7 +583,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[], e: EventId, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], e: EventId, l: number) => {
           if (gs.trust < 50) {
             stack.push({ paramEffected: 'trust', amount: l })
           }
@@ -607,7 +607,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[], e: EventId, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], e: EventId, l: number) => {
           stack.push({ paramEffected: 'rp', amount: l })
           stack.push({ paramEffected: 'ep', amount: l })
           stack.push({ paramEffected: 'sp', amount: l })
@@ -633,7 +633,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[], e: EventId, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], e: EventId, l: number) => {
           stack.push({ paramEffected: 'rp', amount: l })
         },
       },
@@ -657,7 +657,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     paramEventHandlers: [
       {
         trigger: 'ep',
-        apply: (gs: GameState, stack: ActionEffect[], param: Param, val: number, l: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], param: Param, val: number, l: number) => {
           stack.push({ paramEffected: 'sp', amount: l * 2 })
         },
       },
@@ -690,7 +690,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[]) => {
+        apply: (gs: GameState, stack: SingleEffect[]) => {
           stack.push({ paramEffected: 'rp', amount: 1 })
           stack.push({ paramEffected: 'ep', amount: 1 })
           stack.push({ paramEffected: 'sp', amount: 1 })
@@ -743,7 +743,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[]) => {
+        apply: (gs: GameState, stack: SingleEffect[]) => {
           stack.push({ paramEffected: 'trust', amount: 5 })
           stack.push({ paramEffected: 'rp', amount: 2 })
         },
@@ -766,7 +766,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'allActions',
-        apply: (gs: GameState, stack: ActionEffect[], _: EventId, level: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], _: EventId, level: number) => {
           stack.push(stack[0])
         },
       },
@@ -832,7 +832,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'dayChange',
-        apply: (gs: GameState, stack: ActionEffect[], _: EventId, __: number) => {
+        apply: (gs: GameState, stack: SingleEffect[], _: EventId, __: number) => {
           if (gs.turn && gs.turn % 3 === 0) {
             stack.push({ paramEffected: 'trust', amount: 10 })
             stack.push({ paramEffected: 'influence', amount: 10 })

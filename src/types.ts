@@ -121,11 +121,6 @@ export enum ModifierType {
   Function = 'function',
 }
 
-export interface ActionEffect {
-  paramEffected: Param
-  amount: number
-}
-
 export type ModifierFunction = (value: number, level: number) => number
 export type CurriedModifier = (value: number) => number
 
@@ -163,11 +158,11 @@ export type EventId =
   | 'yearChange'
   | 'internalStateChange' // Should not be listened to in most cases
 
-export type ActionEventHandlerFunction = (gs: GameState, effectStack: ActionEffect[], eventId: EventId, level: number) => void
+export type ActionEventHandlerFunction = (gs: GameState, effectStack: SingleEffect[], eventId: EventId, level: number) => void
 
 export type ActionEventHandler = { trigger: EventId; apply: ActionEventHandlerFunction }
 
-export type ParamEventHandlerFunction = (gs: GameState, effectStack: ActionEffect[], param: Param, value: number, level: number) => void
+export type ParamEventHandlerFunction = (gs: GameState, effectStack: SingleEffect[], param: Param, value: number, level: number) => void
 
 export type ParamEventHandler = { trigger: Param; apply: ParamEventHandlerFunction }
 
