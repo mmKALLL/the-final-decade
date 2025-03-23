@@ -5,6 +5,7 @@ import { BreakthroughItem } from './breakthrough-item'
 import { Human, Breakthrough } from '../../../types'
 import { ContractList } from '../../contract-list'
 import { GameStateDisplay } from '../../game-state-display'
+import { LanguageToggle } from '../../language-toggle'
 
 export const SelectionScreen = () => {
   const { gs, dispatch } = useGameState()
@@ -74,6 +75,7 @@ export const SelectionScreen = () => {
 
       <GameStateDisplay />
       <ContractList editable={false} />
+      <LanguageToggle />
     </>
   )
 

@@ -1,16 +1,13 @@
-import { firstOrderActions, languageToggleAction, secondOrderActions, thirdOrderActions } from '../../data/data-actions'
+import { firstOrderActions, secondOrderActions, thirdOrderActions } from '../../data/data-actions'
 import { useGameState } from '../../gamestate-hooks'
+import { BreakthroughList } from '../breakthrough-list'
 import { Button } from '../button'
 import { ContractList } from '../contract-list'
 import { GameStateDisplay } from '../game-state-display'
+import { LanguageToggle } from '../language-toggle'
 
 export const MainScreen = () => {
-  const { gs, dispatch } = useGameState()
-
-  // Get flag emoji based on current language
-  const getLanguageFlag = (language: string) => {
-    return language === 'en-US' ? '🇺🇸' : '🇯🇵'
-  }
+  const { gs } = useGameState()
 
   return (
     <div className="main-screen">
@@ -37,14 +34,7 @@ export const MainScreen = () => {
 
       <GameStateDisplay />
       <ContractList editable={true} />
-
-      {/* Language toggle section at the bottom */}
-      <div className="language-toggle-section">
-        <button className="language-toggle-button" onClick={() => dispatch(languageToggleAction)}>
-          <span className="language-flag">{getLanguageFlag(gs.language)} </span>
-          <span>{languageToggleAction.name[gs.language]}</span>
-        </button>
-      </div>
+      <LanguageToggle />
     </div>
   )
 }
