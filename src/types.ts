@@ -157,6 +157,7 @@ export type EventId =
   | 'turnEnd'
   | 'yearChange'
   | 'internalStateChange' // Should not be listened to in most cases
+  | 'levelUpBreakthrough'
 
 export type ActionEventHandlerFunction = (
   gs: GameState,

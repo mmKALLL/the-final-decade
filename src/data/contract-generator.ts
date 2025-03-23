@@ -1,5 +1,5 @@
 import { Contract, Effect, GameState, SingleEffect } from '../types'
-import { pickListOfWeighted } from '../util'
+import { paramToLabel, pickListOfWeighted } from '../util'
 import { getRandomContractName } from './data-contracts'
 
 export const refreshContracts = (gs: GameState): GameState => ({
@@ -50,7 +50,7 @@ export function generateContract(gs: GameState): Contract {
   const alignmentCosts: Effect = alignmentRequirement > 0 ? [{ paramEffected: 'rp', amount: -alignmentRequirement * 5 }] : []
   const capabilityCosts: Effect = [
     { paramEffected: 'ep', amount: -(totalRequirement - alignmentRequirement) * 5 },
-    { paramEffected: 'trust', amount: Math.floor(-1 * ((2 * difficulty) / 100)) },
+    { paramEffected: Math.random() < 0.5 ? 'trust' : 'asiOutcome', amount: Math.floor(-1 * ((2 * difficulty) / 100)) },
   ]
   const costs: Effect = [...alignmentCosts, ...capabilityCosts]
   const requirements: Effect = []
@@ -75,8 +75,10 @@ function getRandomValue(base: number, difficulty: number, difficultyFactor: numb
 }
 
 function getContractMoneyValue(difficulty: number, totalEffects: number, isAlignmentContract: boolean, trust: number): number {
-  let value = getRandomValue(40, difficulty, 1.5)
-  return Math.round((isAlignmentContract ? 0.9 : 2.05) * [1.25, 1, 0.4, 0.25][Math.min(totalEffects, 3)] * (trust / 100) * value)
+  let value = getRandomValue(40, difficulty, 1.5) * 0.2 // Multiplier to convert Alignment is Hard values into The Final Decade curve
+  const effectMultiplier = [1.25, 1, 0.4, 0.25][Math.min(totalEffects, 3)] // Indexed access; contracts with more effects provide less money
+
+  return Math.round(((isAlignmentContract ? 0.9 : 2.05) * effectMultiplier * (trust / 100) * value) / 5) * 5 // Round to nearest 5
 }
 
 function getAcceptEffects(difficulty: number, totalEffects: number, isAlignmentContract: boolean, trust: number): Effect {
@@ -131,7 +133,7 @@ function getAlignmentSuccessEffects(
   isAlignmentContract: boolean
 ): WeightedSingleEffect[] {
   return [
-    { weight: 10, effect: { paramEffected: 'publicUnity', amount: getRandomValue(1, difficulty, 0.02) } },
+    { weight: 10, effect: { paramEffected: 'asiOutcome', amount: getRandomValue(1, difficulty, 0.02) } },
     { weight: 6, effect: { paramEffected: 'trust', amount: getRandomValue(3, difficulty, 0.015) } },
     { weight: difficulty > 300 ? 1 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(25, difficulty, 0.33) } },
     { weight: difficulty > 220 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(25, difficulty, 0.33) } },
@@ -144,7 +146,7 @@ function getAlignmentSuccessEffects(
         amount: Math.round(getContractMoneyValue(difficulty, totalEffects, isAlignmentContract, trust) * 0.25),
       },
     },
-    { weight: 5, effect: { paramEffected: 'asiOutcome', amount: getRandomValue(1, difficulty, 0.01) } },
+    { weight: 3, effect: { paramEffected: 'publicUnity', amount: 1 } },
   ]
 }
 
@@ -156,22 +158,21 @@ function getCapabilitySuccessEffects(
   isAlignmentContract: boolean
 ): WeightedSingleEffect[] {
   return [
-    { weight: 20, effect: { paramEffected: 'publicUnity', amount: -getRandomValue(1, difficulty, 0.02) } },
     {
-      weight: 3,
+      weight: 4,
       effect: {
         paramEffected: 'money',
         amount: Math.round(getContractMoneyValue(difficulty, totalEffects, isAlignmentContract, trust) * 0.2),
       },
     },
-    { weight: 6, effect: { paramEffected: 'trust', amount: getRandomValue(3, difficulty, 0.015) } },
-    { weight: 2, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.022) } },
-    { weight: difficulty > 220 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(25, difficulty, 0.33) } },
+    { weight: 3, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.022) } },
+    { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(25, difficulty, 0.33) } },
     { weight: difficulty > 300 ? 1 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(25, difficulty, 0.33) } },
     { weight: 2, effect: { paramEffected: 'sp', amount: getRandomValue(1, difficulty, 0.005) } },
+    { weight: 1, effect: { paramEffected: 'passiveIncome', amount: getRandomValue(1, difficulty, 0.005) } },
   ]
 }
 
 function effectListToString(effects: Effect): string {
-  return effects.map((e) => `${e.paramEffected} ${e.amount > 0 ? '+' : ''}${e.amount}`).join(', ')
+  return effects.map((e) => `${paramToLabel(e.paramEffected)} ${e.amount > 0 ? '+' : ''}${e.amount}`).join(', ')
 }

@@ -72,8 +72,20 @@ export const ContractItem = ({ contract, language, editable }: ContractItemProps
 
   return (
     <div
-      className={'contract-card' + (editable ? ' editable' : '')}
-      style={{ borderColor: rarityColors[contract.rarity] }}
+      className={
+        'contract-card' +
+        (editable ? ' editable' : '') +
+        (contract.type === 'alignment'
+          ? ' alignment'
+          : contract.type === 'capabilities'
+          ? ' capabilities'
+          : contract.type === 'product'
+          ? ' product'
+          : '')
+      }
+      style={{
+        borderColor: rarityColors[contract.rarity],
+      }}
       onClick={() => editable && completeContract(contract)}
     >
       {/* Header */}

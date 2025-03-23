@@ -19,7 +19,7 @@ export const BreakthroughItem = ({ breakthrough, onSelect }: { breakthrough: Bre
       }}
     >
       <span style={{ textAlign: 'left', lineHeight: '1.5' }}>
-        {breakthrough.name['en-US']} (Lv. {breakthrough.level}/{breakthrough.maxLevel})
+        {breakthrough.name['en-US']} (Level {breakthrough.level}/{breakthrough.maxLevel})
         <br />
         {breakthrough.description['en-US'](breakthrough.level + 1)}
       </span>

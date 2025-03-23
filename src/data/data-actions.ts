@@ -1,4 +1,5 @@
-import { Action, GameState } from '../types'
+import { Action, GameState, Breakthrough } from '../types'
+import { levelUpCost } from '../util'
 import { refreshContracts } from './contract-generator'
 import { generateHumanSelection, generateBreakthroughSelection } from './data-generators'
 
@@ -39,7 +40,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     name: { 'en-US': 'Recruit a human', 'jp-FI': '人材を増やす' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'sp', amount: gs.humans.length * -10 - 20 }],
+    effect: [{ paramEffected: 'sp', amount: gs.humans.length * -10 }],
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
@@ -126,4 +127,27 @@ export const languageToggleAction: Action = {
   turnsInvested: 0,
   effect: [],
   functionEffect: (gs) => ({ ...gs, language: gs.language === 'en-US' ? 'jp-FI' : 'en-US' }),
+}
+
+export const levelUpBreakthroughAction = (breakthrough: Breakthrough): Action => {
+  return {
+    eventId: 'levelUpBreakthrough',
+    name: {
+      'en-US': `Level up ${breakthrough.name['en-US']}`,
+      'jp-FI': `レベルアップ: ${breakthrough.name['jp-FI']}`,
+    },
+    turnCost: 0,
+    turnsInvested: 0,
+    enabledCondition: (gs) => gs.up >= levelUpCost(breakthrough) && breakthrough.level < breakthrough.maxLevel,
+    effect: [{ paramEffected: 'up', amount: -levelUpCost(breakthrough) }],
+    functionEffect: (gs) => {
+      // Create a new breakthroughs array with the leveled up breakthrough
+      const updatedBreakthroughs = gs.breakthroughs.map((b) => (b.id === breakthrough.id ? { ...b, level: b.level + 1 } : b))
+
+      return {
+        ...gs,
+        breakthroughs: updatedBreakthroughs,
+      }
+    },
+  }
 }

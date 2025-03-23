@@ -34,6 +34,7 @@ export const MainScreen = () => {
 
       <GameStateDisplay />
       <ContractList editable={true} />
+      <BreakthroughList editable={true} />
       <LanguageToggle />
     </div>
   )

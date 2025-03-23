@@ -17,9 +17,9 @@ const baseGameState: GameState = {
   influence: 100,
   trust: 100,
 
-  sp: 10 * (debug ? 10 : 1),
-  ep: 10 * (debug ? 10 : 1),
-  rp: 10 * (debug ? 10 : 1),
+  sp: 20 * (debug ? 10 : 1),
+  ep: 20 * (debug ? 10 : 1),
+  rp: 20 * (debug ? 10 : 1),
   up: 0,
 
   humans: [],

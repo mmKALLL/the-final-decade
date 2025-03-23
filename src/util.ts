@@ -1,8 +1,10 @@
-import { Action, Contract, Effect, GameState, Param, SingleEffect, Weighted } from './types'
+import { Action, Breakthrough, Contract, Effect, GameState, Param, SingleEffect, Weighted } from './types'
 
 export const getYear = (turn: number) => Math.floor(turn / 12) + 1
 export const isGameOver = (gs: GameState): boolean => gs.money <= 0 || gs.asiOutcome <= 0 || gs.trust <= 0 || gs.influence <= 0
 export const isGameWon = (gs: GameState): boolean => (getYear(gs.turn) >= 6 && gs.asiOutcome >= 100) || gs.publicUnity >= 100
+
+export const levelUpCost = (breakthrough: Breakthrough) => breakthrough.level * 2 + 1
 
 export const assertNever = (x: never): never => {
   throw new Error('Unexpected object: ' + x)
@@ -10,12 +12,12 @@ export const assertNever = (x: never): never => {
 
 export const effectToString = (e: Effect): string => e.map(singleEffectToString).join(', ')
 
-const singleEffectToString = ({ paramEffected, amount }: SingleEffect) =>
+export const singleEffectToString = ({ paramEffected, amount }: SingleEffect) =>
   `${paramToLabel(paramEffected)} ${withPlusSign(Math.round(amount))}${paramEffected === 'money' ? 'k' : ''}`
 
-const withPlusSign = (value: number) => (value > 0 ? `+${value}` : `${value}`)
+export const withPlusSign = (value: number) => (value > 0 ? `+${value}` : `${value}`)
 
-const paramToLabel = (p: Param): string => {
+export const paramToLabel = (p: Param): string => {
   // prettier-ignore
   switch (p) {
     case 'turn':             return 'turn'
