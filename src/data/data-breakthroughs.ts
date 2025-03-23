@@ -531,8 +531,8 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: BreakthroughId.PrecisionCorruption,
     name: { 'en-US': 'Precision Corruption', 'jp-FI': '精密な汚染' },
     description: {
-      'en-US': (l) => `+${2 * l} RP/turn. Alignment focus -1`,
-      'jp-FI': (l) => `毎ターンRP+${2 * l}。アラインメントフォーカス -1`,
+      'en-US': (l) => `+${2 * l} RP/turn. Public unity -1`,
+      'jp-FI': (l) => `毎ターンRP+${2 * l}。公衆の支持 -1`,
     },
     rarity: 'rare',
     level: 0,
@@ -691,15 +691,15 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: BreakthroughId.ColdAlignmentForge,
     name: { 'en-US': 'Cold Alignment Forge', 'jp-FI': '冷たいアラインメント炉' },
     description: {
-      'en-US': (l) => `+10 alignment focus, but lose 10 trust`,
-      'jp-FI': (l) => `アラインメントフォーカス+10、信頼-10`,
+      'en-US': (l) => `+2 alignment focus, but lose 20 influence`,
+      'jp-FI': (l) => `アラインメントフォーカス+2、影響力-20`,
     },
     rarity: 'epic',
     level: 0,
     maxLevel: 1,
     effect: [
-      { paramEffected: 'publicUnity', amount: 10 },
-      { paramEffected: 'trust', amount: -10 },
+      { paramEffected: 'publicUnity', amount: 2 },
+      { paramEffected: 'influence', amount: -20 },
     ],
   },
   {
@@ -729,7 +729,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: BreakthroughId.EncodedProphecy,
     name: { 'en-US': 'Encoded Prophecy', 'jp-FI': '暗号化された予言' },
     description: {
-      'en-US': (l) => `At the end of each year: +10 trust and +10 influence`,
+      'en-US': (l) => `At the start of each year: +10 trust and +10 influence`,
       'jp-FI': (l) => `毎年終わりに信頼+10、影響力+10`,
     },
     rarity: 'epic',
@@ -739,7 +739,7 @@ export const epicBreakthroughs: Breakthrough[] = [
       {
         trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          if (gs.turn && gs.turn % 12 === 0) {
+          if (gs.turn % 12 === 0) {
             return {
               ...gs,
               trust: gs.trust + 10,

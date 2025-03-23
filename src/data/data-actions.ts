@@ -91,7 +91,7 @@ export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
   },
   {
     eventId: 'increaseInfluence',
-    name: { 'en-US': 'Marketing campaign', 'jp-FI': '影響力を増やす' },
+    name: { 'en-US': 'Influencer marketing', 'jp-FI': '影響力を増やす' },
     turnCost: 1,
     turnsInvested: 0,
     effect: [
