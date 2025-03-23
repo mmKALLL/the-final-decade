@@ -105,6 +105,13 @@ export const SelectionScreen = () => {
 
   // Handle selecting a breakthrough
   function handleBreakthroughSelect(breakthrough: Breakthrough) {
+    const existingBreakthrough = gs.breakthroughs.find((b) => b.id === breakthrough.id)
+    const isMaxLevel = existingBreakthrough && existingBreakthrough.level >= existingBreakthrough.maxLevel
+
+    if (isMaxLevel) {
+      return // Exit early. TODO: Don't have the breakthrough selectable in the first place
+    }
+
     dispatch({
       eventId: 'internalStateChange',
       name: { 'en-US': `Acquired ${breakthrough.name['en-US']}, applying all effects`, 'jp-FI': `取得: ${breakthrough.name['jp-FI']}` },
@@ -114,8 +121,10 @@ export const SelectionScreen = () => {
       functionEffect: (gs) => {
         const gsWithBreakthrough = {
           ...gs,
-          breakthroughs: [...gs.breakthroughs, breakthrough],
           breakthroughSelections: gs.breakthroughSelections.slice(1), // Remove first breakthrough group after selection
+          breakthroughs: existingBreakthrough
+            ? gs.breakthroughs.map((b) => (b.id === breakthrough.id ? { ...b, level: b.level + 1 } : b))
+            : [...gs.breakthroughs, { ...breakthrough, level: 1 }],
         }
         return reduceAction(gsWithBreakthrough, {
           ...breakthrough,
