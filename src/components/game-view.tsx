@@ -38,9 +38,9 @@ export function GameView() {
         ) : gs.currentScreen === 'selection' ? (
           <SelectionScreen />
         ) : gs.currentScreen === 'game-over' ? (
-          <GameOverScreen gs={gs} turn={gs.turn} />
+          <GameOverScreen />
         ) : gs.currentScreen === 'victory' ? (
-          <VictoryScreen gs={gs} />
+          <VictoryScreen />
         ) : (
           assertNever(gs.currentScreen)
         )}
