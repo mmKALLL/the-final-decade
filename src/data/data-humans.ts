@@ -79,7 +79,7 @@ export const spHumans: Human[] = [
     rpGeneration: 0,
   },
   {
-    name: { 'en-US': 'Daisuke Tanaka', 'jp-FI': '田中 大輔' },
+    name: { 'en-US': 'Rajiv Gupta', 'jp-FI': 'ラジブ・グプタ' },
     rarity: 'common',
     wage: 10,
     rank: 'senior',
@@ -169,7 +169,7 @@ export const spHumans: Human[] = [
     specialEffect: [{ paramEffected: 'publicUnity', amount: 1 }],
   },
   {
-    name: { 'en-US': 'Celeste Dupont', 'jp-FI': 'セレステ・デュポン' },
+    name: { 'en-US': 'Sophia Mendez', 'jp-FI': 'ソフィア・メンデス' },
     rarity: 'rare',
     wage: 14,
     rank: 'medior',
@@ -242,7 +242,7 @@ export const epHumans: Human[] = [
   // === EP-FOCUSED CHARACTERS (24 Total) ===
   // COMMON (3 volunteer/junior, 2 medior, 1 senior/lead)
   {
-    name: { 'en-US': 'Mia Patel', 'jp-FI': 'ミア・パテル' },
+    name: { 'en-US': 'Maya Sharma', 'jp-FI': 'マヤ・シャルマ' },
     rarity: 'common',
     wage: 1,
     rank: 'volunteer',
@@ -252,7 +252,7 @@ export const epHumans: Human[] = [
     specialEffect: [{ paramEffected: 'trust', amount: -5 }],
   },
   {
-    name: { 'en-US': 'Kenji Nakamura', 'jp-FI': '中村 健二' },
+    name: { 'en-US': 'Takashi Miyazaki', 'jp-FI': '宮崎 隆' },
     rarity: 'common',
     wage: 1,
     rank: 'volunteer',
@@ -326,7 +326,7 @@ export const epHumans: Human[] = [
     rpGeneration: 0,
   },
   {
-    name: { 'en-US': 'Daniel Carter', 'jp-FI': 'ダニエル・カーター' },
+    name: { 'en-US': 'Mateo Diaz', 'jp-FI': 'マテオ・ディアス' },
     rarity: 'common',
     wage: 15,
     rank: 'lead',
@@ -407,7 +407,7 @@ export const epHumans: Human[] = [
     specialEffect: [{ paramEffected: 'asiOutcome', amount: 10 }],
   },
   {
-    name: { 'en-US': 'Celeste Dupont', 'jp-FI': 'セレステ・デュポン' },
+    name: { 'en-US': 'Priya Mehta', 'jp-FI': 'プリヤ・メータ' },
     rarity: 'rare',
     wage: 14,
     rank: 'medior',
@@ -416,7 +416,7 @@ export const epHumans: Human[] = [
     rpGeneration: 1,
   },
   {
-    name: { 'en-US': 'Victor Chang', 'jp-FI': 'ヴィクター・チャン' },
+    name: { 'en-US': 'Wei Lin', 'jp-FI': 'ウェイ・リン' },
     rarity: 'rare',
     wage: 18,
     rank: 'senior',
@@ -438,7 +438,7 @@ export const epHumans: Human[] = [
 
   // EPIC (3 total)
   {
-    name: { 'en-US': 'Ethan Carter', 'jp-FI': 'イーサン・カーター' },
+    name: { 'en-US': 'Ibrahim Ahmed', 'jp-FI': 'イブラヒム・アフメド' },
     rarity: 'epic',
     wage: 30,
     rank: 'medior',
@@ -451,7 +451,7 @@ export const epHumans: Human[] = [
     ],
   },
   {
-    name: { 'en-US': 'Leonard Strauss', 'jp-FI': 'レオナルド・ストラウス' },
+    name: { 'en-US': 'Heinrich Mueller', 'jp-FI': 'ハインリヒ・ミュラー' },
     rarity: 'epic',
     wage: 40,
     rank: 'senior',
@@ -461,7 +461,7 @@ export const epHumans: Human[] = [
     specialEffect: [{ paramEffected: 'trust', amount: -35 }],
   },
   {
-    name: { 'en-US': 'Veronika Ivanova', 'jp-FI': 'ベロニカ・イヴァノヴァ' },
+    name: { 'en-US': 'Nadia Petrova', 'jp-FI': 'ナディア・ペトロワ' },
     rarity: 'epic',
     wage: 50,
     rank: 'lead',
@@ -485,7 +485,7 @@ export const rpHumans: Human[] = [
     rpGeneration: 1,
   },
   {
-    name: { 'en-US': 'Renji Oda', 'jp-FI': '織田 蓮司' },
+    name: { 'en-US': 'Arjun Singh', 'jp-FI': 'アルジュン・シン' },
     rarity: 'common',
     wage: 0,
     rank: 'volunteer',
@@ -541,7 +541,7 @@ export const rpHumans: Human[] = [
     rpGeneration: 3,
   },
   {
-    name: { 'en-US': 'Victor Hernández', 'jp-FI': 'ビクター・エルナンデス' },
+    name: { 'en-US': 'Oscar Rodriguez', 'jp-FI': 'オスカー・ロドリゲス' },
     rarity: 'common',
     wage: 8,
     rank: 'medior',
@@ -580,7 +580,7 @@ export const rpHumans: Human[] = [
     specialEffect: [{ paramEffected: 'influence', amount: -3 }],
   },
   {
-    name: { 'en-US': 'Theo Vasquez', 'jp-FI': 'テオ・バスケス' },
+    name: { 'en-US': 'Amara Okafor', 'jp-FI': 'アマラ・オカフォー' },
     rarity: 'uncommon',
     wage: 3,
     rank: 'volunteer',
@@ -638,7 +638,7 @@ export const rpHumans: Human[] = [
     rpGeneration: 3,
   },
   {
-    name: { 'en-US': 'Celeste Dupont', 'jp-FI': 'セレステ・デュポン' },
+    name: { 'en-US': 'Fatima Al-Zahrani', 'jp-FI': 'ファティマ・アルザハラニ' },
     rarity: 'rare',
     wage: 6,
     rank: 'junior',
@@ -679,7 +679,7 @@ export const rpHumans: Human[] = [
 
   // EPIC (Can be any rank)
   {
-    name: { 'en-US': 'Leonard Strauss', 'jp-FI': 'レオナルド・ストラウス' },
+    name: { 'en-US': 'Sven Johansson', 'jp-FI': 'スヴェン・ヨハンソン' },
     rarity: 'epic',
     wage: 20,
     rank: 'junior',
@@ -689,7 +689,7 @@ export const rpHumans: Human[] = [
     specialEffect: [{ paramEffected: 'up', amount: 10 }],
   },
   {
-    name: { 'en-US': 'Veronika Ivanova', 'jp-FI': 'ベロニカ・イヴァノヴァ' },
+    name: { 'en-US': 'Layla Al-Farsi', 'jp-FI': 'ライラ・アルファルシ' },
     rarity: 'epic',
     wage: 40,
     rank: 'senior',
