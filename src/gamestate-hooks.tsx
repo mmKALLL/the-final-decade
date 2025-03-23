@@ -239,8 +239,8 @@ export function handleTurn(gs: GameState): GameState {
 
   let updatedGs = { ...gs }
 
-  // Apply dayChange event handlers
-  updatedGs = applyActionEventHandlers(updatedGs, effectStack, 'dayChange', 0)
+  // Apply turnEnd event handlers
+  updatedGs = applyActionEventHandlers(updatedGs, effectStack, 'turnEnd', 0)
   updatedGs = reduceEffect(effectStack, updatedGs, 0)
 
   // Check if this is the end of a year (turn divisible by 12)

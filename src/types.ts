@@ -154,7 +154,7 @@ export type EventId =
 
   // Game state related
   | 'contractSuccess'
-  | 'dayChange'
+  | 'turnEnd'
   | 'yearChange'
   | 'internalStateChange' // Should not be listened to in most cases
 

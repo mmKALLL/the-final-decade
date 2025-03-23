@@ -181,7 +181,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     maxLevel: 3,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return { ...gs, rp: gs.rp + 1 * level }
         },
@@ -303,7 +303,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     maxLevel: 3,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return { ...gs, money: gs.money + 1 * level }
         },
@@ -322,7 +322,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     maxLevel: 2,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return { ...gs, rp: gs.rp + 1 * level }
         },
@@ -341,7 +341,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     maxLevel: 3,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return { ...gs, asiOutcome: gs.asiOutcome + 1 * level }
         },
@@ -394,7 +394,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     effect: [{ paramEffected: 'trust', amount: -20 }],
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return { ...gs, money: gs.money + 2 * level }
         },
@@ -413,7 +413,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     maxLevel: 3,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return { ...gs, asiOutcome: gs.asiOutcome + 2 * level }
         },
@@ -454,7 +454,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     maxLevel: 2,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return { ...gs, ep: gs.ep + 1 * level, rp: gs.rp - 1 * level }
         },
@@ -512,7 +512,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     maxLevel: 2,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return {
             ...gs,
@@ -540,7 +540,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     effect: [{ paramEffected: 'publicUnity', amount: -1 }],
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return { ...gs, rp: gs.rp + level }
         },
@@ -578,7 +578,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     maxLevel: 1,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number) => {
           const updatedGs = { ...gs }
           if ((updatedGs as any).contractsPerCycle === undefined) {
@@ -602,7 +602,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     maxLevel: 1,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return {
             ...gs,
@@ -652,7 +652,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     maxLevel: 1,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return {
             ...gs,
@@ -675,7 +675,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     maxLevel: 1,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number) => {
           const updatedGs = { ...gs }
           if ((updatedGs as any).effectMultiplier === undefined) {
@@ -737,7 +737,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     maxLevel: 1,
     actionEventHandlers: [
       {
-        trigger: 'dayChange',
+        trigger: 'turnEnd',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           if (gs.turn && gs.turn % 12 === 0) {
             return {
