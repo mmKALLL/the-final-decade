@@ -79,7 +79,7 @@ function createEffectStack(gs: GameState, action: Action): EffectStack {
 
 function applyActionEventHandlers(gs: GameState, effectStack: EffectStack, eventId: EventId, depth: number): GameState {
   // Make a copy of the game state to work with
-  const updatedGs = { ...gs }
+  let updatedGs = { ...gs }
 
   // Get all action event handlers from all breakthroughs
   const allHandlers = gs.breakthroughs.flatMap((breakthrough) =>
@@ -92,7 +92,7 @@ function applyActionEventHandlers(gs: GameState, effectStack: EffectStack, event
 
   // Apply each handler, allowing it to modify the effect stack
   allHandlers.forEach(({ handler, level }) => {
-    handler.apply(updatedGs, effectStack, eventId, level, depth)
+    updatedGs = handler.apply(updatedGs, effectStack, eventId, level, depth)
   })
 
   return updatedGs
@@ -121,7 +121,7 @@ function applyParamEventHandlers(gs: GameState, effectStack: EffectStack, param:
 
 function applyModifiers(gs: GameState, param: Param, value: number): number {
   // Skip modifying if value is zero
-  if (value === 0) return value
+  if (value <= 0) return value
 
   // Get all modifiers from all breakthroughs that apply to this param
   const modifiers = gs.breakthroughs.flatMap((breakthrough) =>
@@ -222,8 +222,6 @@ export function handleTurn(gs: GameState): GameState {
   const epGain = gs.humans.reduce((acc, human) => acc + human.epGeneration, 0)
   const rpGain = gs.humans.reduce((acc, human) => acc + human.rpGeneration, 0)
 
-  const newTurn = gs.turn + 1
-
   // Create effect stack for turn changes
   const effect: Effect = [
     { paramEffected: 'money', amount: moneyGain },
@@ -235,17 +233,14 @@ export function handleTurn(gs: GameState): GameState {
   ]
   const effectStack: EffectStack = effect.map((e) => ({ ...e, depth: 0 }))
 
-  // Create a base updated game state
-  let updatedGs = { ...gs, turn: newTurn }
+  let updatedGs = { ...gs }
 
   // Apply dayChange event handlers
   updatedGs = applyActionEventHandlers(updatedGs, effectStack, 'dayChange', 0)
-
-  // Apply all effects
   updatedGs = reduceEffect(effectStack, updatedGs, 0)
 
   // Check if this is the end of a year (turn divisible by 12)
-  if (newTurn % 12 === 0) {
+  if (updatedGs.turn % 12 === 0) {
     return handleEndOfYear(updatedGs)
   }
 
