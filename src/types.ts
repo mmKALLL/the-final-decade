@@ -195,7 +195,7 @@ export type Param =
   | 'humanSelection'
   | 'breakthroughSelection'
 
-export type ContractType = 'alignment' | 'capabilities' | 'product'
+export type ContractType = 'safety' | 'capabilities' | 'product'
 
 export type Contract = {
   name: Label

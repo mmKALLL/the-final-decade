@@ -189,7 +189,7 @@ export const yearlyContracts: YearlyContract[] = [
 
 export function getRandomContractName(type: ContractType): Label {
   switch (type) {
-    case 'alignment':
+    case 'safety':
       return alignmentContractNames[Math.floor(Math.random() * alignmentContractNames.length)]
     case 'capabilities':
       return capabilityContractNames[Math.floor(Math.random() * capabilityContractNames.length)]

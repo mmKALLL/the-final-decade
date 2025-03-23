@@ -75,8 +75,8 @@ export const ContractItem = ({ contract, language, editable }: ContractItemProps
       className={
         'contract-card' +
         (editable ? ' editable' : '') +
-        (contract.type === 'alignment'
-          ? ' alignment'
+        (contract.type === 'safety'
+          ? ' safety'
           : contract.type === 'capabilities'
           ? ' capabilities'
           : contract.type === 'product'
@@ -95,7 +95,7 @@ export const ContractItem = ({ contract, language, editable }: ContractItemProps
         </h3>
         <span className="contract-rarity" style={{ color: rarityColors[contract.rarity] }}>
           {isYearlyContract(contract) && `${contract.year} - `}
-          {contract.type && `${contract.type === 'alignment' ? 'Safety' : contract.type === 'capabilities' ? 'Capability' : 'Product'} - `}
+          {contract.type && `${contract.type === 'safety' ? 'Safety' : contract.type === 'capabilities' ? 'Capability' : 'Product'} - `}
           {capitalize(contract.rarity)}
         </span>
       </div>

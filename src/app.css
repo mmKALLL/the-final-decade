@@ -299,7 +299,7 @@ html, body {
   transition: all 0.2s ease;
 }
 
-.contract-card.alignment {
+.contract-card.safety {
   background-color: rgba(40, 60, 60, 0.7);
 }
 

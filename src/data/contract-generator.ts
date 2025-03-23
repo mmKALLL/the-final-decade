@@ -15,8 +15,8 @@ function getYearIndex(turn: number): number {
 
 export function generateContract(gs: GameState): Contract {
   // Setup base parameters that control complexity
-  const contractType = Math.random() < 0.33 ? 'alignment' : Math.random() < 0.5 ? 'capabilities' : 'product'
-  const isSecondaryContract = contractType === 'alignment' || contractType === 'product'
+  const contractType = Math.random() < 0.33 ? 'safety' : Math.random() < 0.5 ? 'capabilities' : 'product'
+  const isSecondaryContract = contractType === 'safety' || contractType === 'product'
 
   const difficulty = 50 + Math.floor(Math.random() * (getYearIndex(gs.turn) * 50 + 75))
 
@@ -40,7 +40,7 @@ export function generateContract(gs: GameState): Contract {
 
   const primaryCosts: Effect = [{ paramEffected: 'ep', amount: -(totalRequirement - secondaryRequirement) * 5 }]
   const secondaryCosts: Effect =
-    secondaryRequirement > 0 ? [{ paramEffected: contractType === 'alignment' ? 'rp' : 'sp', amount: -secondaryRequirement * 5 }] : []
+    secondaryRequirement > 0 ? [{ paramEffected: contractType === 'safety' ? 'rp' : 'sp', amount: -secondaryRequirement * 5 }] : []
 
   const capabilityCosts: Effect = [
     { paramEffected: Math.random() < 0.5 ? 'trust' : 'asiOutcome', amount: Math.floor(-1 * ((2 * difficulty) / 100)) },
