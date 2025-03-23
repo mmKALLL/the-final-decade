@@ -23,10 +23,10 @@ export function GameStateDisplay() {
       'public unity': gs.publicUnity,
     },
     Team: {
-      breakthroughs: gs.breakthroughs.length,
       'SP gain': `${resourceProduction.sp.base} * ${resourceProduction.sp.multiplier} = ${resourceProduction.sp.total}`,
       'EP gain': `${resourceProduction.ep.base} * ${resourceProduction.ep.multiplier} = ${resourceProduction.ep.total}`,
       'RP gain': `${resourceProduction.rp.base} * ${resourceProduction.rp.multiplier} = ${resourceProduction.rp.total}`,
+      breakthroughs: gs.breakthroughs.length,
     },
   }
 
