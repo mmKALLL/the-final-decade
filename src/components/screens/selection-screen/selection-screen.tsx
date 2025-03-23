@@ -133,11 +133,19 @@ export const SelectionScreen = () => {
       turnsInvested: 0,
       effect: [],
       functionEffect: (gs) => {
-        return {
+        const gsWithHuman = {
           ...gs,
           humans: [...gs.humans, human],
           humanSelections: gs.humanSelections.slice(1), // Remove the first group after selection
         }
+        return reduceAction(gsWithHuman, {
+          ...human,
+          eventId: 'internalStateChange',
+          description: { 'en-US': '', 'jp-FI': '' },
+          turnCost: 0,
+          turnsInvested: 0,
+          effect: human.specialEffect ?? [],
+        })
       },
     })
   }
