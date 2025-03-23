@@ -4,7 +4,7 @@ import { useContext, useReducer } from 'preact/hooks'
 import { Action, Effect, EffectStack, EventId, GameState, ModifierType, Param } from './types'
 import { generateHuman, generateBreakthrough } from './data/data-generators'
 import { refreshContracts } from './data/contract-generator'
-import { convertContractToAction } from './util'
+import { convertContractToAction, isGameOver } from './util'
 
 export const GameStateContext = createContext(initialGameState)
 export const DispatchContext = createContext((_action: Action) => {})
@@ -245,7 +245,7 @@ export function handleTurn(gs: GameState): GameState {
   }
 
   // Handle game over triggers
-  if (updatedGs.money <= 0 || updatedGs.asiOutcome <= 0 || updatedGs.trust <= 0 || updatedGs.influence <= 0) {
+  if (isGameOver(updatedGs)) {
     return {
       ...updatedGs,
       currentScreen: 'game-over',
@@ -299,6 +299,14 @@ export function handleEndOfYear(gs: GameState): GameState {
   updatedGs = {
     ...updatedGs,
     yearlyContracts: updatedGs.yearlyContracts.slice(1),
+    breakthroughSelections: [
+      ...updatedGs.breakthroughSelections,
+      [
+        generateBreakthrough(updatedGs, 100, 'epic'),
+        generateBreakthrough(updatedGs, 100, 'epic'),
+        generateBreakthrough(updatedGs, 100, 'epic'),
+      ],
+    ],
     currentScreen: 'selection',
   }
 

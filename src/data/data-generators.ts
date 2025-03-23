@@ -22,6 +22,7 @@ export function generateHuman(gs: GameState, rarityNumberOverride?: number, rari
 
 export function generateBreakthrough(gs: GameState, rarityNumberOverride?: number, rarityOverride?: Rarity): Breakthrough {
   const rarityNumber = rarityNumberOverride ?? Math.floor(Math.random() * 300)
+  // FIXME: Use pickListOfWeighted instead so we don't get duplicates
   const rarity = rarityOverride ?? pickWeighted(rarityDistribution(rarityNumber))
 
   const filteredBreakthroughs = breakthroughs.filter(
