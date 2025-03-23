@@ -4,6 +4,7 @@ import { HumanItem } from './human-item'
 import { BreakthroughItem } from './breakthrough-item'
 import { Human, Breakthrough } from '../../../types'
 import { ContractList } from '../../contract-list'
+import { GameStateDisplay } from '../../game-state-display'
 
 export const SelectionScreen = () => {
   const { gs, dispatch } = useGameState()
@@ -25,37 +26,6 @@ export const SelectionScreen = () => {
       })
     }
   }, [gs.humanSelections, gs.breakthroughSelections, gs.contractSelections])
-
-  // Format value display to be more readable
-  const formatValue = (value: any) => {
-    if (typeof value === 'number') {
-      return value
-    }
-    if (Array.isArray(value)) {
-      return value.length // Just show the count for arrays
-    }
-    return JSON.stringify(value)
-  }
-
-  // More compact category names for mobile
-  const compactCategories = {
-    Resources: {
-      money: gs.money,
-      'passive income': gs.passiveIncome,
-    },
-    Organization: {
-      trust: gs.trust,
-      influence: gs.influence,
-    },
-    ASI: {
-      outcome: gs.asiOutcome,
-      'public unity': gs.publicUnity,
-    },
-    Team: {
-      humans: gs.humans.length,
-      breakthroughs: gs.breakthroughs.length,
-    },
-  }
 
   return (
     <>
@@ -102,24 +72,7 @@ export const SelectionScreen = () => {
         </div>
       </div>
 
-      {/* Game state display in compact row format */}
-      <div className="game-state-section">
-        <div className="stat-categories">
-          {Object.entries(compactCategories).map(([category, stats]) => (
-            <div className="stat-category" key={`category-${category}`}>
-              <h3 className="category-title">{category}</h3>
-              <div className="game-state-grid">
-                {Object.entries(stats).map(([key, value]) => (
-                  <div className="stat-card" key={`stat-${category}-${key}`}>
-                    <div className="stat-name">{key}</div>
-                    <div className="stat-value">{formatValue(value)}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <GameStateDisplay />
       <ContractList editable={false} />
     </>
   )
