@@ -99,6 +99,8 @@ function applyActionEventHandlers(gs: GameState, effectStack: EffectStack, event
 }
 
 function applyParamEventHandlers(gs: GameState, effectStack: EffectStack, param: Param, value: number, depth: number): GameState {
+  if (value <= 0) return gs
+
   // Make a copy of the game state to work with
   const updatedGs = { ...gs }
 
@@ -160,8 +162,11 @@ function applyModifiers(gs: GameState, param: Param, value: number): number {
 }
 
 function reduceEffect(effectStack: EffectStack, gs: GameState, depth: number): GameState {
-  if (effectStack.length === 0 || depth >= 10) {
+  if (effectStack.length === 0) {
     return gs
+  }
+  if (depth >= 10 || effectStack[0].depth >= 10) {
+    return reduceEffect(effectStack.slice(1), gs, depth - 1)
   }
 
   let updatedGs = { ...gs }
@@ -197,10 +202,9 @@ function reduceEffect(effectStack: EffectStack, gs: GameState, depth: number): G
     )
   }
 
-  const currentValue: number = updatedGs[paramEffected]
-
   // Apply modifiers to the amount
-  const modifiedAmount = currentValue > 0 ? applyModifiers(updatedGs, paramEffected, amount) : currentValue
+  const currentValue: number = updatedGs[paramEffected]
+  const modifiedAmount = applyModifiers(updatedGs, paramEffected, amount)
   const newValue = currentValue + modifiedAmount
 
   // Update the game state
