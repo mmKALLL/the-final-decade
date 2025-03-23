@@ -2,7 +2,7 @@ import { createContext, JSX } from 'preact'
 import { initialGameState } from './data/data-gamestate'
 import { useContext, useReducer } from 'preact/hooks'
 import { Action, Effect, EffectStack, EventId, GameState, ModifierType, Param } from './types'
-import { generateHuman, generateBreakthrough } from './data/data-generators'
+import { generateBreakthroughSelection, generateHumanSelection } from './data/data-generators'
 import { refreshContracts } from './data/contract-generator'
 import { convertContractToAction, isGameOver } from './util'
 
@@ -179,10 +179,7 @@ function reduceEffect(effectStack: EffectStack, gs: GameState, depth: number): G
       effectStack.slice(1),
       {
         ...updatedGs,
-        humanSelections: [
-          ...updatedGs.humanSelections,
-          [generateHuman(updatedGs, amount), generateHuman(updatedGs, amount), generateHuman(updatedGs, amount)],
-        ],
+        humanSelections: [...updatedGs.humanSelections, generateHumanSelection(updatedGs, amount)],
       },
       depth
     )
@@ -193,10 +190,7 @@ function reduceEffect(effectStack: EffectStack, gs: GameState, depth: number): G
       effectStack.slice(1),
       {
         ...updatedGs,
-        breakthroughSelections: [
-          ...updatedGs.breakthroughSelections,
-          [generateBreakthrough(updatedGs, amount), generateBreakthrough(updatedGs, amount), generateBreakthrough(updatedGs, amount)],
-        ],
+        breakthroughSelections: [...updatedGs.breakthroughSelections, generateBreakthroughSelection(updatedGs, amount)],
       },
       depth
     )
@@ -303,14 +297,7 @@ export function handleEndOfYear(gs: GameState): GameState {
   updatedGs = {
     ...updatedGs,
     yearlyContracts: updatedGs.yearlyContracts.slice(1),
-    breakthroughSelections: [
-      ...updatedGs.breakthroughSelections,
-      [
-        generateBreakthrough(updatedGs, 100, 'epic'),
-        generateBreakthrough(updatedGs, 100, 'epic'),
-        generateBreakthrough(updatedGs, 100, 'epic'),
-      ],
-    ],
+    breakthroughSelections: [...updatedGs.breakthroughSelections, generateBreakthroughSelection(updatedGs, 100, 'epic')],
     currentScreen: 'selection',
   }
 

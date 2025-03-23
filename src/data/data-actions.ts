@@ -1,6 +1,6 @@
 import { Action, GameState } from '../types'
 import { refreshContracts } from './contract-generator'
-import { generateHuman, generateBreakthrough } from './data-generators'
+import { generateHumanSelection, generateBreakthroughSelection } from './data-generators'
 
 export const firstOrderActions: (gs: GameState) => Action[] = (gs) => [
   {
@@ -43,7 +43,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
-      humanSelections: [...gs.humanSelections, [generateHuman(gs), generateHuman(gs), generateHuman(gs)]],
+      humanSelections: [...gs.humanSelections, generateHumanSelection(gs)],
     }),
   },
   {
@@ -63,10 +63,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',
-      breakthroughSelections: [
-        ...gs.breakthroughSelections,
-        [generateBreakthrough(gs), generateBreakthrough(gs), generateBreakthrough(gs)],
-      ],
+      breakthroughSelections: [...gs.breakthroughSelections, generateBreakthroughSelection(gs)],
     }),
   },
   {

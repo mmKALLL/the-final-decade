@@ -2,7 +2,7 @@ import { Action, GameState, Human, Breakthrough, YearlyContract, Rarity, Weighte
 import { humans } from './data-humans'
 import { breakthroughs } from './data-breakthroughs'
 import { yearlyContracts } from './data-contracts'
-import { pickWeighted } from '../util'
+import { pickWeighted, pickListOfWeighted } from '../util'
 
 // Goal: 100 => 57% common, 30% uncommon, 10% rare, 3% epic by selecting best of 3 picks
 const rarityDistribution: (rarityNumber: number) => Weighted<Rarity>[] = (rarityNumber) => [
@@ -12,23 +12,45 @@ const rarityDistribution: (rarityNumber: number) => Weighted<Rarity>[] = (rarity
   { value: 'epic', weight: Math.round((1 * rarityNumber) / 100) },
 ]
 
-export function generateHuman(gs: GameState, rarityNumberOverride?: number, rarityOverride?: Rarity): Human {
+export function generateHumanSelection(gs: GameState, rarityNumberOverride?: number, rarityOverride?: Rarity): Human[] {
   const rarityNumber = rarityNumberOverride ?? Math.floor(Math.random() * 300)
   const rarity = rarityOverride ?? pickWeighted(rarityDistribution(rarityNumber))
 
-  const filteredHumans = humans.filter((h) => !gs.humans.includes(h) && h.rarity === rarity)
-  return filteredHumans[Math.floor(Math.random() * filteredHumans.length)]
+  // Filter humans not already in the game state with the desired rarity
+  let filteredHumans = humans.filter((h) => !gs.humans.includes(h) && h.rarity === rarity)
+
+  // If not enough humans of the desired rarity are available, add some rare ones
+  if (filteredHumans.length <= 3) {
+    filteredHumans = [...filteredHumans, ...humans.filter((h) => !gs.humans.includes(h) && h.rarity === 'rare').slice(0, 3)]
+  }
+
+  // Convert to weighted format for pickListOfWeighted
+  const weightedHumans = filteredHumans.map((h) => ({ ...h, weight: 1 }))
+
+  // Pick three random human from the filtered list
+  return pickListOfWeighted(3, weightedHumans)
 }
 
-export function generateBreakthrough(gs: GameState, rarityNumberOverride?: number, rarityOverride?: Rarity): Breakthrough {
+export function generateBreakthroughSelection(gs: GameState, rarityNumberOverride?: number, rarityOverride?: Rarity): Breakthrough[] {
   const rarityNumber = rarityNumberOverride ?? Math.floor(Math.random() * 300)
-  // FIXME: Use pickListOfWeighted instead so we don't get duplicates
   const rarity = rarityOverride ?? pickWeighted(rarityDistribution(rarityNumber))
 
-  const filteredBreakthroughs = breakthroughs.filter(
-    (b) => !gs.breakthroughs.some((existing) => existing.id === b.id) && b.rarity === rarity
-  )
-  return filteredBreakthroughs[Math.floor(Math.random() * filteredBreakthroughs.length)]
+  // Filter breakthroughs not already in the game state with the desired rarity
+  let filteredBreakthroughs = breakthroughs.filter((b) => !gs.breakthroughs.some((existing) => existing.id === b.id) && b.rarity === rarity)
+
+  // If no breakthroughs of the desired rarity are available, add some rare ones
+  if (filteredBreakthroughs.length <= 3) {
+    filteredBreakthroughs = [
+      ...filteredBreakthroughs,
+      ...breakthroughs.filter((b) => !gs.breakthroughs.some((existing) => existing.id === b.id) && b.rarity === 'rare').slice(0, 3),
+    ]
+  }
+
+  // Convert to weighted format for pickListOfWeighted
+  const weightedBreakthroughs = filteredBreakthroughs.map((b) => ({ ...b, weight: 1 }))
+
+  // Pick three random breakthroughs from the filtered list
+  return pickListOfWeighted(3, weightedBreakthroughs)
 }
 
 export function generateActionDescription(action: Action): string {
