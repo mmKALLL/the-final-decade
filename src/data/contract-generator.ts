@@ -15,44 +15,38 @@ function getYearIndex(turn: number): number {
 
 export function generateContract(gs: GameState): Contract {
   // Setup base parameters that control complexity
-  const contractType = Math.random() < 0.5 ? 'alignment' : 'capabilities'
-  const isAlignmentContract = contractType === 'alignment'
-  let difficulty = 50 + Math.floor(Math.random() * (getYearIndex(gs.turn) * 50 + 75))
-  let deadline = 5 + Math.floor(Math.random() * 200) + Math.max(200 - difficulty, 0)
-  difficulty += Math.max(100 - deadline, 0)
+  const contractType = Math.random() < 0.33 ? 'alignment' : Math.random() < 0.5 ? 'capabilities' : 'product'
+  const isSecondaryContract = contractType === 'alignment' || contractType === 'product'
+
+  const difficulty = 50 + Math.floor(Math.random() * (getYearIndex(gs.turn) * 50 + 75))
 
   // Generate the variables needed for generating action effects
   const difficultyWithVariance = () => difficulty + Math.floor(Math.random() * (20 + Math.floor(difficulty / 5)))
-  const acceptEffects = 1 + Math.floor(difficultyWithVariance() / 250)
   const successEffects = Math.floor(difficultyWithVariance() / 125)
-  // const failureEffects = 1 + Math.floor(difficultyWithVariance() / 150)
 
   // Generate action effects
-  // const onAccept: Effect = getAcceptEffects(difficulty, acceptEffects, isAlignmentContract, gs.trust)
   const onSuccess: Effect = [
-    ...getAcceptEffects(difficulty, acceptEffects, isAlignmentContract, gs.trust), // Monetary reward from accepting is included into success now
-    ...getSuccessEffects(difficulty, successEffects, isAlignmentContract, gs.trust),
-    ...(isAlignmentContract ? [{ paramEffected: 'trust', amount: Math.round(2 * ((2 * difficulty) / 100)) } as const] : []),
+    ...getAcceptEffects(difficulty, successEffects, isSecondaryContract, gs.trust), // Monetary reward from accepting is included into success now
+    ...getSuccessEffects(difficulty, successEffects, isSecondaryContract, gs.trust),
+    ...(isSecondaryContract ? [{ paramEffected: 'trust', amount: Math.round(2 * ((2 * difficulty) / 100)) } as const] : []),
   ]
-  // const onFailure: Effect = [
-  //   { paramEffected: 'trust', amount: Math.round((-6 * (difficulty + 100)) / 100) },
-  //   ...getFailureEffects(difficulty, failureEffects, isAlignmentContract, gs.trust),
-  // ]
 
   // Apply contract modifiers from the game state
-  // const modifiedOnAccept = onAccept.map((e) => applyContractModifiers(gs, e))
   const modifiedOnSuccess = onSuccess.map((e) => applyContractModifiers(gs, e))
-  // const modifiedOnFailure = onFailure.map((e) => applyContractModifiers(gs, e, true))
 
   // Requirements scale exponentially with difficulty. They are mapped to costs for now
   const totalRequirement = Math.round(Math.pow((100 + difficulty) / 100, 1.7))
-  const alignmentRequirement = totalRequirement >= 2 && isAlignmentContract ? Math.round(totalRequirement * 0.64) : 0
-  const alignmentCosts: Effect = alignmentRequirement > 0 ? [{ paramEffected: 'rp', amount: -alignmentRequirement * 5 }] : []
+  const secondaryRequirement = totalRequirement >= 2 && isSecondaryContract ? Math.round(totalRequirement * 0.64) : 0
+
+  const primaryCosts: Effect = [{ paramEffected: 'ep', amount: -(totalRequirement - secondaryRequirement) * 5 }]
+  const secondaryCosts: Effect =
+    secondaryRequirement > 0 ? [{ paramEffected: contractType === 'alignment' ? 'rp' : 'sp', amount: -secondaryRequirement * 5 }] : []
+
   const capabilityCosts: Effect = [
-    { paramEffected: 'ep', amount: -(totalRequirement - alignmentRequirement) * 5 },
     { paramEffected: Math.random() < 0.5 ? 'trust' : 'asiOutcome', amount: Math.floor(-1 * ((2 * difficulty) / 100)) },
   ]
-  const costs: Effect = [...alignmentCosts, ...capabilityCosts]
+
+  const costs: Effect = contractType === 'capabilities' ? [...primaryCosts, ...capabilityCosts] : [...secondaryCosts, ...primaryCosts]
   const requirements: Effect = []
 
   return {
@@ -74,30 +68,30 @@ function getRandomValue(base: number, difficulty: number, difficultyFactor: numb
   return Math.floor(base + (difficulty * 0.85 + Math.random() * (difficulty / 3)) * difficultyFactor)
 }
 
-function getContractMoneyValue(difficulty: number, totalEffects: number, isAlignmentContract: boolean, trust: number): number {
+function getContractMoneyValue(difficulty: number, totalEffects: number, isSecondaryContract: boolean, trust: number): number {
   let value = getRandomValue(40, difficulty, 1.5) * 0.2 // Multiplier to convert Alignment is Hard values into The Final Decade curve
   const effectMultiplier = [1.25, 1, 0.4, 0.25][Math.min(totalEffects, 3)] // Indexed access; contracts with more effects provide less money
 
-  return Math.round(((isAlignmentContract ? 0.9 : 2.05) * effectMultiplier * (trust / 100) * value) / 5) * 5 // Round to nearest 5
+  return Math.round(((isSecondaryContract ? 0.9 : 2.05) * effectMultiplier * (trust / 100) * value) / 5) * 5 // Round to nearest 5
 }
 
-function getAcceptEffects(difficulty: number, totalEffects: number, isAlignmentContract: boolean, trust: number): Effect {
-  return [{ paramEffected: 'money', amount: getContractMoneyValue(difficulty, totalEffects, isAlignmentContract, trust) }]
+function getAcceptEffects(difficulty: number, totalEffects: number, isSecondaryContract: boolean, trust: number): Effect {
+  return [{ paramEffected: 'money', amount: getContractMoneyValue(difficulty, totalEffects, isSecondaryContract, trust) }]
 }
 
-function getSuccessEffects(difficulty: number, totalEffects: number, isAlignmentContract: boolean, trust: number): Effect {
+function getSuccessEffects(difficulty: number, totalEffects: number, isSecondaryContract: boolean, trust: number): Effect {
   if (totalEffects === 0) return []
-  const effectPool = isAlignmentContract
-    ? getAlignmentSuccessEffects(difficulty, trust, totalEffects, isAlignmentContract)
-    : getCapabilitySuccessEffects(difficulty, trust, totalEffects, isAlignmentContract)
+  const effectPool = isSecondaryContract
+    ? getAlignmentSuccessEffects(difficulty, trust, totalEffects, isSecondaryContract)
+    : getCapabilitySuccessEffects(difficulty, trust, totalEffects, isSecondaryContract)
   return getEffectsFromPool(totalEffects, effectPool)
 }
 
-// function getFailureEffects(difficulty: number, totalEffects: number, isAlignmentContract: boolean, trust: number): Effect {
+// function getFailureEffects(difficulty: number, totalEffects: number, isSecondaryContract: boolean, trust: number): Effect {
 //   if (totalEffects === 0) return []
-//   const effectPool = isAlignmentContract
-//     ? getAlignmentFailureEffects(difficulty, trust, totalEffects, isAlignmentContract)
-//     : getCapabilityFailureEffects(difficulty, trust, totalEffects, isAlignmentContract)
+//   const effectPool = isSecondaryContract
+//     ? getAlignmentFailureEffects(difficulty, trust, totalEffects, isSecondaryContract)
+//     : getCapabilityFailureEffects(difficulty, trust, totalEffects, isSecondaryContract)
 //   return getEffectsFromPool(totalEffects, effectPool)
 // }
 
@@ -130,7 +124,7 @@ function getAlignmentSuccessEffects(
   difficulty: number,
   trust: number,
   totalEffects: number,
-  isAlignmentContract: boolean
+  isSecondaryContract: boolean
 ): WeightedSingleEffect[] {
   return [
     { weight: 10, effect: { paramEffected: 'asiOutcome', amount: getRandomValue(1, difficulty, 0.02) } },
@@ -143,10 +137,10 @@ function getAlignmentSuccessEffects(
       weight: 1,
       effect: {
         paramEffected: 'money',
-        amount: Math.round(getContractMoneyValue(difficulty, totalEffects, isAlignmentContract, trust) * 0.25),
+        amount: Math.round(getContractMoneyValue(difficulty, totalEffects, isSecondaryContract, trust) * 0.25),
       },
     },
-    { weight: 3, effect: { paramEffected: 'publicUnity', amount: 1 } },
+    { weight: difficulty > 150 ? 2 : 1, effect: { paramEffected: 'publicUnity', amount: 1 } },
   ]
 }
 
@@ -155,14 +149,14 @@ function getCapabilitySuccessEffects(
   difficulty: number,
   trust: number,
   totalEffects: number,
-  isAlignmentContract: boolean
+  isSecondaryContract: boolean
 ): WeightedSingleEffect[] {
   return [
     {
       weight: 4,
       effect: {
         paramEffected: 'money',
-        amount: Math.round(getContractMoneyValue(difficulty, totalEffects, isAlignmentContract, trust) * 0.2),
+        amount: Math.round(getContractMoneyValue(difficulty, totalEffects, isSecondaryContract, trust) * 0.2),
       },
     },
     { weight: 3, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.022) } },

@@ -95,7 +95,7 @@ export const ContractItem = ({ contract, language, editable }: ContractItemProps
         </h3>
         <span className="contract-rarity" style={{ color: rarityColors[contract.rarity] }}>
           {isYearlyContract(contract) && `${contract.year} - `}
-          {contract.type && `${contract.type === 'alignment' ? 'Align' : 'Capab'} - `}
+          {contract.type && `${contract.type === 'alignment' ? 'Safety' : contract.type === 'capabilities' ? 'Capability' : 'Product'} - `}
           {capitalize(contract.rarity)}
         </span>
       </div>
