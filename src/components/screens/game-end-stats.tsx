@@ -8,6 +8,15 @@ export function GameEndStats() {
       <h2>{gs.language === 'en-US' ? 'Final Stats' : '最終統計'}</h2>
       <ul style={{ textAlign: 'left' }}>
         <li>
+          {gs.language === 'en-US' ? 'Money Left' : '金額'}: {gs.money}
+        </li>
+        <li>
+          {gs.language === 'en-US' ? 'Influence' : '影響力'}: {gs.influence}
+        </li>
+        <li>
+          {gs.language === 'en-US' ? 'Trust' : '信頼'}: {gs.trust}
+        </li>
+        <li>
           {gs.language === 'en-US' ? 'ASI Outcome' : 'ASIの結果'}: {gs.asiOutcome}
         </li>
         <li>
@@ -15,15 +24,6 @@ export function GameEndStats() {
         </li>
         <li>
           {gs.language === 'en-US' ? 'Breakthroughs' : '突破'}: {gs.breakthroughs.length}
-        </li>
-        <li>
-          {gs.language === 'en-US' ? 'Money Left' : '金額'}: {gs.money}
-        </li>
-        <li>
-          {gs.language === 'en-US' ? 'Trust' : '信頼'}: {gs.trust}
-        </li>
-        <li>
-          {gs.language === 'en-US' ? 'Influence' : '影響力'}: {gs.influence}
         </li>
       </ul>
     </div>
