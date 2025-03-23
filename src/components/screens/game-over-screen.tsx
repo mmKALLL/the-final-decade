@@ -10,14 +10,14 @@ export const GameOverScreen = () => {
     <div className="game-over-screen">
       <h1>{gs.language === 'en-US' ? 'Game Over' : 'ゲームオーバー'}</h1>
       <p>
-        {gs.money < 0
+        {gs.money <= 0
           ? gs.language === 'en-US'
             ? `Your company failed to remain profitable and went bankrupt on ${getDateFromTurn(gs.turn)}.`
             : `${getDateFromTurn(gs.turn)}までに利益を維持できず、倒産しました。`
-          : gs.asiOutcome < 0
+          : gs.asiOutcome <= 0
           ? gs.language === 'en-US'
-            ? `Your company was shut down on ${getDateFromTurn(gs.turn)}, as a result of careless attitudes towards AI alignment.`
-            : `あなたの会社は${getDateFromTurn(gs.turn)}に、AIの整合性に対する無頓着な態度の結果として閉鎖されました。`
+            ? `Your company was shut down on ${getDateFromTurn(gs.turn)}, as the public has taken a careless attitude towards AI alignment.`
+            : `あなたの会社は${getDateFromTurn(gs.turn)}に、公衆がAIの整合性に対する無頓着な態度の結果として閉鎖されました。`
           : gs.trust <= 0
           ? gs.language === 'en-US'
             ? `Your company failed to maintain trust with your stakeholders on ${getDateFromTurn(gs.turn)}.`
