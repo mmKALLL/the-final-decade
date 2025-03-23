@@ -2,20 +2,6 @@
 
 import { Breakthrough, ModifierType, Param, GameState, EventId, SingleEffect, EffectStack } from '../types'
 
-// Extend Param type through declaration merging to include alignmentFocus
-declare global {
-  namespace Types {
-    // Add properties we know exist in GameState
-    interface GameState {
-      // These properties were causing TypeScript errors
-      failsafeTriggered?: boolean
-      effectMultiplier: number
-      contractsPerCycle: number
-      turn: number // This property already exists in GameState in types.ts
-    }
-  }
-}
-
 export enum BreakthroughId {
   RewardHacking,
   LethalityList,
