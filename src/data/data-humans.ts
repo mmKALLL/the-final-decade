@@ -6,6 +6,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Logan Reeves', 'jp-FI': 'ローガン・リーブス' },
     rarity: 'common',
+    type: 'sp',
     wage: 0,
     rank: 'volunteer',
     spGeneration: 1,
@@ -16,6 +17,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Nozomi Fujikawa', 'jp-FI': '藤川 希' },
     rarity: 'common',
+    type: 'sp',
     wage: 2,
     rank: 'volunteer',
     spGeneration: 2,
@@ -26,6 +28,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Yuto Suzuki', 'jp-FI': '鈴木 雄斗' },
     rarity: 'common',
+    type: 'sp',
     wage: 2,
     rank: 'volunteer',
     spGeneration: 2,
@@ -36,6 +39,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Sora Yamamoto', 'jp-FI': '山本 空' },
     rarity: 'common',
+    type: 'sp',
     wage: 3,
     rank: 'junior',
     spGeneration: 2,
@@ -45,6 +49,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Aoi Takahashi', 'jp-FI': '高橋 葵' },
     rarity: 'common',
+    type: 'sp',
     wage: 3,
     rank: 'junior',
     spGeneration: 2,
@@ -54,6 +59,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Elena Duarte', 'jp-FI': 'エレナ・ドゥアルテ' },
     rarity: 'common',
+    type: 'sp',
     wage: 4,
     rank: 'junior',
     spGeneration: 1,
@@ -63,6 +69,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Haruto Ishii', 'jp-FI': '石井 陽翔' },
     rarity: 'common',
+    type: 'sp',
     wage: 6,
     rank: 'medior',
     spGeneration: 3,
@@ -72,6 +79,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Isaac Romero', 'jp-FI': 'アイザック・ロメロ' },
     rarity: 'common',
+    type: 'sp',
     wage: 8,
     rank: 'medior',
     spGeneration: 4,
@@ -81,6 +89,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Rajiv Gupta', 'jp-FI': 'ラジブ・グプタ' },
     rarity: 'common',
+    type: 'sp',
     wage: 10,
     rank: 'senior',
     spGeneration: 4,
@@ -90,6 +99,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Sebastian Klein', 'jp-FI': 'セバスチャン・クライン' },
     rarity: 'common',
+    type: 'sp',
     wage: 15,
     rank: 'lead',
     spGeneration: 3,
@@ -101,6 +111,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Elio Marchesi', 'jp-FI': 'エリオ・マルケージ' },
     rarity: 'uncommon',
+    type: 'sp',
     wage: 3,
     rank: 'volunteer',
     spGeneration: 2,
@@ -111,6 +122,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Renji Oda', 'jp-FI': '織田 蓮司' },
     rarity: 'uncommon',
+    type: 'sp',
     wage: 5,
     rank: 'junior',
     spGeneration: 2,
@@ -120,6 +132,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Marina Kobayashi', 'jp-FI': '小林 マリナ' },
     rarity: 'uncommon',
+    type: 'sp',
     wage: 7,
     rank: 'medior',
     spGeneration: 3,
@@ -129,6 +142,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Nathaniel Cole', 'jp-FI': 'ナサニエル・コール' },
     rarity: 'uncommon',
+    type: 'sp',
     wage: 12,
     rank: 'senior',
     spGeneration: 4,
@@ -139,6 +153,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Yuki Saito', 'jp-FI': '斉藤 優希' },
     rarity: 'uncommon',
+    type: 'sp',
     wage: 17,
     rank: 'lead',
     spGeneration: 3,
@@ -151,6 +166,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Isolde Becker', 'jp-FI': 'イゾルデ・ベッカー' },
     rarity: 'rare',
+    type: 'sp',
     wage: 7,
     rank: 'volunteer',
     spGeneration: 4,
@@ -161,6 +177,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Hiroshi Sakamoto', 'jp-FI': '坂本 博' },
     rarity: 'rare',
+    type: 'sp',
     wage: 10,
     rank: 'junior',
     spGeneration: 3,
@@ -171,6 +188,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Sophia Mendez', 'jp-FI': 'ソフィア・メンデス' },
     rarity: 'rare',
+    type: 'sp',
     wage: 14,
     rank: 'medior',
     spGeneration: 4,
@@ -181,6 +199,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Victor Dupont', 'jp-FI': 'ヴィクター・デュポン' },
     rarity: 'rare',
+    type: 'sp',
     wage: 18,
     rank: 'senior',
     spGeneration: 5,
@@ -191,6 +210,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Alessandro Ferreti', 'jp-FI': 'アレッサンドロ・フェレッティ' },
     rarity: 'rare',
+    type: 'sp',
     wage: 25,
     rank: 'lead',
     spGeneration: 4,
@@ -203,6 +223,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Sophia Russo', 'jp-FI': 'ソフィア・ルッソ' },
     rarity: 'epic',
+    type: 'sp',
     wage: 30,
     rank: 'medior',
     spGeneration: 6,
@@ -216,6 +237,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Leonard Strauss', 'jp-FI': 'レオナルド・ストラウス' },
     rarity: 'epic',
+    type: 'sp',
     wage: 40,
     rank: 'senior',
     spGeneration: 10,
@@ -226,6 +248,7 @@ export const spHumans: Human[] = [
   {
     name: { 'en-US': 'Veronika Ivanova', 'jp-FI': 'ベロニカ・イヴァノヴァ' },
     rarity: 'epic',
+    type: 'sp',
     wage: 50,
     rank: 'lead',
     spGeneration: 10,
@@ -244,6 +267,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Maya Sharma', 'jp-FI': 'マヤ・シャルマ' },
     rarity: 'common',
+    type: 'ep',
     wage: 1,
     rank: 'volunteer',
     spGeneration: 0,
@@ -254,6 +278,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Takashi Miyazaki', 'jp-FI': '宮崎 隆' },
     rarity: 'common',
+    type: 'ep',
     wage: 1,
     rank: 'volunteer',
     spGeneration: 0,
@@ -264,6 +289,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Lucille Fontaine', 'jp-FI': 'ルシール・フォンテーヌ' },
     rarity: 'common',
+    type: 'ep',
     wage: 0,
     rank: 'volunteer',
     spGeneration: 0,
@@ -274,6 +300,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Jordan Lee', 'jp-FI': 'ジョーダン・リー' },
     rarity: 'common',
+    type: 'ep',
     wage: 3,
     rank: 'junior',
     spGeneration: 0,
@@ -283,6 +310,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Aria Sinclair', 'jp-FI': 'アリア・シンクレア' },
     rarity: 'common',
+    type: 'ep',
     wage: 3,
     rank: 'junior',
     spGeneration: 0,
@@ -292,6 +320,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Felix Grant', 'jp-FI': 'フェリックス・グラント' },
     rarity: 'common',
+    type: 'ep',
     wage: 4,
     rank: 'junior',
     spGeneration: 0,
@@ -301,6 +330,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Takumi Endo', 'jp-FI': '遠藤 拓海' },
     rarity: 'common',
+    type: 'ep',
     wage: 6,
     rank: 'medior',
     spGeneration: 0,
@@ -310,6 +340,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Elliot Weiss', 'jp-FI': 'エリオット・ワイス' },
     rarity: 'common',
+    type: 'ep',
     wage: 8,
     rank: 'medior',
     spGeneration: 0,
@@ -319,6 +350,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Samantha Brooks', 'jp-FI': 'サマンサ・ブルックス' },
     rarity: 'common',
+    type: 'ep',
     wage: 10,
     rank: 'senior',
     spGeneration: 0,
@@ -328,6 +360,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Mateo Diaz', 'jp-FI': 'マテオ・ディアス' },
     rarity: 'common',
+    type: 'ep',
     wage: 15,
     rank: 'lead',
     spGeneration: 0,
@@ -339,6 +372,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Gabriel Costa', 'jp-FI': 'ガブリエル・コスタ' },
     rarity: 'uncommon',
+    type: 'ep',
     wage: 3,
     rank: 'volunteer',
     spGeneration: 0,
@@ -349,6 +383,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Marcus Lee', 'jp-FI': 'マーカス・リー' },
     rarity: 'uncommon',
+    type: 'ep',
     wage: 5,
     rank: 'junior',
     spGeneration: 0,
@@ -358,6 +393,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Naoko Fujiwara', 'jp-FI': '藤原 直子' },
     rarity: 'uncommon',
+    type: 'ep',
     wage: 7,
     rank: 'medior',
     spGeneration: 1,
@@ -367,6 +403,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Jorge Valdez', 'jp-FI': 'ホルヘ・バルデス' },
     rarity: 'uncommon',
+    type: 'ep',
     wage: 11,
     rank: 'senior',
     spGeneration: 1,
@@ -377,6 +414,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Katherine Holt', 'jp-FI': 'キャサリン・ホルト' },
     rarity: 'uncommon',
+    type: 'ep',
     wage: 17,
     rank: 'lead',
     spGeneration: 0,
@@ -389,6 +427,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Zahra Farouk', 'jp-FI': 'ザフラ・ファルーク' },
     rarity: 'rare',
+    type: 'ep',
     wage: 3,
     rank: 'volunteer',
     spGeneration: 1,
@@ -399,6 +438,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Louis Tremblay', 'jp-FI': 'ルイ・トランブレ' },
     rarity: 'rare',
+    type: 'ep',
     wage: 8,
     rank: 'junior',
     spGeneration: 1,
@@ -409,6 +449,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Priya Mehta', 'jp-FI': 'プリヤ・メータ' },
     rarity: 'rare',
+    type: 'ep',
     wage: 14,
     rank: 'medior',
     spGeneration: 1,
@@ -418,6 +459,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Wei Lin', 'jp-FI': 'ウェイ・リン' },
     rarity: 'rare',
+    type: 'ep',
     wage: 18,
     rank: 'senior',
     spGeneration: 0,
@@ -428,6 +470,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Anastasia Petrov', 'jp-FI': 'アナスタシア・ペトロフ' },
     rarity: 'rare',
+    type: 'ep',
     wage: 25,
     rank: 'lead',
     spGeneration: 2,
@@ -440,6 +483,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Ibrahim Ahmed', 'jp-FI': 'イブラヒム・アフメド' },
     rarity: 'epic',
+    type: 'ep',
     wage: 30,
     rank: 'medior',
     spGeneration: 0,
@@ -453,6 +497,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Heinrich Mueller', 'jp-FI': 'ハインリヒ・ミュラー' },
     rarity: 'epic',
+    type: 'ep',
     wage: 40,
     rank: 'senior',
     spGeneration: 4,
@@ -463,6 +508,7 @@ export const epHumans: Human[] = [
   {
     name: { 'en-US': 'Nadia Petrova', 'jp-FI': 'ナディア・ペトロワ' },
     rarity: 'epic',
+    type: 'ep',
     wage: 50,
     rank: 'lead',
     spGeneration: 2,
@@ -478,6 +524,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Isabella Montoya', 'jp-FI': 'イザベラ・モントヤ' },
     rarity: 'common',
+    type: 'rp',
     wage: 2,
     rank: 'volunteer',
     spGeneration: 0,
@@ -487,6 +534,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Arjun Singh', 'jp-FI': 'アルジュン・シン' },
     rarity: 'common',
+    type: 'rp',
     wage: 0,
     rank: 'volunteer',
     spGeneration: 0,
@@ -497,6 +545,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Mia Patel', 'jp-FI': 'ミア・パテル' },
     rarity: 'common',
+    type: 'rp',
     wage: 1,
     rank: 'volunteer',
     spGeneration: 0,
@@ -507,6 +556,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Kenji Nakamura', 'jp-FI': '中村 健二' },
     rarity: 'common',
+    type: 'rp',
     wage: 3,
     rank: 'junior',
     spGeneration: 0,
@@ -516,6 +566,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Haruka Aizawa', 'jp-FI': '相沢 春香' },
     rarity: 'common',
+    type: 'rp',
     wage: 3,
     rank: 'junior',
     spGeneration: 0,
@@ -525,6 +576,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Nathaniel Blackwell', 'jp-FI': 'ナサニエル・ブラックウェル' },
     rarity: 'common',
+    type: 'rp',
     wage: 4,
     rank: 'junior',
     spGeneration: 0,
@@ -534,6 +586,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Lucia Moreno', 'jp-FI': 'ルシア・モレノ' },
     rarity: 'common',
+    type: 'rp',
     wage: 6,
     rank: 'medior',
     spGeneration: 0,
@@ -543,6 +596,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Oscar Rodriguez', 'jp-FI': 'オスカー・ロドリゲス' },
     rarity: 'common',
+    type: 'rp',
     wage: 8,
     rank: 'medior',
     spGeneration: 0,
@@ -552,6 +606,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Daisuke Tanaka', 'jp-FI': '田中 大輔' },
     rarity: 'common',
+    type: 'rp',
     wage: 10,
     rank: 'senior',
     spGeneration: 0,
@@ -561,6 +616,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Daniel Carter', 'jp-FI': 'ダニエル・カーター' },
     rarity: 'common',
+    type: 'rp',
     wage: 15,
     rank: 'lead',
     spGeneration: 1,
@@ -572,6 +628,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Theodore Vasquez', 'jp-FI': 'テオテオ・バスケス' },
     rarity: 'uncommon',
+    type: 'rp',
     wage: 3,
     rank: 'volunteer',
     spGeneration: 0,
@@ -582,6 +639,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Amara Okafor', 'jp-FI': 'アマラ・オカフォー' },
     rarity: 'uncommon',
+    type: 'rp',
     wage: 3,
     rank: 'volunteer',
     spGeneration: 0,
@@ -592,6 +650,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Mirai Yoshida', 'jp-FI': '吉田 未来' },
     rarity: 'uncommon',
+    type: 'rp',
     wage: 5,
     rank: 'junior',
     spGeneration: 0,
@@ -601,6 +660,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Adrian Novak', 'jp-FI': 'エイドリアン・ノヴァク' },
     rarity: 'uncommon',
+    type: 'rp',
     wage: 7,
     rank: 'medior',
     spGeneration: 0,
@@ -610,6 +670,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Camille Durand', 'jp-FI': 'カミーユ・デュラン' },
     rarity: 'uncommon',
+    type: 'rp',
     wage: 11,
     rank: 'senior',
     spGeneration: 1,
@@ -619,6 +680,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Hassan Farouk', 'jp-FI': 'ハッサン・ファルーク' },
     rarity: 'uncommon',
+    type: 'rp',
     wage: 17,
     rank: 'lead',
     spGeneration: 0,
@@ -631,6 +693,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Victor Alave', 'jp-FI': 'ヴィクター・アラブゥー' },
     rarity: 'rare',
+    type: 'rp',
     wage: 4,
     rank: 'volunteer',
     spGeneration: 0,
@@ -640,6 +703,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Fatima Al-Zahrani', 'jp-FI': 'ファティマ・アルザハラニ' },
     rarity: 'rare',
+    type: 'rp',
     wage: 6,
     rank: 'junior',
     spGeneration: 0,
@@ -649,6 +713,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Rafael Costa', 'jp-FI': 'ラファエル・コスタ' },
     rarity: 'rare',
+    type: 'rp',
     wage: 11,
     rank: 'medior',
     spGeneration: 0,
@@ -659,6 +724,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Anika Mehta', 'jp-FI': 'アニカ・メータ' },
     rarity: 'rare',
+    type: 'rp',
     wage: 22,
     rank: 'senior',
     spGeneration: 1,
@@ -669,6 +735,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Stefan Kozlov', 'jp-FI': 'ステファン・コズロフ' },
     rarity: 'rare',
+    type: 'rp',
     wage: 32,
     rank: 'lead',
     spGeneration: 0,
@@ -681,6 +748,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Sven Johansson', 'jp-FI': 'スヴェン・ヨハンソン' },
     rarity: 'epic',
+    type: 'rp',
     wage: 20,
     rank: 'junior',
     spGeneration: 1,
@@ -691,6 +759,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Layla Al-Farsi', 'jp-FI': 'ライラ・アルファルシ' },
     rarity: 'epic',
+    type: 'rp',
     wage: 40,
     rank: 'senior',
     spGeneration: 2,
@@ -701,6 +770,7 @@ export const rpHumans: Human[] = [
   {
     name: { 'en-US': 'Maximilian Zhang', 'jp-FI': 'マクシミリアン・チャン' },
     rarity: 'epic',
+    type: 'rp',
     wage: 50,
     rank: 'lead',
     spGeneration: 0,

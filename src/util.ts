@@ -1,4 +1,4 @@
-import { Action, Breakthrough, Contract, Effect, GameState, Param, SingleEffect, Weighted } from './types'
+import { Action, Breakthrough, Contract, Effect, GameState, HumanRank, HumanType, Param, SingleEffect, Weighted } from './types'
 
 export const getYear = (turn: number) => Math.floor(turn / 12) + 1
 export const isGameOver = (gs: GameState): boolean => gs.money <= 0 || gs.asiOutcome <= 0 || gs.trust <= 0 || gs.influence <= 0
@@ -119,13 +119,33 @@ export const formatValue = (value: any): string | number => {
   return JSON.stringify(value)
 }
 
+export const seniorityMultipliers: Record<HumanRank, number> = {
+  volunteer: 1,
+  junior: 1,
+  medior: 1,
+  senior: 1.1,
+  lead: 1.25,
+}
+
 // Calculate team multipliers based on senior and lead ranks
-export const calculateTeamMultipliers = (gs: GameState) => {
-  const seniors = gs.humans.filter((human) => human.rank === 'senior').length
-  const leads = gs.humans.filter((human) => human.rank === 'lead').length
+export const calculateTeamMultipliers = (gs: GameState): Record<HumanType, number> => {
+  const seniors = gs.humans.filter((human) => human.rank === 'senior')
+  const leads = gs.humans.filter((human) => human.rank === 'lead')
+
+  const spSeniors = seniors.filter((h) => h.type === 'sp').length
+  const epSeniors = seniors.filter((h) => h.type === 'ep').length
+  const rpSeniors = seniors.filter((h) => h.type === 'rp').length
+
+  const spLeads = leads.filter((h) => h.type === 'sp').length
+  const epLeads = leads.filter((h) => h.type === 'ep').length
+  const rpLeads = leads.filter((h) => h.type === 'rp').length
 
   // Seniors give 10% boost per senior, Leads give 25% boost per lead. The boosts are multiplicative.
-  return Math.pow(1.1, seniors) * Math.pow(1.25, leads)
+  return {
+    sp: Math.pow(1.1, spSeniors) * Math.pow(1.25, spLeads),
+    ep: Math.pow(1.1, epSeniors) * Math.pow(1.25, epLeads),
+    rp: Math.pow(1.1, rpSeniors) * Math.pow(1.25, rpLeads),
+  }
 }
 
 // Calculate resource production broken down by type
@@ -136,13 +156,13 @@ export const calculateResourceProduction = (gs: GameState) => {
 
   const teamMultiplier = calculateTeamMultipliers(gs)
 
-  const totalSpProduction = Math.round(baseSpProduction * teamMultiplier)
-  const totalEpProduction = Math.round(baseEpProduction * teamMultiplier)
-  const totalRpProduction = Math.round(baseRpProduction * teamMultiplier)
+  const totalSpProduction = Math.round(baseSpProduction * teamMultiplier.sp)
+  const totalEpProduction = Math.round(baseEpProduction * teamMultiplier.ep)
+  const totalRpProduction = Math.round(baseRpProduction * teamMultiplier.rp)
 
   return {
-    sp: { base: baseSpProduction, multiplier: teamMultiplier.toFixed(2), total: totalSpProduction },
-    ep: { base: baseEpProduction, multiplier: teamMultiplier.toFixed(2), total: totalEpProduction },
-    rp: { base: baseRpProduction, multiplier: teamMultiplier.toFixed(2), total: totalRpProduction },
+    sp: { base: baseSpProduction, multiplier: teamMultiplier.sp.toFixed(2), total: totalSpProduction },
+    ep: { base: baseEpProduction, multiplier: teamMultiplier.ep.toFixed(2), total: totalEpProduction },
+    rp: { base: baseRpProduction, multiplier: teamMultiplier.rp.toFixed(2), total: totalRpProduction },
   }
 }

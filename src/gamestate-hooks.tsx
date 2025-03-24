@@ -4,7 +4,7 @@ import { useContext, useReducer } from 'preact/hooks'
 import { Action, Effect, EffectStack, EventId, GameState, ModifierType, Param } from './types'
 import { generateBreakthroughSelection, generateHumanSelection } from './data/data-generators'
 import { refreshContracts } from './data/contract-generator'
-import { convertContractToAction, isGameOver } from './util'
+import { calculateResourceProduction, convertContractToAction, isGameOver } from './util'
 
 export const GameStateContext = createContext(initialGameState)
 export const DispatchContext = createContext((_action: Action) => {})
@@ -216,9 +216,11 @@ export function getMoneyGain(gs: GameState): number {
 
 export function handleTurn(gs: GameState): GameState {
   const moneyGain = getMoneyGain(gs)
-  const spGain = gs.humans.reduce((acc, human) => acc + human.spGeneration, 0)
-  const epGain = gs.humans.reduce((acc, human) => acc + human.epGeneration, 0)
-  const rpGain = gs.humans.reduce((acc, human) => acc + human.rpGeneration, 0)
+  const humanResourceGain = calculateResourceProduction(gs)
+
+  const spGain = humanResourceGain.sp.total
+  const epGain = humanResourceGain.ep.total
+  const rpGain = humanResourceGain.rp.total
 
   // Create effect stack for turn changes
   const effect: Effect = [
