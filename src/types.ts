@@ -101,6 +101,7 @@ export type Human = {
   epGeneration: number
   rpGeneration: number
   specialEffect?: Effect
+  guaranteed?: boolean // Used for testing, always prepends the human into selctions
 }
 
 export type Breakthrough = {
@@ -115,6 +116,7 @@ export type Breakthrough = {
   modifiers?: Modifier[] // mods that affect resource gain
   actionEventHandlers?: ActionEventHandler[] // handlers that can perform additional reductions when actions are taken
   paramEventHandlers?: ParamEventHandler[] // handlers that can stack more effects when a parameter's value has been changed
+  guaranteed?: boolean // Used for testing, always prepends the breakthrough into selctions
 }
 
 // Types for Breakthrough modifiers and event handlers

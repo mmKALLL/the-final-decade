@@ -27,13 +27,16 @@ export function generateHumanSelection(gs: GameState, rarityNumberOverride?: num
   // Convert to weighted format for pickListOfWeighted
   const weightedHumans = filteredHumans.map((h) => ({ ...h, weight: 1 }))
 
-  // Pick three random human from the filtered list
-  return pickListOfWeighted(3, weightedHumans)
+  // Pick three random human from the filtered list, with guaranteed humans at the start
+  const guaranteedHumans = humans.filter((h) => h.guaranteed)
+  return [...guaranteedHumans, ...pickListOfWeighted(3, weightedHumans)]
 }
 
 export function generateBreakthroughSelection(gs: GameState, rarityNumberOverride?: number, rarityOverride?: Rarity): Breakthrough[] {
   const rarityNumber = rarityNumberOverride ?? Math.floor(Math.random() * 300)
   const rarity = rarityOverride ?? pickWeighted(rarityDistribution(rarityNumber))
+
+  const guaranteedBreakthroughs = breakthroughs.filter((b) => b.guaranteed)
 
   // Filter breakthroughs not already in the game state with the desired rarity
   let filteredBreakthroughs = breakthroughs.filter((b) => !gs.breakthroughs.some((existing) => existing.id === b.id) && b.rarity === rarity)
@@ -50,7 +53,7 @@ export function generateBreakthroughSelection(gs: GameState, rarityNumberOverrid
   const weightedBreakthroughs = filteredBreakthroughs.map((b) => ({ ...b, weight: 1 }))
 
   // Pick three random breakthroughs from the filtered list
-  return pickListOfWeighted(3, weightedBreakthroughs)
+  return [...guaranteedBreakthroughs, ...pickListOfWeighted(3, weightedBreakthroughs)]
 }
 
 export function generateActionDescription(action: Action): string {
