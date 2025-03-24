@@ -58,7 +58,7 @@ export const BreakthroughList = ({ editable }: BreakthroughListProps) => {
 
                 {editable && !isMaxLevel && (
                   <div className="level-up-info">
-                    {`Click to level up (costs ${levelUpCost(breakthrough)} UP).` +
+                    {`Tap to level up (costs ${levelUpCost(breakthrough)} UP).` +
                       (showNextLevel ? ` Showing level ${displayLevel} effect.` : '')}
                   </div>
                 )}
