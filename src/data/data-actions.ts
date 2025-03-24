@@ -1,4 +1,4 @@
-import { Action, GameState, Breakthrough } from '../types'
+import { Action, GameState, Breakthrough, Contract, Effect } from '../types'
 import { levelUpCost } from '../util'
 import { refreshContracts } from './contract-generator'
 import { generateHumanSelection, generateBreakthroughSelection } from './data-generators'
@@ -129,6 +129,30 @@ export const languageToggleAction: Action = {
   functionEffect: (gs) => ({ ...gs, language: gs.language === 'en-US' ? 'jp-FI' : 'en-US' }),
 }
 
+const convertRequirementsToCondition = (requirements: Effect): ((gs: GameState) => boolean) => {
+  return (gs: GameState) =>
+    requirements.every(
+      (req) =>
+        req.paramEffected !== 'humanSelection' && req.paramEffected !== 'breakthroughSelection' && gs[req.paramEffected] >= req.amount
+    )
+}
+
+export const convertContractToAction = (contract: Contract): Action => ({
+  ...contract,
+  eventId: 'internalStateChange',
+  enabledCondition: convertRequirementsToCondition(contract.requirements),
+  effect: [...contract.onSuccess, ...contract.costs],
+  turnCost: 1,
+  turnsInvested: 0,
+  // Remove the contract from the GS, filter based on name since there's no id
+  functionEffect: (gs) => {
+    return {
+      ...gs,
+      contracts: gs.contracts.filter((c) => c.name['en-US'] !== contract.name['en-US']),
+    }
+  },
+})
+
 export const levelUpBreakthroughAction = (breakthrough: Breakthrough): Action => {
   return {
     eventId: 'levelUpBreakthrough',
@@ -136,7 +160,7 @@ export const levelUpBreakthroughAction = (breakthrough: Breakthrough): Action =>
       'en-US': `Level up ${breakthrough.name['en-US']}`,
       'jp-FI': `レベルアップ: ${breakthrough.name['jp-FI']}`,
     },
-    turnCost: 0,
+    turnCost: 1,
     turnsInvested: 0,
     enabledCondition: (gs) => gs.up >= levelUpCost(breakthrough) && breakthrough.level < breakthrough.maxLevel,
     effect: [{ paramEffected: 'up', amount: -levelUpCost(breakthrough) }],

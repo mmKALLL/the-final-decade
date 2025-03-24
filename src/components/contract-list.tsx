@@ -1,7 +1,7 @@
 import { useGameState } from '../gamestate-hooks'
 import { Contract, YearlyContract } from '../types'
-import { capitalize, convertContractToAction } from '../util'
-
+import { capitalize } from '../util'
+import { convertContractToAction } from '../data/data-actions'
 // Type guard to check if a contract is a YearlyContract
 function isYearlyContract(contract: Contract | YearlyContract): contract is YearlyContract {
   return 'year' in contract
@@ -58,16 +58,7 @@ export const ContractItem = ({ contract, language, editable }: ContractItemProps
   const { dispatch } = useGameState()
 
   const completeContract = (contract: Contract | YearlyContract) => {
-    dispatch({
-      ...convertContractToAction(contract),
-      // Remove the contract from the GS, filter based on name since there's no id
-      functionEffect: (gs) => {
-        return {
-          ...gs,
-          contracts: gs.contracts.filter((c) => c.name['en-US'] !== contract.name['en-US']),
-        }
-      },
-    })
+    dispatch(convertContractToAction(contract))
   }
 
   return (

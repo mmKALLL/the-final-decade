@@ -1,4 +1,4 @@
-import { Action, Breakthrough, Contract, Effect, GameState, HumanRank, HumanType, Param, SingleEffect, Weighted } from './types'
+import { Breakthrough, Effect, GameState, HumanRank, HumanType, Param, SingleEffect, Weighted } from './types'
 
 export const getYear = (turn: number) => Math.floor(turn / 12) + 1
 export const isGameOver = (gs: GameState): boolean => gs.money <= 0 || gs.asiOutcome <= 0 || gs.trust <= 0 || gs.influence <= 0
@@ -38,23 +38,6 @@ export const paramToLabel = (p: Param): string => {
 }
 
 export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
-
-const convertRequirementsToCondition = (requirements: Effect): ((gs: GameState) => boolean) => {
-  return (gs: GameState) =>
-    requirements.every(
-      (req) =>
-        req.paramEffected !== 'humanSelection' && req.paramEffected !== 'breakthroughSelection' && gs[req.paramEffected] >= req.amount
-    )
-}
-
-export const convertContractToAction = (contract: Contract): Action => ({
-  ...contract,
-  eventId: 'internalStateChange',
-  enabledCondition: convertRequirementsToCondition(contract.requirements),
-  effect: [...contract.onSuccess, ...contract.costs],
-  turnCost: 0,
-  turnsInvested: 0,
-})
 
 // Convert turn to date format (2025 Jan + months)
 export const getDateFromTurn = (turn: number) => {

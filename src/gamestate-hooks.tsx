@@ -4,7 +4,8 @@ import { useContext, useReducer } from 'preact/hooks'
 import { Action, Effect, EffectStack, EventId, GameState, ModifierType, Param } from './types'
 import { generateBreakthroughSelection, generateHumanSelection } from './data/data-generators'
 import { refreshContracts } from './data/contract-generator'
-import { calculateResourceProduction, convertContractToAction, isGameOver } from './util'
+import { calculateResourceProduction, isGameOver } from './util'
+import { convertContractToAction } from './data/data-actions'
 
 export const GameStateContext = createContext(initialGameState)
 export const DispatchContext = createContext((_action: Action) => {})
