@@ -2,7 +2,7 @@ import { generateYearlyContracts, generateHumanSelection, generateBreakthroughSe
 import { GameState } from '../types'
 import { refreshContracts } from './contract-generator'
 
-const debug = true
+const debug = false
 
 const baseGameState: GameState = {
   debug,

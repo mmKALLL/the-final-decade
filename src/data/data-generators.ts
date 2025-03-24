@@ -1,7 +1,7 @@
 import { Action, GameState, Human, Breakthrough, YearlyContract, Rarity, Weighted } from '../types'
 import { humans } from './data-humans'
 import { breakthroughs } from './data-breakthroughs'
-import { yearlyContracts } from './data-contracts'
+import { yearlyContracts } from './data-yearly-goals'
 import { pickWeighted, pickListOfWeighted } from '../util'
 
 // Goal: 100 => 57% common, 30% uncommon, 10% rare, 3% epic by selecting best of 3 picks

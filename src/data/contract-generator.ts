@@ -1,6 +1,6 @@
 import { Contract, Effect, GameState, SingleEffect } from '../types'
 import { paramToLabel, pickListOfWeighted } from '../util'
-import { getRandomContractName } from './data-contracts'
+import { getRandomContractName } from './data-yearly-goals'
 
 export const refreshContracts = (gs: GameState): GameState => ({
   ...gs,
@@ -162,7 +162,8 @@ function getCapabilitySuccessEffects(
     { weight: 3, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.022) } },
     { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(25, difficulty, 0.33) } },
     { weight: difficulty > 300 ? 1 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(25, difficulty, 0.33) } },
-    { weight: 2, effect: { paramEffected: 'sp', amount: getRandomValue(1, difficulty, 0.005) } },
+    { weight: 2, effect: { paramEffected: 'up', amount: getRandomValue(1, difficulty, 0.005) } },
+    { weight: 1, effect: { paramEffected: 'sp', amount: getRandomValue(1, difficulty, 0.05) } },
     { weight: 1, effect: { paramEffected: 'passiveIncome', amount: getRandomValue(1, difficulty, 0.005) } },
   ]
 }
