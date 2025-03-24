@@ -60,7 +60,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     name: { 'en-US': 'Make a breakthrough', 'jp-FI': '突破を研究する' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'rp', amount: -80 }],
+    effect: [{ paramEffected: 'rp', amount: -50 }],
     functionEffect: (gs) => ({
       ...gs,
       currentScreen: 'selection',

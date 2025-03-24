@@ -159,10 +159,10 @@ function applyModifiers(gs: GameState, param: Param, value: number): number {
     modifiedValue = mod.apply(modifiedValue, level)
   })
 
-  return modifiedValue
+  return Math.floor(modifiedValue)
 }
 
-function reduceEffect(effectStack: EffectStack, gs: GameState, depth: number): GameState {
+export function reduceEffect(effectStack: EffectStack, gs: GameState, depth: number): GameState {
   if (effectStack.length === 0) {
     return gs
   }
