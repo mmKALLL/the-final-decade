@@ -104,7 +104,7 @@ export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
     turnsInvested: 0,
     effect: [
       { paramEffected: 'asiOutcome', amount: 10 },
-      { paramEffected: 'rp', amount: -gs.asiOutcome },
+      { paramEffected: 'rp', amount: -Math.max(gs.asiOutcome, 20) },
     ],
   },
   {

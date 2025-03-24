@@ -131,7 +131,7 @@ function getAlignmentSuccessEffects(
     { weight: 6, effect: { paramEffected: 'trust', amount: getRandomValue(3, difficulty, 0.015) } },
     { weight: difficulty > 300 ? 1 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(25, difficulty, 0.33) } },
     { weight: difficulty > 220 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(25, difficulty, 0.33) } },
-    { weight: 1, effect: { paramEffected: 'rp', amount: getRandomValue(1, difficulty, 0.005) } },
+    { weight: 1, effect: { paramEffected: 'rp', amount: getRandomValue(1, difficulty, 0.05) } },
     { weight: 4, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.022) } },
     {
       weight: 1,
