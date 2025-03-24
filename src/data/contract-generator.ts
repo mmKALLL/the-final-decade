@@ -18,7 +18,7 @@ export function generateContract(gs: GameState): Contract {
   const contractType = Math.random() < 0.33 ? 'safety' : Math.random() < 0.5 ? 'capabilities' : 'product'
   const isSecondaryContract = contractType === 'safety' || contractType === 'product'
 
-  const difficulty = 50 + Math.floor(Math.random() * (getYearIndex(gs.turn) * 50 + 75))
+  const difficulty = 10 + gs.trust / 2 + Math.floor(Math.random() * (getYearIndex(gs.turn) * 50 + gs.trust / 2))
 
   // Generate the variables needed for generating action effects
   const difficultyWithVariance = () => difficulty + Math.floor(Math.random() * (20 + Math.floor(difficulty / 5)))

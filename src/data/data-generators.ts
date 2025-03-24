@@ -13,7 +13,7 @@ const rarityDistribution: (rarityNumber: number) => Weighted<Rarity>[] = (rarity
 ]
 
 export function generateHumanSelection(gs: GameState, rarityNumberOverride?: number, rarityOverride?: Rarity): Human[] {
-  const rarityNumber = rarityNumberOverride ?? Math.floor(Math.random() * 300)
+  const rarityNumber = rarityNumberOverride ?? Math.floor(gs.trust + Math.random() * 100)
   const rarity = rarityOverride ?? pickWeighted(rarityDistribution(rarityNumber))
 
   // Filter humans not already in the game state with the desired rarity
