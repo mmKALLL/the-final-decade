@@ -1,6 +1,19 @@
 import { ContractType, Label, YearlyContract } from '../types'
 import { assertNever } from '../util'
 
+// General curve:
+
+// 2025: 60
+// 2026: 120
+// 2027: 220
+// 2028: 330
+// 2029: 500
+
+// Each year should have one constract with
+// - low immediate cost but high requirement (sp)
+// - low immediate cost but high long-term cost (ep)
+// - high short-term cost (rp)
+
 export const yearlyContracts: YearlyContract[] = [
   // === 2025 ===
   {
@@ -8,13 +21,13 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2025,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': 'SP -20, Passive income -20', 'jp-FI': 'SP -20、受動的収入 -20' },
+    costDescription: { 'en-US': 'SP -30, Passive income -10', 'jp-FI': 'SP -30、受動的収入 -10' },
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
     requirements: [],
     costs: [
-      { paramEffected: 'sp', amount: -20 },
-      { paramEffected: 'passiveIncome', amount: -20 },
+      { paramEffected: 'sp', amount: -30 },
+      { paramEffected: 'passiveIncome', amount: -10 },
     ],
   },
   {
@@ -26,7 +39,7 @@ export const yearlyContracts: YearlyContract[] = [
     requirementDescription: { 'en-US': 'Trust >= 110', 'jp-FI': '信頼 >= 110' },
     onSuccess: [],
     requirements: [{ paramEffected: 'trust', amount: 110 }],
-    costs: [{ paramEffected: 'ep', amount: -30 }],
+    costs: [{ paramEffected: 'ep', amount: -40 }],
   },
   {
     name: { 'en-US': 'Agentic Researchers', 'jp-FI': 'エージェント型研究AI' },
@@ -53,7 +66,7 @@ export const yearlyContracts: YearlyContract[] = [
     costDescription: { 'en-US': 'Public unity -2', 'jp-FI': '公共団結 -2' },
     requirementDescription: { 'en-US': 'Influence >= 140', 'jp-FI': '影響力 >= 140' },
     onSuccess: [],
-    requirements: [{ paramEffected: 'influence', amount: 140 }],
+    requirements: [{ paramEffected: 'influence', amount: 130 }],
     costs: [{ paramEffected: 'publicUnity', amount: -2 }],
   },
   {
@@ -79,7 +92,7 @@ export const yearlyContracts: YearlyContract[] = [
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
     requirements: [],
-    costs: [{ paramEffected: 'rp', amount: -100 }],
+    costs: [{ paramEffected: 'rp', amount: -120 }],
   },
 
   // === 2027 ===
@@ -93,7 +106,7 @@ export const yearlyContracts: YearlyContract[] = [
     onSuccess: [],
     requirements: [
       { paramEffected: 'publicUnity', amount: 2 },
-      { paramEffected: 'influence', amount: 150 },
+      { paramEffected: 'influence', amount: 130 },
     ],
     costs: [
       { paramEffected: 'sp', amount: -40 },
