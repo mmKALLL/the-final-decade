@@ -175,6 +175,47 @@ html, body {
   border-radius: 0;
   padding: 0.6rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.stat-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.3rem;
+}
+
+.stat-info-icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(40, 40, 60, 0.5);
+  border-radius: 50%;
+}
+
+.stat-tooltip {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 260px;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: rgba(30, 30, 50, 0.95);
+  border: 1px solid rgba(80, 80, 120, 0.3);
+  border-radius: 4px;
+  padding: 0.5rem;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.stat-tooltip p {
+  margin: 0.3rem 0;
+  font-size: 0.7rem;
+  color: #e2e8f0;
 }
 
 .game-state-section h2 {
