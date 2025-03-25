@@ -243,7 +243,6 @@ export type SingleEffect = {
 export type Effect = SingleEffect[]
 export type EffectStack = (SingleEffect & { depth: number })[]
 
-export type Weighted<T> = {
-  value: T
+export type Weighted<T> = T & {
   weight: number
 }

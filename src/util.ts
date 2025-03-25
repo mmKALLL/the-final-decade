@@ -55,11 +55,11 @@ export function pickWeighted<T>(items: Weighted<T>[]): T {
   let cumulative = 0
   for (const item of items) {
     cumulative += item.weight
-    if (roll < cumulative) return item.value
+    if (roll < cumulative) return item
   }
 
   // Fallback in case of rounding errors
-  return items[items.length - 1].value
+  return items[items.length - 1]
 }
 
 export function pickListOfWeighted<T extends { weight: number }>(elementsToPick: number, originalPool: T[]): T[] {

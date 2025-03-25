@@ -2,6 +2,8 @@ import { useGameState } from '../gamestate-hooks'
 import { Contract, YearlyContract } from '../types'
 import { capitalize } from '../util'
 import { convertContractToAction } from '../data/data-actions'
+import { InfoTooltip } from './info-tooltip'
+
 // Type guard to check if a contract is a YearlyContract
 function isYearlyContract(contract: Contract | YearlyContract): contract is YearlyContract {
   return 'year' in contract
@@ -14,7 +16,38 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
   return (
     <>
       <div className="contract-section">
-        <h2>Contracts - {editable ? 'tap to complete' : 'view only'}</h2>
+        <div className="section-header">
+          <h2>Contracts - {editable ? 'tap to complete' : 'view only'}</h2>
+          <InfoTooltip position="bottom">
+            <>
+              <p style={{ fontWeight: 'bold' }}>Contracts</p>
+              <p>Contracts are tasks you can complete to earn resources and advantages.</p>
+              <p>
+                <span style={{ fontWeight: 'bold' }}>Success:</span> What you gain when completing the contract
+              </p>
+              <p>
+                <span style={{ fontWeight: 'bold' }}>Costs:</span> Resources required to complete the contract
+              </p>
+              <p>
+                <span style={{ fontWeight: 'bold' }}>Requirements:</span> Conditions that must be met
+              </p>
+              <hr style={{ border: '0.5px solid rgba(80, 80, 120, 0.3)', margin: '0.5rem 0' }} />
+              <p>Contract types:</p>
+              <p>
+                <span style={{ color: 'rgba(40, 60, 60, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Safety:</span> Uses some RP,
+                improves trust
+              </p>
+              <p>
+                <span style={{ color: 'rgba(40, 40, 80, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Capability:</span> Very
+                lucrative, but reduces trust
+              </p>
+              <p>
+                <span style={{ color: 'rgba(60, 40, 60, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Product:</span> Uses some SP,
+                has broad effects
+              </p>
+            </>
+          </InfoTooltip>
+        </div>
         {contracts.length === 0 && (
           <p className="contract-empty">
             {gs.language === 'en-US'
@@ -29,7 +62,20 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
         </div>
       </div>
       <div className="contract-section">
-        <h2>Yearly Goals</h2>
+        <div className="section-header">
+          <h2>Yearly Goals</h2>
+          <InfoTooltip position="bottom">
+            <>
+              <p style={{ fontWeight: 'bold' }}>Yearly Goals</p>
+              <p>These are special contracts that appear at the start of each game.</p>
+              <p>
+                Yearly goals cannot be selected directly - they are completed automatically at the end of each year. Failing to meet their
+                requirements will result in a game over.
+              </p>
+              <p>Yearly goals provide significant challenges and bonuses that shape your long-term strategy.</p>
+            </>
+          </InfoTooltip>
+        </div>
         <div className="contracts-grid">
           {yearlyContracts.map((contract, index) => (
             <ContractItem key={`contract-${index}`} contract={contract} language={language} editable={false} />

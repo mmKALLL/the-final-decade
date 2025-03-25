@@ -3,6 +3,7 @@ import { Breakthrough } from '../types'
 import { levelUpCost, rarityColors } from '../util'
 import { useGameState } from '../gamestate-hooks'
 import { levelUpBreakthroughAction } from '../data/data-actions'
+import { InfoTooltip } from './info-tooltip'
 
 interface BreakthroughListProps {
   editable: boolean
@@ -24,7 +25,38 @@ export const BreakthroughList = ({ editable }: BreakthroughListProps) => {
 
   return (
     <div className="breakthrough-section">
-      <h2>Breakthroughs</h2>
+      <div className="section-header">
+        <h2>Breakthroughs</h2>
+        <InfoTooltip position="bottom">
+          <>
+            <p style={{ fontWeight: 'bold' }}>Breakthroughs</p>
+            <p>Breakthroughs are advanced technologies that provide ongoing bonuses to your organization.</p>
+            <p>Each breakthrough can be leveled up to increase its effectiveness.</p>
+            <hr style={{ border: '0.5px solid rgba(80, 80, 120, 0.3)', margin: '0.5rem 0' }} />
+            <p>Rarity levels:</p>
+            <p>
+              <span style={{ color: rarityColors.common }}>■</span> <span style={{ fontWeight: 'bold' }}>Common:</span> Basic improvements
+            </p>
+            <p>
+              <span style={{ color: rarityColors.uncommon }}>■</span> <span style={{ fontWeight: 'bold' }}>Uncommon:</span> Specialized
+              enhancements
+            </p>
+            <p>
+              <span style={{ color: rarityColors.rare }}>■</span> <span style={{ fontWeight: 'bold' }}>Rare:</span> Powerful technologies
+            </p>
+            <p>
+              <span style={{ color: rarityColors.epic }}>■</span> <span style={{ fontWeight: 'bold' }}>Epic:</span> Game-changing
+              innovations
+            </p>
+            <hr style={{ border: '0.5px solid rgba(80, 80, 120, 0.3)', margin: '0.5rem 0' }} />
+            <p>
+              <span style={{ background: 'rgba(90, 50, 70, 0.7)', padding: '0 0.3rem' }}>Purple background</span> indicates max-level
+              breakthroughs
+            </p>
+            {editable && <p>Click any non-max breakthrough to level it up.</p>}
+          </>
+        </InfoTooltip>
+      </div>
 
       {editable && (
         <div className="toggle-container">

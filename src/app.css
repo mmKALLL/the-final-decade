@@ -685,3 +685,17 @@ html, body {
   color: #a0aec0;
 }
 /* End of Breakthrough section styling */
+
+/* Section header with tooltip */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-tooltip-container {
+  position: relative;
+  margin-left: 0.5rem;
+}
+
+/* End of Section header with tooltip */

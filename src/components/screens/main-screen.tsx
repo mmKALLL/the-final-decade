@@ -5,6 +5,7 @@ import { Button } from '../button'
 import { ContractList } from '../contract-list'
 import { GameStateDisplay } from '../game-state-display'
 import { LanguageToggle } from '../language-toggle'
+import { InfoTooltip } from '../info-tooltip'
 
 export const MainScreen = () => {
   const { gs } = useGameState()
@@ -12,7 +13,26 @@ export const MainScreen = () => {
   return (
     <div className="main-screen">
       <div className="action-section">
-        <h2>First-order actions:</h2>
+        <div className="section-header">
+          <h2>First-order actions:</h2>
+          <InfoTooltip position="bottom">
+            <>
+              <p style={{ fontWeight: 'bold' }}>Action Types</p>
+              <p>
+                <span style={{ fontWeight: 'bold' }}>First-order:</span> Basic resource-generating actions that only have an opportunity
+                cost
+              </p>
+              <p>
+                <span style={{ fontWeight: 'bold' }}>Second-order:</span> Strategic actions to help you produce resources automatically
+              </p>
+              <p>
+                <span style={{ fontWeight: 'bold' }}>Third-order:</span> Long-term impact actions affecting game outcome
+              </p>
+              <hr style={{ border: '0.5px solid rgba(80, 80, 120, 0.3)', margin: '0.5rem 0' }} />
+              <p>Click on any action button to perform that action. All actions cost one turn (month), and have the written effect.</p>
+            </>
+          </InfoTooltip>
+        </div>
         <div className="action-buttons">
           {firstOrderActions(gs).map((action, index) => (
             <Button key={`action-${index}`} action={action} />

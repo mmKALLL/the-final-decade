@@ -1,6 +1,5 @@
 // TypeScript version of the Dart Upgrade definitions, renamed to Breakthrough
 
-import { reduceEffect } from '../gamestate-hooks'
 import { Breakthrough, ModifierType, Param, GameState, EventId, EffectStack } from '../types'
 
 export enum BreakthroughId {
@@ -51,6 +50,7 @@ export enum BreakthroughId {
   ArmyOfConMen,
   UnitedIntervention,
   SingularityTheorem,
+  UpgradeRecycling,
 }
 
 export const commonBreakthroughs: Breakthrough[] = [
@@ -695,22 +695,27 @@ export const epicBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    // TODO: Test
     id: BreakthroughId.TheThirdSignal,
     name: { 'en-US': 'The Third Signal', 'jp-FI': '第三の信号' },
     description: {
-      'en-US': (l) => `All actions are triggered twice, but public unity -5`,
-      'jp-FI': (l) => `すべてのアクションが2回発動、公衆の支持 -5`,
+      'en-US': (l) => `At the start of each year, gain 20 EP and 10 RP`,
+      'jp-FI': (l) => `毎年終わりにEP+20、RP+10`,
     },
     rarity: 'epic',
     level: 0,
     maxLevel: 1,
-    effect: [{ paramEffected: 'publicUnity', amount: -5 }],
     actionEventHandlers: [
       {
-        trigger: 'allActions',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number) => {
-          return reduceEffect(stack, gs, 0)
+        trigger: 'turnEnd',
+        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
+          if (gs.turn % 12 === 0) {
+            return {
+              ...gs,
+              ep: gs.ep + 20,
+              rp: gs.rp + 10,
+            }
+          }
+          return gs
         },
       },
     ],
@@ -800,6 +805,28 @@ export const epicBreakthroughs: Breakthrough[] = [
         trigger: 'levelUpBreakthrough',
         apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
           return { ...gs, asiOutcome: gs.asiOutcome + 10 * level }
+        },
+      },
+    ],
+  },
+  {
+    id: BreakthroughId.UpgradeRecycling,
+    name: { 'en-US': 'Upgrade Recycling', 'jp-FI': 'アップグレードリサイクル' },
+    description: {
+      'en-US': (l) => `At the start of each year, gain 4 UP`,
+      'jp-FI': (l) => `毎年終わりにUP+4`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
+          if (gs.turn % 12 === 0) {
+            return { ...gs, up: gs.up + 4 }
+          }
+          return gs
         },
       },
     ],

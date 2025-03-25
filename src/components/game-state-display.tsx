@@ -1,11 +1,10 @@
 import { getMoneyGain, useGameState } from '../gamestate-hooks'
 import { calculateResourceProduction } from '../util'
 import { formatValue } from '../util'
-import { useState } from 'preact/hooks'
+import { InfoTooltip } from './info-tooltip'
 
 export function GameStateDisplay() {
   const { gs } = useGameState()
-  const [showTooltip, setShowTooltip] = useState(false)
 
   // Get resource production details
   const resourceProduction = calculateResourceProduction(gs)
@@ -77,37 +76,29 @@ export function GameStateDisplay() {
             </h3>
             {index === 0 && (
               <span className="stat-header" style={{ display: 'inline-block', float: 'right' }}>
-                <div
-                  className="stat-info-icon"
-                  onMouseEnter={() => setShowTooltip(true)}
-                  onMouseLeave={() => setShowTooltip(false)}
-                  onClick={() => setShowTooltip(!showTooltip)}
-                >
-                  ⓘ
-                  {showTooltip && (
-                    <div className="stat-tooltip">
-                      <p>Stat colors indicate danger levels:</p>
-                      <p>
-                        <span style={{ color: 'rgba(234, 179, 8, 1)' }}>Yellow</span>: Below 25 (Warning)
-                      </p>
-                      <p>
-                        <span style={{ color: 'rgba(220, 38, 38, 1)' }}>Red</span>: Below 10 (Critical)
-                      </p>
-                      <hr style={{ border: '0.5px solid rgba(80, 80, 120, 0.3)', margin: '0.5rem 0' }} />
-                      <p style={{ fontWeight: 'bold', fontSize: '0.75rem' }}>Stat Descriptions:</p>
-                      {Object.entries(compactCategories).map(([cat, items]) => (
-                        <div key={`tooltip-${cat}`} style={{ marginBottom: '0.5rem' }}>
-                          <p style={{ fontWeight: 'bold', marginBottom: '0.2rem' }}>{cat}</p>
-                          {Object.entries(items).map(([key, item]) => (
-                            <p key={`tooltip-${cat}-${key}`} style={{ margin: '0.1rem 0', fontSize: '0.65rem' }}>
-                              <span style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>{key}</span>: {item.desc}
-                            </p>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <InfoTooltip position="bottom">
+                  <>
+                    <p>Stat colors indicate danger levels:</p>
+                    <p>
+                      <span style={{ color: 'rgba(234, 179, 8, 1)' }}>Yellow</span>: Below 25 (Warning)
+                    </p>
+                    <p>
+                      <span style={{ color: 'rgba(220, 38, 38, 1)' }}>Red</span>: Below 10 (Critical)
+                    </p>
+                    <hr style={{ border: '0.5px solid rgba(80, 80, 120, 0.3)', margin: '0.5rem 0' }} />
+                    <p style={{ fontWeight: 'bold', fontSize: '0.75rem' }}>Stat Descriptions:</p>
+                    {Object.entries(compactCategories).map(([cat, items]) => (
+                      <div key={`tooltip-${cat}`} style={{ marginBottom: '0.5rem' }}>
+                        <p style={{ fontWeight: 'bold', marginBottom: '0.2rem' }}>{cat}</p>
+                        {Object.entries(items).map(([key, item]) => (
+                          <p key={`tooltip-${cat}-${key}`} style={{ margin: '0.1rem 0', fontSize: '0.65rem' }}>
+                            <span style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>{key}</span>: {item.desc}
+                          </p>
+                        ))}
+                      </div>
+                    ))}
+                  </>
+                </InfoTooltip>
               </span>
             )}
             <div className="game-state-grid">
