@@ -8,12 +8,16 @@ export function GameStateDisplay() {
 
   // Get resource production details
   const resourceProduction = calculateResourceProduction(gs)
+  const moneyGain = getMoneyGain(gs)
 
   // Create more compact category names for mobile with descriptions
   const compactCategories = {
     Resources: {
       money: { value: gs.money, desc: 'Funds for hiring and actions' },
-      'passive income': { value: getMoneyGain(gs), desc: 'Money gained each turn' },
+      wages: {
+        value: `-${moneyGain.wages} * ${moneyGain.multiplier.toFixed(2)} = -${moneyGain.totalWages}`,
+        desc: 'Money paid to humans each turn',
+      },
     },
     Organization: {
       influence: { value: gs.influence, desc: 'Multiplier for social actions' },

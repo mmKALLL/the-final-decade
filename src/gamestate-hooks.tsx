@@ -211,12 +211,23 @@ export function reduceEffect(effectStack: EffectStack, gs: GameState, depth: num
   return reduceEffect(effectStack.slice(1), updatedGs, depth)
 }
 
-export function getMoneyGain(gs: GameState): number {
-  return gs.passiveIncome - Math.round((gs.humans.reduce((acc, human) => acc + human.wage, 0) * (200 - gs.trust)) / 100)
+export function getMoneyGain(gs: GameState): { total: number; wages: number; passive: number; multiplier: number; totalWages: number } {
+  const wages = gs.humans.reduce((acc, human) => acc + human.wage, 0)
+  const multiplier = Math.max((200 - gs.trust) / 100, 0)
+  const totalWages = Math.round(wages * multiplier)
+  const passive = gs.passiveIncome
+
+  return {
+    passive,
+    wages,
+    multiplier,
+    totalWages,
+    total: passive - totalWages,
+  }
 }
 
 export function handleTurn(gs: GameState): GameState {
-  const moneyGain = getMoneyGain(gs)
+  const moneyGain = getMoneyGain(gs).total
   const humanResourceGain = calculateResourceProduction(gs)
 
   const spGain = humanResourceGain.sp.total
@@ -261,10 +272,7 @@ export function handleEndOfYear(gs: GameState): GameState {
   let updatedGs: GameState = { ...gs }
 
   // Create effect stack for year change
-  const effect: Effect = [
-    { paramEffected: 'publicUnity', amount: -1 },
-    { paramEffected: 'passiveIncome', amount: Math.floor(updatedGs.money / 100) },
-  ]
+  const effect: Effect = [{ paramEffected: 'publicUnity', amount: -1 }]
   const effectStack: EffectStack = effect.map((e) => ({ ...e, depth: 0 }))
 
   // Apply yearChange event handlers
