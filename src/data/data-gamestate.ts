@@ -43,5 +43,5 @@ export const initialGameState: GameState = {
     generateHumanSelection(baseGameState, 100, 'common'),
     generateHumanSelection(baseGameState, 100, 'common'),
   ],
-  breakthroughSelections: [generateBreakthroughSelection(baseGameState, 100)],
+  breakthroughSelections: [generateBreakthroughSelection(baseGameState, 100, 'common')],
 }

@@ -23,7 +23,7 @@ export enum BreakthroughId {
   SocialEngineering,
   FakeNews,
   MoneyLaundering,
-  StrategicAlignment,
+  StrategicBipartisanship,
   SingularLearningTheory,
   InstrumentalityProject,
 
@@ -538,7 +538,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.StrategicAlignment,
+    id: BreakthroughId.StrategicBipartisanship,
     name: { 'en-US': 'Strategic Bipartisanship', 'jp-FI': '戦略的両党支持' },
     description: {
       'en-US': (l) => `Public unity increased by ${l * 2}`,
@@ -724,7 +724,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: BreakthroughId.UnitedIntervention,
     name: { 'en-US': 'United Intervention', 'jp-FI': 'ユニティ介入' },
     description: {
-      'en-US': (l) => `+3 public unity, but lose 30 influence`,
+      'en-US': (l) => `+3 public unity, but lose 50 influence`,
       'jp-FI': (l) => `公衆団結+3、影響力-30`,
     },
     rarity: 'epic',
@@ -732,7 +732,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     maxLevel: 1,
     effect: [
       { paramEffected: 'publicUnity', amount: 3 },
-      { paramEffected: 'influence', amount: -30 },
+      { paramEffected: 'influence', amount: -50 },
     ],
   },
   {

@@ -180,8 +180,8 @@ export const spHumans: Human[] = [
     type: 'sp',
     wage: 10,
     rank: 'junior',
-    spGeneration: 3,
-    epGeneration: 1,
+    spGeneration: 1,
+    epGeneration: 0,
     rpGeneration: 0,
     specialEffect: [{ paramEffected: 'publicUnity', amount: 1 }],
   },
@@ -240,9 +240,9 @@ export const spHumans: Human[] = [
     type: 'sp',
     wage: 40,
     rank: 'senior',
-    spGeneration: 10,
-    epGeneration: 5,
-    rpGeneration: 5,
+    spGeneration: 20,
+    epGeneration: 10,
+    rpGeneration: 10,
     specialEffect: [{ paramEffected: 'publicUnity', amount: -2 }],
   },
   {
@@ -491,7 +491,7 @@ export const epHumans: Human[] = [
     rpGeneration: 2,
     specialEffect: [
       { paramEffected: 'ep', amount: 60 },
-      { paramEffected: 'publicUnity', amount: -2 },
+      { paramEffected: 'publicUnity', amount: -1 },
     ],
   },
   {
@@ -539,7 +539,7 @@ export const rpHumans: Human[] = [
     rank: 'volunteer',
     spGeneration: 0,
     epGeneration: 0,
-    rpGeneration: 2,
+    rpGeneration: 3,
     specialEffect: [{ paramEffected: 'publicUnity', amount: -1 }],
   },
   {
@@ -765,7 +765,7 @@ export const rpHumans: Human[] = [
     spGeneration: 2,
     epGeneration: 0,
     rpGeneration: 6,
-    specialEffect: [{ paramEffected: 'publicUnity', amount: 3 }],
+    specialEffect: [{ paramEffected: 'publicUnity', amount: 2 }],
   },
   {
     name: { 'en-US': 'Maximilian Zhang', 'jp-FI': 'マクシミリアン・チャン' },
