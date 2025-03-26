@@ -212,7 +212,7 @@ export function reduceEffect(effectStack: EffectStack, gs: GameState, depth: num
 }
 
 export function getMoneyGain(gs: GameState): number {
-  return gs.passiveIncome - gs.humans.reduce((acc, human) => acc + human.wage, 0)
+  return gs.passiveIncome - Math.round((gs.humans.reduce((acc, human) => acc + human.wage, 0) * (200 - gs.trust)) / 100)
 }
 
 export function handleTurn(gs: GameState): GameState {
