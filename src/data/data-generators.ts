@@ -88,7 +88,14 @@ export function generateActionDescription(action: Action): string {
         return 'income'
       case 'publicUnity':
         return 'unity'
-
+      case 'sp':
+        return '💬'
+      case 'ep':
+        return '🔧'
+      case 'rp':
+        return '🧪'
+      case 'up':
+        return '⚙️'
       default:
         return param
     }

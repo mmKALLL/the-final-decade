@@ -14,19 +14,19 @@ export function GameView() {
         <div className="date-display">{getDateFromTurn(gs.turn)}</div>
         <div className="game-meta">
           <div className="resource-pill">
-            <span className="resource-icon">SP</span>
+            <span className="resource-icon">💬</span>
             <span className="resource-value">{gs.sp}</span>
           </div>
           <div className="resource-pill">
-            <span className="resource-icon">EP</span>
+            <span className="resource-icon">🔧</span>
             <span className="resource-value">{gs.ep}</span>
           </div>
           <div className="resource-pill">
-            <span className="resource-icon">RP</span>
+            <span className="resource-icon">🧪</span>
             <span className="resource-value">{gs.rp}</span>
           </div>
           <div className="resource-pill">
-            <span className="resource-icon">UP</span>
+            <span className="resource-icon">⚙️</span>
             <span className="resource-value">{gs.up}</span>
           </div>
         </div>

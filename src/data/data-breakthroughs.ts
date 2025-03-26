@@ -290,7 +290,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: BreakthroughId.PassiveIncome,
     name: { 'en-US': 'Passive Income', 'jp-FI': '受動的収入' },
     description: {
-      'en-US': (l) => `Gain ${2 * l}k money per turn`,
+      'en-US': (l) => `Gain ${2 * l} money per turn`,
       'jp-FI': (l) => `ターンごとに${2 * l}kのお金を獲得`,
     },
     rarity: 'common',
@@ -343,8 +343,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: BreakthroughId.MoneyLaundering,
     name: { 'en-US': 'Money Laundering', 'jp-FI': 'マネーロンダリング' },
     description: {
-      'en-US': (l) => `Gain ${4 * l}k money per turn, but lose 20 trust`,
-      'jp-FI': (l) => `ターンごとに${2 * l}kのお金を得るが、20の信頼を失う`,
+      'en-US': (l) => `Gain ${4 * l} money per turn, but lose 20 trust`,
+      'jp-FI': (l) => `ターンごとに${4 * l}のお金を得るが、20の信頼を失う`,
     },
     rarity: 'common',
     level: 0,
@@ -363,7 +363,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: BreakthroughId.DataScraping,
     name: { 'en-US': 'Data Scraping', 'jp-FI': 'データスクレイピング' },
     description: {
-      'en-US': (l) => `Get ${l * 2}k income, but lose ${l * 10} trust`,
+      'en-US': (l) => `Get ${l * 2} income, but lose ${l * 10} trust`,
       'jp-FI': (l) => `各ターン開始時に${l * 2}kの収入を得るが、信頼が${l * 10}失われる`,
     },
     rarity: 'common',
@@ -473,7 +473,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: BreakthroughId.SponsorshipLobby,
     name: { 'en-US': 'Sponsorship Lobby', 'jp-FI': 'スポンサーのロビー' },
     description: {
-      'en-US': (l) => `When you finish a contract, gain ${l * 20}k money, but lose ${l * 5} trust`,
+      'en-US': (l) => `When you finish a contract, gain ${l * 20} money, but lose ${l * 5} trust`,
       'jp-FI': (l) => `契約を終了するたび、${l * 20}kのお金を得るが、${l * 5}の信頼を失う`,
     },
     rarity: 'uncommon',
