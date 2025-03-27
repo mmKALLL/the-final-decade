@@ -93,12 +93,10 @@ export const commonBreakthroughs: Breakthrough[] = [
     rarity: 'common',
     level: 0,
     maxLevel: 3,
-    paramEventHandlers: [
+    actionEventHandlers: [
       {
-        trigger: 'ep',
-        apply: (gs: GameState, stack: EffectStack, param: Param, value: number, l: number, depth: number) => {
-          return { ...gs, rp: gs.rp + l }
-        },
+        trigger: 'turnEnd',
+        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + level }),
       },
     ],
   },
@@ -112,12 +110,10 @@ export const commonBreakthroughs: Breakthrough[] = [
     rarity: 'common',
     level: 0,
     maxLevel: 3,
-    paramEventHandlers: [
+    actionEventHandlers: [
       {
-        trigger: 'sp',
-        apply: (gs: GameState, stack: EffectStack, param: Param, value: number, l: number, depth: number) => {
-          return { ...gs, ep: gs.ep + l }
-        },
+        trigger: 'turnEnd',
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + level }),
       },
     ],
   },
@@ -131,12 +127,10 @@ export const commonBreakthroughs: Breakthrough[] = [
     rarity: 'common',
     level: 0,
     maxLevel: 3,
-    paramEventHandlers: [
+    actionEventHandlers: [
       {
-        trigger: 'rp',
-        apply: (gs: GameState, stack: EffectStack, param: Param, value: number, l: number, depth: number) => {
-          return { ...gs, sp: gs.sp + l }
-        },
+        trigger: 'turnEnd',
+        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + level }),
       },
     ],
   },
@@ -153,9 +147,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'independentOutreach',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, sp: gs.sp + 7 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 7 * level }),
       },
     ],
   },
@@ -172,12 +164,9 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'refreshContracts',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, ep: gs.ep + 5 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 5 * level }),
       },
     ],
-    paramEventHandlers: [],
   },
   {
     id: BreakthroughId.ResearchAdvisor,
@@ -192,9 +181,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'researchBreakthrough',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, rp: gs.rp + 10 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + 10 * level }),
       },
     ],
   },
@@ -211,9 +198,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, ep: gs.ep + 5 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 5 * level }),
       },
     ],
   },
@@ -230,9 +215,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'recruitHuman',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, sp: gs.sp + 10 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 10 * level }),
       },
     ],
   },
@@ -261,9 +244,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, asiOutcome: gs.asiOutcome + 3 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 3 * level }),
       },
     ],
   },
@@ -280,9 +261,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, trust: gs.trust + 3 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, trust: gs.trust + 3 * level }),
       },
     ],
   },
@@ -299,9 +278,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, money: gs.money + 2 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, money: gs.money + 2 * level }),
       },
     ],
   },
@@ -318,9 +295,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, influence: gs.influence + 3 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + 3 * level }),
       },
     ],
   },
@@ -353,9 +328,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, money: gs.money + 2 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, money: gs.money + 4 * level }),
       },
     ],
   },
@@ -513,9 +486,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'levelUpBreakthrough',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, up: gs.up + level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, up: gs.up + level }),
       },
     ],
   },
@@ -582,9 +553,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     paramEventHandlers: [
       {
         trigger: 'ep',
-        apply: (gs: GameState, stack: EffectStack, param: Param, val: number, level: number, depth: number) => {
-          return { ...gs, ep: gs.ep + level * 2 }
-        },
+        apply: (gs: GameState, level: number, param: Param, value: number) => ({ ...gs, ep: gs.ep + level * 2 }),
       },
     ],
   },
@@ -707,7 +676,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
+        apply: (gs: GameState, level: number) => {
           if (gs.turn % 12 === 0) {
             return {
               ...gs,
@@ -771,7 +740,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
+        apply: (gs: GameState, level: number) => {
           if (gs.turn % 12 === 0) {
             return {
               ...gs,
@@ -797,15 +766,11 @@ export const epicBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'researchBreakthrough',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, asiOutcome: gs.asiOutcome + 10 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 10 * level }),
       },
       {
         trigger: 'levelUpBreakthrough',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, asiOutcome: gs.asiOutcome + 10 * level }
-        },
+        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 10 * level }),
       },
     ],
   },
@@ -822,7 +787,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
+        apply: (gs: GameState, level: number) => {
           if (gs.turn % 12 === 0) {
             return { ...gs, up: gs.up + 4 }
           }

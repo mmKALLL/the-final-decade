@@ -93,7 +93,7 @@ function applyActionEventHandlers(gs: GameState, effectStack: EffectStack, event
 
   // Apply each handler, allowing it to modify the effect stack
   allHandlers.forEach(({ handler, level }) => {
-    updatedGs = handler.apply(updatedGs, effectStack, eventId, level, depth)
+    updatedGs = handler.apply(updatedGs, level)
   })
 
   return updatedGs
@@ -103,7 +103,7 @@ function applyParamEventHandlers(gs: GameState, effectStack: EffectStack, param:
   if (value <= 0) return gs
 
   // Make a copy of the game state to work with
-  const updatedGs = { ...gs }
+  let updatedGs = { ...gs }
 
   // Get all param event handlers from all breakthroughs
   const allHandlers = gs.breakthroughs.flatMap((breakthrough) =>
@@ -116,7 +116,7 @@ function applyParamEventHandlers(gs: GameState, effectStack: EffectStack, param:
 
   // Apply each handler, allowing it to modify the effect stack
   allHandlers.forEach(({ handler, level }) => {
-    handler.apply(updatedGs, effectStack, param, value, level, depth)
+    updatedGs = handler.apply(updatedGs, level, param, value)
   })
 
   return updatedGs

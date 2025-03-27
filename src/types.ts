@@ -165,25 +165,10 @@ export type EventId =
   | 'internalStateChange' // Should not be listened to in most cases
   | 'levelUpBreakthrough'
 
-export type ActionEventHandlerFunction = (
-  gs: GameState,
-  effectStack: EffectStack,
-  eventId: EventId,
-  level: number,
-  depth: number
-) => GameState
-
+export type ActionEventHandlerFunction = (gs: GameState, level: number) => GameState
 export type ActionEventHandler = { trigger: EventId; apply: ActionEventHandlerFunction }
 
-export type ParamEventHandlerFunction = (
-  gs: GameState,
-  effectStack: EffectStack,
-  param: Param,
-  value: number,
-  level: number,
-  depth: number
-) => GameState
-
+export type ParamEventHandlerFunction = (gs: GameState, level: number, param: Param, value: number) => GameState
 export type ParamEventHandler = { trigger: Param; apply: ParamEventHandlerFunction }
 
 export type Param =
