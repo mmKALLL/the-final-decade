@@ -49,8 +49,9 @@ export function reduceAction(gs: GameState, action: Action): GameState {
   let updatedGs: GameState = { ...gs }
 
   // Apply all effects in the stack
-  const effectStack = createEffectStack(gs, action)
+  const effectStack = createEffectStack(updatedGs, action)
   updatedGs = reduceEffect(effectStack, updatedGs, 0)
+  updatedGs = applyActionEventHandlers(updatedGs, action.eventId)
   updatedGs = action.functionEffect ? action.functionEffect(updatedGs) : updatedGs
 
   // Handle turn advancement if needed
@@ -61,24 +62,13 @@ export function reduceAction(gs: GameState, action: Action): GameState {
   return updatedGs
 }
 
+// Create effect stack to track all effects that should be applied
 function createEffectStack(gs: GameState, action: Action): EffectStack {
-  let updatedGs = { ...gs }
-
-  // Apply function effect if exists
-  updatedGs = action.functionEffect ? action.functionEffect(updatedGs) : updatedGs
-
-  // Create effect stack to track all effects that should be applied
   const effectStack: EffectStack = action.effect.map((e) => ({ ...e, depth: 0 }))
-
-  // Trigger action event handlers for this action
-  if (action.eventId) {
-    updatedGs = applyActionEventHandlers(updatedGs, effectStack, action.eventId, 0)
-  }
-
   return effectStack
 }
 
-function applyActionEventHandlers(gs: GameState, effectStack: EffectStack, eventId: EventId, depth: number): GameState {
+function applyActionEventHandlers(gs: GameState, eventId: EventId): GameState {
   // Make a copy of the game state to work with
   let updatedGs = { ...gs }
 
@@ -248,7 +238,7 @@ export function handleTurn(gs: GameState): GameState {
   let updatedGs = { ...gs }
 
   // Apply turnEnd event handlers
-  updatedGs = applyActionEventHandlers(updatedGs, effectStack, 'turnEnd', 0)
+  updatedGs = applyActionEventHandlers(updatedGs, 'turnEnd')
   updatedGs = reduceEffect(effectStack, updatedGs, 0)
 
   // Check if this is the end of a year (turn divisible by 12)
@@ -276,7 +266,7 @@ export function handleEndOfYear(gs: GameState): GameState {
   const effectStack: EffectStack = effect.map((e) => ({ ...e, depth: 0 }))
 
   // Apply yearChange event handlers
-  updatedGs = applyActionEventHandlers(updatedGs, effectStack, 'yearChange', 0)
+  updatedGs = applyActionEventHandlers(updatedGs, 'yearChange')
 
   // Apply the year change effects
   updatedGs = reduceEffect(effectStack, updatedGs, 0)
@@ -288,7 +278,7 @@ export function handleEndOfYear(gs: GameState): GameState {
   const firstYearlyContract = updatedGs.yearlyContracts[0]
   const contractAction = convertContractToAction(firstYearlyContract)
 
-  // If the contract condition is false or canApplyAction is false, enable game over screen
+  // If the goal condition is false or canApplyAction is false, enable game over screen
   const canApply = canApplyAction(updatedGs, contractAction)
   if (!canApply) {
     return {
@@ -297,7 +287,7 @@ export function handleEndOfYear(gs: GameState): GameState {
     }
   }
 
-  // Apply the contract action, which will trigger action handlers. Don't use reduceAction since it would trigger turn end again
+  // Apply the goal action, which will trigger action handlers. Don't use reduceAction since it would trigger turn end again
   updatedGs = reduceEffect(
     contractAction.effect.map((e) => ({ ...e, depth: 0 })),
     updatedGs,
