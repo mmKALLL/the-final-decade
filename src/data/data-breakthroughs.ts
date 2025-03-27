@@ -1,6 +1,6 @@
 // TypeScript version of the Dart Upgrade definitions, renamed to Breakthrough
 
-import { Breakthrough, ModifierType, Param, GameState, EventId, EffectStack } from '../types'
+import { Breakthrough, ModifierType, Param, GameState } from '../types'
 
 export enum BreakthroughId {
   // Common
@@ -360,9 +360,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'levelUpBreakthrough',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, rp: gs.rp + 5 * level }
-        },
+        apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 5 * l }),
       },
     ],
   },
@@ -379,9 +377,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'independentResearch',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, rp: gs.rp + 7 * level }
-        },
+        apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 7 * l }),
       },
     ],
   },
@@ -414,12 +410,10 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return {
-            ...gs,
-            trust: gs.trust + 1 * level,
-          }
-        },
+        apply: (gs: GameState, l: number) => ({
+          ...gs,
+          trust: gs.trust + 1 * l,
+        }),
       },
     ],
   },
@@ -436,9 +430,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, ep: gs.ep - 1 * level, rp: gs.rp + 2 * level }
-        },
+        apply: (gs: GameState, l: number) => ({ ...gs, ep: gs.ep - 1 * l, rp: gs.rp + 2 * l }),
       },
     ],
   },
@@ -455,9 +447,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, money: gs.money + 20 * level, trust: gs.trust - 5 * level }
-        },
+        apply: (gs: GameState, l: number) => ({ ...gs, money: gs.money + 20 * l, trust: gs.trust - 5 * l }),
       },
     ],
   },
@@ -534,9 +524,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, rp: gs.rp + 3 * level }
-        },
+        apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 3 * l }),
       },
     ],
   },
@@ -584,14 +572,12 @@ export const rareBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return {
-            ...gs,
-            rp: gs.rp + 1,
-            ep: gs.ep + 1,
-            sp: gs.sp + 1,
-          }
-        },
+        apply: (gs: GameState, l: number) => ({
+          ...gs,
+          rp: gs.rp + l,
+          ep: gs.ep + l,
+          sp: gs.sp + l,
+        }),
       },
     ],
   },
@@ -631,9 +617,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return { ...gs, trust: gs.trust + level }
-        },
+        apply: (gs: GameState, l: number) => ({ ...gs, trust: gs.trust + l }),
       },
     ],
   },
@@ -653,13 +637,11 @@ export const epicBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, stack: EffectStack, eventId: EventId, level: number, depth: number) => {
-          return {
-            ...gs,
-            trust: gs.trust - 1,
-            rp: gs.rp + 4,
-          }
-        },
+        apply: (gs: GameState, l: number) => ({
+          ...gs,
+          trust: gs.trust - l,
+          rp: gs.rp + 4 * l,
+        }),
       },
     ],
   },
