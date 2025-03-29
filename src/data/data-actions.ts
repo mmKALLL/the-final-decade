@@ -168,10 +168,12 @@ export const levelUpBreakthroughAction = (breakthrough: Breakthrough): Action =>
       // Create a new breakthroughs array with the leveled up breakthrough
       const updatedBreakthroughs = gs.breakthroughs.map((b) => (b.id === breakthrough.id ? { ...b, level: b.level + 1 } : b))
 
-      return {
+      const updatedGs = {
         ...gs,
         breakthroughs: updatedBreakthroughs,
       }
+
+      return breakthrough.functionEffect ? breakthrough.functionEffect(updatedGs) : updatedGs
     },
   }
 }
