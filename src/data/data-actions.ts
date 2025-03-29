@@ -139,7 +139,7 @@ const convertRequirementsToCondition = (requirements: Effect): ((gs: GameState) 
 
 export const convertContractToAction = (contract: Contract): Action => ({
   ...contract,
-  eventId: 'internalStateChange',
+  eventId: 'contractSuccess',
   enabledCondition: convertRequirementsToCondition(contract.requirements),
   effect: [...contract.onSuccess, ...contract.costs],
   turnCost: 1,
@@ -163,7 +163,7 @@ export const levelUpBreakthroughAction = (breakthrough: Breakthrough): Action =>
     turnCost: 1,
     turnsInvested: 0,
     enabledCondition: (gs) => gs.up >= levelUpCost(breakthrough) && breakthrough.level < breakthrough.maxLevel,
-    effect: [{ paramEffected: 'up', amount: -levelUpCost(breakthrough) }],
+    effect: [{ paramEffected: 'up', amount: -levelUpCost(breakthrough) }, ...(breakthrough.effect ?? [])],
     functionEffect: (gs) => {
       // Create a new breakthroughs array with the leveled up breakthrough
       const updatedBreakthroughs = gs.breakthroughs.map((b) => (b.id === breakthrough.id ? { ...b, level: b.level + 1 } : b))

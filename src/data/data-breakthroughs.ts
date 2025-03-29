@@ -336,15 +336,15 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: BreakthroughId.DataScraping,
     name: { 'en-US': 'Data Scraping', 'jp-FI': 'データスクレイピング' },
     description: {
-      'en-US': (l) => `Get ${l * 2} income, but lose ${l * 10} trust`,
-      'jp-FI': (l) => `各ターン開始時に${l * 2}kの収入を得るが、信頼が${l * 10}失われる`,
+      'en-US': (l) => `Get ${l * 3} income, but lose ${l * 10} trust`,
+      'jp-FI': (l) => `各ターン開始時に${l * 3}kの収入を得るが、信頼が${l * 10}失われる`,
     },
     rarity: 'common',
     level: 0,
     maxLevel: 3,
     effect: [
       { paramEffected: 'trust', amount: -10 },
-      { paramEffected: 'passiveIncome', amount: 2 },
+      { paramEffected: 'passiveIncome', amount: 3 },
     ],
   },
   {
