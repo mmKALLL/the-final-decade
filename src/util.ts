@@ -1,5 +1,6 @@
 import { Breakthrough, Effect, GameState, HumanRank, HumanType, Param, SingleEffect, Weighted } from './types'
 
+export const getRandomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min
 export const getYear = (turn: number) => Math.floor(turn / 12) + 1
 export const isGameOver = (gs: GameState): boolean => gs.money <= 0 || gs.asiOutcome <= 0 || gs.trust <= 0 || gs.influence <= 0
 export const isGameWon = (gs: GameState): boolean => (getYear(gs.turn) >= 6 && gs.asiOutcome >= 100) || gs.publicUnity >= 100
@@ -69,7 +70,8 @@ export function pickListOfWeighted<T extends { weight: number }>(elementsToPick:
     const totalWeight = pool.reduce((acc, cur) => acc + cur.weight, 0)
     if (totalWeight === 0) throw new Error(`totalWeight became 0, pool=${JSON.stringify(pool)}`)
 
-    let weightIndex = Math.floor(Math.random() * totalWeight) + 1 // Random value in range [1, totalWeight]
+    const initialWeightIndex = Math.random() * totalWeight // Random value in range [0, totalWeight)
+    let weightIndex = initialWeightIndex
 
     for (let i = 0; i < pool.length; i++) {
       weightIndex -= pool[i].weight
@@ -80,7 +82,11 @@ export function pickListOfWeighted<T extends { weight: number }>(elementsToPick:
       }
     }
 
-    throw new Error(`Was not able to pick an effect, totalWeight=${totalWeight}, weightIndex=${weightIndex}, pool=${JSON.stringify(pool)}`)
+    throw new Error(
+      `Was not able to pick an effect, totalWeight=${totalWeight}, initialWeightIndex=${initialWeightIndex}, weightIndex=${weightIndex}, pool=${JSON.stringify(
+        pool
+      )}`
+    )
   })
 }
 
