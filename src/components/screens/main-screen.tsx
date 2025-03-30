@@ -15,7 +15,7 @@ export const MainScreen = () => {
       <div className="action-section">
         <div className="section-header">
           <h2>First-order actions:</h2>
-          <InfoTooltip position="bottom">
+          <InfoTooltip>
             <>
               <p style={{ fontWeight: 'bold' }}>Action Types</p>
               <p>

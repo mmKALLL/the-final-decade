@@ -178,10 +178,11 @@ html, body {
   position: relative;
 }
 
-.stat-header {
+.info-tooltip {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 0.3rem;
+  position: absolute;
+  right: 0.5rem;
 }
 
 .stat-info-icon {
@@ -197,7 +198,7 @@ html, body {
   border-radius: 50%;
 }
 
-.stat-tooltip {
+.info-tooltip-content {
   position: absolute;
   top: 100%;
   right: 0;
@@ -212,7 +213,7 @@ html, body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.stat-tooltip p {
+.info-tooltip-content p {
   margin: 0.3rem 0;
   font-size: 0.7rem;
   color: #e2e8f0;

@@ -27,7 +27,7 @@ export const BreakthroughList = ({ editable }: BreakthroughListProps) => {
     <div className="breakthrough-section">
       <div className="section-header">
         <h2>Breakthroughs</h2>
-        <InfoTooltip position="bottom">
+        <InfoTooltip>
           <>
             <p style={{ fontWeight: 'bold' }}>Breakthroughs</p>
             <p>Breakthroughs are advanced technologies that provide ongoing bonuses to your organization.</p>

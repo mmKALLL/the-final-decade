@@ -18,7 +18,7 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
       <div className="contract-section">
         <div className="section-header">
           <h2>Contracts - {editable ? 'tap to complete' : 'view only'}</h2>
-          <InfoTooltip position="bottom">
+          <InfoTooltip>
             <>
               <p style={{ fontWeight: 'bold' }}>Contracts</p>
               <p>Contracts are tasks you can complete to earn resources and advantages.</p>
@@ -64,7 +64,7 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
       <div className="contract-section">
         <div className="section-header">
           <h2>Yearly Goals</h2>
-          <InfoTooltip position="bottom">
+          <InfoTooltip>
             <>
               <p style={{ fontWeight: 'bold' }}>Yearly Goals</p>
               <p>These are special contracts that appear at the start of each game.</p>
