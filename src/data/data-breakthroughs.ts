@@ -2,61 +2,14 @@
 
 import { Breakthrough, ModifierType, Param, GameState } from '../types'
 
-export enum BreakthroughId {
-  // Common
-  RewardHacking,
-  LethalityList,
-  PoetryGenerator,
-  CognitiveEmulation,
-  Duplicator,
-  Monosemanticity,
-  DebateCourse,
-  ResearchAdvisor,
-  EngineeringAdvisor,
-  SocialAdvisor,
-  OpenLetter,
-  InterpretabilityModel,
-  TrustedAdvisor,
-  PassiveIncome,
-  DataScraping,
-  WarningSigns,
-  SocialEngineering,
-  FakeNews,
-  MoneyLaundering,
-  StrategicBipartisanship,
-  SingularLearningTheory,
-  InstrumentalityProject,
-
-  // Uncommon
-  ConsensusFilter,
-  OverclockedSimulations,
-  SponsorshipLobby,
-  FailsafeDaemon,
-  MultiAgentBoost,
-
-  // Rare
-  PrecisionCorruption,
-  InfiniteLoopRetries,
-  ContractOverride,
-  ReplicatorGrid,
-  AestheticImpairment,
-
-  // Epic
-  ArtificialConsciousness,
-  TheThirdSignal,
-  ColdAlignmentForge,
-  InstructionCollapse,
-  EncodedProphecy,
-  ArmyOfConMen,
-  UnitedIntervention,
-  SingularityTheorem,
-  UpgradeRecycling,
-}
+////////////////////////////////////////////////////////////
+// COMMON
+////////////////////////////////////////////////////////////
 
 export const commonBreakthroughs: Breakthrough[] = [
   {
     // Tested: ok
-    id: BreakthroughId.RewardHacking,
+    id: 'RewardHacking',
     name: { 'en-US': 'Reward Hacking', 'jp-FI': 'リワードハッキング' },
     description: {
       'en-US': (l) => `RP/EP/SP gain from humans is increased by ${l * 8}%`,
@@ -84,7 +37,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.Duplicator,
+    id: 'Duplicator',
     name: { 'en-US': 'Duplicator', 'jp-FI': '複製機' },
     description: {
       'en-US': (l) => `Gain ${l} RP every turn`,
@@ -101,7 +54,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.Monosemanticity,
+    id: 'Monosemanticity',
     name: { 'en-US': 'Monosemanticity', 'jp-FI': 'モノセマンティシティ' },
     description: {
       'en-US': (l) => `Gain ${l} EP every turn`,
@@ -118,7 +71,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.DebateCourse,
+    id: 'DebateCourse',
     name: { 'en-US': 'Debate Course', 'jp-FI': 'ディベートコース' },
     description: {
       'en-US': (l) => `Gain ${l} SP every turn`,
@@ -135,7 +88,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.PoetryGenerator,
+    id: 'PoetryGenerator',
     name: { 'en-US': 'Poetry Generator', 'jp-FI': '詩ジェネレーター' },
     description: {
       'en-US': (l) => `When you do independent outreach, gain ${l * 7} SP`,
@@ -152,7 +105,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.CognitiveEmulation,
+    id: 'CognitiveEmulation',
     name: { 'en-US': 'Cognitive Emulation', 'jp-FI': '認知エミュレーション' },
     description: {
       'en-US': (l) => `Gain ${l * 5} EP every time you refresh contracts`,
@@ -169,7 +122,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.ResearchAdvisor,
+    id: 'ResearchAdvisor',
     name: { 'en-US': 'Research Advisor', 'jp-FI': '研究アドバイザー' },
     description: {
       'en-US': (l) => `Gain ${l * 10} RP every time you research a breakthrough`,
@@ -186,7 +139,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.EngineeringAdvisor,
+    id: 'EngineeringAdvisor',
     name: { 'en-US': 'Engineering Advisor', 'jp-FI': 'エンジニアリングアドバイザー' },
     description: {
       'en-US': (l) => `Gain ${l * 5} EP every time you finish a contract`,
@@ -203,7 +156,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.SocialAdvisor,
+    id: 'SocialAdvisor',
     name: { 'en-US': 'Social Advisor', 'jp-FI': 'ソーシャルアドバイザー' },
     description: {
       'en-US': (l) => `Gain ${l * 10} SP every time you recruit a human`,
@@ -220,7 +173,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.OpenLetter,
+    id: 'OpenLetter',
     name: { 'en-US': 'Open Letter', 'jp-FI': 'オープンレター' },
     description: {
       'en-US': (l) => `Gain ${l * 15} trust`,
@@ -232,7 +185,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     effect: [{ paramEffected: 'trust', amount: 15 }],
   },
   {
-    id: BreakthroughId.InterpretabilityModel,
+    id: 'InterpretabilityModel',
     name: { 'en-US': 'Interpretability Model', 'jp-FI': '解釈可能性モデル' },
     description: {
       'en-US': (l) => `Whenever you finish a contract, +${l * 3} ASI outcome`,
@@ -249,7 +202,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.TrustedAdvisor,
+    id: 'TrustedAdvisor',
     name: { 'en-US': 'Trusted Advisor', 'jp-FI': '信頼されるアドバイザー' },
     description: {
       'en-US': (l) => `Whenever you finish a contract, gain ${l * 3} trust`,
@@ -266,7 +219,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.PassiveIncome,
+    id: 'PassiveIncome',
     name: { 'en-US': 'Passive Income', 'jp-FI': '受動的収入' },
     description: {
       'en-US': (l) => `Gain ${2 * l} money per turn`,
@@ -283,7 +236,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.SocialEngineering,
+    id: 'SocialEngineering',
     name: { 'en-US': 'Social Engineering', 'jp-FI': 'ソーシャルエンジニアリング' },
     description: {
       'en-US': (l) => `Whenever you finish a contract, gain ${l * 3} influence`,
@@ -300,7 +253,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.FakeNews,
+    id: 'FakeNews',
     name: { 'en-US': 'Fake News', 'jp-FI': 'フェイクニュース' },
     description: {
       'en-US': (l) => 'Gain 20 influence, but lose 20 trust',
@@ -315,7 +268,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.MoneyLaundering,
+    id: 'MoneyLaundering',
     name: { 'en-US': 'Money Laundering', 'jp-FI': 'マネーロンダリング' },
     description: {
       'en-US': (l) => `Gain ${4 * l} money per turn, but lose 20 trust`,
@@ -333,7 +286,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.DataScraping,
+    id: 'DataScraping',
     name: { 'en-US': 'Data Scraping', 'jp-FI': 'データスクレイピング' },
     description: {
       'en-US': (l) => `Get ${l * 3} income, but lose ${l * 10} trust`,
@@ -348,7 +301,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.SingularLearningTheory,
+    id: 'SingularLearningTheory',
     name: { 'en-US': 'Singular Learning Theory', 'jp-FI': 'シンギュラー・ラーニング・セオリー' },
     description: {
       'en-US': (l) => `Gain ${l * 5} RP every time you level up a breakthrough`,
@@ -365,7 +318,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.InstrumentalityProject,
+    id: 'InstrumentalityProject',
     name: { 'en-US': 'Instrumentality Project', 'jp-FI': 'インストルメンタリティプロジェクト' },
     description: {
       'en-US': (l) => `When you do independent research, gain ${l * 7} RP`,
@@ -383,9 +336,13 @@ export const commonBreakthroughs: Breakthrough[] = [
   },
 ]
 
+////////////////////////////////////////////////////////////
+// UNCOMMON
+////////////////////////////////////////////////////////////
+
 export const uncommonBreakthroughs: Breakthrough[] = [
   {
-    id: BreakthroughId.WarningSigns,
+    id: 'WarningSigns',
     name: { 'en-US': 'Warning Signs', 'jp-FI': '警告サイン' },
     description: {
       'en-US': (l) => `Public unity +${l}`,
@@ -397,7 +354,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     effect: [{ paramEffected: 'publicUnity', amount: 1 }],
   },
   {
-    id: BreakthroughId.ConsensusFilter,
+    id: 'ConsensusFilter',
     name: { 'en-US': 'Consensus Filter', 'jp-FI': 'コンセンサスフィルター' },
     description: {
       'en-US': (l) => `Gain +${l} trust every turn, but public unity -${l}`,
@@ -418,7 +375,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.OverclockedSimulations,
+    id: 'OverclockedSimulations',
     name: { 'en-US': 'Overclocked Simulations', 'jp-FI': '過剰クロックシミュレーション' },
     description: {
       'en-US': (l) => `Each turn, gain ${l * 2} RP but lose ${l} EP`,
@@ -435,7 +392,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.SponsorshipLobby,
+    id: 'SponsorshipLobby',
     name: { 'en-US': 'Sponsorship Lobby', 'jp-FI': 'スポンサーのロビー' },
     description: {
       'en-US': (l) => `When you finish a contract, gain ${l * 20} money, but lose ${l * 5} trust`,
@@ -452,7 +409,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.FailsafeDaemon,
+    id: 'FailsafeDaemon',
     name: { 'en-US': 'Failsafe Daemon', 'jp-FI': 'フェイルセーフ・デーモン' },
     description: {
       'en-US': (l) => `Sets your trust to 75 when obtained or upgraded.`,
@@ -464,7 +421,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     functionEffect: (gs: GameState) => ({ ...gs, trust: 75 }),
   },
   {
-    id: BreakthroughId.MultiAgentBoost,
+    id: 'MultiAgentBoost',
     name: { 'en-US': 'Multi-Agent Boost', 'jp-FI': 'マルチエージェントブースト' },
     description: {
       'en-US': (l) => `When you upgrade a breakthrough, gain +${l} UP`,
@@ -482,9 +439,13 @@ export const uncommonBreakthroughs: Breakthrough[] = [
   },
 ]
 
+////////////////////////////////////////////////////////////
+// RARE
+////////////////////////////////////////////////////////////
+
 export const rareBreakthroughs: Breakthrough[] = [
   {
-    id: BreakthroughId.LethalityList,
+    id: 'LethalityList',
     name: { 'en-US': 'List of Lethalities', 'jp-FI': '致命性リスト' },
     description: {
       'en-US': (l) => `Gain ${l * 20} influence, but public unity -${l}`,
@@ -499,7 +460,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.StrategicBipartisanship,
+    id: 'StrategicBipartisanship',
     name: { 'en-US': 'Strategic Bipartisanship', 'jp-FI': '戦略的両党支持' },
     description: {
       'en-US': (l) => `Public unity increased by ${l * 2}`,
@@ -511,7 +472,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     effect: [{ paramEffected: 'publicUnity', amount: 2 }],
   },
   {
-    id: BreakthroughId.PrecisionCorruption,
+    id: 'PrecisionCorruption',
     name: { 'en-US': 'Precision Corruption', 'jp-FI': '精密な汚染' },
     description: {
       'en-US': (l) => `+${3 * l} RP/turn. Public unity -1`,
@@ -529,7 +490,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.InfiniteLoopRetries,
+    id: 'InfiniteLoopRetries',
     name: { 'en-US': 'Infinite Loop Bypass', 'jp-FI': '無限ループバイパス' },
     description: {
       'en-US': (l) => `Gain ${l * 2} EP each time a non-breakthrough EP is gained`,
@@ -545,22 +506,8 @@ export const rareBreakthroughs: Breakthrough[] = [
       },
     ],
   },
-  // {
-  //   id: BreakthroughId.ContractOverride,
-  //   name: { 'en-US': 'Contract Override', 'jp-FI': '契約の上書き' },
-  //   description: {
-  //     'en-US': (l) => `You have +${l} more contract slots`,
-  //     'jp-FI': (l) => `サイクルごとに契約+${l}`,
-  //   },
-  //   rarity: 'rare',
-  //   level: 0,
-  //   maxLevel: 2,
-  //   actionEventHandlers: [
-  //     // TODO FIXME: Implement
-  //   ],
-  // },
   {
-    id: BreakthroughId.ReplicatorGrid,
+    id: 'ReplicatorGrid',
     name: { 'en-US': 'Replicator Grid', 'jp-FI': '複製グリッド' },
     description: {
       'en-US': (l) => `Gain 1 RP/EP/SP per turn`,
@@ -582,7 +529,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.AestheticImpairment,
+    id: 'AestheticImpairment',
     name: { 'en-US': 'Aesthetic Impairment', 'jp-FI': '美的欠陥' },
     description: {
       'en-US': (l) => `RP gain from humans is doubled, but you can no longer gain trust`,
@@ -605,7 +552,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.ArmyOfConMen,
+    id: 'ArmyOfConMen',
     name: { 'en-US': 'Army of Con Men', 'jp-FI': '詐欺師の軍' },
     description: {
       'en-US': (l) => `You gain ${l} trust each turn`,
@@ -623,9 +570,13 @@ export const rareBreakthroughs: Breakthrough[] = [
   },
 ]
 
+////////////////////////////////////////////////////////////
+// EPIC
+////////////////////////////////////////////////////////////
+
 export const epicBreakthroughs: Breakthrough[] = [
   {
-    id: BreakthroughId.ArtificialConsciousness,
+    id: 'ArtificialConsciousness',
     name: { 'en-US': 'Artificial Consciousness', 'jp-FI': '人工意識' },
     description: {
       'en-US': (l) => `Gain -1 trust and +4 RP each turn`,
@@ -646,7 +597,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.TheThirdSignal,
+    id: 'TheThirdSignal',
     name: { 'en-US': 'The Third Signal', 'jp-FI': '第三の信号' },
     description: {
       'en-US': (l) => `At the start of each year, gain 20 EP and 10 RP`,
@@ -672,7 +623,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.UnitedIntervention,
+    id: 'UnitedIntervention',
     name: { 'en-US': 'United Intervention', 'jp-FI': 'ユニティ介入' },
     description: {
       'en-US': (l) => `+3 public unity, but lose 50 influence`,
@@ -687,7 +638,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.InstructionCollapse,
+    id: 'InstructionCollapse',
     name: { 'en-US': 'Instruction Collapse', 'jp-FI': '命令崩壊' },
     description: {
       'en-US': (l) => `Gain double EP but RP generation is halved`,
@@ -710,7 +661,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.EncodedProphecy,
+    id: 'EncodedProphecy',
     name: { 'en-US': 'Encoded Prophecy', 'jp-FI': '暗号化された予言' },
     description: {
       'en-US': (l) => `At the start of each year: +10 trust and +10 influence`,
@@ -736,7 +687,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.SingularityTheorem,
+    id: 'SingularityTheorem',
     name: { 'en-US': 'Singularity Theorem', 'jp-FI': 'シンギュラリティ定理' },
     description: {
       'en-US': (l) => `When you research or level up a breakthrough, gain ${l * 10} ASI outcome`,
@@ -757,7 +708,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: BreakthroughId.UpgradeRecycling,
+    id: 'UpgradeRecycling',
     name: { 'en-US': 'Upgrade Recycling', 'jp-FI': 'アップグレードリサイクル' },
     description: {
       'en-US': (l) => `At the start of each year, gain 4 UP`,

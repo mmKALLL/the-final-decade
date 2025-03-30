@@ -1,5 +1,3 @@
-import { BreakthroughId } from './data/data-breakthroughs'
-
 export type CurrentScreen =
   | 'mainMenu' // unused
   | 'gameOver'
@@ -105,7 +103,7 @@ export type Human = {
 }
 
 export type Breakthrough = {
-  id: BreakthroughId
+  id: string
   name: Label
   description: LabelByLevel
   rarity: Rarity
