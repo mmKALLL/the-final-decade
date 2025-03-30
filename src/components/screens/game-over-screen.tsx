@@ -32,7 +32,7 @@ export const GameOverScreen = () => {
       </p>
       <p>
         {gs.language === 'en-US'
-          ? 'The ASI race continues without you, and the future remains uncertain.'
+          ? 'Companies continue to race towards ASI without any guarantees of safety. The future remains uncertain.'
           : 'ASIの競争はあなた抜きで続き、未来は不確実なままです。'}
       </p>
       <GameEndStats />
