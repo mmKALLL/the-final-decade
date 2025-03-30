@@ -14,10 +14,7 @@ export function GameStateDisplay() {
   const compactCategories = {
     Resources: {
       money: { value: gs.money, desc: 'Funds for hiring and actions' },
-      wages: {
-        value: `-${moneyGain.wages} * ${moneyGain.multiplier.toFixed(2)} = -${moneyGain.totalWages}`,
-        desc: 'Money paid to humans each turn',
-      },
+      'Total income': { value: moneyGain.total, desc: 'Change to money each turn' },
     },
     Organization: {
       influence: { value: gs.influence, desc: 'Multiplier for social actions' },
@@ -25,7 +22,7 @@ export function GameStateDisplay() {
     },
     ASI: {
       outcome: { value: gs.asiOutcome, desc: 'Progress toward aligned AI (0-100)' },
-      'public unity': { value: gs.publicUnity, desc: 'Public view of AI alignment' },
+      'public unity': { value: gs.publicUnity, desc: 'Change to ASI outcome each turn' },
     },
     Team: {
       'SP gain': {
@@ -40,7 +37,10 @@ export function GameStateDisplay() {
         value: `${resourceProduction.rp.base} * ${resourceProduction.rp.multiplier} = ${resourceProduction.rp.total}`,
         desc: 'Research Points for breakthroughs',
       },
-      breakthroughs: { value: gs.breakthroughs.length, desc: 'Cutting-edge upgrades' },
+      wages: {
+        value: `-${moneyGain.wages} * ${moneyGain.multiplier.toFixed(2)} = -${moneyGain.totalWages}`,
+        desc: 'Money paid to humans each turn',
+      },
     },
   }
 
