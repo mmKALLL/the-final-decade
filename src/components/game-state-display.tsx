@@ -14,7 +14,7 @@ export function GameStateDisplay() {
   const compactCategories = {
     Resources: {
       money: { value: gs.money, desc: 'Funds for hiring and actions' },
-      'Total income': { value: moneyGain.total, desc: 'Change to money each turn' },
+      income: { value: moneyGain.total, desc: 'Change to money each turn' },
     },
     Organization: {
       influence: { value: gs.influence, desc: 'Multiplier for social actions' },
