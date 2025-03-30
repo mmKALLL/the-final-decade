@@ -95,6 +95,7 @@ export const spHumans: Human[] = [
     spGeneration: 4,
     epGeneration: 0,
     rpGeneration: 0,
+    specialEffect: [{ paramEffected: 'trust', amount: 6 }],
   },
   {
     name: { 'en-US': 'Sebastian Klein', 'jp-FI': 'セバスチャン・クライン' },
