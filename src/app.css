@@ -462,7 +462,7 @@ body {
 }
 
 /* Screen width adjustments for larger screens */
-@media (min-width: 400px) {
+@media (min-width: 475px) {
   .game-content {
     padding: 0.6rem 0;
   }
