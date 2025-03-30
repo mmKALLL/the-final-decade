@@ -8,7 +8,8 @@ export const BreakthroughItem = ({ breakthrough, onSelect }: { breakthrough: Bre
       style={{
         display: 'flex',
         justifyContent: 'space-between',
-        width: '96vw',
+        width: '99%',
+        maxWidth: '491px',
         backgroundColor: '#222',
         border: `1px solid ${rarityColors[breakthrough.rarity]}`,
         borderRadius: '6px',

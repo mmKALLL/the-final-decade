@@ -10,7 +10,7 @@ export function InfoTooltip({ children, width = 260 }: InfoTooltipProps) {
   const [showTooltip, setShowTooltip] = useState(false)
 
   return (
-    <span className="info-tooltip" style={{ display: 'inline-block', float: 'right' }}>
+    <div className="info-tooltip">
       <div className="info-tooltip-container">
         <div
           className="stat-info-icon"
@@ -26,6 +26,6 @@ export function InfoTooltip({ children, width = 260 }: InfoTooltipProps) {
           )}
         </div>
       </div>
-    </span>
+    </div>
   )
 }
