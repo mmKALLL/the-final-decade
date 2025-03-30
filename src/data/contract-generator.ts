@@ -127,17 +127,15 @@ interface WeightedSingleEffect {
 // Function to get alignment-focused success effects
 function getAlignmentSuccessEffects(difficulty: number, totalEffects: number, isSecondaryContract: boolean): WeightedSingleEffect[] {
   return [
-    { weight: difficulty > 300 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(100, difficulty, 0.5) } },
-    { weight: difficulty > 220 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(50, difficulty, 0.5) } },
-    { weight: 1, effect: { paramEffected: 'sp', amount: getRandomValue(4, difficulty, 0.05) } },
-    { weight: 3, effect: { paramEffected: 'ep', amount: getRandomValue(4, difficulty, 0.05) } },
-    { weight: 3, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.05) } },
-    { weight: 4, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.03) } },
+    { weight: difficulty > 260 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(100, difficulty, 0.5) } },
+    { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(50, difficulty, 0.5) } },
+    { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'ep', amount: getRandomValue(4, difficulty, 0.05) } },
+    { weight: 4, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.04) } },
     {
       weight: difficulty > 150 ? 2 : 1,
       effect: {
         paramEffected: 'up',
-        amount: getRandomInt(1, 3),
+        amount: getRandomInt(2, 3),
       },
     },
     { weight: difficulty > 200 ? 2 : 1, effect: { paramEffected: 'publicUnity', amount: 1 } },
@@ -147,14 +145,13 @@ function getAlignmentSuccessEffects(difficulty: number, totalEffects: number, is
 // Function to get capability-focused success effects
 function getCapabilitySuccessEffects(difficulty: number, totalEffects: number, isSecondaryContract: boolean): WeightedSingleEffect[] {
   return [
-    { weight: 3, effect: { paramEffected: 'sp', amount: getRandomValue(4, difficulty, 0.05) } },
-    { weight: 1, effect: { paramEffected: 'ep', amount: getRandomValue(4, difficulty, 0.05) } },
-    { weight: 3, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.05) } },
-    { weight: 3, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.03) } },
+    { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'sp', amount: getRandomValue(4, difficulty, 0.05) } },
+    { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.05) } },
+    { weight: 3, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.04) } },
     { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(50, difficulty, 0.5) } },
-    { weight: difficulty > 300 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(100, difficulty, 0.5) } },
-    { weight: 2, effect: { paramEffected: 'up', amount: getRandomInt(1, 3) } },
-    { weight: 2, effect: { paramEffected: 'passiveIncome', amount: getRandomValue(1, difficulty, 0.012) } },
+    { weight: difficulty > 260 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(100, difficulty, 0.5) } },
+    { weight: 3, effect: { paramEffected: 'up', amount: getRandomInt(2, 4) } },
+    { weight: 3, effect: { paramEffected: 'passiveIncome', amount: getRandomValue(1, difficulty, 0.014) } },
   ]
 }
 
