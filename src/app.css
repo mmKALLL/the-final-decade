@@ -179,6 +179,16 @@ body {
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+.action-buttons button.faded {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.action-buttons button.faded:hover {
+  background-color: #4a5568;
+  transform: unset;
+}
 /* End of Action buttons section */
 
 /* Game state display styling */
@@ -459,6 +469,7 @@ body {
 /* Improve button component */
 .button {
   width: 100%;
+  user-select: none;
 }
 
 /* Screen width adjustments for larger screens */
