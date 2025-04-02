@@ -569,7 +569,8 @@ body {
 }
 
 .restart-button {
-  background-color: #007bff;
+  background-color: #2d3748;
+
   color: white;
   border: none;
   padding: 0.8rem 1.5rem;
@@ -581,7 +582,7 @@ body {
 }
 
 .restart-button:hover {
-  background-color: #0069d9;
+  background-color: #4a5568;
 }
 
 /* Responsive adjustments */

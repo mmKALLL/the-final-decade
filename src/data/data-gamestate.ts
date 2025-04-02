@@ -10,7 +10,7 @@ const baseGameState: GameState = {
   language: 'en-US',
 
   turn: 0,
-  money: 100,
+  money: debug ? 1000 : 100,
   passiveIncome: 0,
   asiOutcome: 50,
   publicUnity: -1,

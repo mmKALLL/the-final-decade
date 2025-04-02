@@ -15,7 +15,7 @@ export const VictoryScreen = () => {
       </p>
       <p>
         {gs.language === 'en-US'
-          ? `The future of humanity looks bright under the guidance of your aligned AI systems.`
+          ? `The future of humanity looks bright under the guidance of your systems.`
           : 'あなたの整列されたAIシステムの指導の下、人類の未来は明るく見えます。'}
       </p>
 
