@@ -1,6 +1,6 @@
 // TypeScript version of the Dart Upgrade definitions, renamed to Breakthrough
 
-import { Breakthrough, ModifierType, Param, GameState } from '../types'
+import { Breakthrough, ModifierType, GameState } from '../types'
 
 ////////////////////////////////////////////////////////////
 // COMMON
@@ -256,32 +256,32 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'FakeNews',
     name: { 'en-US': 'Fake News', 'jp-FI': 'フェイクニュース' },
     description: {
-      'en-US': (l) => 'Gain 20 influence, but lose 20 trust',
-      'jp-FI': (l) => '20の影響力を得るが、20の信頼を失う',
+      'en-US': (l) => 'Gain 20 influence, but lose 10 trust',
+      'jp-FI': (l) => '20の影響力を得るが、10の信頼を失う',
     },
     rarity: 'common',
     level: 0,
     maxLevel: 3,
     effect: [
       { paramEffected: 'influence', amount: 20 },
-      { paramEffected: 'trust', amount: -20 },
+      { paramEffected: 'trust', amount: -10 },
     ],
   },
   {
     id: 'MoneyLaundering',
     name: { 'en-US': 'Money Laundering', 'jp-FI': 'マネーロンダリング' },
     description: {
-      'en-US': (l) => `Gain ${4 * l} money per turn, but lose 20 trust`,
-      'jp-FI': (l) => `ターンごとに${4 * l}のお金を得るが、20の信頼を失う`,
+      'en-US': (l) => `Gain ${5 * l} money per turn, but lose ${10 * l} trust`,
+      'jp-FI': (l) => `ターンごとに${5 * l}のお金を得るが、${10 * l}の信頼を失う`,
     },
     rarity: 'common',
     level: 0,
     maxLevel: 3,
-    effect: [{ paramEffected: 'trust', amount: -20 }],
+    effect: [{ paramEffected: 'trust', amount: -10 }],
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, money: gs.money + 4 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, money: gs.money + 5 * level }),
       },
     ],
   },
@@ -448,14 +448,14 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'LethalityList',
     name: { 'en-US': 'List of Lethalities', 'jp-FI': '致命性リスト' },
     description: {
-      'en-US': (l) => `Gain ${l * 20} influence, but public unity -${l}`,
-      'jp-FI': (l) => `影響力が${l * 20}増加するが、公衆団結-${l}`,
+      'en-US': (l) => `Gain ${l * 25} influence, but public unity -${l}`,
+      'jp-FI': (l) => `影響力が${l * 25}増加するが、公衆団結-${l}`,
     },
     rarity: 'rare',
     level: 0,
     maxLevel: 3,
     effect: [
-      { paramEffected: 'influence', amount: 20 },
+      { paramEffected: 'influence', amount: 25 },
       { paramEffected: 'publicUnity', amount: -1 },
     ],
   },
@@ -493,16 +493,16 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'InfiniteLoopRetries',
     name: { 'en-US': 'Infinite Loop Bypass', 'jp-FI': '無限ループバイパス' },
     description: {
-      'en-US': (l) => `Gain ${l * 2} EP each time a non-breakthrough EP is gained`,
-      'jp-FI': (l) => `非突破性のEPを得るたびに${l * 2}EPを得る`,
+      'en-US': (l) => `Gain ${l * 2} EP each turn`,
+      'jp-FI': (l) => `毎ターン${l * 2}EPを得る`,
     },
     rarity: 'rare',
     level: 0,
     maxLevel: 2,
-    paramEventHandlers: [
+    actionEventHandlers: [
       {
-        trigger: 'ep',
-        apply: (gs: GameState, level: number, param: Param, value: number) => ({ ...gs, ep: gs.ep + level * 2 }),
+        trigger: 'turnEnd',
+        apply: (gs: GameState, l: number) => ({ ...gs, ep: gs.ep + 2 * l }),
       },
     ],
   },
