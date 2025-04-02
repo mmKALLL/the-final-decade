@@ -114,8 +114,8 @@ export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
     turnsInvested: 0,
     effect: [
       { paramEffected: 'publicUnity', amount: 1 },
-      { paramEffected: 'passiveIncome', amount: Math.round(-10 / (gs.influence / 100)) },
-      { paramEffected: 'sp', amount: Math.round(-200 + gs.influence) },
+      { paramEffected: 'passiveIncome', amount: Math.round(Math.min(-1, -10 * ((200 - gs.influence) / 100))) },
+      { paramEffected: 'sp', amount: Math.round(Math.min(-5, -200 + gs.influence)) },
     ],
   },
 ]
