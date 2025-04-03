@@ -75,7 +75,7 @@ function getRandomValue(base: number, difficulty: number, difficultyFactor: numb
 
 function getContractMoneyValue(difficulty: number, totalEffects: number, isSecondaryContract: boolean): number {
   let value = getRandomValue(40, difficulty, 1.5) * 0.2 // Multiplier to convert Alignment is Hard values into The Final Decade curve
-  const effectMultiplier = [1.25, 1, 0.6, 0.4][Math.min(totalEffects, 3)] // Indexed access; contracts with more effects provide less money
+  const effectMultiplier = [1.25, 1, 0.8, 0.7][Math.min(totalEffects, 3)] // Indexed access; contracts with more effects provide less money
 
   return Math.round(((isSecondaryContract ? 1 : 2.2) * effectMultiplier * value) / 5) * 5 // Round to nearest 5
 }
