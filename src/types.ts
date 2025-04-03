@@ -50,7 +50,6 @@ export type GameState = {
 
   humanSelections: Human[][]
   breakthroughSelections: Breakthrough[][]
-  contractSelections: Contract[][]
 
   maxContracts: number
   yearlyContracts: Contract[]

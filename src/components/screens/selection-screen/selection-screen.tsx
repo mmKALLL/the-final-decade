@@ -12,7 +12,7 @@ export const SelectionScreen = () => {
   const { gs, dispatch } = useGameState()
 
   useEffect(() => {
-    if (gs.humanSelections.length === 0 && gs.breakthroughSelections.length === 0 && gs.contractSelections.length === 0) {
+    if (gs.humanSelections.length === 0 && gs.breakthroughSelections.length === 0) {
       dispatch({
         eventId: 'internalStateChange',
         name: { 'en-US': 'End selection screen', 'jp-FI': '選択画面終了' },
@@ -27,7 +27,7 @@ export const SelectionScreen = () => {
         },
       })
     }
-  }, [gs.humanSelections, gs.breakthroughSelections, gs.contractSelections])
+  }, [gs.humanSelections, gs.breakthroughSelections])
 
   return (
     <>
@@ -55,19 +55,6 @@ export const SelectionScreen = () => {
                     onSelect={() => handleBreakthroughSelect(breakthrough)}
                   />
                 ))}
-              </div>
-            </div>
-          )}
-
-          {gs.contractSelections.length > 0 && (
-            <div className="selection-section">
-              <h3 className="selection-title">Contract Selection</h3>
-              <div className="selection-grid">
-                {gs.contractSelections[0].map(
-                  (contract) =>
-                    // <ContractItem key={contract.name['en-US']} contract={contract} onSelect={() => handleContractSelect(contract)} />
-                    'Something went wrong and we now have a contract selection'
-                )}
               </div>
             </div>
           )}

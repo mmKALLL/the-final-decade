@@ -28,7 +28,6 @@ const baseGameState: GameState = {
 
   humanSelections: [],
   breakthroughSelections: [],
-  contractSelections: [],
 
   maxContracts: 3,
   yearlyContracts: generateYearlyContracts(),
