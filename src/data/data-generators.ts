@@ -2,11 +2,11 @@ import { Action, GameState, Human, Breakthrough, YearlyContract, Rarity, Weighte
 import { humans } from './data-humans'
 import { breakthroughs } from './data-breakthroughs'
 import { yearlyContracts } from './data-yearly-goals'
-import { pickListOfWeighted } from '../util'
+import { getYear, pickListOfWeighted } from '../util'
 
 // Goal: 100 => 57% common, 30% uncommon, 10% rare, 3% epic by selecting best of 3 picks
 const rarityDistribution: (rarityNumber: number) => Weighted<{ value: Rarity }>[] = (rarityNumber) => [
-  { value: 'common', weight: 82 },
+  { value: 'common', weight: 100 - (9 * rarityNumber) / 100 },
   { value: 'uncommon', weight: Math.round((13 * rarityNumber) / 100) },
   { value: 'rare', weight: Math.round((4 * rarityNumber) / 100) },
   { value: 'epic', weight: Math.round((1 * rarityNumber) / 100) },
@@ -46,7 +46,8 @@ export function generateHumanSelection(gs: GameState, rarityNumberOverride?: num
 }
 
 export function generateBreakthroughSelection(gs: GameState, rarityNumberOverride?: number, rarityOverride?: Rarity): Breakthrough[] {
-  const rarityNumber = rarityNumberOverride ?? Math.floor(Math.random() * 300 + 50)
+  const rarityNumber =
+    rarityNumberOverride ?? Math.floor(20 + gs.asiOutcome + getYear(gs.turn) * 30 + gs.breakthroughs.length * 50 + Math.random() * 100)
 
   const guaranteedBreakthroughs = breakthroughs.filter((b) => b.guaranteed)
   let weightedBreakthroughs: Weighted<Breakthrough>[] = []
