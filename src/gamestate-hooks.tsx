@@ -170,6 +170,7 @@ export function reduceEffect(effectStack: EffectStack, gs: GameState, depth: num
       effectStack.slice(1),
       {
         ...updatedGs,
+        currentScreen: 'selection',
         humanSelections: [...updatedGs.humanSelections, generateHumanSelection(updatedGs, amount)],
       },
       depth
@@ -181,6 +182,7 @@ export function reduceEffect(effectStack: EffectStack, gs: GameState, depth: num
       effectStack.slice(1),
       {
         ...updatedGs,
+        currentScreen: 'selection',
         breakthroughSelections: [...updatedGs.breakthroughSelections, generateBreakthroughSelection(updatedGs, amount)],
       },
       depth
