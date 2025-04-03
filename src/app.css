@@ -513,10 +513,7 @@ body {
   text-align: center;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 8px;
   color: white;
-  max-width: 800px;
-  margin: 0 auto;
 }
 
 .game-over-screen h1,
@@ -539,7 +536,8 @@ body {
   font-size: 1.2rem;
   margin-bottom: 1rem;
   line-height: 1.5;
-  max-width: 600px;
+  display: inline-block;
+  max-width: 90%;
 }
 
 .game-over-stats,
@@ -548,8 +546,8 @@ body {
   padding: 1.5rem;
   border-radius: 8px;
   margin: 2rem 0;
-  width: 100%;
   max-width: 500px;
+  min-width: 280px;
 }
 
 .game-over-stats h2,
@@ -570,13 +568,11 @@ body {
 
 .restart-button {
   background-color: #2d3748;
-
   color: white;
   border: none;
   padding: 0.8rem 1.5rem;
   font-size: 1.2rem;
   border-radius: 4px;
-  cursor: pointer;
   transition: background-color 0.3s;
   margin-top: 1rem;
 }
@@ -595,11 +591,13 @@ body {
   .game-over-screen p,
   .victory-screen p {
     font-size: 1rem;
+    max-width: 100%;
   }
   
   .game-over-stats,
   .victory-stats {
     padding: 1rem;
+    width: 90%;
   }
 
   .restart-button {
