@@ -12,27 +12,27 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'RewardHacking',
     name: { 'en-US': 'Reward Hacking', 'jp-FI': 'リワードハッキング' },
     description: {
-      'en-US': (l) => `RP/EP/SP gain from humans is increased by ${l * 8}%`,
-      'jp-FI': (l) => `人材からのRP/EP/SP獲得が${l * 8}%増加`,
+      'en-US': (l) => `RP/EP/SP gain from humans is increased by ${l * 10}%`,
+      'jp-FI': (l) => `人材からのRP/EP/SP獲得が${l * 10}%増加`,
     },
     rarity: 'common',
     level: 0,
-    maxLevel: 5,
+    maxLevel: 3,
     modifiers: [
       {
         param: 'rp',
         type: ModifierType.Multiply,
-        apply: (value: number, level: number) => value * (1 + 0.08 * level),
+        apply: (value: number, level: number) => value * (1 + 0.1 * level),
       },
       {
         param: 'ep',
         type: ModifierType.Multiply,
-        apply: (value: number, level: number) => value * (1 + 0.08 * level),
+        apply: (value: number, level: number) => value * (1 + 0.1 * level),
       },
       {
         param: 'sp',
         type: ModifierType.Multiply,
-        apply: (value: number, level: number) => value * (1 + 0.08 * level),
+        apply: (value: number, level: number) => value * (1 + 0.1 * level),
       },
     ],
   },
