@@ -1,5 +1,5 @@
-import { Contract, Effect, GameState, SingleEffect } from '../types'
-import { getRandomInt, paramToLabel, pickListOfWeighted } from '../util'
+import { Contract, ContractType, Effect, GameState, SingleEffect } from '../types'
+import { assertNever, getRandomInt, paramToLabel, pickListOfWeighted } from '../util'
 import { getRandomContractName } from './data-yearly-goals'
 
 export const refreshContracts = (gs: GameState): GameState => ({
@@ -29,9 +29,14 @@ export function generateContract(gs: GameState): Contract {
     // Accept effects = monetary reward from completing the contract; the name is historical
     ...getAcceptEffects(difficulty, successEffects, isSecondaryContract),
     ...(isSecondaryContract
-      ? [{ paramEffected: Math.random() < 0.6 ? 'trust' : 'asiOutcome', amount: Math.floor(3.5 * (difficulty / 100)) } as const]
+      ? [
+          {
+            paramEffected: contractType === 'product' ? 'trust' : contractType === 'safety' ? 'asiOutcome' : assertNever(contractType),
+            amount: Math.floor(3.5 * (difficulty / 100)),
+          } as const,
+        ]
       : []),
-    ...getSuccessEffects(difficulty, successEffects, isSecondaryContract),
+    ...getSuccessEffects(difficulty, successEffects, contractType),
   ]
 
   // Apply contract modifiers from the game state
@@ -84,11 +89,12 @@ function getAcceptEffects(difficulty: number, totalEffects: number, isSecondaryC
   return [{ paramEffected: 'money', amount: getContractMoneyValue(difficulty, totalEffects, isSecondaryContract) }]
 }
 
-function getSuccessEffects(difficulty: number, totalEffects: number, isSecondaryContract: boolean): Effect {
+function getSuccessEffects(difficulty: number, totalEffects: number, contractType: ContractType): Effect {
   if (totalEffects <= 0) return []
-  const effectPool = isSecondaryContract
-    ? getAlignmentSuccessEffects(difficulty, totalEffects, isSecondaryContract)
-    : getCapabilitySuccessEffects(difficulty, totalEffects, isSecondaryContract)
+  const effectPool =
+    contractType === 'safety' || contractType === 'product'
+      ? getAlignmentSuccessEffects(difficulty, totalEffects, contractType)
+      : getCapabilitySuccessEffects(difficulty, totalEffects, false)
   return getEffectsFromPool(totalEffects, effectPool)
 }
 
@@ -125,12 +131,16 @@ interface WeightedSingleEffect {
 }
 
 // Function to get alignment-focused success effects
-function getAlignmentSuccessEffects(difficulty: number, totalEffects: number, isSecondaryContract: boolean): WeightedSingleEffect[] {
+function getAlignmentSuccessEffects(difficulty: number, totalEffects: number, contractType: ContractType): WeightedSingleEffect[] {
   return [
     { weight: difficulty > 260 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(100, difficulty, 0.5) } },
     { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(50, difficulty, 0.5) } },
     { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'ep', amount: getRandomValue(4, difficulty, 0.05) } },
-    { weight: 4, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.04) } },
+    {
+      weight: 4,
+      effect: { paramEffected: contractType === 'safety' ? 'trust' : 'asiOutcome', amount: getRandomValue(3, difficulty, 0.05) }, // The compliment of the effect native to the contract type
+    },
+    { weight: 3, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.04) } },
     {
       weight: difficulty > 150 ? 2 : 1,
       effect: {
