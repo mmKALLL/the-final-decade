@@ -1,10 +1,11 @@
 import { getMoneyGain, useGameState } from '../gamestate-hooks'
-import { calculateResourceProduction } from '../util'
+import { calculateResourceProduction, paramToLabel } from '../util'
 import { formatValue } from '../util'
 import { InfoTooltip } from './info-tooltip'
 
 export function GameStateDisplay() {
   const { gs } = useGameState()
+  const language = gs.language
 
   // Get resource production details
   const resourceProduction = calculateResourceProduction(gs)
@@ -12,34 +13,52 @@ export function GameStateDisplay() {
 
   // Create more compact category names for mobile with descriptions
   const compactCategories = {
-    Resources: {
-      money: { value: gs.money, desc: 'Funds for hiring and actions' },
-      income: { value: moneyGain.total, desc: 'Change to money each turn' },
+    [language === 'jp-FI' ? 'リソース' : 'Resources']: {
+      [paramToLabel('money', language)]: {
+        value: gs.money,
+        desc: language === 'jp-FI' ? '採用やアクションのための資金' : 'Funds for hiring and actions',
+      },
+      [language === 'jp-FI' ? '収入' : 'income']: {
+        value: moneyGain.total,
+        desc: language === 'jp-FI' ? '毎ターンのお金の変化' : 'Change to money each turn',
+      },
     },
-    Organization: {
-      influence: { value: gs.influence, desc: 'Multiplier for social actions' },
-      trust: { value: gs.trust, desc: 'Better contracts and cheaper recruits' },
+    [language === 'jp-FI' ? '組織' : 'Organization']: {
+      [paramToLabel('influence', language)]: {
+        value: gs.influence,
+        desc: language === 'jp-FI' ? '社会的アクションの乗数' : 'Multiplier for social actions',
+      },
+      [paramToLabel('trust', language)]: {
+        value: gs.trust,
+        desc: language === 'jp-FI' ? '良好な契約と安い採用' : 'Better contracts and cheaper recruits',
+      },
     },
     ASI: {
-      outcome: { value: gs.asiOutcome, desc: 'Progress toward aligned AI (0-100)' },
-      'public unity': { value: gs.publicUnity, desc: 'Change to ASI outcome each turn' },
+      [paramToLabel('asiOutcome', language)]: {
+        value: gs.asiOutcome,
+        desc: language === 'jp-FI' ? 'AI整合性の進捗 (0-100)' : 'Progress toward aligned AI (0-100)',
+      },
+      [paramToLabel('publicUnity', language)]: {
+        value: gs.publicUnity,
+        desc: language === 'jp-FI' ? '毎ターンのASI結果への変化' : 'Change to ASI outcome each turn',
+      },
     },
-    Team: {
+    [language === 'jp-FI' ? 'チーム' : 'Team']: {
       '💬 / turn': {
         value: `${resourceProduction.sp.base} * ${resourceProduction.sp.multiplier} = ${resourceProduction.sp.total}`,
-        desc: 'Social Points for recruiting',
+        desc: language === 'jp-FI' ? '採用のためのソーシャルポイント' : 'Social Points for recruiting',
       },
       '🔧 / turn': {
         value: `${resourceProduction.ep.base} * ${resourceProduction.ep.multiplier} = ${resourceProduction.ep.total}`,
-        desc: 'Engineering Points for contracts',
+        desc: language === 'jp-FI' ? '契約のためのエンジニアリングポイント' : 'Engineering Points for contracts',
       },
       '🧪 / turn': {
         value: `${resourceProduction.rp.base} * ${resourceProduction.rp.multiplier} = ${resourceProduction.rp.total}`,
-        desc: 'Research Points for breakthroughs',
+        desc: language === 'jp-FI' ? 'ブレークスルーのためのリサーチポイント' : 'Research Points for breakthroughs',
       },
-      wages: {
+      [language === 'jp-FI' ? '給料' : 'wages']: {
         value: `-${moneyGain.wages} * ${moneyGain.multiplier.toFixed(2)} = -${moneyGain.totalWages}`,
-        desc: 'Money paid to humans each turn',
+        desc: language === 'jp-FI' ? '毎ターン人間に支払われるお金' : 'Money paid to humans each turn',
       },
     },
   }
@@ -47,7 +66,7 @@ export function GameStateDisplay() {
   // Check if a statistic is in a danger zone
   const getDangerStyle = (key: string, value: any) => {
     // Only apply danger highlighting to specific stats
-    const dangerStats = ['money', 'trust', 'influence', 'outcome']
+    const dangerStats = ['money', 'お金', 'trust', '信頼', 'influence', '影響力', 'outcome', 'ASI結果']
 
     if (!dangerStats.includes(key)) return {}
 
@@ -61,9 +80,9 @@ export function GameStateDisplay() {
       numericValue = typeof value === 'number' ? value : 0
     }
 
-    if (numericValue < (key === 'money' ? 20 : 10)) {
+    if (numericValue < (key === 'money' || key === 'お金' ? 20 : 10)) {
       return { backgroundColor: 'rgba(220, 38, 38, 0.5)' } // Red
-    } else if (numericValue < (key === 'money' ? 50 : 25)) {
+    } else if (numericValue < (key === 'money' || key === 'お金' ? 50 : 25)) {
       return { backgroundColor: 'rgba(255, 179, 8, 0.3)' } // Yellow
     }
 
@@ -74,15 +93,17 @@ export function GameStateDisplay() {
     <div className="game-state-section">
       <InfoTooltip>
         <>
-          <p>Stat colors indicate danger levels:</p>
+          <p>{language === 'jp-FI' ? '統計の色は危険レベルを示します：' : 'Stat colors indicate danger levels:'}</p>
           <p>
-            <span style={{ color: 'rgba(234, 179, 8, 1)' }}>Yellow</span>: Below 25 (Warning)
+            <span style={{ color: 'rgba(234, 179, 8, 1)' }}>{language === 'jp-FI' ? '黄色' : 'Yellow'}</span>:
+            <span>{language === 'jp-FI' ? ' 統計で25未満（警告）' : ' Below 25 (50 for money)'}</span>
           </p>
           <p>
-            <span style={{ color: 'rgba(220, 38, 38, 1)' }}>Red</span>: Below 10 (Critical)
+            <span style={{ color: 'rgba(220, 38, 38, 1)' }}>{language === 'jp-FI' ? '赤' : 'Red'}</span>:
+            <span>{language === 'jp-FI' ? ' 統計で10未満（危機的）' : ' Below 10 (20 for money)'}</span>
           </p>
           <hr style={{ border: '0.5px solid rgba(80, 80, 120, 0.3)', margin: '0.5rem 0' }} />
-          <p style={{ fontWeight: 'bold', fontSize: '0.75rem' }}>Stat Descriptions:</p>
+          <p style={{ fontWeight: 'bold', fontSize: '0.75rem' }}>{language === 'jp-FI' ? '統計の説明：' : 'Stat Descriptions:'}</p>
           {Object.entries(compactCategories).map(([cat, items]) => (
             <div key={`tooltip-${cat}`} style={{ marginBottom: '0.5rem' }}>
               <p style={{ fontWeight: 'bold', marginBottom: '0.2rem' }}>{cat}</p>

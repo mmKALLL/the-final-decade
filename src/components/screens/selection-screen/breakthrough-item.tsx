@@ -1,7 +1,11 @@
 import { Breakthrough } from '../../../types'
 import { rarityColors } from '../../../util'
+import { useGameState } from '../../../gamestate-hooks'
 
 export const BreakthroughItem = ({ breakthrough, onSelect }: { breakthrough: Breakthrough; onSelect: () => void }) => {
+  const { gs } = useGameState()
+  const language = gs.language
+
   return (
     <button
       onClick={onSelect}
@@ -20,9 +24,9 @@ export const BreakthroughItem = ({ breakthrough, onSelect }: { breakthrough: Bre
       }}
     >
       <span style={{ textAlign: 'left', lineHeight: '1.5' }}>
-        {breakthrough.name['en-US']} (Level {breakthrough.level}/{breakthrough.maxLevel})
+        {breakthrough.name[language]} ({language === 'jp-FI' ? 'レベル' : 'Level'} {breakthrough.level}/{breakthrough.maxLevel})
         <br />
-        {breakthrough.description['en-US'](breakthrough.level + 1)}
+        {breakthrough.description[language](breakthrough.level + 1)}
       </span>
     </button>
   )

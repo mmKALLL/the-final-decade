@@ -1,4 +1,4 @@
-import { Breakthrough, Effect, GameState, HumanRank, HumanType, Param, SingleEffect, Weighted } from './types'
+import { Breakthrough, Effect, GameState, HumanRank, HumanType, Language, Param, SingleEffect, Weighted } from './types'
 
 export const getRandomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min
 export const getYear = (turn: number) => Math.floor(turn / 12) + 1
@@ -11,30 +11,50 @@ export const assertNever = (x: never): never => {
   throw new Error('Unexpected object: ' + x)
 }
 
-export const effectToString = (e: Effect): string => e.map(singleEffectToString).join(', ')
+export const effectToString = (e: Effect, language: Language): string =>
+  e.map((effect) => singleEffectToString(effect, language)).join(', ')
 
-export const singleEffectToString = ({ paramEffected, amount }: SingleEffect) =>
-  `${paramToLabel(paramEffected)} ${withPlusSign(Math.round(amount))}${paramEffected === 'money' ? 'k' : ''}`
+export const singleEffectToString = ({ paramEffected, amount }: SingleEffect, language: Language): string =>
+  `${paramToLabel(paramEffected, language)} ${withPlusSign(Math.round(amount))}`
 
-export const withPlusSign = (value: number) => (value > 0 ? `+${value}` : `${value}`)
+export const withPlusSign = (value: number) => (value >= 0 ? `+${value}` : `${value}`)
 
-export const paramToLabel = (p: Param): string => {
+export const paramToLabel = (p: Param, language: Language): string => {
   // prettier-ignore
-  switch (p) {
-    case 'turn':             return 'turn'
-    case 'money':            return 'money'
-    case 'passiveIncome':    return 'passive income'
-    case 'trust':            return 'trust'
-    case 'publicUnity':      return 'public unity'
-    case 'asiOutcome':       return 'ASI outcome'
-    case 'influence':        return 'influence'
-    case 'sp':               return '💬'
-    case 'ep':               return '🔧'
-    case 'rp':               return '🧪'
-    case 'up':               return '⚙️'
-    case 'humanSelection':   return 'new human'
-    case 'breakthroughSelection': return 'new breakthrough'
-    default: return assertNever(p)
+  if (language === 'jp-FI') {
+    switch (p) {
+      case 'turn':             return 'ターン'
+      case 'money':            return 'お金'
+      case 'passiveIncome':    return '受動的収入'
+      case 'trust':            return '信頼'
+      case 'publicUnity':      return '公共団結'
+      case 'asiOutcome':       return 'ASI結果'
+      case 'influence':        return '影響力'
+      case 'sp':               return '💬'
+      case 'ep':               return '🔧'
+      case 'rp':               return '🧪'
+      case 'up':               return '⚙️'
+      case 'humanSelection':   return '人材選択'
+      case 'breakthroughSelection': return '突破選択'
+      default: return assertNever(p)
+    }
+  } else {
+    switch (p) {
+      case 'turn':             return 'turn'
+      case 'money':            return 'money'
+      case 'passiveIncome':    return 'income'
+      case 'trust':            return 'trust'
+      case 'publicUnity':      return 'unity'
+      case 'asiOutcome':       return 'ASI outcome'
+      case 'influence':        return 'influence'
+      case 'sp':               return '💬'
+      case 'ep':               return '🔧'
+      case 'rp':               return '🧪'
+      case 'up':               return '⚙️'
+      case 'humanSelection':   return 'new human'
+      case 'breakthroughSelection': return 'new breakthrough'
+      default: return assertNever(p)
+    }
   }
 }
 

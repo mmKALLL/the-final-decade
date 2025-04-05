@@ -1,5 +1,5 @@
-import { Contract, ContractType, Effect, GameState, SingleEffect } from '../types'
-import { assertNever, getRandomInt, paramToLabel, pickListOfWeighted } from '../util'
+import { Contract, ContractType, Effect, GameState, Language, SingleEffect } from '../types'
+import { assertNever, getRandomInt, paramToLabel, pickListOfWeighted, withPlusSign } from '../util'
 import { getRandomContractName } from './data-yearly-goals'
 
 export const refreshContracts = (gs: GameState): GameState => ({
@@ -165,6 +165,6 @@ function getCapabilitySuccessEffects(difficulty: number, totalEffects: number, i
   ]
 }
 
-function effectListToString(effects: Effect): string {
-  return effects.map((e) => `${paramToLabel(e.paramEffected)} ${e.amount > 0 ? '+' : ''}${e.amount}`).join(', ')
+function effectListToString(effects: Effect, language: Language): string {
+  return effects.map((e) => `${paramToLabel(e.paramEffected, language)} ${withPlusSign(e.amount)}`).join(', ')
 }

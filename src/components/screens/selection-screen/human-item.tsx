@@ -1,12 +1,20 @@
 import { Human } from '../../../types'
-import { effectToString, rarityColors, seniorityMultipliers } from '../../../util'
+import { effectToString, paramToLabel, rarityColors, seniorityMultipliers } from '../../../util'
+import { useGameState } from '../../../gamestate-hooks'
 
 export const HumanItem = ({ human, onSelect }: { human: Human; onSelect: () => void }) => {
+  const { gs } = useGameState()
+  const language = gs.language
+
   const getTeamBonus = (human: Human): string | null => {
     const bonus = seniorityMultipliers[human.rank]
-    const resource = human.type
+    const resource = paramToLabel(human.type, language)
 
-    return bonus > 1 ? `Increases ${resource} gain by ${Math.round((bonus - 1) * 100)}%` : null
+    if (bonus <= 1) return null
+
+    return language === 'jp-FI'
+      ? `${resource}の獲得量が${Math.round((bonus - 1) * 100)}%増加`
+      : `Increases ${resource} gain by ${Math.round((bonus - 1) * 100)}%`
   }
 
   return (
@@ -29,7 +37,17 @@ export const HumanItem = ({ human, onSelect }: { human: Human; onSelect: () => v
     >
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.3em' }}>
         <span>
-          {human.name['en-US']} ({human.rank})
+          {human.name[language]} (
+          {language === 'jp-FI'
+            ? {
+                volunteer: 'ボランティア',
+                junior: 'ジュニア',
+                medior: 'ミディア',
+                senior: 'シニア',
+                lead: 'リード',
+              }[human.rank]
+            : human.rank}
+          )
         </span>
         {getTeamBonus(human) && (
           <span
@@ -45,14 +63,14 @@ export const HumanItem = ({ human, onSelect }: { human: Human; onSelect: () => v
         )}
       </div>
       <span className="human-item-stats" style={{ lineHeight: 1.5 }}>
-        💰 -{human.wage} / month <br /> 💬 {human.spGeneration} / 🔧 {human.epGeneration} / 🧪 {human.rpGeneration}
+        💰 -{human.wage} / {language === 'jp-FI' ? '月' : 'month'} <br />
+        💬 {human.spGeneration} / 🔧 {human.epGeneration} / 🧪 {human.rpGeneration}
         {human.specialEffect && (
           <>
             <br />
-            {effectToString(human.specialEffect)}
+            {effectToString(human.specialEffect, language)}
           </>
         )}
-        {/** gear: ⚙️ */}
       </span>
     </button>
   )

@@ -35,7 +35,7 @@ export const SelectionScreen = () => {
         <div className="selection-content">
           {gs.humanSelections.length > 0 && (
             <div className="selection-section">
-              <h3 className="selection-title">Human Selection</h3>
+              <h3 className="selection-title">{gs.language === 'jp-FI' ? '人材選択' : 'Human Selection'}</h3>
               <div className="selection-grid">
                 {gs.humanSelections[0].map((human) => (
                   <HumanItem key={human.name['en-US']} human={human} onSelect={() => handleHumanSelect(human)} />
@@ -46,7 +46,7 @@ export const SelectionScreen = () => {
 
           {gs.breakthroughSelections.length > 0 && (
             <div className="selection-section">
-              <h3 className="selection-title">Breakthrough Selection</h3>
+              <h3 className="selection-title">{gs.language === 'jp-FI' ? 'ブレークスルー選択' : 'Breakthrough Selection'}</h3>
               <div className="selection-grid">
                 {gs.breakthroughSelections[0].map((breakthrough) => (
                   <BreakthroughItem
