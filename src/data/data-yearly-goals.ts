@@ -189,7 +189,7 @@ export const yearlyContracts: YearlyContract[] = [
     costDescription: { 'en-US': 'Humans are gone forever', 'jp-FI': '人類の絶滅' },
     requirementDescription: {
       'en-US': 'ASI outcome >= 100, Public unity >= 5',
-      'jp-FI': 'ASIの結果 >= 100, 公共団結 >= 5',
+      'jp-FI': 'ASI結果 >= 100, 公共団結 >= 5',
     },
     onSuccess: [],
     requirements: [

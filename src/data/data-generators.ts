@@ -2,7 +2,7 @@ import { Action, GameState, Human, Breakthrough, YearlyContract, Rarity, Weighte
 import { humans } from './data-humans'
 import { breakthroughs } from './data-breakthroughs'
 import { yearlyContracts } from './data-yearly-goals'
-import { getYear, pickListOfWeighted } from '../util'
+import { getYear, pickListOfWeighted, paramToLabel } from '../util'
 
 // Goal: 100 => 57% common, 30% uncommon, 10% rare, 3% epic by selecting best of 3 picks
 const rarityDistribution: (rarityNumber: number) => Weighted<{ value: Rarity }>[] = (rarityNumber) => [
@@ -80,32 +80,11 @@ export function generateBreakthroughSelection(gs: GameState, rarityNumberOverrid
   return [...guaranteedBreakthroughs, ...pickListOfWeighted(3, weightedBreakthroughs)]
 }
 
-export function generateActionDescription(action: Action): string {
-  function paramToLabel(param: string): string {
-    switch (param) {
-      case 'asiOutcome':
-        return 'ASI outcome'
-      case 'passiveIncome':
-        return 'income'
-      case 'publicUnity':
-        return 'unity'
-      case 'sp':
-        return '💬'
-      case 'ep':
-        return '🔧'
-      case 'rp':
-        return '🧪'
-      case 'up':
-        return '⚙️'
-      default:
-        return param
-    }
-  }
-
+export function generateActionDescription(action: Action, language: 'en-US' | 'jp-FI' = 'en-US'): string {
   return action.effect
     .map((effect) => {
       const { amount } = effect
-      return `${paramToLabel(effect.paramEffected)} ${amount >= 0 ? '+' : ''}${amount}`
+      return `${paramToLabel(effect.paramEffected, language)} ${amount >= 0 ? '+' : ''}${amount}`
     })
     .join(', ')
 }
