@@ -34,7 +34,7 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
               <hr style={{ border: '0.5px solid rgba(80, 80, 120, 0.3)', margin: '0.5rem 0' }} />
               <p>Contract types:</p>
               <p>
-                <span style={{ color: 'rgba(40, 60, 60, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Safety:</span> Uses some RP,
+                <span style={{ color: 'rgba(40, 60, 60, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Safety:</span> Uses some 🧪,
                 improves trust
               </p>
               <p>
@@ -42,7 +42,7 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
                 lucrative, but reduces trust
               </p>
               <p>
-                <span style={{ color: 'rgba(60, 40, 60, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Product:</span> Uses some SP,
+                <span style={{ color: 'rgba(60, 40, 60, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Product:</span> Uses some 💬,
                 has broad effects
               </p>
             </>

@@ -25,15 +25,15 @@ export function GameStateDisplay() {
       'public unity': { value: gs.publicUnity, desc: 'Change to ASI outcome each turn' },
     },
     Team: {
-      'SP gain': {
+      '💬 / turn': {
         value: `${resourceProduction.sp.base} * ${resourceProduction.sp.multiplier} = ${resourceProduction.sp.total}`,
         desc: 'Social Points for recruiting',
       },
-      'EP gain': {
+      '🔧 / turn': {
         value: `${resourceProduction.ep.base} * ${resourceProduction.ep.multiplier} = ${resourceProduction.ep.total}`,
         desc: 'Engineering Points for contracts',
       },
-      'RP gain': {
+      '🧪 / turn': {
         value: `${resourceProduction.rp.base} * ${resourceProduction.rp.multiplier} = ${resourceProduction.rp.total}`,
         desc: 'Research Points for breakthroughs',
       },
@@ -61,9 +61,9 @@ export function GameStateDisplay() {
       numericValue = typeof value === 'number' ? value : 0
     }
 
-    if (numericValue < 10) {
+    if (numericValue < (key === 'money' ? 20 : 10)) {
       return { backgroundColor: 'rgba(220, 38, 38, 0.5)' } // Red
-    } else if (numericValue < 25) {
+    } else if (numericValue < (key === 'money' ? 50 : 25)) {
       return { backgroundColor: 'rgba(255, 179, 8, 0.3)' } // Yellow
     }
 

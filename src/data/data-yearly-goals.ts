@@ -46,8 +46,8 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2025,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': 'RP -20, Public unity -1', 'jp-FI': 'RP -20、公共団結 -1' },
-    requirementDescription: { 'en-US': 'RP >= 40', 'jp-FI': 'RP >= 40' },
+    costDescription: { 'en-US': '🧪 -20, Public unity -1', 'jp-FI': '🧪 -20、公共団結 -1' },
+    requirementDescription: { 'en-US': '🧪 >= 40', 'jp-FI': '🧪 >= 40' },
     onSuccess: [],
     requirements: [{ paramEffected: 'rp', amount: 40 }],
     costs: [
