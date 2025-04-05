@@ -273,12 +273,9 @@ export function handleEndOfYear(gs: GameState): GameState {
   // Apply the year change effects
   updatedGs = reduceEffect(effectStack, updatedGs, 0)
 
-  // Refresh non-yearly contracts
-  updatedGs = refreshContracts(updatedGs)
-
   // Check the first yearly goal and generate an action for it
   const firstYearlyContract = updatedGs.yearlyContracts[0]
-  const contractAction = convertContractToAction(firstYearlyContract)
+  const contractAction = convertContractToAction(firstYearlyContract, 999)
 
   // If the goal condition is false or canApplyAction is false, enable game over screen
   const canApply = canApplyAction(updatedGs, contractAction)
@@ -295,6 +292,9 @@ export function handleEndOfYear(gs: GameState): GameState {
     updatedGs,
     0
   )
+
+  // Refresh non-yearly contracts - important to happen after yearly goal reduction since convertContractToAction has a side-effect on contracts
+  updatedGs = refreshContracts(updatedGs)
 
   // Remove the first goal from gs.yearlyContracts and go to breakthrough selection screen
   updatedGs = {

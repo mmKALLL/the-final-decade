@@ -57,7 +57,7 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
         )}
         <div className="contracts-grid">
           {contracts.map((contract, index) => (
-            <ContractItem key={`contract-${index}`} contract={contract} language={language} editable={editable} />
+            <ContractItem key={`contract-${index}`} contract={contract} language={language} editable={editable} index={index} />
           ))}
         </div>
       </div>
@@ -78,7 +78,7 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
         </div>
         <div className="contracts-grid">
           {yearlyContracts.map((contract, index) => (
-            <ContractItem key={`contract-${index}`} contract={contract} language={language} editable={false} />
+            <ContractItem key={`yearly-contract-${index}`} contract={contract} language={language} editable={false} index={index} />
           ))}
         </div>
       </div>
@@ -86,13 +86,7 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
   )
 }
 
-interface ContractItemProps {
-  contract: Contract | YearlyContract
-  language: 'en-US' | 'jp-FI'
-  editable: boolean
-}
-
-// Define rarity colors
+// Define contract rarity colors; they are less saturated since they affect the readability more
 const rarityColors: Record<Contract['rarity'], string> = {
   common: '#AEAEAE', // Gray
   uncommon: '#2166D3', // Blue
@@ -100,11 +94,18 @@ const rarityColors: Record<Contract['rarity'], string> = {
   epic: '#BC47E0', // Purple
 }
 
-export const ContractItem = ({ contract, language, editable }: ContractItemProps) => {
+interface ContractItemProps {
+  contract: Contract | YearlyContract
+  language: 'en-US' | 'jp-FI'
+  editable: boolean
+  index: number
+}
+
+export const ContractItem = ({ contract, language, editable, index }: ContractItemProps) => {
   const { dispatch } = useGameState()
 
-  const completeContract = (contract: Contract | YearlyContract) => {
-    dispatch(convertContractToAction(contract))
+  const completeContract = (contract: Contract | YearlyContract, index: number) => {
+    dispatch(convertContractToAction(contract, index))
   }
 
   return (
@@ -123,7 +124,7 @@ export const ContractItem = ({ contract, language, editable }: ContractItemProps
       style={{
         borderColor: rarityColors[contract.rarity],
       }}
-      onClick={() => editable && completeContract(contract)}
+      onClick={() => editable && completeContract(contract, index)}
     >
       {/* Header */}
       <div className="contract-header">

@@ -137,18 +137,18 @@ const convertRequirementsToCondition = (requirements: Effect): ((gs: GameState) 
     )
 }
 
-export const convertContractToAction = (contract: Contract): Action => ({
+export const convertContractToAction = (contract: Contract, index: number): Action => ({
   ...contract,
   eventId: 'contractSuccess',
   enabledCondition: convertRequirementsToCondition(contract.requirements),
   effect: [...contract.onSuccess, ...contract.costs],
   turnCost: 1,
   turnsInvested: 0,
-  // Remove the contract from the GS, filter based on name since there's no id
+  // Remove the contract from the GS
   functionEffect: (gs) => {
     return {
       ...gs,
-      contracts: gs.contracts.filter((c) => c.name['en-US'] !== contract.name['en-US']),
+      contracts: [...gs.contracts.slice(0, index), ...gs.contracts.slice(index + 1)],
     }
   },
 })
