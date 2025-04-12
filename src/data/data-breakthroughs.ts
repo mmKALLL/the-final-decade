@@ -40,8 +40,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'Duplicator',
     name: { 'en-US': 'Duplicator', 'jp-FI': '複製機' },
     description: {
-      'en-US': (l) => `Gain ${l} 🧪 every turn`,
-      'jp-FI': (l) => `各ターンに${l}🧪を獲得する`,
+      'en-US': (l) => `Gain ${l * 2} 🧪 every turn`,
+      'jp-FI': (l) => `各ターンに${l * 2}🧪を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -49,7 +49,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + level * 2 }),
       },
     ],
   },
@@ -57,7 +57,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'Monosemanticity',
     name: { 'en-US': 'Monosemanticity', 'jp-FI': 'モノセマンティシティ' },
     description: {
-      'en-US': (l) => `Gain ${l} 🔧 every turn`,
+      'en-US': (l) => `Gain ${l * 2} 🔧 every turn`,
       'jp-FI': (l) => `各ターンに${l}🔧を獲得する`,
     },
     rarity: 'common',
@@ -66,7 +66,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + level * 2 }),
       },
     ],
   },
@@ -74,7 +74,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'DebateCourse',
     name: { 'en-US': 'Debate Course', 'jp-FI': 'ディベートコース' },
     description: {
-      'en-US': (l) => `Gain ${l} 💬 every turn`,
+      'en-US': (l) => `Gain ${l * 2} 💬 every turn`,
       'jp-FI': (l) => `各ターンに${l}💬を獲得する`,
     },
     rarity: 'common',
@@ -83,7 +83,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + level * 2 }),
       },
     ],
   },
@@ -289,23 +289,23 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'DataScraping',
     name: { 'en-US': 'Data Scraping', 'jp-FI': 'データスクレイピング' },
     description: {
-      'en-US': (l) => `Get ${l * 3} income, but lose ${l * 10} trust`,
-      'jp-FI': (l) => `各ターン開始時に${l * 3}kの収入を得るが、信頼が${l * 10}失われる`,
+      'en-US': (l) => `Get ${l * 4} income, but lose ${l * 10} trust`,
+      'jp-FI': (l) => `各ターン開始時に${l * 4}の収入を得るが、信頼が${l * 10}失われる`,
     },
     rarity: 'common',
     level: 0,
     maxLevel: 3,
     effect: [
       { paramEffected: 'trust', amount: -10 },
-      { paramEffected: 'passiveIncome', amount: 3 },
+      { paramEffected: 'passiveIncome', amount: 4 },
     ],
   },
   {
     id: 'SingularLearningTheory',
     name: { 'en-US': 'Singular Learning Theory', 'jp-FI': 'シンギュラー・ラーニング・セオリー' },
     description: {
-      'en-US': (l) => `Gain ${l * 5} 🧪 every time you level up a breakthrough`,
-      'jp-FI': (l) => `研究をレベルアップするたびに🧪+${l * 5}`,
+      'en-US': (l) => `Gain ${l * 10} 🧪 every time you level up a breakthrough`,
+      'jp-FI': (l) => `研究をレベルアップするたびに🧪+${l * 10}`,
     },
     rarity: 'common',
     level: 0,
@@ -313,7 +313,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'levelUpBreakthrough',
-        apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 5 * l }),
+        apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 10 * l }),
       },
     ],
   },
