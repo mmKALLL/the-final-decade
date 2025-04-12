@@ -378,8 +378,8 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: 'OverclockedSimulations',
     name: { 'en-US': 'Overclocked Simulations', 'jp-FI': '過剰クロックシミュレーション' },
     description: {
-      'en-US': (l) => `Each turn, 🧪+${l * 2} but 🔧-${l}`,
-      'jp-FI': (l) => `毎ターン、🧪+${l * 2}、🔧-${l}`,
+      'en-US': (l) => `Each turn, 🧪+${l * 3} but 🔧-${l}`,
+      'jp-FI': (l) => `毎ターン、🧪+${l * 3}、🔧-${l}`,
     },
     rarity: 'uncommon',
     level: 0,
@@ -387,7 +387,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, l: number) => ({ ...gs, ep: gs.ep - 1 * l, rp: gs.rp + 2 * l }),
+        apply: (gs: GameState, l: number) => ({ ...gs, ep: gs.ep - 1 * l, rp: gs.rp + 3 * l }),
       },
     ],
   },
@@ -409,16 +409,16 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: 'FailsafeDaemon',
-    name: { 'en-US': 'Failsafe Daemon', 'jp-FI': 'フェイルセーフ・デーモン' },
+    id: 'PublicApology',
+    name: { 'en-US': 'Public Apology', 'jp-FI': '公的謝り' },
     description: {
-      'en-US': (l) => `Sets your trust to 75 when obtained or upgraded.`,
-      'jp-FI': (l) => `取得またはアップグレード時に信頼を75に設定する`,
+      'en-US': (l) => `Sets your trust to 85 when obtained or upgraded.`,
+      'jp-FI': (l) => `取得またはアップグレード時に信頼を85に設定する`,
     },
     rarity: 'uncommon',
     level: 0,
     maxLevel: 3,
-    functionEffect: (gs: GameState) => ({ ...gs, trust: 75 }),
+    functionEffect: (gs: GameState) => ({ ...gs, trust: 85 }),
   },
   {
     id: 'MultiAgentCouncil',
@@ -448,14 +448,14 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'LethalityList',
     name: { 'en-US': 'List of Lethalities', 'jp-FI': '致命性リスト' },
     description: {
-      'en-US': (l) => `Gain ${l * 25} influence, but public unity -${l}`,
-      'jp-FI': (l) => `影響力が${l * 25}増加するが、公衆団結-${l}`,
+      'en-US': (l) => `Gain ${l * 40} influence, but public unity -${l}`,
+      'jp-FI': (l) => `影響力が${l * 40}増加するが、公衆団結-${l}`,
     },
     rarity: 'rare',
     level: 0,
     maxLevel: 2,
     effect: [
-      { paramEffected: 'influence', amount: 25 },
+      { paramEffected: 'influence', amount: 40 },
       { paramEffected: 'publicUnity', amount: -1 },
     ],
   },
@@ -475,8 +475,8 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'PrecisionCorruption',
     name: { 'en-US': 'Precision Corruption', 'jp-FI': '精密な汚染' },
     description: {
-      'en-US': (l) => `🧪 +${3 * l} / turn. Public unity -1`,
-      'jp-FI': (l) => `毎ターン🧪+${3 * l}。公衆の支持 -1`,
+      'en-US': (l) => `🧪 +${5 * l} / turn. Public unity -${l}`,
+      'jp-FI': (l) => `毎ターン🧪+${5 * l}。公衆の支持 -1`,
     },
     rarity: 'rare',
     level: 0,
@@ -485,7 +485,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 3 * l }),
+        apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 5 * l }),
       },
     ],
   },
@@ -493,18 +493,13 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'InfiniteLoopRetries',
     name: { 'en-US': 'Infinite Loop Bypass', 'jp-FI': '無限ループバイパス' },
     description: {
-      'en-US': (l) => `Gain ${l * 2} 🔧 each turn`,
-      'jp-FI': (l) => `毎ターン🔧+${l * 2}`,
+      'en-US': (l) => `Gain +60 🔧 when you obtain or upgrade this`,
+      'jp-FI': (l) => `取得またはアップグレード時に🔧+60`,
     },
     rarity: 'rare',
     level: 0,
     maxLevel: 2,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, l: number) => ({ ...gs, ep: gs.ep + 2 * l }),
-      },
-    ],
+    functionEffect: (gs: GameState) => ({ ...gs, ep: gs.ep + 60 }),
   },
   {
     id: 'ReplicatorGrid',
@@ -579,26 +574,15 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'TheThirdSignal',
     name: { 'en-US': 'The Third Signal', 'jp-FI': '第三の信号' },
     description: {
-      'en-US': (l) => `At the start of each year, gain 20 🔧 and 10 🧪`,
-      'jp-FI': (l) => `毎年終わりに🧪+20、🧪+10`,
+      'en-US': (l) => `Gain +40 🔧 and +40 🧪`,
+      'jp-FI': (l) => `🔧+40、🧪+40`,
     },
     rarity: 'epic',
     level: 0,
     maxLevel: 1,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => {
-          if (gs.turn % 12 === 0) {
-            return {
-              ...gs,
-              ep: gs.ep + 20,
-              rp: gs.rp + 10,
-            }
-          }
-          return gs
-        },
-      },
+    effect: [
+      { paramEffected: 'ep', amount: 40 },
+      { paramEffected: 'rp', amount: 40 },
     ],
   },
   {
@@ -711,7 +695,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'UpgradeRecycling',
     name: { 'en-US': 'Upgrade Recycling', 'jp-FI': 'アップグレードリサイクル' },
     description: {
-      'en-US': (l) => `At the start of each year, gain 4 ⚙️`,
+      'en-US': (l) => `At the start of each year, gain +4 ⚙️`,
       'jp-FI': (l) => `毎年終わりに⚙️+4`,
     },
     rarity: 'epic',
