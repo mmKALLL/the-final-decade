@@ -553,7 +553,7 @@ export const rareBreakthroughs: Breakthrough[] = [
   },
   {
     id: 'ArmyOfConMen',
-    name: { 'en-US': 'Army of Con Men', 'jp-FI': '詐欺師の軍' },
+    name: { 'en-US': 'Army of Conmen', 'jp-FI': '詐欺師の軍' },
     description: {
       'en-US': (l) => `You gain ${l} trust each turn`,
       'jp-FI': (l) => `毎ターン信頼+${l}`,
@@ -575,27 +575,6 @@ export const rareBreakthroughs: Breakthrough[] = [
 ////////////////////////////////////////////////////////////
 
 export const epicBreakthroughs: Breakthrough[] = [
-  {
-    id: 'ArtificialConsciousness',
-    name: { 'en-US': 'Artificial Consciousness', 'jp-FI': '人工意識' },
-    description: {
-      'en-US': (l) => `Gain -1 trust and 🧪+4 each turn`,
-      'jp-FI': (l) => `毎ターン信頼-1、🧪+4`,
-    },
-    rarity: 'epic',
-    level: 0,
-    maxLevel: 1,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, l: number) => ({
-          ...gs,
-          trust: gs.trust - l,
-          rp: gs.rp + 4 * l,
-        }),
-      },
-    ],
-  },
   {
     id: 'TheThirdSignal',
     name: { 'en-US': 'The Third Signal', 'jp-FI': '第三の信号' },
@@ -626,7 +605,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'UnitedIntervention',
     name: { 'en-US': 'United Intervention', 'jp-FI': 'ユニティ介入' },
     description: {
-      'en-US': (l) => `+3 public unity, but lose 50 influence`,
+      'en-US': (l) => `+3 public unity, but lose 30 influence`,
       'jp-FI': (l) => `公衆団結+3、影響力-30`,
     },
     rarity: 'epic',
@@ -634,7 +613,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     maxLevel: 1,
     effect: [
       { paramEffected: 'publicUnity', amount: 3 },
-      { paramEffected: 'influence', amount: -50 },
+      { paramEffected: 'influence', amount: -30 },
     ],
   },
   {
@@ -704,6 +683,27 @@ export const epicBreakthroughs: Breakthrough[] = [
       {
         trigger: 'levelUpBreakthrough',
         apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 10 * level }),
+      },
+    ],
+  },
+  {
+    id: 'ArtificialConsciousness',
+    name: { 'en-US': 'Artificial Consciousness', 'jp-FI': '人工意識' },
+    description: {
+      'en-US': (l) => `Gain -1 trust and 🧪+4 each turn`,
+      'jp-FI': (l) => `毎ターン信頼-1、🧪+4`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, l: number) => ({
+          ...gs,
+          trust: gs.trust - l,
+          rp: gs.rp + 4 * l,
+        }),
       },
     ],
   },
