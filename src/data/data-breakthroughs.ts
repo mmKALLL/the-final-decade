@@ -424,8 +424,8 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: 'MultiAgentCouncil',
     name: { 'en-US': 'Multi-Agent Council', 'jp-FI': 'マルチエージェント議会' },
     description: {
-      'en-US': (l) => `When you upgrade a breakthrough, gain +${l} UP`,
-      'jp-FI': (l) => `研究をレベルアップするたびにUP+${l}`,
+      'en-US': (l) => `When you upgrade a breakthrough, gain +${l} ⚙️`,
+      'jp-FI': (l) => `研究をレベルアップするたびに⚙️+${l}`,
     },
     rarity: 'uncommon',
     level: 0,
@@ -711,8 +711,8 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'UpgradeRecycling',
     name: { 'en-US': 'Upgrade Recycling', 'jp-FI': 'アップグレードリサイクル' },
     description: {
-      'en-US': (l) => `At the start of each year, gain 4 UP`,
-      'jp-FI': (l) => `毎年終わりにUP+4`,
+      'en-US': (l) => `At the start of each year, gain 4 ⚙️`,
+      'jp-FI': (l) => `毎年終わりに⚙️+4`,
     },
     rarity: 'epic',
     level: 0,
