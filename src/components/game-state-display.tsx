@@ -26,11 +26,11 @@ export function GameStateDisplay() {
     [language === 'jp-FI' ? '組織' : 'Organization']: {
       [paramToLabel('influence', language)]: {
         value: gs.influence,
-        desc: language === 'jp-FI' ? '社会的アクションの乗数' : 'Multiplier for social actions',
+        desc: language === 'jp-FI' ? '社会的アクションの乗数' : 'Multiplier for lobbying and contracts',
       },
       [paramToLabel('trust', language)]: {
         value: gs.trust,
-        desc: language === 'jp-FI' ? '良好な契約と安い採用' : 'Better contracts and cheaper recruits',
+        desc: language === 'jp-FI' ? '良好な契約と安い採用' : 'Better and cheaper recruits',
       },
     },
     ASI: {
