@@ -8,12 +8,7 @@ export function Button({ action }: { action: Action }) {
   const disabled = !canApplyAction(gs, action)
 
   return (
-    <button
-      disabled={disabled}
-      className={`button ${disabled ? 'faded' : ''}`}
-      onClick={() => dispatch(action)}
-      title={description || undefined}
-    >
+    <button disabled={disabled} className={`button ${disabled ? 'faded' : ''}`} onClick={() => dispatch(action)}>
       <div className="action-content">
         <div className="action-name">{action.name[gs.language]}</div>
         {description && <div className="action-description">{description}</div>}
