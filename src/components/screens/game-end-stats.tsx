@@ -8,7 +8,7 @@ export function GameEndStats() {
       <h2>{gs.language === 'en-US' ? 'Final Stats' : '最終統計'}</h2>
       <ul style={{ textAlign: 'left' }}>
         <li>
-          {gs.language === 'en-US' ? 'Money Left' : '金額'}: {gs.money}
+          💰 {gs.money} ー 💬 {gs.sp} ー 🔧 {gs.ep} ー 🧪 {gs.rp} ー ⚙️ {gs.up}
         </li>
         <li>
           {gs.language === 'en-US' ? 'Influence' : '影響力'}: {gs.influence}

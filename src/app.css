@@ -41,17 +41,22 @@ body {
   flex-direction: column;
 }
 
-/* Game header styling */
-.game-header {
+/* Top bar styling */
+.top-bar-wrapper {
   background-color: rgba(40, 40, 60, 1);
-  padding: 0.6rem 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-bottom: 2px solid rgba(100, 100, 150, 0.3);
   position: sticky;
   top: 0;
   z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-bar-first-row {
+  padding: 0.6rem 0 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .date-display {
@@ -64,14 +69,22 @@ body {
   font-size: 0.7rem;
 }
 
-.game-meta {
+.top-bar-resource-wrapper {
   display: flex;
   gap: 0.4rem;
   align-items: center;
   padding-right: 0.6rem;
 }
 
-/* End of Game header styling */
+/* Yearly goal in header */
+.top-bar-yearly-goal {
+  min-height: 100px;
+  align-content: center;
+  background-color: rgba(40, 40, 60, 1);
+  margin: 0.6rem 0.6rem 0.6rem 0.6rem;
+  font-size: 0.8rem;
+}
+
 /* Resource pills in header */
 .resource-pill {
   display: flex;
@@ -547,7 +560,7 @@ body {
   border-radius: 8px;
   margin: 2rem 0;
   max-width: 500px;
-  min-width: 280px;
+  min-width: 310px;
 }
 
 .game-over-stats h2,
