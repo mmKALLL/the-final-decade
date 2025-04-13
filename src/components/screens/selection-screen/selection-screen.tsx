@@ -7,6 +7,7 @@ import { ContractList } from '../../contract-list'
 import { GameStateDisplay } from '../../game-state-display'
 import { LanguageToggle } from '../../language-toggle'
 import { BreakthroughList } from '../../breakthrough-list'
+import { YearlyGoalList } from '../../yearly-goal-list'
 
 export const SelectionScreen = () => {
   const { gs, dispatch } = useGameState()
@@ -64,6 +65,7 @@ export const SelectionScreen = () => {
       <GameStateDisplay />
       <ContractList editable={false} />
       <BreakthroughList editable={false} />
+      <YearlyGoalList />
       <LanguageToggle />
     </>
   )
