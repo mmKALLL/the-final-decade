@@ -1,5 +1,5 @@
-import { useGameState } from '../gamestate-hooks'
-import { getDateFromTurn, paramToLabel } from '../util'
+import { getMoneyGain, useGameState } from '../gamestate-hooks'
+import { getDateFromTurn, paramToLabel, withPlusSign } from '../util'
 import { ContractItem } from './contract-item'
 
 export function TopBar() {
@@ -8,6 +8,8 @@ export function TopBar() {
   if (gs.currentScreen === 'game-over' || gs.currentScreen === 'victory') {
     return null
   }
+
+  const moneyGain = getMoneyGain(gs).total
 
   // Get the first yearly goal to display
   const currentYearlyGoal = gs.yearlyContracts.length > 0 ? gs.yearlyContracts[0] : null
@@ -19,7 +21,12 @@ export function TopBar() {
         <div className="top-bar-resource-wrapper">
           <div className="resource-pill">
             <span className="resource-icon">💰</span>
-            <span className="resource-value">{gs.money}</span>
+            <span className="resource-value">
+              {gs.money}
+              <span className="income-indicator" style={{ color: moneyGain >= 0 ? '#4caf50' : '#f44336' }}>
+                {withPlusSign(moneyGain)}
+              </span>
+            </span>
           </div>
           <div className="resource-pill">
             <span className="resource-icon">{paramToLabel('sp', gs.language)}</span>
