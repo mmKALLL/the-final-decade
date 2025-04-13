@@ -8,6 +8,10 @@ export function TopBar() {
       <div className="date-display">{getDateFromTurn(gs.turn)}</div>
       <div className="game-meta">
         <div className="resource-pill">
+          <span className="resource-icon">💰</span>
+          <span className="resource-value">{gs.money}</span>
+        </div>
+        <div className="resource-pill">
           <span className="resource-icon">{paramToLabel('sp', gs.language)}</span>
           <span className="resource-value">{gs.sp}</span>
         </div>
