@@ -1,6 +1,7 @@
 // TypeScript version of the Dart Upgrade definitions, renamed to Breakthrough
 
 import { Breakthrough, ModifierType, GameState } from '../types'
+import { generateBreakthroughSelection, generateHumanSelection } from './data-generators'
 
 ////////////////////////////////////////////////////////////
 // COMMON
@@ -108,8 +109,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'CognitiveEmulation',
     name: { 'en-US': 'Cognitive Emulation', 'jp-FI': '認知エミュレーション' },
     description: {
-      'en-US': (l) => `Gain ${l * 6} 🔧 every time you refresh contracts`,
-      'jp-FI': (l) => `契約を更新するたびに${l * 6}🔧を獲得する`,
+      'en-US': (l) => `Gain ${l * 10} 🔧 every time you refresh contracts`,
+      'jp-FI': (l) => `契約を更新するたびに${l * 10}🔧を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -117,7 +118,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'refreshContracts',
-        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 6 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 10 * level }),
       },
     ],
   },
@@ -354,6 +355,129 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     effect: [{ paramEffected: 'publicUnity', amount: 1 }],
   },
   {
+    id: 'EchoChamberCollapse',
+    name: { 'en-US': 'Echo Chamber Collapse', 'jp-FI': 'エコーチェンバー崩壊' },
+    description: {
+      'en-US': (l) => `When you increase influence, gain +${l * 20} ASI outcome`,
+      'jp-FI': (l) => `影響力を増加させると、ASI結果+${l * 20}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'increaseInfluence',
+        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 20 * level }),
+      },
+    ],
+  },
+  {
+    id: 'CultureAdd',
+    name: { 'en-US': 'Culture Add', 'jp-FI': 'カルチャーアド' },
+    description: {
+      'en-US': (l) => `When you recruit a human, ⚙️ +${l}`,
+      'jp-FI': (l) => `人材を雇うたびに⚙️+${l}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'recruitHuman',
+        apply: (gs: GameState, level: number) => ({ ...gs, up: gs.up + level }),
+      },
+    ],
+  },
+  {
+    id: 'HypeEngine',
+    name: { 'en-US': 'Hype Engine', 'jp-FI': 'ハイプエンジン' },
+    description: {
+      'en-US': (l) => `When you make a new breakthrough, gain ${l * 8} influence`,
+      'jp-FI': (l) => `研究を行うたびに影響力+${l * 8}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'researchBreakthrough',
+        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + 8 * level }),
+      },
+    ],
+  },
+  {
+    id: 'AmplifiedOversight',
+    name: { 'en-US': 'Amplified Oversight', 'jp-FI': '増幅された監視' },
+    description: {
+      'en-US': (l) => `When you increase ASI outcome, gain ${l * 12} 🔧`,
+      'jp-FI': (l) => `ASI結果が増加すると、🔧+${l * 12}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'influenceAsiOutcome',
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 12 * level }),
+      },
+    ],
+  },
+  {
+    id: 'TransparencyPipeline',
+    name: { 'en-US': 'Transparency Pipeline', 'jp-FI': '透明性パイプライン' },
+    description: {
+      'en-US': (l) => `When you work on upgrades, gain ${l * 3} trust`,
+      'jp-FI': (l) => `アップグレードを行うと、信頼+${l * 3}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'gainUpgradePoint',
+        apply: (gs: GameState, level: number) => ({ ...gs, trust: gs.trust + 3 * level }),
+      },
+    ],
+  },
+  {
+    id: 'MultidisciplinaryCollaboration',
+    name: { 'en-US': 'Multidisciplinary Collaboration', 'jp-FI': '学際的コラボレーション' },
+    description: {
+      'en-US': (l) => `When you finish a contract, ⚙️ +${l}`,
+      'jp-FI': (l) => `契約を終了するたびに⚙️+${l}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'contractSuccess',
+        apply: (gs: GameState, level: number) => ({ ...gs, up: gs.up + level }),
+      },
+    ],
+  },
+  {
+    id: 'CallOfDuty',
+    name: { 'en-US': 'Call of Duty', 'jp-FI': 'コール・オブ・デューティ' },
+    description: {
+      'en-US': (l) => `When you do government lobbying, gain a new human`,
+      'jp-FI': (l) => `団結を増加させると、新しい人材を獲得`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 1,
+    actionEventHandlers: [
+      {
+        trigger: 'influencePublicUnity',
+        apply: (gs: GameState, level: number) => ({
+          ...gs,
+          currentScreen: 'selection',
+          humanSelections: [...gs.humanSelections, generateHumanSelection(gs)],
+        }),
+      },
+    ],
+  },
+  {
     id: 'ConsensusFilter',
     name: { 'en-US': 'Consensus Filter', 'jp-FI': 'コンセンサスフィルター' },
     description: {
@@ -444,6 +568,44 @@ export const uncommonBreakthroughs: Breakthrough[] = [
 ////////////////////////////////////////////////////////////
 
 export const rareBreakthroughs: Breakthrough[] = [
+  {
+    id: 'ViralVideos',
+    name: { 'en-US': 'Viral Videos', 'jp-FI': 'バイラルビデオ' },
+    description: {
+      'en-US': (l) => `Gain ${l} influence each turn`,
+      'jp-FI': (l) => `毎ターン影響力+${l}`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + level }),
+      },
+    ],
+  },
+  {
+    id: 'TechnicalAISafetyConference',
+    name: { 'en-US': 'Technical AI Safety Conference', 'jp-FI': '技術的AI安全会議' },
+    description: {
+      'en-US': (l) => `When you do government lobbying, gain a new breakthrough`,
+      'jp-FI': (l) => `政府のロビー活動を行うと、新しいブレークスルーを獲得`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 1,
+    actionEventHandlers: [
+      {
+        trigger: 'influencePublicUnity',
+        apply: (gs: GameState, level: number) => ({
+          ...gs,
+          currentScreen: 'selection',
+          breakthroughSelections: [...gs.breakthroughSelections, generateBreakthroughSelection(gs)],
+        }),
+      },
+    ],
+  },
   {
     id: 'LethalityList',
     name: { 'en-US': 'List of Lethalities', 'jp-FI': '致命性リスト' },
