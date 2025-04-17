@@ -763,11 +763,44 @@ export const epicBreakthroughs: Breakthrough[] = [
     ],
   },
   {
+    id: 'HarmonyAccord',
+    name: { 'en-US': 'Harmony Accord', 'jp-FI': 'ハーモニー協定' },
+    description: {
+      'en-US': (l) => `Gain 25 trust`,
+      'jp-FI': (l) => `信頼+25`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    effect: [{ paramEffected: 'trust', amount: 25 }],
+  },
+  {
+    id: 'HypnoDrones',
+    name: { 'en-US': 'Hypno Drones', 'jp-FI': 'ヒプノドローン' },
+    description: {
+      'en-US': (l) => `Gain +5 💬 and -1 influence each turn`,
+      'jp-FI': (l) => `毎ターン💬+5、影響力-1`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, l: number) => ({
+          ...gs,
+          sp: gs.sp + 5 * l,
+          influence: gs.influence - l,
+        }),
+      },
+    ],
+  },
+  {
     id: 'InstructionCollapse',
     name: { 'en-US': 'Instruction Collapse', 'jp-FI': '命令崩壊' },
     description: {
       'en-US': (l) => `Gain double 🔧, but 🧪 generation is halved`,
-      'jp-FI': (l) => `🧪は2倍、🧪生成は半分`,
+      'jp-FI': (l) => `🔧は2倍、🧪生成は半分`,
     },
     rarity: 'epic',
     level: 0,
@@ -784,6 +817,39 @@ export const epicBreakthroughs: Breakthrough[] = [
         apply: (v: number) => v * 0.5,
       },
     ],
+  },
+  {
+    id: 'RecursiveSelfImprovement',
+    name: { 'en-US': 'Recursive Self-Improvement', 'jp-FI': '再帰的自己改善' },
+    description: {
+      'en-US': (l) => `Gain +5 🔧 and -1 ASI outcome each turn`,
+      'jp-FI': (l) => `毎ターン🔧+5、ASI結果-1`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, l: number) => ({
+          ...gs,
+          ep: gs.ep + 5 * l,
+          asiOutcome: gs.asiOutcome - l,
+        }),
+      },
+    ],
+  },
+  {
+    id: 'StrategicExpansion',
+    name: { 'en-US': 'Strategic Expansion', 'jp-FI': '戦略的拡大' },
+    description: {
+      'en-US': (l) => `Gain 25 influence`,
+      'jp-FI': (l) => `影響力+25`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    effect: [{ paramEffected: 'influence', amount: 25 }],
   },
   {
     id: 'EncodedProphecy',
@@ -836,8 +902,8 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'ArtificialConsciousness',
     name: { 'en-US': 'Artificial Consciousness', 'jp-FI': '人工意識' },
     description: {
-      'en-US': (l) => `Gain -1 trust and 🧪+4 each turn`,
-      'jp-FI': (l) => `毎ターン信頼-1、🧪+4`,
+      'en-US': (l) => `Gain +5 🧪 and -1 trust each turn`,
+      'jp-FI': (l) => `毎ターン🧪+5、信頼-1`,
     },
     rarity: 'epic',
     level: 0,
@@ -848,7 +914,7 @@ export const epicBreakthroughs: Breakthrough[] = [
         apply: (gs: GameState, l: number) => ({
           ...gs,
           trust: gs.trust - l,
-          rp: gs.rp + 4 * l,
+          rp: gs.rp + 5 * l,
         }),
       },
     ],
@@ -873,6 +939,55 @@ export const epicBreakthroughs: Breakthrough[] = [
           return gs
         },
       },
+    ],
+  },
+  {
+    id: 'AlignmentDividend',
+    name: { 'en-US': 'Alignment Dividend', 'jp-FI': 'アラインメント配当' },
+    description: {
+      'en-US': (l) => `Gain 5 ⚙️ and 15 ASI outcome`,
+      'jp-FI': (l) => `⚙️+5、ASI結果+15`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    effect: [
+      { paramEffected: 'up', amount: 5 },
+      { paramEffected: 'asiOutcome', amount: 15 },
+    ],
+  },
+  {
+    id: 'ImperialMandate',
+    name: { 'en-US': 'Imperial Mandate', 'jp-FI': '帝国の使命' },
+    description: {
+      'en-US': (l) => `Gain 2 humans and 1 breakthrough`,
+      'jp-FI': (l) => `人材2人と研究1つを獲得`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    functionEffect: (gs: GameState) => ({
+      ...gs,
+      currentScreen: 'selection',
+      humanSelections: [...gs.humanSelections, generateHumanSelection(gs), generateHumanSelection(gs)],
+      breakthroughSelections: [...gs.breakthroughSelections, generateBreakthroughSelection(gs)],
+    }),
+  },
+  {
+    id: 'GlobalCoalition',
+    name: { 'en-US': 'Global Coalition', 'jp-FI': 'グローバル連合' },
+    description: {
+      'en-US': (l) => `Gain 5 trust, 5 influence, 5 ASI outcome, 5 ⚙️`,
+      'jp-FI': (l) => `信頼+5、影響力+5、ASI結果+5、⚙️+5`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    effect: [
+      { paramEffected: 'trust', amount: 5 },
+      { paramEffected: 'influence', amount: 5 },
+      { paramEffected: 'asiOutcome', amount: 5 },
+      { paramEffected: 'up', amount: 5 },
     ],
   },
 ]
