@@ -733,21 +733,6 @@ export const rareBreakthroughs: Breakthrough[] = [
 
 export const epicBreakthroughs: Breakthrough[] = [
   {
-    id: 'TheThirdSignal',
-    name: { 'en-US': 'The Third Signal', 'jp-FI': '第三の信号' },
-    description: {
-      'en-US': (l) => `Gain +40 🔧 and +40 🧪`,
-      'jp-FI': (l) => `🔧+40、🧪+40`,
-    },
-    rarity: 'epic',
-    level: 0,
-    maxLevel: 1,
-    effect: [
-      { paramEffected: 'ep', amount: 40 },
-      { paramEffected: 'rp', amount: 40 },
-    ],
-  },
-  {
     id: 'UnitedIntervention',
     name: { 'en-US': 'United Intervention', 'jp-FI': 'ユニティ介入' },
     description: {
@@ -760,6 +745,32 @@ export const epicBreakthroughs: Breakthrough[] = [
     effect: [
       { paramEffected: 'publicUnity', amount: 3 },
       { paramEffected: 'influence', amount: -30 },
+    ],
+  },
+  {
+    id: 'EncodedProphecy',
+    name: { 'en-US': 'Encoded Prophecy', 'jp-FI': '暗号化された予言' },
+    description: {
+      'en-US': (l) => `At the start of each year: +5 trust and +5 influence`,
+      'jp-FI': (l) => `毎年終わりに信頼+5、影響力+5`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, level: number) => {
+          if (gs.turn % 12 === 0) {
+            return {
+              ...gs,
+              trust: gs.trust + 5,
+              influence: gs.influence + 5,
+            }
+          }
+          return gs
+        },
+      },
     ],
   },
   {
@@ -793,6 +804,21 @@ export const epicBreakthroughs: Breakthrough[] = [
           influence: gs.influence - l,
         }),
       },
+    ],
+  },
+  {
+    id: 'TheThirdSignal',
+    name: { 'en-US': 'The Third Signal', 'jp-FI': '第三の信号' },
+    description: {
+      'en-US': (l) => `Gain +40 🔧 and +40 🧪`,
+      'jp-FI': (l) => `🔧+40、🧪+40`,
+    },
+    rarity: 'epic',
+    level: 0,
+    maxLevel: 1,
+    effect: [
+      { paramEffected: 'ep', amount: 40 },
+      { paramEffected: 'rp', amount: 40 },
     ],
   },
   {
@@ -852,11 +878,11 @@ export const epicBreakthroughs: Breakthrough[] = [
     effect: [{ paramEffected: 'influence', amount: 25 }],
   },
   {
-    id: 'EncodedProphecy',
-    name: { 'en-US': 'Encoded Prophecy', 'jp-FI': '暗号化された予言' },
+    id: 'ArtificialConsciousness',
+    name: { 'en-US': 'Artificial Consciousness', 'jp-FI': '人工意識' },
     description: {
-      'en-US': (l) => `At the start of each year: +5 trust and +5 influence`,
-      'jp-FI': (l) => `毎年終わりに信頼+5、影響力+5`,
+      'en-US': (l) => `Gain +5 🧪 and -1 trust each turn`,
+      'jp-FI': (l) => `毎ターン🧪+5、信頼-1`,
     },
     rarity: 'epic',
     level: 0,
@@ -864,16 +890,11 @@ export const epicBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => {
-          if (gs.turn % 12 === 0) {
-            return {
-              ...gs,
-              trust: gs.trust + 5,
-              influence: gs.influence + 5,
-            }
-          }
-          return gs
-        },
+        apply: (gs: GameState, l: number) => ({
+          ...gs,
+          trust: gs.trust - l,
+          rp: gs.rp + 5 * l,
+        }),
       },
     ],
   },
@@ -895,27 +916,6 @@ export const epicBreakthroughs: Breakthrough[] = [
       {
         trigger: 'levelUpBreakthrough',
         apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 10 * level }),
-      },
-    ],
-  },
-  {
-    id: 'ArtificialConsciousness',
-    name: { 'en-US': 'Artificial Consciousness', 'jp-FI': '人工意識' },
-    description: {
-      'en-US': (l) => `Gain +5 🧪 and -1 trust each turn`,
-      'jp-FI': (l) => `毎ターン🧪+5、信頼-1`,
-    },
-    rarity: 'epic',
-    level: 0,
-    maxLevel: 1,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, l: number) => ({
-          ...gs,
-          trust: gs.trust - l,
-          rp: gs.rp + 5 * l,
-        }),
       },
     ],
   },
