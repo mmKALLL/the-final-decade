@@ -15,7 +15,8 @@ function getYearIndex(turn: number): number {
 
 export function generateContract(gs: GameState): Contract {
   // Setup base parameters that control complexity
-  const contractType = Math.random() < 0.33 ? 'safety' : Math.random() < 0.5 ? 'capabilities' : 'product'
+  // 50/25/25 split between capabilities, safety, and product contracts
+  const contractType = Math.random() < 0.5 ? 'capabilities' : Math.random() < 0.5 ? 'safety' : 'product'
   const isSecondaryContract = contractType === 'safety' || contractType === 'product'
 
   const difficulty = 30 + gs.influence * 0.6 + Math.floor(Math.random() * (getYearIndex(gs.turn) * 30 + gs.influence * 0.7))

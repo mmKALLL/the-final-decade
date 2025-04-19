@@ -52,7 +52,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     name: { 'en-US': 'Refresh contracts', 'jp-FI': '契約を探す' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'ep', amount: -10 }],
+    effect: [{ paramEffected: 'ep', amount: -5 }],
     functionEffect: refreshContracts,
   },
   {
