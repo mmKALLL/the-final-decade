@@ -259,19 +259,10 @@ export function handleTurn(gs: GameState): GameState {
   return updatedGs
 }
 
+// NOTE: Need to run year-end goal checks before year-end unity adjustment, otherwise the player will need one unity more to hit year-end goal thresholds.
 export function handleEndOfYear(gs: GameState): GameState {
   // Create a new game state that we'll modify
   let updatedGs: GameState = { ...gs }
-
-  // Create effect stack for year change
-  const effect: Effect = [{ paramEffected: 'publicUnity', amount: -1 }]
-  const effectStack: EffectStack = effect.map((e) => ({ ...e, depth: 0 }))
-
-  // Apply yearChange event handlers
-  updatedGs = applyActionEventHandlers(updatedGs, 'yearChange')
-
-  // Apply the year change effects
-  updatedGs = reduceEffect(effectStack, updatedGs, 0)
 
   // Check the first yearly goal and generate an action for it
   const firstYearlyContract = updatedGs.yearlyContracts[0]
@@ -311,6 +302,16 @@ export function handleEndOfYear(gs: GameState): GameState {
       currentScreen: 'victory',
     }
   }
+
+  // Create effect stack for year change
+  const effect: Effect = [{ paramEffected: 'publicUnity', amount: -1 }]
+  const effectStack: EffectStack = effect.map((e) => ({ ...e, depth: 0 }))
+
+  // Apply yearChange event handlers
+  updatedGs = applyActionEventHandlers(updatedGs, 'yearChange')
+
+  // Apply the year change effects
+  updatedGs = reduceEffect(effectStack, updatedGs, 0)
 
   return updatedGs
 }
