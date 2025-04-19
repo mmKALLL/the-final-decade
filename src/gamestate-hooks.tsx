@@ -232,7 +232,7 @@ export function handleTurn(gs: GameState): GameState {
     { paramEffected: 'sp', amount: spGain },
     { paramEffected: 'ep', amount: epGain },
     { paramEffected: 'rp', amount: rpGain },
-    { paramEffected: 'asiOutcome', amount: gs.publicUnity },
+    { paramEffected: 'asiOutcome', amount: Math.min(0, gs.publicUnity) },
     { paramEffected: 'turn', amount: 1 },
   ]
   const effectStack: EffectStack = effect.map((e) => ({ ...e, depth: 0 }))
