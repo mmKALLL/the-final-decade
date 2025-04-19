@@ -15,8 +15,8 @@ function getYearIndex(turn: number): number {
 
 export function generateContract(gs: GameState): Contract {
   // Setup base parameters that control complexity
-  // 50/25/25 split between capabilities, safety, and product contracts
-  const contractType = Math.random() < 0.5 ? 'capabilities' : Math.random() < 0.5 ? 'safety' : 'product'
+  // 44/28/28 split between capabilities, safety, and product contracts
+  const contractType = Math.random() < 0.44 ? 'capabilities' : Math.random() < 0.5 ? 'safety' : 'product'
   const isSecondaryContract = contractType === 'safety' || contractType === 'product'
 
   const difficulty = 30 + gs.influence * 0.6 + Math.floor(Math.random() * (getYearIndex(gs.turn) * 30 + gs.influence * 0.7))
@@ -83,8 +83,8 @@ function getRandomValue(base: number, difficulty: number, difficultyFactor: numb
 }
 
 function getContractMoneyValue(difficulty: number, totalEffects: number, isSecondaryContract: boolean): number {
-  let value = getRandomValue(40, difficulty, 1.5) * 0.2 // Multiplier to convert Alignment is Hard values into The Final Decade curve
-  const effectMultiplier = [1.25, 1, 0.8, 0.7][Math.min(totalEffects, 3)] // Indexed access; contracts with more effects provide less money
+  let value = getRandomValue(50, difficulty, 1.5) * 0.2 // Multiplier to convert Alignment is Hard values into The Final Decade curve
+  const effectMultiplier = [1, 0.8, 0.65, 0.55][Math.min(totalEffects, 3)] // Indexed access; contracts with more effects provide less money
 
   return Math.round(((isSecondaryContract ? 1 : 2.2) * effectMultiplier * value) / 5) * 5 // Round to nearest 5
 }
@@ -97,8 +97,8 @@ function getSuccessEffects(difficulty: number, totalEffects: number, contractTyp
   if (totalEffects <= 0) return []
   const effectPool =
     contractType === 'safety' || contractType === 'product'
-      ? getAlignmentSuccessEffects(difficulty, totalEffects, contractType)
-      : getCapabilitySuccessEffects(difficulty, totalEffects, false)
+      ? getAlignmentSuccessEffects(difficulty, contractType)
+      : getCapabilitySuccessEffects(difficulty)
   return getEffectsFromPool(totalEffects, effectPool)
 }
 
@@ -135,7 +135,7 @@ interface WeightedSingleEffect {
 }
 
 // Function to get alignment-focused success effects
-function getAlignmentSuccessEffects(difficulty: number, totalEffects: number, contractType: ContractType): WeightedSingleEffect[] {
+function getAlignmentSuccessEffects(difficulty: number, contractType: ContractType): WeightedSingleEffect[] {
   return [
     { weight: difficulty > 260 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(100, difficulty, 0.5) } },
     { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(50, difficulty, 0.5) } },
@@ -157,15 +157,17 @@ function getAlignmentSuccessEffects(difficulty: number, totalEffects: number, co
 }
 
 // Function to get capability-focused success effects
-function getCapabilitySuccessEffects(difficulty: number, totalEffects: number, isSecondaryContract: boolean): WeightedSingleEffect[] {
+function getCapabilitySuccessEffects(difficulty: number): WeightedSingleEffect[] {
   return [
-    { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'sp', amount: getRandomValue(4, difficulty, 0.05) } },
-    { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.05) } },
+    { weight: difficulty >= 200 ? 0 : 4, effect: { paramEffected: 'sp', amount: getRandomValue(4, difficulty, 0.05) } },
+    { weight: difficulty >= 200 ? 0 : 4, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.05) } },
+    { weight: difficulty > 200 ? 4 : 0, effect: { paramEffected: 'sp', amount: getRandomValue(4, difficulty, 0.08) } },
+    { weight: difficulty > 200 ? 4 : 0, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.08) } },
     { weight: 3, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.04) } },
-    { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(50, difficulty, 0.5) } },
-    { weight: difficulty > 260 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(100, difficulty, 0.5) } },
-    { weight: 3, effect: { paramEffected: 'up', amount: getRandomInt(2, 4) } },
-    { weight: 3, effect: { paramEffected: 'passiveIncome', amount: getRandomValue(1, difficulty, 0.014) } },
+    { weight: 3, effect: { paramEffected: 'up', amount: getRandomInt(1, 4) } },
+    { weight: 3, effect: { paramEffected: 'passiveIncome', amount: getRandomValue(1, difficulty, 0.02) } },
+    { weight: difficulty > 200 ? 2 : 1, effect: { paramEffected: 'humanSelection', amount: getRandomValue(50, difficulty, 0.5) } },
+    { weight: difficulty > 260 ? 3 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(100, difficulty, 0.5) } },
   ]
 }
 
