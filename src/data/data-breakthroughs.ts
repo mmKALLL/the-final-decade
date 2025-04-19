@@ -272,33 +272,15 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'MoneyLaundering',
     name: { 'en-US': 'Money Laundering', 'jp-FI': 'マネーロンダリング' },
     description: {
-      'en-US': (l) => `Gain ${5 * l} money per turn, but lose ${10 * l} trust`,
-      'jp-FI': (l) => `ターンごとに${5 * l}のお金を得るが、${10 * l}の信頼を失う`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    effect: [{ paramEffected: 'trust', amount: -10 }],
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, money: gs.money + 5 * level }),
-      },
-    ],
-  },
-  {
-    id: 'DataScraping',
-    name: { 'en-US': 'Data Scraping', 'jp-FI': 'データスクレイピング' },
-    description: {
-      'en-US': (l) => `Get ${l * 4} income, but lose ${l * 10} trust`,
-      'jp-FI': (l) => `各ターン開始時に${l * 4}の収入を得るが、信頼が${l * 10}失われる`,
+      'en-US': (l) => `Gain ${8 * l} money per turn, but lose ${12 * l} trust`,
+      'jp-FI': (l) => `ターンごとに${8 * l}のお金を得るが、${12 * l}の信頼を失う`,
     },
     rarity: 'common',
     level: 0,
     maxLevel: 3,
     effect: [
-      { paramEffected: 'trust', amount: -10 },
-      { paramEffected: 'passiveIncome', amount: 4 },
+      { paramEffected: 'trust', amount: -12 },
+      { paramEffected: 'passiveIncome', amount: 8 },
     ],
   },
   {

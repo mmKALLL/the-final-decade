@@ -158,6 +158,7 @@ export const calculateTeamMultipliers = (gs: GameState): Record<HumanType, numbe
 }
 
 // Calculate resource production broken down by type
+// TODO: Add calculation of multipliers from breakthoughts
 export const calculateResourceProduction = (gs: GameState) => {
   const baseSpProduction = gs.humans.reduce((acc, human) => acc + human.spGeneration, 0)
   const baseEpProduction = gs.humans.reduce((acc, human) => acc + human.epGeneration, 0)
