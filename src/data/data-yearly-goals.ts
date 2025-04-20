@@ -1,7 +1,7 @@
 import { ContractType, Label, YearlyContract } from '../types'
 import { assertNever } from '../util'
 
-// General curve:
+// General curve (with 3 common humans and 1 breakthrough start):
 
 // 2025: 60
 // 2026: 120
@@ -9,9 +9,17 @@ import { assertNever } from '../util'
 // 2028: 330
 // 2029: 500
 
-// Each year should have one constract with
+// General curve (with 2/1 common/uncommon humans and 2 breakthroughs start):
+
+// 2025: 70
+// 2026: 140
+// 2027: 240
+// 2028: 360
+// 2029: 540
+
+// Each year should have one goal with
 // - low immediate cost but high requirement (sp)
-// - low immediate cost but high long-term cost (ep)
+// - low immediate cost but high long-term cost (ep) - unity cost most common
 // - high short-term cost (rp)
 
 export const yearlyContracts: YearlyContract[] = [
@@ -77,13 +85,13 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2026,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': 'influence -20, 🔧 -60', 'jp-FI': '影響力 -20、🔧 -60' },
+    costDescription: { 'en-US': 'influence -20, 🔧 -80', 'jp-FI': '影響力 -20、🔧 -80' },
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
     requirements: [],
     costs: [
       { paramEffected: 'influence', amount: -20 },
-      { paramEffected: 'ep', amount: -60 },
+      { paramEffected: 'ep', amount: -80 },
     ],
   },
   {
@@ -91,11 +99,15 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2026,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '🧪 -120', 'jp-FI': '🧪 -120' },
+    costDescription: { 'en-US': '💬 -20, 🔧 -20, 🧪 -100', 'jp-FI': '💬 -20, 🔧 -20, 🧪 -100' },
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
     requirements: [],
-    costs: [{ paramEffected: 'rp', amount: -120 }],
+    costs: [
+      { paramEffected: 'sp', amount: -20 },
+      { paramEffected: 'ep', amount: -20 },
+      { paramEffected: 'rp', amount: -100 },
+    ],
   },
 
   // === 2027 ===
@@ -105,11 +117,11 @@ export const yearlyContracts: YearlyContract[] = [
     year: 2027,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
     costDescription: { 'en-US': '💬 -60', 'jp-FI': '💬 -60' },
-    requirementDescription: { 'en-US': 'Public unity >= 1, Influence >= 130', 'jp-FI': '公共団結 >= 1、影響力 >= 130' },
+    requirementDescription: { 'en-US': 'Public unity >= 1, Trust >= 130', 'jp-FI': '公共団結 >= 1、信頼 >= 130' },
     onSuccess: [],
     requirements: [
       { paramEffected: 'publicUnity', amount: 1 },
-      { paramEffected: 'influence', amount: 130 },
+      { paramEffected: 'trust', amount: 130 },
     ],
     costs: [{ paramEffected: 'sp', amount: -60 }],
   },
@@ -118,12 +130,12 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2027,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '🔧 -100, Public unity -2', 'jp-FI': '🔧 -100、公共団結 -2' },
+    costDescription: { 'en-US': '🔧 -120, Public unity -2', 'jp-FI': '🔧 -100、公共団結 -2' },
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
     requirements: [],
     costs: [
-      { paramEffected: 'ep', amount: -100 },
+      { paramEffected: 'ep', amount: -120 },
       { paramEffected: 'publicUnity', amount: -2 },
     ],
   },
@@ -132,11 +144,11 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2027,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '🧪 -220', 'jp-FI': '🧪 -220' },
+    costDescription: { 'en-US': '🧪 -240', 'jp-FI': '🧪 -240' },
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
     requirements: [],
-    costs: [{ paramEffected: 'rp', amount: -220 }],
+    costs: [{ paramEffected: 'rp', amount: -240 }],
   },
 
   // === 2028 ===
@@ -145,27 +157,27 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2028,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '💬 -80', 'jp-FI': '💬 -80' },
+    costDescription: { 'en-US': '💬 -100', 'jp-FI': '💬 -100' },
     requirementDescription: { 'en-US': 'Trust >= 180, Influence >= 140', 'jp-FI': '信頼 >= 180、影響力 >= 140' },
     onSuccess: [],
     requirements: [
       { paramEffected: 'trust', amount: 180 },
       { paramEffected: 'influence', amount: 140 },
     ],
-    costs: [{ paramEffected: 'sp', amount: -80 }],
+    costs: [{ paramEffected: 'sp', amount: -100 }],
   },
   {
     name: { 'en-US': 'Autonomous Nation Genesis', 'jp-FI': '自律国家の誕生' },
     rarity: 'epic',
     year: 2028,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': 'Money -800, 🔧 -80', 'jp-FI': 'お金 -800、🔧 -80' },
+    costDescription: { 'en-US': 'Money -600, 🔧 -100', 'jp-FI': 'お金 -600、🔧 -100' },
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
     requirements: [],
     costs: [
-      { paramEffected: 'money', amount: -800 },
-      { paramEffected: 'ep', amount: -80 },
+      { paramEffected: 'money', amount: -600 },
+      { paramEffected: 'ep', amount: -100 },
     ],
   },
   {
@@ -173,11 +185,14 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2028,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '🧪 -330', 'jp-FI': '🧪 -330' },
+    costDescription: { 'en-US': '🧪 -300, influence -20', 'jp-FI': '🧪 -300、影響力 -20' },
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
     requirements: [],
-    costs: [{ paramEffected: 'rp', amount: -330 }],
+    costs: [
+      { paramEffected: 'rp', amount: -300 },
+      { paramEffected: 'influence', amount: -20 },
+    ],
   },
 
   // === 2029 ===

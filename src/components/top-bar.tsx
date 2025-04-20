@@ -50,7 +50,7 @@ export function TopBar() {
         <div className="top-bar-yearly-goal">
           {gs.turn === 0 && (gs.humanSelections.length > 0 || gs.breakthroughSelections.length > 0) ? (
             <span className="top-bar-tutorial-text">
-              Select {3 - gs.humanSelections.length}/3 humans and {1 - gs.breakthroughSelections.length}/1 breakthroughs.
+              Select {3 - gs.humanSelections.length}/3 humans and {2 - gs.breakthroughSelections.length}/2 breakthroughs.
               <br />
               <br />
               After that, complete the goal that appears here.
