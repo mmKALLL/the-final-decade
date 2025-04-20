@@ -360,19 +360,19 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: 'HypeEngine',
-    name: { 'en-US': 'Hype Engine', 'jp-FI': 'ハイプエンジン' },
+    id: 'ViralVideos',
+    name: { 'en-US': 'Viral Videos', 'jp-FI': 'バイラルビデオ' },
     description: {
-      'en-US': (l) => `When you make a new breakthrough, gain ${l * 8} influence`,
-      'jp-FI': (l) => `研究を行うたびに影響力+${l * 8}`,
+      'en-US': (l) => `Gain ${l} influence each turn`,
+      'jp-FI': (l) => `毎ターン影響力+${l}`,
     },
     rarity: 'uncommon',
     level: 0,
     maxLevel: 3,
     actionEventHandlers: [
       {
-        trigger: 'researchBreakthrough',
-        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + 8 * level }),
+        trigger: 'turnEnd',
+        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + level }),
       },
     ],
   },
@@ -394,23 +394,6 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: 'TransparencyPipeline',
-    name: { 'en-US': 'Transparency Pipeline', 'jp-FI': '透明性パイプライン' },
-    description: {
-      'en-US': (l) => `When you work on upgrades, gain ${l * 3} trust`,
-      'jp-FI': (l) => `アップグレードを行うと、信頼+${l * 3}`,
-    },
-    rarity: 'uncommon',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'gainUpgradePoint',
-        apply: (gs: GameState, level: number) => ({ ...gs, trust: gs.trust + 3 * level }),
-      },
-    ],
-  },
-  {
     id: 'MultidisciplinaryCollaboration',
     name: { 'en-US': 'Multidisciplinary Collaboration', 'jp-FI': '学際的コラボレーション' },
     description: {
@@ -428,37 +411,15 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: 'CallOfDuty',
-    name: { 'en-US': 'Call of Duty', 'jp-FI': 'コール・オブ・デューティ' },
-    description: {
-      'en-US': (l) => `When you do government lobbying, gain a new human`,
-      'jp-FI': (l) => `団結を増加させると、新しい人材を獲得`,
-    },
-    rarity: 'uncommon',
-    level: 0,
-    maxLevel: 1,
-    actionEventHandlers: [
-      {
-        trigger: 'influencePublicUnity',
-        apply: (gs: GameState, level: number) => ({
-          ...gs,
-          currentScreen: 'selection',
-          humanSelections: [...gs.humanSelections, generateHumanSelection(gs)],
-        }),
-      },
-    ],
-  },
-  {
     id: 'ConsensusFilter',
     name: { 'en-US': 'Consensus Filter', 'jp-FI': 'コンセンサスフィルター' },
     description: {
-      'en-US': (l) => `Gain +${l} trust every turn, but public unity -${l}`,
+      'en-US': (l) => `Gain +${l} trust every turn`,
       'jp-FI': (l) => `毎ターン、信頼+${l}、だが公衆団結-${l}`,
     },
     rarity: 'uncommon',
     level: 0,
     maxLevel: 3,
-    effect: [{ paramEffected: 'publicUnity', amount: -1 }],
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
@@ -554,38 +515,14 @@ export const uncommonBreakthroughs: Breakthrough[] = [
       },
     ],
   },
-]
-
-////////////////////////////////////////////////////////////
-// RARE
-////////////////////////////////////////////////////////////
-
-export const rareBreakthroughs: Breakthrough[] = [
   {
-    id: 'ViralVideos',
-    name: { 'en-US': 'Viral Videos', 'jp-FI': 'バイラルビデオ' },
+    id: 'CallOfDuty',
+    name: { 'en-US': 'Call of Duty', 'jp-FI': 'コール・オブ・デューティ' },
     description: {
-      'en-US': (l) => `Gain ${l} influence each turn`,
-      'jp-FI': (l) => `毎ターン影響力+${l}`,
+      'en-US': (l) => `When you do government lobbying, select a new human`,
+      'jp-FI': (l) => `団結を増加させると、新しい人材を獲得`,
     },
-    rarity: 'rare',
-    level: 0,
-    maxLevel: 2,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + level }),
-      },
-    ],
-  },
-  {
-    id: 'TechnicalAISafetyConference',
-    name: { 'en-US': 'Technical AI Safety Conference', 'jp-FI': '技術的AI安全会議' },
-    description: {
-      'en-US': (l) => `When you do government lobbying, gain a new breakthrough`,
-      'jp-FI': (l) => `政府のロビー活動を行うと、新しいブレークスルーを獲得`,
-    },
-    rarity: 'rare',
+    rarity: 'uncommon',
     level: 0,
     maxLevel: 1,
     actionEventHandlers: [
@@ -594,8 +531,33 @@ export const rareBreakthroughs: Breakthrough[] = [
         apply: (gs: GameState, level: number) => ({
           ...gs,
           currentScreen: 'selection',
-          breakthroughSelections: [...gs.breakthroughSelections, generateBreakthroughSelection(gs)],
+          humanSelections: [...gs.humanSelections, generateHumanSelection(gs)],
         }),
+      },
+    ],
+  },
+]
+
+////////////////////////////////////////////////////////////
+// RARE
+////////////////////////////////////////////////////////////
+
+export const rareBreakthroughs: Breakthrough[] = [
+  {
+    id: 'ArmyOfConMen',
+    name: { 'en-US': 'Army of Conmen', 'jp-FI': '詐欺師の軍' },
+    description: {
+      'en-US': (l) => `Gain +${l * 2} trust each turn, but lose ${l} public unity`,
+      'jp-FI': (l) => `毎ターン信頼+${l}`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    effect: [{ paramEffected: 'publicUnity', amount: -1 }],
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, l: number) => ({ ...gs, trust: gs.trust + l * 2 }),
       },
     ],
   },
@@ -625,6 +587,23 @@ export const rareBreakthroughs: Breakthrough[] = [
     level: 0,
     maxLevel: 2,
     effect: [{ paramEffected: 'publicUnity', amount: 2 }],
+  },
+  {
+    id: 'HypeEngine',
+    name: { 'en-US': 'Hype Engine', 'jp-FI': 'ハイプエンジン' },
+    description: {
+      'en-US': (l) => `When you make a new breakthrough, gain ${l * 8} influence`,
+      'jp-FI': (l) => `研究を行うたびに影響力+${l * 8}`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    actionEventHandlers: [
+      {
+        trigger: 'researchBreakthrough',
+        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + 8 * level }),
+      },
+    ],
   },
   {
     id: 'PrecisionCorruption',
@@ -680,19 +659,40 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: 'ArmyOfConMen',
-    name: { 'en-US': 'Army of Conmen', 'jp-FI': '詐欺師の軍' },
+    id: 'ComputeTransparency',
+    name: { 'en-US': 'Compute Transparency', 'jp-FI': '計算透明性' },
     description: {
-      'en-US': (l) => `You gain ${l} trust each turn`,
-      'jp-FI': (l) => `毎ターン信頼+${l}`,
+      'en-US': (l) => `When you upgrade a breakthrough, gain ${l * 10} trust`,
+      'jp-FI': (l) => `アップグレードを行うと、信頼+${l * 10}`,
     },
     rarity: 'rare',
     level: 0,
     maxLevel: 2,
     actionEventHandlers: [
       {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, l: number) => ({ ...gs, trust: gs.trust + l }),
+        trigger: 'gainUpgradePoint',
+        apply: (gs: GameState, level: number) => ({ ...gs, trust: gs.trust + 10 * level }),
+      },
+    ],
+  },
+  {
+    id: 'TechnicalAISafetyConference',
+    name: { 'en-US': 'Technical AI Safety Conference', 'jp-FI': '技術的AI安全会議' },
+    description: {
+      'en-US': (l) => `When you do government lobbying, select a new breakthrough`,
+      'jp-FI': (l) => `政府のロビー活動を行うと、新しいブレークスルーを獲得`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 1,
+    actionEventHandlers: [
+      {
+        trigger: 'influencePublicUnity',
+        apply: (gs: GameState, level: number) => ({
+          ...gs,
+          currentScreen: 'selection',
+          breakthroughSelections: [...gs.breakthroughSelections, generateBreakthroughSelection(gs)],
+        }),
       },
     ],
   },
