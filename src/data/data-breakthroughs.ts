@@ -12,7 +12,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'DebateCourse',
     name: { 'en-US': 'Debate Course', 'jp-FI': 'ディベートコース' },
     description: {
-      'en-US': (l) => `Gain ${l * 2} 💬 every turn`,
+      'en-US': (l) => `Gain +${l * 2} 💬 every turn`,
       'jp-FI': (l) => `各ターンに${l}💬を獲得する`,
     },
     rarity: 'common',
@@ -209,8 +209,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'Duplicator',
     name: { 'en-US': 'Duplicator', 'jp-FI': '複製機' },
     description: {
-      'en-US': (l) => `Gain 2 🧪 every turn`,
-      'jp-FI': (l) => `各ターンに2🧪を獲得する`,
+      'en-US': (l) => `Gain +${l * 2} 🧪 every turn`,
+      'jp-FI': (l) => `各ターンに+${l * 2}🧪を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -555,8 +555,8 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: 'ReplicatorGrid',
     name: { 'en-US': 'Replicator Grid', 'jp-FI': '複製グリッド' },
     description: {
-      'en-US': (l) => `Gain 1 🧪/🔧/💬 per turn`,
-      'jp-FI': (l) => `毎ターン🧪/🔧/💬を1ずつ得る`,
+      'en-US': (l) => `Gain +${l} 🧪/🔧/💬 per turn`,
+      'jp-FI': (l) => `毎ターン🧪/🔧/💬を${l}ずつ得る`,
     },
     rarity: 'uncommon',
     level: 0,
