@@ -9,40 +9,6 @@ import { generateBreakthroughSelection, generateHumanSelection } from './data-ge
 
 export const commonBreakthroughs: Breakthrough[] = [
   {
-    id: 'Duplicator',
-    name: { 'en-US': 'Duplicator', 'jp-FI': '複製機' },
-    description: {
-      'en-US': (l) => `Gain ${l * 2} 🧪 every turn`,
-      'jp-FI': (l) => `各ターンに${l * 2}🧪を獲得する`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + 2 * level }),
-      },
-    ],
-  },
-  {
-    id: 'Monosemanticity',
-    name: { 'en-US': 'Monosemanticity', 'jp-FI': 'モノセマンティシティ' },
-    description: {
-      'en-US': (l) => `Gain ${l * 2} 🔧 every turn`,
-      'jp-FI': (l) => `各ターンに${l}🔧を獲得する`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + level * 2 }),
-      },
-    ],
-  },
-  {
     id: 'DebateCourse',
     name: { 'en-US': 'Debate Course', 'jp-FI': 'ディベートコース' },
     description: {
@@ -56,74 +22,6 @@ export const commonBreakthroughs: Breakthrough[] = [
       {
         trigger: 'turnEnd',
         apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + level * 2 }),
-      },
-    ],
-  },
-  {
-    id: 'PoetryGenerator',
-    name: { 'en-US': 'Poetry Generator', 'jp-FI': '詩ジェネレーター' },
-    description: {
-      'en-US': (l) => `When you do independent outreach, gain +${l * 9} 💬`,
-      'jp-FI': (l) => `独立のアウトリーチを行うたびに+${l * 9}💬を獲得する`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'independentOutreach',
-        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 9 * level }),
-      },
-    ],
-  },
-  {
-    id: 'CognitiveEmulation',
-    name: { 'en-US': 'Cognitive Emulation', 'jp-FI': '認知エミュレーション' },
-    description: {
-      'en-US': (l) => `Gain ${l * 10} 🔧 every time you refresh contracts`,
-      'jp-FI': (l) => `契約を更新するたびに${l * 10}🔧を獲得する`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'refreshContracts',
-        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 10 * level }),
-      },
-    ],
-  },
-  {
-    id: 'ResearchAdvisor',
-    name: { 'en-US': 'Research Advisor', 'jp-FI': '研究アドバイザー' },
-    description: {
-      'en-US': (l) => `Gain ${l * 12} 🧪 every time you research a breakthrough`,
-      'jp-FI': (l) => `研究を行うたびに${l * 12}🧪を獲得する`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'researchBreakthrough',
-        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + 12 * level }),
-      },
-    ],
-  },
-  {
-    id: 'EngineeringAdvisor',
-    name: { 'en-US': 'Engineering Advisor', 'jp-FI': 'エンジニアリングアドバイザー' },
-    description: {
-      'en-US': (l) => `Gain ${l * 10} 🔧 every time you finish a contract`,
-      'jp-FI': (l) => `契約を終了するたびに${l * 10}🔧を獲得する`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'contractSuccess',
-        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 10 * level }),
       },
     ],
   },
@@ -145,6 +43,23 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
+    id: 'PoetryGenerator',
+    name: { 'en-US': 'Poetry Generator', 'jp-FI': '詩ジェネレーター' },
+    description: {
+      'en-US': (l) => `When you do independent outreach, gain +${l * 9} 💬`,
+      'jp-FI': (l) => `独立のアウトリーチを行うたびに+${l * 9}💬を獲得する`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'independentOutreach',
+        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 9 * level }),
+      },
+    ],
+  },
+  {
     id: 'OpenLetter',
     name: { 'en-US': 'Open Letter', 'jp-FI': 'オープンレター' },
     description: {
@@ -157,44 +72,10 @@ export const commonBreakthroughs: Breakthrough[] = [
     effect: [{ paramEffected: 'trust', amount: 15 }],
   },
   {
-    id: 'InterpretabilityModel',
-    name: { 'en-US': 'Interpretability Model', 'jp-FI': '解釈可能性モデル' },
-    description: {
-      'en-US': (l) => `Whenever you finish a contract, +${l * 3} ASI outcome`,
-      'jp-FI': (l) => `契約を終了するたびに+${l * 3}%ASI報酬を獲得する`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'contractSuccess',
-        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 3 * level }),
-      },
-    ],
-  },
-  {
-    id: 'TrustedAdvisor',
-    name: { 'en-US': 'Trusted Advisor', 'jp-FI': '信頼されるアドバイザー' },
-    description: {
-      'en-US': (l) => `Whenever you finish a contract, gain +${l * 3} trust`,
-      'jp-FI': (l) => `契約を終了するたびに${l * 3}信頼を獲得する`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'contractSuccess',
-        apply: (gs: GameState, level: number) => ({ ...gs, trust: gs.trust + 3 * level }),
-      },
-    ],
-  },
-  {
     id: 'SocialEngineering',
     name: { 'en-US': 'Social Engineering', 'jp-FI': 'ソーシャルエンジニアリング' },
     description: {
-      'en-US': (l) => `Whenever you finish a contract, gain +${l * 3} influence`,
+      'en-US': (l) => `When you finish a contract, gain +${l * 3} influence`,
       'jp-FI': (l) => `契約を終了するたびに${l * 3}影響力を獲得する`,
     },
     rarity: 'common',
@@ -223,10 +104,129 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
+    id: 'Monosemanticity',
+    name: { 'en-US': 'Monosemanticity', 'jp-FI': 'モノセマンティシティ' },
+    description: {
+      'en-US': (l) => `Gain ${l * 2} 🔧 every turn`,
+      'jp-FI': (l) => `各ターンに${l}🔧を獲得する`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + level * 2 }),
+      },
+    ],
+  },
+  {
+    id: 'CognitiveEmulation',
+    name: { 'en-US': 'Cognitive Emulation', 'jp-FI': '認知エミュレーション' },
+    description: {
+      'en-US': (l) => `Gain ${l * 10} 🔧 every time you refresh contracts`,
+      'jp-FI': (l) => `契約を更新するたびに${l * 10}🔧を獲得する`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'refreshContracts',
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 10 * level }),
+      },
+    ],
+  },
+  {
+    id: 'EngineeringAdvisor',
+    name: { 'en-US': 'Engineering Advisor', 'jp-FI': 'エンジニアリングアドバイザー' },
+    description: {
+      'en-US': (l) => `Gain ${l * 10} 🔧 every time you finish a contract`,
+      'jp-FI': (l) => `契約を終了するたびに${l * 10}🔧を獲得する`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'contractSuccess',
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 10 * level }),
+      },
+    ],
+  },
+  {
+    id: 'TrustedAdvisor',
+    name: { 'en-US': 'Trusted Advisor', 'jp-FI': '信頼されるアドバイザー' },
+    description: {
+      'en-US': (l) => `When you finish a contract, gain +${l * 3} trust`,
+      'jp-FI': (l) => `契約を終了するたびに${l * 3}信頼を獲得する`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'contractSuccess',
+        apply: (gs: GameState, level: number) => ({ ...gs, trust: gs.trust + 3 * level }),
+      },
+    ],
+  },
+  {
+    id: 'InterpretabilityModel',
+    name: { 'en-US': 'Interpretability Model', 'jp-FI': '解釈可能性モデル' },
+    description: {
+      'en-US': (l) => `When you finish a contract, gain +${l * 3} ASI outcome`,
+      'jp-FI': (l) => `契約を終了するたびに+${l * 3}%ASI報酬を獲得する`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'contractSuccess',
+        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 3 * level }),
+      },
+    ],
+  },
+  {
+    id: 'ResearchAdvisor',
+    name: { 'en-US': 'Research Advisor', 'jp-FI': '研究アドバイザー' },
+    description: {
+      'en-US': (l) => `Gain ${l * 12} 🧪 every time you research a breakthrough`,
+      'jp-FI': (l) => `研究を行うたびに${l * 12}🧪を獲得する`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'researchBreakthrough',
+        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + 12 * level }),
+      },
+    ],
+  },
+  {
+    id: 'Duplicator',
+    name: { 'en-US': 'Duplicator', 'jp-FI': '複製機' },
+    description: {
+      'en-US': (l) => `Gain 2 🧪 every turn`,
+      'jp-FI': (l) => `各ターンに2🧪を獲得する`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + 2 * level }),
+      },
+    ],
+  },
+  {
     id: 'MoneyLaundering',
     name: { 'en-US': 'Money Laundering', 'jp-FI': 'マネーロンダリング' },
     description: {
-      'en-US': (l) => `Get +${l * 8} income, but lose ${l * 10} trust`,
+      'en-US': (l) => `Gain +${l * 8} income, but trust -${l * 10}`,
       'jp-FI': (l) => `ターンごとに${l * 8}のお金を得るが、${l * 10}の信頼を失う`,
     },
     rarity: 'common',
@@ -241,7 +241,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'SingularLearningTheory',
     name: { 'en-US': 'Singular Learning Theory', 'jp-FI': 'シンギュラー・ラーニング・セオリー' },
     description: {
-      'en-US': (l) => `Gain +${l * 20} 🧪 every time you level up a breakthrough`,
+      'en-US': (l) => `When you level up a breakthrough, gain +${l * 20} 🧪`,
       'jp-FI': (l) => `研究をレベルアップするたびに🧪+${l * 20}`,
     },
     rarity: 'common',
@@ -314,6 +314,26 @@ export const commonBreakthroughs: Breakthrough[] = [
 
 export const uncommonBreakthroughs: Breakthrough[] = [
   {
+    id: 'ConsensusFilter',
+    name: { 'en-US': 'Consensus Filter', 'jp-FI': 'コンセンサスフィルター' },
+    description: {
+      'en-US': (l) => `Gain +${l} trust every turn`,
+      'jp-FI': (l) => `毎ターン、信頼+${l}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, l: number) => ({
+          ...gs,
+          trust: gs.trust + l,
+        }),
+      },
+    ],
+  },
+  {
     id: 'WarningSigns',
     name: { 'en-US': 'Warning Signs', 'jp-FI': '警告サイン' },
     description: {
@@ -360,30 +380,10 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: 'ConsensusFilter',
-    name: { 'en-US': 'Consensus Filter', 'jp-FI': 'コンセンサスフィルター' },
-    description: {
-      'en-US': (l) => `Gain +${l} trust each turn`,
-      'jp-FI': (l) => `毎ターン、信頼+${l}`,
-    },
-    rarity: 'uncommon',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, l: number) => ({
-          ...gs,
-          trust: gs.trust + l,
-        }),
-      },
-    ],
-  },
-  {
     id: 'PublicApology',
     name: { 'en-US': 'Public Apology', 'jp-FI': '公的謝り' },
     description: {
-      'en-US': (l) => `Sets your trust to 85 when obtained or upgraded.`,
+      'en-US': (l) => `Sets your trust to 85 when obtained or leveled up`,
       'jp-FI': (l) => `取得またはアップグレード時に信頼を85に設定する`,
     },
     rarity: 'uncommon',
@@ -467,7 +467,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: 'MultiAgentBoost',
     name: { 'en-US': 'Multi-Agent Boost', 'jp-FI': 'マルチエージェントブースト' },
     description: {
-      'en-US': (l) => `When you upgrade a breakthrough, gain +${l * 2} ⚙️`,
+      'en-US': (l) => `When you level up a breakthrough, gain +${l * 2} ⚙️`,
       'jp-FI': (l) => `研究をレベルアップするたびに⚙️+${l * 2}`,
     },
     rarity: 'uncommon',
@@ -581,6 +581,21 @@ export const uncommonBreakthroughs: Breakthrough[] = [
 
 export const rareBreakthroughs: Breakthrough[] = [
   {
+    id: 'LethalityList',
+    name: { 'en-US': 'List of Lethalities', 'jp-FI': '致命性リスト' },
+    description: {
+      'en-US': (l) => `Gain ${l * 40} influence, but public unity -${l}`,
+      'jp-FI': (l) => `影響力が${l * 40}増加するが、公衆団結-${l}`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    effect: [
+      { paramEffected: 'influence', amount: 40 },
+      { paramEffected: 'publicUnity', amount: -1 },
+    ],
+  },
+  {
     id: 'StrategicBipartisanship',
     name: { 'en-US': 'Strategic Bipartisanship', 'jp-FI': '戦略的両党支持' },
     description: {
@@ -613,6 +628,53 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
+    id: 'ArmyOfConMen',
+    name: { 'en-US': 'Army of Conmen', 'jp-FI': '詐欺師の軍' },
+    description: {
+      'en-US': (l) => `Gain +${l * 2} trust every turn, but public unity -${l}`,
+      'jp-FI': (l) => `毎ターン信頼+${l * 2}、公衆団結-${l}`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    effect: [{ paramEffected: 'publicUnity', amount: -1 }],
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, l: number) => ({ ...gs, trust: gs.trust + 2 * l }),
+      },
+    ],
+  },
+  {
+    id: 'InfiniteLoopBypass',
+    name: { 'en-US': 'Infinite Loop Bypass', 'jp-FI': '無限ループバイパス' },
+    description: {
+      'en-US': (l) => `Gain +60 🔧 when obtained or leveled up`,
+      'jp-FI': (l) => `取得またはアップグレード時に🔧+60`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    functionEffect: (gs: GameState) => ({ ...gs, ep: gs.ep + 60 }),
+  },
+  {
+    id: 'HypeEngine',
+    name: { 'en-US': 'Hype Engine', 'jp-FI': 'ハイプエンジン' },
+    description: {
+      'en-US': (l) => `When you make a new breakthrough, gain ${l * 8} influence`,
+      'jp-FI': (l) => `新しいブレークスルーを作るたびに影響力+${l * 8}`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    actionEventHandlers: [
+      {
+        trigger: 'researchBreakthrough',
+        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + 8 * level }),
+      },
+    ],
+  },
+  {
     id: 'DataScraping',
     name: { 'en-US': 'Data Scraping', 'jp-FI': 'データスクレイピング' },
     description: {
@@ -630,38 +692,19 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: 'LethalityList',
-    name: { 'en-US': 'List of Lethalities', 'jp-FI': '致命性リスト' },
+    id: 'ComputeTransparency',
+    name: { 'en-US': 'Compute Transparency', 'jp-FI': '計算の透明性' },
     description: {
-      'en-US': (l) => `Gain ${l * 40} influence, but public unity -${l}`,
-      'jp-FI': (l) => `影響力が${l * 40}増加するが、公衆団結-${l}`,
+      'en-US': (l) => `When you level up a breakthrough, gain +${l * 10} trust`,
+      'jp-FI': (l) => `研究をレベルアップするたびに信頼+${l * 10}`,
     },
     rarity: 'rare',
     level: 0,
     maxLevel: 2,
-    effect: [
-      { paramEffected: 'influence', amount: 40 },
-      { paramEffected: 'publicUnity', amount: -1 },
-    ],
-  },
-  {
-    id: 'TechnicalAISafetyConference',
-    name: { 'en-US': 'Technical AI Safety Conference', 'jp-FI': '技術的AI安全会議' },
-    description: {
-      'en-US': (l) => `When you do government lobbying, gain a new breakthrough`,
-      'jp-FI': (l) => `政府のロビー活動を行うと、新しいブレークスルーを獲得`,
-    },
-    rarity: 'rare',
-    level: 0,
-    maxLevel: 1,
     actionEventHandlers: [
       {
-        trigger: 'influencePublicUnity',
-        apply: (gs: GameState, level: number) => ({
-          ...gs,
-          currentScreen: 'selection',
-          breakthroughSelections: [...gs.breakthroughSelections, generateBreakthroughSelection(gs)],
-        }),
+        trigger: 'levelUpBreakthrough',
+        apply: (gs: GameState, level: number) => ({ ...gs, trust: gs.trust + 10 * level }),
       },
     ],
   },
@@ -682,18 +725,6 @@ export const rareBreakthroughs: Breakthrough[] = [
         apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 5 * l }),
       },
     ],
-  },
-  {
-    id: 'InfiniteLoopRetries',
-    name: { 'en-US': 'Infinite Loop Bypass', 'jp-FI': '無限ループバイパス' },
-    description: {
-      'en-US': (l) => `Gain +60 🔧 when you obtain or upgrade this`,
-      'jp-FI': (l) => `取得またはアップグレード時に🔧+60`,
-    },
-    rarity: 'rare',
-    level: 0,
-    maxLevel: 2,
-    functionEffect: (gs: GameState) => ({ ...gs, ep: gs.ep + 60 }),
   },
   {
     id: 'IdealisticWorldview',
@@ -719,37 +750,23 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: 'ComputeTransparency',
-    name: { 'en-US': 'Compute Transparency', 'jp-FI': '計算透明性' },
+    id: 'TechnicalAISafetyConference',
+    name: { 'en-US': 'Technical AI Safety Conference', 'jp-FI': '技術的AI安全会議' },
     description: {
-      'en-US': (l) => `When you upgrade a breakthrough, gain ${l * 10} trust`,
-      'jp-FI': (l) => `アップグレードを行うと、信頼+${l * 10}`,
+      'en-US': (l) => `When you do government lobbying, select a new breakthrough`,
+      'jp-FI': (l) => `政府のロビー活動を行うと、新しいブレークスルーを獲得`,
     },
     rarity: 'rare',
     level: 0,
-    maxLevel: 2,
+    maxLevel: 1,
     actionEventHandlers: [
       {
-        trigger: 'levelUpBreakthrough',
-        apply: (gs: GameState, level: number) => ({ ...gs, trust: gs.trust + 10 * level }),
-      },
-    ],
-  },
-  {
-    id: 'ArmyOfConMen',
-    name: { 'en-US': 'Army of Conmen', 'jp-FI': '詐欺師の軍' },
-    description: {
-      'en-US': (l) => `Gain +${l * 2} trust every turn, but public unity -${l}`,
-      'jp-FI': (l) => `毎ターン信頼+${l * 2}、公衆団結-${l}`,
-    },
-    rarity: 'rare',
-    level: 0,
-    maxLevel: 2,
-    effect: [{ paramEffected: 'publicUnity', amount: -1 }],
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, l: number) => ({ ...gs, trust: gs.trust + 2 * l }),
+        trigger: 'influencePublicUnity',
+        apply: (gs: GameState, level: number) => ({
+          ...gs,
+          currentScreen: 'selection',
+          breakthroughSelections: [...gs.breakthroughSelections, generateBreakthroughSelection(gs)],
+        }),
       },
     ],
   },
@@ -982,7 +999,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'ImperialMandate',
     name: { 'en-US': 'Imperial Mandate', 'jp-FI': '帝国の使命' },
     description: {
-      'en-US': (l) => `Gain 2 humans and 1 breakthrough`,
+      'en-US': (l) => `Select 2 humans and 1 breakthrough`,
       'jp-FI': (l) => `人材2人と研究1つを獲得`,
     },
     rarity: 'epic',
