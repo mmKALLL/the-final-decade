@@ -733,8 +733,8 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'EncodedProphecy',
     name: { 'en-US': 'Encoded Prophecy', 'jp-FI': '暗号化された予言' },
     description: {
-      'en-US': (l) => `At the start of each year: +5 trust and +5 influence`,
-      'jp-FI': (l) => `毎年終わりに信頼+5、影響力+5`,
+      'en-US': (l) => `At the start of each year: +5 trust / influence / ASI outcome`,
+      'jp-FI': (l) => `毎年終わりに信頼+5、影響力+5、ASI結果+5`,
     },
     rarity: 'epic',
     level: 0,
@@ -748,6 +748,7 @@ export const epicBreakthroughs: Breakthrough[] = [
               ...gs,
               trust: gs.trust + 5,
               influence: gs.influence + 5,
+              asiOutcome: gs.asiOutcome + 5,
             }
           }
           return gs
@@ -927,16 +928,13 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'AlignmentDividend',
     name: { 'en-US': 'Alignment Dividend', 'jp-FI': 'アラインメント配当' },
     description: {
-      'en-US': (l) => `Gain 5 ⚙️ and 15 ASI outcome`,
-      'jp-FI': (l) => `⚙️+5、ASI結果+15`,
+      'en-US': (l) => `Gain 25 ASI outcome`,
+      'jp-FI': (l) => `ASI結果+25`,
     },
     rarity: 'epic',
     level: 0,
     maxLevel: 1,
-    effect: [
-      { paramEffected: 'up', amount: 5 },
-      { paramEffected: 'asiOutcome', amount: 15 },
-    ],
+    effect: [{ paramEffected: 'asiOutcome', amount: 25 }],
   },
   {
     id: 'ImperialMandate',
@@ -959,18 +957,13 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'GlobalCoalition',
     name: { 'en-US': 'Global Coalition', 'jp-FI': 'グローバル連合' },
     description: {
-      'en-US': (l) => `Gain 5 trust, 5 influence, 5 ASI outcome, 5 ⚙️`,
-      'jp-FI': (l) => `信頼+5、影響力+5、ASI結果+5、⚙️+5`,
+      'en-US': (l) => `Gain 8 ⚙️`,
+      'jp-FI': (l) => `⚙️+8`,
     },
     rarity: 'epic',
     level: 0,
     maxLevel: 1,
-    effect: [
-      { paramEffected: 'trust', amount: 5 },
-      { paramEffected: 'influence', amount: 5 },
-      { paramEffected: 'asiOutcome', amount: 5 },
-      { paramEffected: 'up', amount: 5 },
-    ],
+    effect: [{ paramEffected: 'up', amount: 8 }],
   },
 ]
 
