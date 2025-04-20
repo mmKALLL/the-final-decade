@@ -9,35 +9,6 @@ import { generateBreakthroughSelection, generateHumanSelection } from './data-ge
 
 export const commonBreakthroughs: Breakthrough[] = [
   {
-    // Tested: ok
-    id: 'RewardHacking',
-    name: { 'en-US': 'Reward Hacking', 'jp-FI': 'リワードハッキング' },
-    description: {
-      'en-US': (l) => `🧪/🔧/💬 gain from humans is increased by ${l * 10}%`,
-      'jp-FI': (l) => `人材からの🧪/🔧/💬獲得が${l * 10}%増加`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    modifiers: [
-      {
-        param: 'rp',
-        type: ModifierType.Multiply,
-        apply: (value: number, level: number) => value * (1 + 0.1 * level),
-      },
-      {
-        param: 'ep',
-        type: ModifierType.Multiply,
-        apply: (value: number, level: number) => value * (1 + 0.1 * level),
-      },
-      {
-        param: 'sp',
-        type: ModifierType.Multiply,
-        apply: (value: number, level: number) => value * (1 + 0.1 * level),
-      },
-    ],
-  },
-  {
     id: 'Duplicator',
     name: { 'en-US': 'Duplicator', 'jp-FI': '複製機' },
     description: {
@@ -50,7 +21,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + level * 2 }),
+        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + 2 * level }),
       },
     ],
   },
@@ -92,8 +63,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'PoetryGenerator',
     name: { 'en-US': 'Poetry Generator', 'jp-FI': '詩ジェネレーター' },
     description: {
-      'en-US': (l) => `When you do independent outreach, gain ${l * 9} 💬`,
-      'jp-FI': (l) => `独立のアウトリーチを行うたびに${l * 9}💬を獲得する`,
+      'en-US': (l) => `When you do independent outreach, gain +${l * 9} 💬`,
+      'jp-FI': (l) => `独立のアウトリーチを行うたびに+${l * 9}💬を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -126,8 +97,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'ResearchAdvisor',
     name: { 'en-US': 'Research Advisor', 'jp-FI': '研究アドバイザー' },
     description: {
-      'en-US': (l) => `Gain ${l * 10} 🧪 every time you research a breakthrough`,
-      'jp-FI': (l) => `研究を行うたびに${l * 10}🧪を獲得する`,
+      'en-US': (l) => `Gain ${l * 12} 🧪 every time you research a breakthrough`,
+      'jp-FI': (l) => `研究を行うたびに${l * 12}🧪を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -135,7 +106,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'researchBreakthrough',
-        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + 10 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + 12 * level }),
       },
     ],
   },
@@ -143,8 +114,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'EngineeringAdvisor',
     name: { 'en-US': 'Engineering Advisor', 'jp-FI': 'エンジニアリングアドバイザー' },
     description: {
-      'en-US': (l) => `Gain ${l * 5} 🔧 every time you finish a contract`,
-      'jp-FI': (l) => `契約を終了するたびに${l * 5}🔧を獲得する`,
+      'en-US': (l) => `Gain ${l * 10} 🔧 every time you finish a contract`,
+      'jp-FI': (l) => `契約を終了するたびに${l * 10}🔧を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -152,7 +123,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 5 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 10 * level }),
       },
     ],
   },
@@ -160,8 +131,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'SocialAdvisor',
     name: { 'en-US': 'Social Advisor', 'jp-FI': 'ソーシャルアドバイザー' },
     description: {
-      'en-US': (l) => `Gain ${l * 10} 💬 every time you recruit a human`,
-      'jp-FI': (l) => `人材を雇うたびに${l * 10}💬を獲得する`,
+      'en-US': (l) => `Gain ${l * 12} 💬 every time you recruit a human`,
+      'jp-FI': (l) => `人材を雇うたびに${l * 12}💬を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -169,7 +140,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'recruitHuman',
-        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 10 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 12 * level }),
       },
     ],
   },
@@ -189,8 +160,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'InterpretabilityModel',
     name: { 'en-US': 'Interpretability Model', 'jp-FI': '解釈可能性モデル' },
     description: {
-      'en-US': (l) => `When you finish a contract, +${l * 4} ASI outcome`,
-      'jp-FI': (l) => `契約を終了するたびに+${l * 4}%ASI報酬を獲得する`,
+      'en-US': (l) => `Whenever you finish a contract, +${l * 3} ASI outcome`,
+      'jp-FI': (l) => `契約を終了するたびに+${l * 3}%ASI報酬を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -198,7 +169,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 4 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 3 * level }),
       },
     ],
   },
@@ -206,8 +177,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'TrustedAdvisor',
     name: { 'en-US': 'Trusted Advisor', 'jp-FI': '信頼されるアドバイザー' },
     description: {
-      'en-US': (l) => `When you finish a contract, gain ${l * 4} trust`,
-      'jp-FI': (l) => `契約を終了するたびに${l * 4}信頼を獲得する`,
+      'en-US': (l) => `Whenever you finish a contract, gain +${l * 3} trust`,
+      'jp-FI': (l) => `契約を終了するたびに${l * 3}信頼を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -215,24 +186,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, level: number) => ({ ...gs, trust: gs.trust + 4 * level }),
-      },
-    ],
-  },
-  {
-    id: 'PassiveIncome',
-    name: { 'en-US': 'Passive Income', 'jp-FI': '受動的収入' },
-    description: {
-      'en-US': (l) => `Gain ${2 * l} money per turn`,
-      'jp-FI': (l) => `ターンごとに${2 * l}kのお金を獲得`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, money: gs.money + 2 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, trust: gs.trust + 3 * level }),
       },
     ],
   },
@@ -240,8 +194,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'SocialEngineering',
     name: { 'en-US': 'Social Engineering', 'jp-FI': 'ソーシャルエンジニアリング' },
     description: {
-      'en-US': (l) => `When you finish a contract, gain ${l * 4} influence`,
-      'jp-FI': (l) => `契約を終了するたびに${l * 4}影響力を獲得する`,
+      'en-US': (l) => `Whenever you finish a contract, gain +${l * 3} influence`,
+      'jp-FI': (l) => `契約を終了するたびに${l * 3}影響力を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -249,7 +203,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + 4 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + 3 * level }),
       },
     ],
   },
@@ -272,14 +226,14 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'MoneyLaundering',
     name: { 'en-US': 'Money Laundering', 'jp-FI': 'マネーロンダリング' },
     description: {
-      'en-US': (l) => `Gain ${8 * l} money per turn, but lose ${12 * l} trust`,
-      'jp-FI': (l) => `ターンごとに${8 * l}のお金を得るが、${12 * l}の信頼を失う`,
+      'en-US': (l) => `Get +${l * 8} income, but lose ${l * 10} trust`,
+      'jp-FI': (l) => `ターンごとに${l * 8}のお金を得るが、${l * 10}の信頼を失う`,
     },
     rarity: 'common',
     level: 0,
     maxLevel: 3,
     effect: [
-      { paramEffected: 'trust', amount: -12 },
+      { paramEffected: 'trust', amount: -10 },
       { paramEffected: 'passiveIncome', amount: 8 },
     ],
   },
@@ -287,8 +241,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'SingularLearningTheory',
     name: { 'en-US': 'Singular Learning Theory', 'jp-FI': 'シンギュラー・ラーニング・セオリー' },
     description: {
-      'en-US': (l) => `Gain ${l * 10} 🧪 every time you level up a breakthrough`,
-      'jp-FI': (l) => `研究をレベルアップするたびに🧪+${l * 10}`,
+      'en-US': (l) => `Gain +${l * 20} 🧪 every time you level up a breakthrough`,
+      'jp-FI': (l) => `研究をレベルアップするたびに🧪+${l * 20}`,
     },
     rarity: 'common',
     level: 0,
@@ -296,7 +250,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'levelUpBreakthrough',
-        apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 10 * l }),
+        apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 20 * l }),
       },
     ],
   },
@@ -314,6 +268,41 @@ export const commonBreakthroughs: Breakthrough[] = [
       {
         trigger: 'independentResearch',
         apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 9 * l }),
+      },
+    ],
+  },
+  {
+    id: 'AngelInvestors',
+    name: { 'en-US': 'Angel Investors', 'jp-FI': 'エンジェル投資家' },
+    description: {
+      'en-US': (l) => `Gain ${150 * l} money, but lose ${l * 10} influence`,
+      'jp-FI': (l) => `${150 * l}kのお金を得るが、${l * 10}の影響力を失う`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    effect: [
+      { paramEffected: 'money', amount: 150 },
+      { paramEffected: 'influence', amount: -10 },
+    ],
+  },
+  {
+    id: 'QualiaOfHarmony',
+    name: { 'en-US': 'Qualia of Harmony', 'jp-FI': '調和のクオリア' },
+    description: {
+      'en-US': (l) => `When you do government lobbying, get +${15 * l} SP`,
+      'jp-FI': (l) => `治安を安定するたびに+${15 * l}SPを獲得する`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'influencePublicUnity',
+        apply: (gs: GameState, l: number) => ({
+          ...gs,
+          sp: gs.sp + 15 * l,
+        }),
       },
     ],
   },
@@ -543,6 +532,28 @@ export const uncommonBreakthroughs: Breakthrough[] = [
       },
     ],
   },
+  {
+    id: 'ReplicatorGrid',
+    name: { 'en-US': 'Replicator Grid', 'jp-FI': '複製グリッド' },
+    description: {
+      'en-US': (l) => `Gain 1 🧪/🔧/💬 / turn`,
+      'jp-FI': (l) => `毎ターン🧪/🔧/💬を1ずつ得る`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 2,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, l: number) => ({
+          ...gs,
+          rp: gs.rp + l,
+          ep: gs.ep + l,
+          sp: gs.sp + l,
+        }),
+      },
+    ],
+  },
 ]
 
 ////////////////////////////////////////////////////////////
@@ -646,32 +657,10 @@ export const rareBreakthroughs: Breakthrough[] = [
     functionEffect: (gs: GameState) => ({ ...gs, ep: gs.ep + 60 }),
   },
   {
-    id: 'ReplicatorGrid',
-    name: { 'en-US': 'Replicator Grid', 'jp-FI': '複製グリッド' },
+    id: 'IdealisticWorldview',
+    name: { 'en-US': 'Idealistic Worldview', 'jp-FI': '理想主義的世界観' },
     description: {
-      'en-US': (l) => `Gain 1 🧪/🔧/💬 / turn`,
-      'jp-FI': (l) => `毎ターン🧪/🔧/💬を1ずつ得る`,
-    },
-    rarity: 'rare',
-    level: 0,
-    maxLevel: 2,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, l: number) => ({
-          ...gs,
-          rp: gs.rp + l,
-          ep: gs.ep + l,
-          sp: gs.sp + l,
-        }),
-      },
-    ],
-  },
-  {
-    id: 'AestheticImpairment',
-    name: { 'en-US': 'Aesthetic Impairment', 'jp-FI': '美的欠陥' },
-    description: {
-      'en-US': (l) => `🧪 gain from humans is doubled, but you can no longer gain trust`,
+      'en-US': (l) => `🧪 gain from humans is doubled, but you can no longer gain influence`,
       'jp-FI': (l) => `信頼獲得が0、🧪は2倍`,
     },
     rarity: 'rare',
@@ -679,7 +668,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     maxLevel: 1,
     modifiers: [
       {
-        param: 'trust',
+        param: 'influence',
         type: ModifierType.Multiply,
         apply: (v: number) => v * 0,
       },
