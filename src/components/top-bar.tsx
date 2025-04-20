@@ -1,5 +1,5 @@
 import { getMoneyGain, useGameState } from '../gamestate-hooks'
-import { getDateFromTurn, paramToLabel, withPlusSign } from '../util'
+import { assertNever, getDateFromTurn, paramToLabel, withPlusSign } from '../util'
 import { ContractItem } from './contract-item'
 
 export function TopBar() {
@@ -50,12 +50,27 @@ export function TopBar() {
         <div className="top-bar-yearly-goal">
           {gs.turn === 0 && (gs.humanSelections.length > 0 || gs.breakthroughSelections.length > 0) ? (
             <span className="top-bar-tutorial-text">
-              Select {3 - gs.humanSelections.length}/3 humans and {2 - gs.breakthroughSelections.length}/2 breakthroughs.
-              <br />
-              <br />
-              After that, complete the goal that appears here.
-              <br />
-              Each turn represents one month.
+              {gs.language === 'en-US' ? (
+                <>
+                  Select {3 - gs.humanSelections.length}/3 humans and {2 - gs.breakthroughSelections.length}/2 breakthroughs.
+                  <br />
+                  <br />
+                  After that, complete the goal that appears here.
+                  <br />
+                  Each turn represents one month.
+                </>
+              ) : gs.language === 'jp-FI' ? (
+                <>
+                  人間を{3 - gs.humanSelections.length}/3人、ブレークスルーを{2 - gs.breakthroughSelections.length}/2つ選択してください。
+                  <br />
+                  <br />
+                  その後、ここに表示される目標を達成してください。
+                  <br />
+                  各ターンは1ヶ月を表しています。
+                </>
+              ) : (
+                assertNever(gs.language)
+              )}
             </span>
           ) : (
             <ContractItem contract={currentYearlyGoal} editable={false} index={0} language={gs.language} key="top-bar-yearly-goal" />
