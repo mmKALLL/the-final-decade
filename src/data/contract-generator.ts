@@ -84,7 +84,7 @@ function getRandomValue(base: number, difficulty: number, difficultyFactor: numb
 
 function getContractMoneyValue(difficulty: number, totalEffects: number, isSecondaryContract: boolean): number {
   let value = getRandomValue(50, difficulty, 1.5) * 0.2 // Multiplier to convert Alignment is Hard values into The Final Decade curve
-  const effectMultiplier = [1, 0.8, 0.65, 0.55][Math.min(totalEffects, 3)] // Indexed access; contracts with more effects provide less money
+  const effectMultiplier = [1, 0.75, 0.6, 0.5][Math.min(totalEffects, 3)] // Indexed access; contracts with more effects provide less money
 
   return Math.round(((isSecondaryContract ? 1 : 2.2) * effectMultiplier * value) / 5) * 5 // Round to nearest 5
 }
@@ -165,7 +165,7 @@ function getCapabilitySuccessEffects(difficulty: number): WeightedSingleEffect[]
     { weight: difficulty > 200 ? 4 : 0, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.08) } },
     { weight: 3, effect: { paramEffected: 'influence', amount: getRandomValue(3, difficulty, 0.04) } },
     { weight: 3, effect: { paramEffected: 'up', amount: getRandomInt(1, 4) } },
-    { weight: 3, effect: { paramEffected: 'passiveIncome', amount: getRandomValue(1, difficulty, 0.02) } },
+    { weight: 4, effect: { paramEffected: 'passiveIncome', amount: getRandomValue(1, difficulty, 0.02) } },
     { weight: difficulty > 200 ? 2 : 1, effect: { paramEffected: 'humanSelection', amount: getRandomValue(50, difficulty, 0.5) } },
     { weight: difficulty > 260 ? 3 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(100, difficulty, 0.5) } },
   ]
