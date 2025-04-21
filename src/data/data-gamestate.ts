@@ -38,7 +38,7 @@ export const initialGameState: GameState = {
   ...refreshContracts(baseGameState),
   currentScreen: 'selection',
   humanSelections: [
-    generateHumanSelection(baseGameState, 100, 'uncommon'),
+    generateHumanSelection(baseGameState, 100, 'common'),
     generateHumanSelection(baseGameState, 100, 'common'),
     generateHumanSelection(baseGameState, 100, 'common'),
   ],
