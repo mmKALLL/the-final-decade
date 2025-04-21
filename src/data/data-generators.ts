@@ -51,7 +51,9 @@ export function generateBreakthroughSelection(gs: GameState, rarityNumberOverrid
 
   const guaranteedBreakthroughs = breakthroughs.filter((b) => b.guaranteed)
   let weightedBreakthroughs: Weighted<Breakthrough>[] = []
-  let filteredBreakthroughs: Breakthrough[] = breakthroughs.filter((b) => !gs.breakthroughs.some((existing) => existing.id === b.id))
+  let filteredBreakthroughs: Breakthrough[] = breakthroughs
+    .filter((b) => !gs.breakthroughs.some((existing) => existing.id === b.id))
+    .filter((b) => b.rarity !== 'epic')
 
   if (!rarityOverride) {
     weightedBreakthroughs = filteredBreakthroughs.map((b) => ({
