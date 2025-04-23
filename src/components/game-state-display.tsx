@@ -13,14 +13,18 @@ export function GameStateDisplay() {
 
   // Create more compact category names for mobile with descriptions
   const compactCategories = {
-    [language === 'jp-FI' ? 'リソース' : 'Resources']: {
-      [paramToLabel('money', language)]: {
-        value: gs.money,
-        desc: language === 'jp-FI' ? '採用やアクションのための資金' : 'Funds for hiring and actions',
-      },
+    [language === 'jp-FI' ? 'フィナンシャル' : 'Financial']: {
+      // [paramToLabel('money', language)]: {
+      //   value: gs.money,
+      //   desc: language === 'jp-FI' ? '採用やアクションのための資金' : 'Funds for hiring and actions',
+      // },
       [language === 'jp-FI' ? '収入' : 'income']: {
         value: moneyGain.total,
         desc: language === 'jp-FI' ? '毎ターンのお金の変化' : 'Change to money each turn',
+      },
+      [language === 'jp-FI' ? '給料' : 'wages']: {
+        value: `-${moneyGain.wages} * ${moneyGain.multiplier.toFixed(2)} = -${moneyGain.totalWages}`,
+        desc: language === 'jp-FI' ? '毎ターン人間に支払われるお金' : 'Money paid to humans each turn',
       },
     },
     [language === 'jp-FI' ? '組織' : 'Organization']: {
@@ -56,9 +60,10 @@ export function GameStateDisplay() {
         value: `${resourceProduction.rp.base} * ${resourceProduction.rp.multiplier} = ${resourceProduction.rp.total}`,
         desc: language === 'jp-FI' ? 'ブレークスルーのためのリサーチポイント' : 'Research Points for breakthroughs',
       },
-      [language === 'jp-FI' ? '給料' : 'wages']: {
-        value: `-${moneyGain.wages} * ${moneyGain.multiplier.toFixed(2)} = -${moneyGain.totalWages}`,
-        desc: language === 'jp-FI' ? '毎ターン人間に支払われるお金' : 'Money paid to humans each turn',
+      // TODO: Replace this with something more useful, or move trust here and influence elsewhere
+      [language === 'jp-FI' ? '人数' : 'humans']: {
+        value: gs.humans.length,
+        desc: language === 'jp-FI' ? 'チームの人数' : 'Number of humans in your team',
       },
     },
   }
