@@ -11,7 +11,7 @@ export function isYearlyContract(contract: Contract | YearlyContract): contract 
 // Define contract rarity colors; they are less saturated since they affect the readability more
 const rarityColors: Record<Contract['rarity'], string> = {
   common: '#AEAEAE', // Gray
-  uncommon: '#2166D3', // Blue
+  uncommon: '#4196E3', // Blue
   rare: '#CFA700', // Gold
   epic: '#BC47E0', // Purple
 }
