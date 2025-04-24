@@ -314,8 +314,8 @@ export const commonBreakthroughs: Breakthrough[] = [
 
 export const uncommonBreakthroughs: Breakthrough[] = [
   {
-    id: 'ConsensusFilter',
-    name: { 'en-US': 'Consensus Filter', 'jp-FI': 'コンセンサスフィルター' },
+    id: 'NonviolentCommunication',
+    name: { 'en-US': 'Nonviolent Communication', 'jp-FI': 'コンセンサスフィルター' },
     description: {
       'en-US': (l) => `Gain +${l} trust every turn`,
       'jp-FI': (l) => `毎ターン、信頼+${l}`,
@@ -433,8 +433,8 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: 'AmplifiedOversight',
     name: { 'en-US': 'Amplified Oversight', 'jp-FI': '増幅された監視' },
     description: {
-      'en-US': (l) => `When you increase ASI outcome, gain ${l * 16} 💬`,
-      'jp-FI': (l) => `ASI結果が増加すると、💬+${l * 16}`,
+      'en-US': (l) => `When you increase ASI outcome, gain ${l * 8} 💬 and 🧪`,
+      'jp-FI': (l) => `ASI結果が増加すると、🧪と💬+${l * 8}`,
     },
     rarity: 'uncommon',
     level: 0,
@@ -442,7 +442,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'influenceAsiOutcome',
-        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 16 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 8 * level, rp: gs.rp + 8 * level }),
       },
     ],
   },
@@ -555,8 +555,8 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: 'ReplicatorGrid',
     name: { 'en-US': 'Replicator Grid', 'jp-FI': '複製グリッド' },
     description: {
-      'en-US': (l) => `Gain +${l} 🧪/🔧/💬 per turn`,
-      'jp-FI': (l) => `毎ターン🧪/🔧/💬を${l}ずつ得る`,
+      'en-US': (l) => `Gain +${l} 💬/🔧/🧪 each turn`,
+      'jp-FI': (l) => `毎ターン💬/🔧/🧪を${l}ずつ得る`,
     },
     rarity: 'uncommon',
     level: 0,
@@ -678,18 +678,14 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'DataScraping',
     name: { 'en-US': 'Data Scraping', 'jp-FI': 'データスクレイピング' },
     description: {
-      'en-US': (l) => `Gain +${4 * l} 🧪 per turn`,
-      'jp-FI': (l) => `毎ターン🧪+${4 * l}`,
+      'en-US': (l) => `Gain +${70 * l} 🧪 when this is obtained or leveled up`,
+      'jp-FI': (l) => `取得またはアップグレード時に🧪+${70 * l}`,
     },
     rarity: 'rare',
     level: 0,
     maxLevel: 2,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + 4 * level }),
-      },
-    ],
+    effect: [{ paramEffected: 'rp', amount: 70 }],
+    actionEventHandlers: [],
   },
   {
     id: 'ComputeTransparency',
