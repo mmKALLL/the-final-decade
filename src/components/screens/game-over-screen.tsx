@@ -37,7 +37,7 @@ export const GameOverScreen = () => {
       </p>
       <GameEndStats />
       <button className="restart-button" onClick={() => window.location.reload()}>
-        {gs.language === 'en-US' ? 'Try Again' : 'もう一度'}
+        {gs.language === 'en-US' ? 'Try Again' : 'もう一回'}
       </button>
     </div>
   )

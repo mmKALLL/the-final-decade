@@ -21,7 +21,7 @@ export const VictoryScreen = () => {
 
       <GameEndStats />
       <button className="restart-button" onClick={() => window.location.reload()}>
-        {gs.language === 'en-US' ? 'Play Again' : 'もう一度プレイする'}
+        {gs.language === 'en-US' ? 'Play Again' : 'もう一回プレイする'}
       </button>
     </div>
   )
