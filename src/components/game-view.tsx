@@ -1,9 +1,8 @@
 import { useGameState } from '../gamestate-hooks'
 import { assertNever } from '../util'
-import { GameOverScreen } from './screens/game-over-screen'
+import { GameEndScreen } from './screens/game-end-screen'
 import { MainScreen } from './screens/main-screen'
 import { SelectionScreen } from './screens/selection-screen/selection-screen'
-import { VictoryScreen } from './screens/victory-screen'
 import { TopBar } from './top-bar'
 
 export function GameView() {
@@ -17,10 +16,8 @@ export function GameView() {
           <MainScreen />
         ) : gs.currentScreen === 'selection' ? (
           <SelectionScreen />
-        ) : gs.currentScreen === 'game-over' ? (
-          <GameOverScreen />
-        ) : gs.currentScreen === 'victory' ? (
-          <VictoryScreen />
+        ) : gs.currentScreen === 'game-over' || gs.currentScreen === 'victory' ? (
+          <GameEndScreen />
         ) : (
           assertNever(gs.currentScreen)
         )}

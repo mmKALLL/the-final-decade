@@ -1,3 +1,10 @@
+// Needed for Google Tag Manager interoperability; see https://github.com/vercel/next.js/discussions/20784 and https://stackoverflow.com/questions/56457935/typescript-error-property-x-does-not-exist-on-type-window
+declare global {
+  interface Window {
+    dataLayer: Record<string, unknown>[]
+  }
+}
+
 export type CurrentScreen =
   | 'mainMenu' // unused
   | 'gameOver'
