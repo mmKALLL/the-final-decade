@@ -743,6 +743,27 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
+    id: 'LogicalInduction',
+    name: { 'en-US': 'Logical Induction', 'jp-FI': '論理的帰納法' },
+    description: {
+      'en-US': (l) => `When you finish a contract, gain ${l * 10} 🔧 and ${l * 5} 🧪`,
+      'jp-FI': (l) => `契約を終了するたびに🔧+${l * 10}と🧪+${l * 5}を獲得する`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    actionEventHandlers: [
+      {
+        trigger: 'contractSuccess',
+        apply: (gs: GameState, level: number) => ({
+          ...gs,
+          ep: gs.ep + 10 * level,
+          rp: gs.rp + 5 * level,
+        }),
+      },
+    ],
+  },
+  {
     id: 'DataScraping',
     name: { 'en-US': 'Data Scraping', 'jp-FI': 'データスクレイピング' },
     description: {
@@ -867,27 +888,6 @@ export const rareBreakthroughs: Breakthrough[] = [
         apply: (gs: GameState, l: number) => ({
           ...gs,
           asiOutcome: gs.asiOutcome - gs.publicUnity,
-        }),
-      },
-    ],
-  },
-  {
-    id: 'LogicalInduction',
-    name: { 'en-US': 'Logical Induction', 'jp-FI': '論理的帰納法' },
-    description: {
-      'en-US': (l) => `When you finish a contract, gain ${l * 10} 🔧 and ${l * 5} 🧪`,
-      'jp-FI': (l) => `契約を終了するたびに🔧+${l * 10}と🧪+${l * 5}を獲得する`,
-    },
-    rarity: 'rare',
-    level: 0,
-    maxLevel: 2,
-    actionEventHandlers: [
-      {
-        trigger: 'contractSuccess',
-        apply: (gs: GameState, level: number) => ({
-          ...gs,
-          ep: gs.ep + 10 * level,
-          rp: gs.rp + 5 * level,
         }),
       },
     ],
