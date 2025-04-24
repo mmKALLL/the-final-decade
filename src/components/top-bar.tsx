@@ -1,5 +1,5 @@
 import { getMoneyGain, useGameState } from '../gamestate-hooks'
-import { assertNever, getDateFromTurn, paramToLabel, withPlusSign } from '../util'
+import { assertNever, getDateFromTurn, getYearForDisplay, paramToLabel, withPlusSign } from '../util'
 import { ContractItem } from './contract-item'
 
 export function TopBar() {
@@ -67,6 +67,24 @@ export function TopBar() {
                   その後、ここに表示される目標を達成してください。
                   <br />
                   各ターンは1ヶ月を表しています。
+                </>
+              ) : (
+                assertNever(gs.language)
+              )}
+            </span>
+          ) : gs.turn % 12 === 0 && (gs.humanSelections.length > 0 || gs.breakthroughSelections.length > 0) ? (
+            <span className="top-bar-tutorial-text">
+              {gs.language === 'en-US' ? (
+                <>
+                  Congratulations on reaching year {getYearForDisplay(gs.turn)}!
+                  <br />
+                  Select an epic breakthrough from the top section.
+                </>
+              ) : gs.language === 'jp-FI' ? (
+                <>
+                  {getYearForDisplay(gs.turn)}年に到達したことをおめでとうございます！
+                  <br />
+                  画面上部のエピックブレークスルーを選択してください。
                 </>
               ) : (
                 assertNever(gs.language)

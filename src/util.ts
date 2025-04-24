@@ -2,6 +2,8 @@ import { Breakthrough, Effect, GameState, HumanRank, HumanType, Language, Param,
 
 export const getRandomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min
 export const getYear = (turn: number) => Math.floor(turn / 12) + 1
+export const getYearForDisplay = (turn: number) => 2025 + Math.floor(turn / 12)
+
 export const isGameOver = (gs: GameState): boolean => gs.money <= 0 || gs.asiOutcome <= 0 || gs.trust <= 0 || gs.influence <= 0
 export const isGameWon = (gs: GameState): boolean => (getYear(gs.turn) >= 6 && gs.asiOutcome >= 100) || gs.publicUnity >= 100
 
@@ -62,8 +64,7 @@ export const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
 
 // Convert turn to date format (2025 Jan + months)
 export const getDateFromTurn = (turn: number) => {
-  const startYear = 2025
-  const year = startYear + Math.floor(turn / 12)
+  const year = getYearForDisplay(turn)
   const month = (turn % 12) + 1
 
   return `${year}-${month < 10 ? '0' : ''}${month}`
