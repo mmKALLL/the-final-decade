@@ -255,6 +255,23 @@ export const commonBreakthroughs: Breakthrough[] = [
     ],
   },
   {
+    id: 'AdversarialRedTeaming',
+    name: { 'en-US': 'Adversarial Red-Teaming', 'jp-FI': '敵対的レッドチーミング' },
+    description: {
+      'en-US': (l) => `When you increase ASI outcome, gain +${l * 12} 💬`,
+      'jp-FI': (l) => `ASI結果を増加させると、💬+${l * 12}`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'influenceAsiOutcome',
+        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 12 * level }),
+      },
+    ],
+  },
+  {
     id: 'InstrumentalityProject',
     name: { 'en-US': 'Instrumentality Project', 'jp-FI': 'インストルメンタリティプロジェクト' },
     description: {
@@ -303,6 +320,57 @@ export const commonBreakthroughs: Breakthrough[] = [
           ...gs,
           sp: gs.sp + 15 * l,
         }),
+      },
+    ],
+  },
+  {
+    id: 'CoherentVolition',
+    name: { 'en-US': 'Coherent Volition', 'jp-FI': '首尾一貫した意志' },
+    description: {
+      'en-US': (l) => `Gain SP/EP/RP equal to public unity each turn (when positive)`,
+      'jp-FI': (l) => `公衆団結が正の場合、毎ターン公衆団結と同じ量の💬/🔧/🧪を獲得する`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, level: number) => {
+          const unityBonus = Math.max(0, gs.publicUnity)
+          return {
+            ...gs,
+            sp: gs.sp + unityBonus,
+            ep: gs.ep + unityBonus,
+            rp: gs.rp + unityBonus,
+          }
+        },
+      },
+    ],
+  },
+  {
+    id: 'WaluigiEffect',
+    name: { 'en-US': 'Waluigi Effect', 'jp-FI': 'ワルイージ効果' },
+    description: {
+      'en-US': (l) => `Gain 1 💬/🔧/🧪 each turn while trust is under 100`,
+      'jp-FI': (l) => `信頼が100未満の間、毎ターン💬/🔧/🧪を1ずつ獲得する`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, level: number) => {
+          return {
+            ...gs,
+            ...(gs.trust < 100 && {
+              sp: gs.sp + 1,
+              ep: gs.ep + 1,
+              rp: gs.rp + 1,
+            }),
+          }
+        },
       },
     ],
   },
@@ -746,6 +814,23 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
+    id: 'InnerCorrigibility',
+    name: { 'en-US': 'Inner Corrigibility', 'jp-FI': '内部修正可能性' },
+    description: {
+      'en-US': (l) => `When you increase trust, gain ${l * 8} ASI outcome`,
+      'jp-FI': (l) => `信頼を増加させると、ASI結果+${l * 8}`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    actionEventHandlers: [
+      {
+        trigger: 'buildTrust',
+        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
+      },
+    ],
+  },
+  {
     id: 'TechnicalAISafetyConference',
     name: { 'en-US': 'Technical AI Safety Conference', 'jp-FI': '技術的AI安全会議' },
     description: {
@@ -762,6 +847,47 @@ export const rareBreakthroughs: Breakthrough[] = [
           ...gs,
           currentScreen: 'selection',
           breakthroughSelections: [...gs.breakthroughSelections, generateBreakthroughSelection(gs)],
+        }),
+      },
+    ],
+  },
+  {
+    id: 'ShardTheory',
+    name: { 'en-US': 'Shard Theory', 'jp-FI': 'シャード理論' },
+    description: {
+      'en-US': (l) => `Public unity no longer affects ASI outcome`,
+      'jp-FI': (l) => `公衆団結はASI結果に影響しない`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 1,
+    actionEventHandlers: [
+      {
+        trigger: 'turnEnd',
+        apply: (gs: GameState, l: number) => ({
+          ...gs,
+          asiOutcome: gs.asiOutcome - gs.publicUnity,
+        }),
+      },
+    ],
+  },
+  {
+    id: 'LogicalInduction',
+    name: { 'en-US': 'Logical Induction', 'jp-FI': '論理的帰納法' },
+    description: {
+      'en-US': (l) => `When you finish a contract, gain ${l * 10} 🔧 and ${l * 5} 🧪`,
+      'jp-FI': (l) => `契約を終了するたびに🔧+${l * 10}と🧪+${l * 5}を獲得する`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    actionEventHandlers: [
+      {
+        trigger: 'contractSuccess',
+        apply: (gs: GameState, level: number) => ({
+          ...gs,
+          ep: gs.ep + 10 * level,
+          rp: gs.rp + 5 * level,
         }),
       },
     ],
