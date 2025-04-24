@@ -6,24 +6,24 @@ import { generateHumanSelection, generateBreakthroughSelection } from './data-ge
 export const firstOrderActions: (gs: GameState) => Action[] = (gs) => [
   {
     eventId: 'independentOutreach',
-    name: { 'en-US': 'Independent outreach', 'jp-FI': '個人的なネットワーキング' },
+    name: { 'en-US': 'Independent outreach', 'jp-FI': '個人交流' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'sp', amount: 3 }],
+    effect: [{ paramEffected: 'sp', amount: 4 }],
   },
   {
     eventId: 'independentEngineering',
-    name: { 'en-US': 'Independent engineering', 'jp-FI': '個人的な開発' },
+    name: { 'en-US': 'Independent engineering', 'jp-FI': '個人開発' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'ep', amount: 3 }],
+    effect: [{ paramEffected: 'ep', amount: 4 }],
   },
   {
     eventId: 'independentResearch',
-    name: { 'en-US': 'Independent research', 'jp-FI': '個人的な研究' },
+    name: { 'en-US': 'Independent research', 'jp-FI': '個人研究' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'rp', amount: 3 }],
+    effect: [{ paramEffected: 'rp', amount: 4 }],
   },
   {
     eventId: 'applyForFunding',

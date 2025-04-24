@@ -46,8 +46,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'PoetryGenerator',
     name: { 'en-US': 'Poetry Generator', 'jp-FI': '詩ジェネレーター' },
     description: {
-      'en-US': (l) => `When you do independent outreach, gain +${l * 9} 💬`,
-      'jp-FI': (l) => `独立のアウトリーチを行うたびに+${l * 9}💬を獲得する`,
+      'en-US': (l) => `When you do independent outreach, gain +${l * 10} 💬`,
+      'jp-FI': (l) => `個人交流を行うたびに+${l * 10}💬を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -55,7 +55,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'independentOutreach',
-        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 9 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 10 * level }),
       },
     ],
   },
@@ -258,8 +258,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'InstrumentalityProject',
     name: { 'en-US': 'Instrumentality Project', 'jp-FI': 'インストルメンタリティプロジェクト' },
     description: {
-      'en-US': (l) => `When you do independent research, gain ${l * 9} 🧪`,
-      'jp-FI': (l) => `独立の研究を行うたびに🧪+${l * 9}`,
+      'en-US': (l) => `When you do independent research, gain ${l * 10} 🧪`,
+      'jp-FI': (l) => `個人研究を行うたびに🧪+${l * 10}`,
     },
     rarity: 'common',
     level: 0,
@@ -267,7 +267,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'independentResearch',
-        apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 9 * l }),
+        apply: (gs: GameState, l: number) => ({ ...gs, rp: gs.rp + 10 * l }),
       },
     ],
   },
