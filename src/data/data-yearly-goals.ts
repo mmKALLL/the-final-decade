@@ -45,7 +45,7 @@ export const yearlyContracts: YearlyContract[] = [
     requirements: [],
     costs: [
       { paramEffected: 'ep', amount: -40 },
-      { paramEffected: 'passiveIncome', amount: -5 },
+      { paramEffected: 'income', amount: -5 },
     ],
   },
   {

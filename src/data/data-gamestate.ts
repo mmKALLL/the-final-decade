@@ -11,7 +11,7 @@ const baseGameState: GameState = {
 
   turn: 0,
   money: debug ? 1000 : 100,
-  passiveIncome: 0,
+  income: 0,
   asiOutcome: 50,
   publicUnity: -1,
   influence: 100,

@@ -164,7 +164,7 @@ function getCapabilitySuccessEffects(difficulty: number): WeightedSingleEffect[]
     { weight: difficulty > 200 ? 4 : 0, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.08) } },
     { weight: 3, effect: { paramEffected: 'influence', amount: getRandomValue(1, difficulty, 0.04) } },
     { weight: 3, effect: { paramEffected: 'up', amount: getRandomInt(1, 4) } },
-    { weight: 4, effect: { paramEffected: 'passiveIncome', amount: getRandomValue(1, difficulty, 0.02) } },
+    { weight: 4, effect: { paramEffected: 'income', amount: getRandomValue(1, difficulty, 0.02) } },
     { weight: difficulty > 200 ? 2 : 1, effect: { paramEffected: 'humanSelection', amount: getRandomValue(50, difficulty, 0.5) } },
     { weight: difficulty > 260 ? 3 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(100, difficulty, 0.5) } },
   ]

@@ -41,7 +41,7 @@ export type GameState = {
 
   // The various turn-based actions have an passive and active component - passive is gained each turn, active when a turn is used to take that action
   money: number
-  passiveIncome: number
+  income: number
 
   // getTeamPerformance: () => number // (30 / (25 + freeHumans)) // Unused. Effectiveness of each person. Having more decreases their efficiency.
 
@@ -178,7 +178,7 @@ export type ParamEventHandler = { trigger: Param; apply: ParamEventHandlerFuncti
 export type Param =
   | 'turn'
   | 'money'
-  | 'passiveIncome'
+  | 'income'
   | 'trust'
   | 'publicUnity'
   | 'asiOutcome'

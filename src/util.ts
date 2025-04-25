@@ -27,7 +27,7 @@ export const paramToLabel = (p: Param, language: Language): string => {
     switch (p) {
       case 'turn':             return 'ターン'
       case 'money':            return 'お金'
-      case 'passiveIncome':    return '受動的収入'
+      case 'income':           return '受動的収入'
       case 'trust':            return '信頼'
       case 'publicUnity':      return '公共団結'
       case 'asiOutcome':       return 'ASI結果'
@@ -44,7 +44,7 @@ export const paramToLabel = (p: Param, language: Language): string => {
     switch (p) {
       case 'turn':             return 'turn'
       case 'money':            return 'money'
-      case 'passiveIncome':    return 'income'
+      case 'income':           return 'income'
       case 'trust':            return 'trust'
       case 'publicUnity':      return 'unity'
       case 'asiOutcome':       return 'ASI outcome'

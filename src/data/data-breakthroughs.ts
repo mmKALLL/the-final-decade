@@ -234,7 +234,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     maxLevel: 3,
     effect: [
       { paramEffected: 'trust', amount: -10 },
-      { paramEffected: 'passiveIncome', amount: 8 },
+      { paramEffected: 'income', amount: 8 },
     ],
   },
   {
@@ -474,7 +474,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
         trigger: 'contractSuccess',
         apply: (gs: GameState, l: number) => ({
           ...gs,
-          passiveIncome: gs.passiveIncome + 3 * l,
+          income: gs.income + 3 * l,
           trust: gs.trust - 8 * l,
         }),
       },
@@ -675,7 +675,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     maxLevel: 2,
     effect: [
       { paramEffected: 'publicUnity', amount: 2 },
-      { paramEffected: 'passiveIncome', amount: -6 },
+      { paramEffected: 'income', amount: -6 },
     ],
   },
   {

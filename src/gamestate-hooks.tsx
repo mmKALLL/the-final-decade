@@ -207,7 +207,7 @@ export function getMoneyGain(gs: GameState): { total: number; wages: number; pas
   const wages = gs.humans.reduce((acc, human) => acc + human.wage, 0)
   const multiplier = Math.max((200 - gs.trust) / 100, 0)
   const totalWages = Math.round(wages * multiplier)
-  const passive = gs.passiveIncome
+  const passive = gs.income
 
   return {
     passive,
