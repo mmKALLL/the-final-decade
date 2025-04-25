@@ -266,7 +266,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     maxLevel: 3,
     actionEventHandlers: [
       {
-        trigger: 'influenceAsiOutcome',
+        trigger: 'increaseAsiOutcome',
         apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 12 * level }),
       },
     ],
@@ -315,7 +315,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     maxLevel: 3,
     actionEventHandlers: [
       {
-        trigger: 'influencePublicUnity',
+        trigger: 'increaseUnity',
         apply: (gs: GameState, l: number) => ({
           ...gs,
           sp: gs.sp + 15 * l,
@@ -425,7 +425,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     maxLevel: 3,
     actionEventHandlers: [
       {
-        trigger: 'buildTrust',
+        trigger: 'increaseTrust',
         apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
       },
     ],
@@ -509,7 +509,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     maxLevel: 3,
     actionEventHandlers: [
       {
-        trigger: 'influenceAsiOutcome',
+        trigger: 'increaseAsiOutcome',
         apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 8 * level, rp: gs.rp + 8 * level }),
       },
     ],
@@ -594,7 +594,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     maxLevel: 1,
     actionEventHandlers: [
       {
-        trigger: 'influencePublicUnity',
+        trigger: 'increaseUnity',
         apply: (gs: GameState, level: number) => ({
           ...gs,
           currentScreen: 'selection',
@@ -846,7 +846,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     maxLevel: 2,
     actionEventHandlers: [
       {
-        trigger: 'buildTrust',
+        trigger: 'increaseTrust',
         apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
       },
     ],
@@ -863,7 +863,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     maxLevel: 1,
     actionEventHandlers: [
       {
-        trigger: 'influencePublicUnity',
+        trigger: 'increaseUnity',
         apply: (gs: GameState, level: number) => ({
           ...gs,
           currentScreen: 'selection',

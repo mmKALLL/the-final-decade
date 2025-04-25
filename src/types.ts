@@ -148,7 +148,7 @@ export type EventId =
   | 'independentOutreach'
   | 'independentEngineering'
   | 'independentResearch'
-  | 'applyForFunding'
+  | 'independentFunding'
 
   // Second-order actions
   | 'researchBreakthrough'
@@ -157,10 +157,10 @@ export type EventId =
   | 'gainUpgradePoint'
 
   // Third-order actions
-  | 'influenceAsiOutcome'
-  | 'influencePublicUnity'
+  | 'increaseAsiOutcome'
+  | 'increaseUnity'
   | 'increaseInfluence'
-  | 'buildTrust'
+  | 'increaseTrust'
 
   // Game state related
   | 'contractSuccess'

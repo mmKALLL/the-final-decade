@@ -26,7 +26,7 @@ export const firstOrderActions: (gs: GameState) => Action[] = (gs) => [
     effect: [{ paramEffected: 'rp', amount: 4 }],
   },
   {
-    eventId: 'applyForFunding',
+    eventId: 'independentFunding',
     name: { 'en-US': 'Apply for funding', 'jp-FI': 'お金を募集する' },
     turnCost: 1,
     turnsInvested: 0,
@@ -78,7 +78,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
 
 export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
   {
-    eventId: 'buildTrust',
+    eventId: 'increaseTrust',
     name: { 'en-US': 'Build trust', 'jp-FI': '信頼を作る' },
     turnCost: 1,
     turnsInvested: 0,
@@ -98,7 +98,7 @@ export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
     ],
   },
   {
-    eventId: 'influenceAsiOutcome',
+    eventId: 'increaseAsiOutcome',
     name: { 'en-US': 'Alignment research', 'jp-FI': 'アライメント研究' },
     turnCost: 1,
     turnsInvested: 0,
@@ -108,7 +108,7 @@ export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
     ],
   },
   {
-    eventId: 'influencePublicUnity',
+    eventId: 'increaseUnity',
     name: { 'en-US': 'Government lobbying', 'jp-FI': '治安を安定する' },
     turnCost: 1,
     turnsInvested: 0,
