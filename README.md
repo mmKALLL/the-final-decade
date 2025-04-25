@@ -6,7 +6,7 @@ Play now at [https://studioesagames.com/tfd/](https://studioesagames.com/tfd/)
 
 ## How to play
 
-The game begins by selecting three team members and one breakthrough.
+The game begins by selecting three team members and two breakthroughs.
 
 Each action takes one turn and represents one month. Between actions, your team produces resources and costs money.
 
