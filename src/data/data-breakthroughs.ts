@@ -307,8 +307,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'QualiaOfHarmony',
     name: { 'en-US': 'Qualia of Harmony', 'jp-FI': '調和のクオリア' },
     description: {
-      'en-US': (l) => `When you do government lobbying, get +${15 * l} SP`,
-      'jp-FI': (l) => `治安を安定するたびに+${15 * l}SPを獲得する`,
+      'en-US': (l) => `When you do government lobbying, get +${15 * l} 💬`,
+      'jp-FI': (l) => `治安を安定するたびに+${15 * l}💬を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -327,7 +327,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'CoherentVolition',
     name: { 'en-US': 'Coherent Volition', 'jp-FI': '首尾一貫した意志' },
     description: {
-      'en-US': (l) => `Gain SP/EP/RP equal to public unity each turn (when positive)`,
+      'en-US': (l) => `Gain 💬/🔧/🧪 equal to public unity each turn (when positive)`,
       'jp-FI': (l) => `公衆団結が正の場合、毎ターン公衆団結と同じ量の💬/🔧/🧪を獲得する`,
     },
     rarity: 'common',
