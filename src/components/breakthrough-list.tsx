@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks'
 import { Breakthrough } from '../types'
-import { levelUpCost, rarityColors } from '../util'
+import { levelUpCost, paramToLabel, rarityColors } from '../util'
 import { useGameState } from '../gamestate-hooks'
 import { levelUpBreakthroughAction } from '../data/data-actions'
 import { InfoTooltip } from './info-tooltip'
@@ -90,7 +90,7 @@ export const BreakthroughList = ({ editable }: BreakthroughListProps) => {
 
                 {editable && !isMaxLevel && (
                   <div className="level-up-info">
-                    {`Tap to level up (costs ${levelUpCost(breakthrough)} UP).` +
+                    {`Tap to level up for ${paramToLabel('up', gs.language)} -${levelUpCost(breakthrough)}.` +
                       (showNextLevel ? ` Showing level ${displayLevel} effect.` : '')}
                   </div>
                 )}
