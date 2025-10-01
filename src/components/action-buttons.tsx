@@ -1,4 +1,4 @@
-import { firstOrderActions, secondOrderActions, thirdOrderActions } from '../data/data-actions'
+import { firstOrderActions, secondOrderActions } from '../data/data-actions'
 import { useGameState } from '../gamestate-hooks'
 import { Button } from './button'
 import { InfoTooltip } from './info-tooltip'
@@ -27,21 +27,15 @@ export function ActionButtons() {
         </InfoTooltip>
 
         <div className="section-header"></div>
-        <h2>First-order actions:</h2>
+        <h2>Direct actions:</h2>
         <div className="action-buttons">
           {firstOrderActions(gs).map((action, index) => (
             <Button key={`action-${index}`} action={action} />
           ))}
         </div>
-        <h2>Second-order actions:</h2>
+        <h2>Scaling actions:</h2>
         <div className="action-buttons">
           {secondOrderActions(gs).map((action, index) => (
-            <Button key={`action-${index}`} action={action} />
-          ))}
-        </div>
-        <h2>Third-order actions:</h2>
-        <div className="action-buttons">
-          {thirdOrderActions(gs).map((action, index) => (
             <Button key={`action-${index}`} action={action} />
           ))}
         </div>
