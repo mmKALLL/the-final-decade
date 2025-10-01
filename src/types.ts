@@ -149,20 +149,16 @@ export type EventId =
   | 'independentEngineering'
   | 'independentResearch'
   | 'independentFunding'
+  // | 'gainUpgradePoint'
 
   // Second-order actions
-  | 'researchBreakthrough'
-  | 'refreshContracts'
   | 'recruitHuman'
-  | 'gainUpgradePoint'
-
-  // Third-order actions
-  | 'increaseAsiOutcome'
+  | 'finetuneSystems'
+  | 'researchBreakthrough'
   | 'increaseUnity'
-  | 'increaseInfluence'
-  | 'increaseTrust'
 
   // Game state related
+  | 'refreshContracts'
   | 'contractSuccess'
   | 'turnEnd'
   | 'yearChange'

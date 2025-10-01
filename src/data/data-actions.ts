@@ -6,31 +6,31 @@ import { generateHumanSelection, generateBreakthroughSelection } from './data-ge
 export const firstOrderActions: (gs: GameState) => Action[] = (gs) => [
   {
     eventId: 'independentOutreach',
-    name: { 'en-US': 'Independent outreach', 'jp-FI': '個人交流' },
+    name: { 'en-US': 'Private outreach', 'jp-FI': '個人交流' },
     turnCost: 1,
     turnsInvested: 0,
     effect: [{ paramEffected: 'sp', amount: 4 }],
   },
   {
     eventId: 'independentEngineering',
-    name: { 'en-US': 'Independent engineering', 'jp-FI': '個人開発' },
+    name: { 'en-US': 'Private engineering', 'jp-FI': '個人開発' },
     turnCost: 1,
     turnsInvested: 0,
     effect: [{ paramEffected: 'ep', amount: 4 }],
   },
   {
     eventId: 'independentResearch',
-    name: { 'en-US': 'Independent research', 'jp-FI': '個人研究' },
+    name: { 'en-US': 'Private research', 'jp-FI': '個人研究' },
     turnCost: 1,
     turnsInvested: 0,
     effect: [{ paramEffected: 'rp', amount: 4 }],
   },
   {
     eventId: 'independentFunding',
-    name: { 'en-US': 'Apply for funding', 'jp-FI': 'お金を募集する' },
+    name: { 'en-US': 'Find funding', 'jp-FI': '資金を見つける' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'money', amount: Math.round((10 * gs.trust) / 100) }],
+    effect: [{ paramEffected: 'income', amount: 1 }],
   },
 ]
 
@@ -48,12 +48,14 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     }),
   },
   {
-    eventId: 'refreshContracts',
-    name: { 'en-US': 'Refresh contracts', 'jp-FI': '契約を探す' },
+    eventId: 'finetuneSystems',
+    name: { 'en-US': 'Fine-tune systems', 'jp-FI': 'システムを微調整する' },
     turnCost: 1,
     turnsInvested: 0,
-    effect: [{ paramEffected: 'ep', amount: -5 }],
-    functionEffect: refreshContracts,
+    effect: [
+      { paramEffected: 'ep', amount: -30 },
+      { paramEffected: 'up', amount: 3 },
+    ],
   },
   {
     eventId: 'researchBreakthrough',
@@ -68,54 +70,13 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     }),
   },
   {
-    eventId: 'gainUpgradePoint',
-    name: { 'en-US': 'Work on upgrades', 'jp-FI': 'アップグレード作業' },
-    turnCost: 1,
-    turnsInvested: 0,
-    effect: [{ paramEffected: 'up', amount: 1 }],
-  },
-]
-
-export const thirdOrderActions: (gs: GameState) => Action[] = (gs) => [
-  {
-    eventId: 'increaseTrust',
-    name: { 'en-US': 'Build trust', 'jp-FI': '信頼を作る' },
-    turnCost: 1,
-    turnsInvested: 0,
-    effect: [
-      { paramEffected: 'trust', amount: 10 },
-      { paramEffected: 'sp', amount: -40 },
-    ],
-  },
-  {
-    eventId: 'increaseInfluence',
-    name: { 'en-US': 'Influencer marketing', 'jp-FI': '影響力を増やす' },
-    turnCost: 1,
-    turnsInvested: 0,
-    effect: [
-      { paramEffected: 'influence', amount: 10 },
-      { paramEffected: 'money', amount: -80 },
-    ],
-  },
-  {
-    eventId: 'increaseAsiOutcome',
-    name: { 'en-US': 'Alignment research', 'jp-FI': 'アライメント研究' },
-    turnCost: 1,
-    turnsInvested: 0,
-    effect: [
-      { paramEffected: 'asiOutcome', amount: 10 },
-      { paramEffected: 'rp', amount: -Math.min(50, Math.max(gs.asiOutcome, 20)) },
-    ],
-  },
-  {
     eventId: 'increaseUnity',
     name: { 'en-US': 'Government lobbying', 'jp-FI': '治安を安定する' },
     turnCost: 1,
     turnsInvested: 0,
     effect: [
       { paramEffected: 'publicUnity', amount: 1 },
-      { paramEffected: 'income', amount: Math.round(Math.min(-1, -5 * ((200 - gs.influence) / 100))) },
-      { paramEffected: 'sp', amount: Math.round(Math.min(-5, -200 + gs.influence)) },
+      { paramEffected: 'sp', amount: -100 },
     ],
   },
 ]
@@ -176,4 +137,13 @@ export const levelUpBreakthroughAction = (breakthrough: Breakthrough): Action =>
       return breakthrough.functionEffect ? breakthrough.functionEffect(updatedGs) : updatedGs
     },
   }
+}
+
+export const refreshContractsAction: Action = {
+  eventId: 'refreshContracts',
+  name: { 'en-US': 'Refresh contracts', 'jp-FI': '契約を探す' },
+  turnCost: 1,
+  turnsInvested: 0,
+  effect: [],
+  functionEffect: refreshContracts,
 }

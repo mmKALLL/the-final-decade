@@ -254,23 +254,23 @@ export const commonBreakthroughs: Breakthrough[] = [
       },
     ],
   },
-  {
-    id: 'AdversarialRedTeaming',
-    name: { 'en-US': 'Adversarial Red-Teaming', 'jp-FI': '敵対的レッドチーミング' },
-    description: {
-      'en-US': (l) => `When you increase ASI outcome, gain +${l * 12} 💬`,
-      'jp-FI': (l) => `ASI結果を増加させると、💬+${l * 12}`,
-    },
-    rarity: 'common',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'increaseAsiOutcome',
-        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 12 * level }),
-      },
-    ],
-  },
+  // {
+  //   id: 'AdversarialRedTeaming',
+  //   name: { 'en-US': 'Adversarial Red-Teaming', 'jp-FI': '敵対的レッドチーミング' },
+  //   description: {
+  //     'en-US': (l) => `When you increase ASI outcome, gain +${l * 12} 💬`,
+  //     'jp-FI': (l) => `ASI結果を増加させると、💬+${l * 12}`,
+  //   },
+  //   rarity: 'common',
+  //   level: 0,
+  //   maxLevel: 3,
+  //   actionEventHandlers: [
+  //     {
+  //       trigger: 'increaseAsiOutcome',
+  //       apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 12 * level }),
+  //     },
+  //   ],
+  // },
   {
     id: 'InstrumentalityProject',
     name: { 'en-US': 'Instrumentality Project', 'jp-FI': 'インストルメンタリティプロジェクト' },
@@ -413,23 +413,23 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     maxLevel: 3,
     effect: [{ paramEffected: 'publicUnity', amount: 1 }],
   },
-  {
-    id: 'EchoChamberCollapse',
-    name: { 'en-US': 'Echo Chamber Collapse', 'jp-FI': 'エコーチェンバー崩壊' },
-    description: {
-      'en-US': (l) => `When you increase trust, gain +${l * 8} ASI outcome`,
-      'jp-FI': (l) => `信頼を増加させると、ASI結果+${l * 8}`,
-    },
-    rarity: 'uncommon',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'increaseTrust',
-        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
-      },
-    ],
-  },
+  // {
+  //   id: 'EchoChamberCollapse',
+  //   name: { 'en-US': 'Echo Chamber Collapse', 'jp-FI': 'エコーチェンバー崩壊' },
+  //   description: {
+  //     'en-US': (l) => `When you increase trust, gain +${l * 8} ASI outcome`,
+  //     'jp-FI': (l) => `信頼を増加させると、ASI結果+${l * 8}`,
+  //   },
+  //   rarity: 'uncommon',
+  //   level: 0,
+  //   maxLevel: 3,
+  //   actionEventHandlers: [
+  //     {
+  //       trigger: 'increaseTrust',
+  //       apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
+  //     },
+  //   ],
+  // },
   {
     id: 'InfluenceIncubator',
     name: { 'en-US': 'Influence Incubator', 'jp-FI': '影響力インキュベーター' },
@@ -497,23 +497,23 @@ export const uncommonBreakthroughs: Breakthrough[] = [
       },
     ],
   },
-  {
-    id: 'AmplifiedOversight',
-    name: { 'en-US': 'Amplified Oversight', 'jp-FI': '増幅された監視' },
-    description: {
-      'en-US': (l) => `When you increase ASI outcome, gain ${l * 8} 💬 and 🧪`,
-      'jp-FI': (l) => `ASI結果が増加すると、🧪と💬+${l * 8}`,
-    },
-    rarity: 'uncommon',
-    level: 0,
-    maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'increaseAsiOutcome',
-        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 8 * level, rp: gs.rp + 8 * level }),
-      },
-    ],
-  },
+  // {
+  //   id: 'AmplifiedOversight',
+  //   name: { 'en-US': 'Amplified Oversight', 'jp-FI': '増幅された監視' },
+  //   description: {
+  //     'en-US': (l) => `When you increase ASI outcome, gain ${l * 8} 💬 and 🧪`,
+  //     'jp-FI': (l) => `ASI結果が増加すると、🧪と💬+${l * 8}`,
+  //   },
+  //   rarity: 'uncommon',
+  //   level: 0,
+  //   maxLevel: 3,
+  //   actionEventHandlers: [
+  //     {
+  //       trigger: 'increaseAsiOutcome',
+  //       apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 8 * level, rp: gs.rp + 8 * level }),
+  //     },
+  //   ],
+  // },
   {
     id: 'OverclockedSimulations',
     name: { 'en-US': 'Overclocked Simulations', 'jp-FI': '過剰クロックシミュレーション' },
@@ -584,7 +584,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
   },
   {
     id: 'CallOfDuty',
-    name: { 'en-US': 'Call of Duty', 'jp-FI': 'コール・オブ・デューティ' },
+    name: { 'en-US': 'Dutiful Diligence', 'jp-FI': 'コール・オブ・デューティ' },
     description: {
       'en-US': (l) => `When you do government lobbying, select a new human`,
       'jp-FI': (l) => `政府ロビー活動を行うと、新しい人材を選択`,
@@ -834,23 +834,23 @@ export const rareBreakthroughs: Breakthrough[] = [
       },
     ],
   },
-  {
-    id: 'InnerCorrigibility',
-    name: { 'en-US': 'Inner Corrigibility', 'jp-FI': '内部修正可能性' },
-    description: {
-      'en-US': (l) => `When you increase trust, gain ${l * 8} ASI outcome`,
-      'jp-FI': (l) => `信頼を増加させると、ASI結果+${l * 8}`,
-    },
-    rarity: 'rare',
-    level: 0,
-    maxLevel: 2,
-    actionEventHandlers: [
-      {
-        trigger: 'increaseTrust',
-        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
-      },
-    ],
-  },
+  // {
+  //   id: 'InnerCorrigibility',
+  //   name: { 'en-US': 'Inner Corrigibility', 'jp-FI': '内部修正可能性' },
+  //   description: {
+  //     'en-US': (l) => `When you increase trust, gain ${l * 8} ASI outcome`,
+  //     'jp-FI': (l) => `信頼を増加させると、ASI結果+${l * 8}`,
+  //   },
+  //   rarity: 'rare',
+  //   level: 0,
+  //   maxLevel: 2,
+  //   actionEventHandlers: [
+  //     {
+  //       trigger: 'increaseTrust',
+  //       apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
+  //     },
+  //   ],
+  // },
   {
     id: 'TechnicalAISafetyConference',
     name: { 'en-US': 'Technical AI Safety Conference', 'jp-FI': '技術的AI安全会議' },
