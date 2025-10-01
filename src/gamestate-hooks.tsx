@@ -34,7 +34,7 @@ export function canApplyAction(gs: GameState, action: Action): boolean {
         e.paramEffected === 'humanSelection' ||
         e.paramEffected === 'breakthroughSelection' ||
         e.paramEffected === 'publicUnity' ||
-        e.paramEffected === 'passiveIncome' ||
+        e.paramEffected === 'income' ||
         e.amount >= 0 ||
         gs[e.paramEffected] >= -e.amount
     )
