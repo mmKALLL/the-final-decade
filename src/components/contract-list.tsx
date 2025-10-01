@@ -1,6 +1,9 @@
 import { useGameState } from '../gamestate-hooks'
 import { InfoTooltip } from './info-tooltip'
 import { ContractItem } from './contract-item'
+import { Button } from './button'
+import { refreshContractsAction } from '../data/data-actions'
+import { rarityColors } from '../util'
 
 export const ContractList = ({ editable }: { editable: boolean }) => {
   const { gs } = useGameState()
@@ -52,6 +55,10 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
           <ContractItem key={`contract-${index}`} contract={contract} language={language} editable={editable} index={index} />
         ))}
       </div>
+      <Button
+        action={refreshContractsAction}
+        style={{ marginTop: '0.5rem', maxWidth: '100px', border: `1px solid ${rarityColors.common}` }}
+      />
     </div>
   )
 }
