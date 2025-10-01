@@ -55,10 +55,12 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
           <ContractItem key={`contract-${index}`} contract={contract} language={language} editable={editable} index={index} />
         ))}
       </div>
-      <Button
-        action={refreshContractsAction}
-        style={{ marginTop: '0.5rem', maxWidth: '100px', border: `1px solid ${rarityColors.common}` }}
-      />
+      {editable && (
+        <Button
+          action={refreshContractsAction}
+          style={{ marginTop: '0.5rem', maxWidth: '100px', border: `1px solid ${rarityColors.common}` }}
+        />
+      )}
     </div>
   )
 }
