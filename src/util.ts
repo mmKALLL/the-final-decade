@@ -19,14 +19,14 @@ export const effectToString = (e: Effect, language: Language): string =>
 export const singleEffectToString = ({ paramEffected, amount }: SingleEffect, language: Language): string =>
   `${paramToLabel(paramEffected, language)} ${withPlusSign(Math.round(amount))}`
 
-export const withPlusSign = (value: number) => (value >= 0 ? `+${value}` : `${value}`)
+export const withPlusSign = (value: number) => (value > 0 ? `+${value}` : value === 0 ? `±${value}` : `${value}`)
 
 export const paramToLabel = (p: Param, language: Language): string => {
   // prettier-ignore
   if (language === 'jp-FI') {
     switch (p) {
       case 'turn':             return 'ターン'
-      case 'money':            return 'お金'
+      case 'money':            return '💰'
       case 'income':           return '受動的収入'
       case 'trust':            return '信頼'
       case 'publicUnity':      return '公共団結'
@@ -43,12 +43,12 @@ export const paramToLabel = (p: Param, language: Language): string => {
   } else {
     switch (p) {
       case 'turn':             return 'turn'
-      case 'money':            return 'money'
-      case 'income':           return 'income'
+      case 'money':            return '💰'
+      case 'income':           return '💰 / turn'
       case 'trust':            return 'trust'
       case 'publicUnity':      return 'unity'
-      case 'asiOutcome':       return 'ASI outcome'
-      case 'influence':        return 'influence'
+      case 'asiOutcome':       return 'outcome'
+      case 'influence':        return 'lobbying cost'
       case 'sp':               return '💬'
       case 'ep':               return '🔧'
       case 'rp':               return '🧪'

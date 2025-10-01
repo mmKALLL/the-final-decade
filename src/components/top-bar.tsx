@@ -1,5 +1,5 @@
 import { getMoneyGain, useGameState } from '../gamestate-hooks'
-import { assertNever, getDateFromTurn, getYearForDisplay, paramToLabel, withPlusSign } from '../util'
+import { assertNever, calculateResourceProduction, getDateFromTurn, getYearForDisplay, paramToLabel, withPlusSign } from '../util'
 import { ContractItem } from './contract-item'
 
 export function TopBar() {
@@ -14,6 +14,14 @@ export function TopBar() {
   // Get the first yearly goal to display
   const currentYearlyGoal = gs.yearlyContracts.length > 0 ? gs.yearlyContracts[0] : null
 
+  const hasSpaceForResourceGains = window.innerWidth >= 435
+  const resourceProduction = calculateResourceProduction(gs)
+  const spGain = resourceProduction.sp.total
+  const epGain = resourceProduction.ep.total
+  const rpGain = resourceProduction.rp.total
+
+  const colorByGain = (gain: number) => (gain > 0 ? '#8c8' : gain < 0 ? '#f44336' : 'inherit')
+
   return (
     <div className="top-bar-wrapper">
       <div className="top-bar-first-row">
@@ -23,22 +31,43 @@ export function TopBar() {
             <span className="resource-icon">💰</span>
             <span className="resource-value">
               {gs.money}
-              <span className="income-indicator" style={{ color: moneyGain >= 0 ? '#4caf50' : '#f44336' }}>
+              <span className="income-indicator" style={{ color: colorByGain(moneyGain) }}>
                 {withPlusSign(moneyGain)}
               </span>
             </span>
           </div>
           <div className="resource-pill">
             <span className="resource-icon">{paramToLabel('sp', gs.language)}</span>
-            <span className="resource-value">{gs.sp}</span>
+            <span className="resource-value">
+              {gs.sp}
+              {hasSpaceForResourceGains && (
+                <span className="income-indicator" style={{ color: colorByGain(spGain) }}>
+                  {withPlusSign(spGain)}
+                </span>
+              )}
+            </span>
           </div>
           <div className="resource-pill">
             <span className="resource-icon">{paramToLabel('ep', gs.language)}</span>
-            <span className="resource-value">{gs.ep}</span>
+            <span className="resource-value">
+              {gs.ep}
+              {hasSpaceForResourceGains && (
+                <span className="income-indicator" style={{ color: colorByGain(epGain) }}>
+                  {withPlusSign(epGain)}
+                </span>
+              )}
+            </span>
           </div>
           <div className="resource-pill">
             <span className="resource-icon">{paramToLabel('rp', gs.language)}</span>
-            <span className="resource-value">{gs.rp}</span>
+            <span className="resource-value">
+              {gs.rp}
+              {hasSpaceForResourceGains && (
+                <span className="income-indicator" style={{ color: colorByGain(rpGain) }}>
+                  {withPlusSign(rpGain)}
+                </span>
+              )}
+            </span>
           </div>
           <div className="resource-pill">
             <span className="resource-icon">{paramToLabel('up', gs.language)}</span>
