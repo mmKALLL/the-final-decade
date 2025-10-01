@@ -4,7 +4,7 @@ import { HumanItem } from './human-item'
 import { BreakthroughItem } from './breakthrough-item'
 import { Human, Breakthrough } from '../../../types'
 import { ContractList } from '../../contract-list'
-import { GameStateDisplay } from '../../game-state-display'
+import { ResourceDisplay } from '../../resource-display'
 import { LanguageToggle } from '../../language-toggle'
 import { BreakthroughList } from '../../breakthrough-list'
 import { YearlyGoalList } from '../../yearly-goal-list'
@@ -62,7 +62,7 @@ export const SelectionScreen = () => {
         </div>
       </div>
 
-      <GameStateDisplay />
+      <ResourceDisplay />
       <ContractList editable={false} />
       <BreakthroughList editable={false} />
       <YearlyGoalList />
