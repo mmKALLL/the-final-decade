@@ -50,9 +50,7 @@ export const ContractItem = ({ contract, language, editable, index }: ContractIt
     >
       {/* Header */}
       <div className="contract-header">
-        <h3 className="contract-title" style={{ color: rarityColors[contract.rarity] }}>
-          {contract.name[language] || contract.name['en-US']}
-        </h3>
+        <h3 className="contract-title">{contract.name[language] || contract.name['en-US']}</h3>
         <span className="contract-rarity" style={{ color: rarityColors[contract.rarity] }}>
           {isYearlyContract(contract) && `${contract.year} - `}
           {contract.type && `${contract.type === 'safety' ? 'Safety' : contract.type === 'capabilities' ? 'Capability' : 'Product'} - `}
