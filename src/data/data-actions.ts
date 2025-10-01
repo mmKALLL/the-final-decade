@@ -76,7 +76,7 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     turnsInvested: 0,
     effect: [
       { paramEffected: 'publicUnity', amount: 1 },
-      { paramEffected: 'sp', amount: -100 },
+      { paramEffected: 'sp', amount: -200 + gs.influence },
     ],
   },
 ]
