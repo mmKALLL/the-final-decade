@@ -3,19 +3,20 @@ import { assertNever, getRandomInt, paramToLabel, pickListOfWeighted, withPlusSi
 
 export const refreshContracts = (gs: GameState): GameState => ({
   ...gs,
-  contracts: Array(gs.maxContracts)
-    .fill(null)
-    .map(() => generateContract(gs)),
+  contracts: [generateContract(gs, 'product'), generateContract(gs, 'capabilities'), generateContract(gs, 'safety')],
+  // Array(gs.maxContracts)
+  //   .fill(null)
+  //   .map(() => generateContract(gs)),
 })
 
 function getYearIndex(turn: number): number {
   return Math.floor(turn / 12)
 }
 
-export function generateContract(gs: GameState): Contract {
+export function generateContract(gs: GameState, type?: ContractType): Contract {
   // Setup base parameters that control complexity
   // 44/28/28 split between capabilities, safety, and product contracts
-  const contractType = Math.random() < 0.44 ? 'capabilities' : Math.random() < 0.5 ? 'safety' : 'product'
+  const contractType: ContractType = type ?? (Math.random() < 0.44 ? 'capabilities' : Math.random() < 0.5 ? 'safety' : 'product')
   const isSecondaryContract = contractType === 'safety' || contractType === 'product'
 
   const difficulty = 30 + gs.influence * 0.6 + Math.floor(Math.random() * (getYearIndex(gs.turn) * 30 + gs.influence * 0.7))
