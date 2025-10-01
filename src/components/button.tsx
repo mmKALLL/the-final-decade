@@ -1,14 +1,15 @@
+import React from 'react'
 import { generateActionDescription } from '../data/data-generators'
 import { canApplyAction, useGameState } from '../gamestate-hooks'
 import { Action } from '../types'
 
-export function Button({ action }: { action: Action }) {
+export function Button({ action, style }: { action: Action; style?: React.CSSProperties }) {
   const { gs, dispatch } = useGameState()
   const description = action.description?.[gs.language] || generateActionDescription(action, gs.language)
   const disabled = !canApplyAction(gs, action)
 
   return (
-    <button disabled={disabled} className={`button ${disabled ? 'faded' : ''}`} onClick={() => dispatch(action)}>
+    <button disabled={disabled} className={`button ${disabled ? 'faded' : ''}`} onClick={() => dispatch(action)} style={style}>
       <div className="action-content">
         <div className="action-name">{action.name[gs.language]}</div>
         {description && <div className="action-description">{description}</div>}
