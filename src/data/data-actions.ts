@@ -1,5 +1,5 @@
 import { Action, GameState, Breakthrough, Contract, Effect } from '../types'
-import { levelUpCost } from '../util'
+import { levelUpCost, lobbyingCost } from '../util'
 import { refreshContracts } from './contract-generator'
 import { generateHumanSelection, generateBreakthroughSelection } from './data-generators'
 
@@ -76,7 +76,9 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     turnsInvested: 0,
     effect: [
       { paramEffected: 'publicUnity', amount: 1 },
-      { paramEffected: 'sp', amount: -200 + gs.influence },
+      { paramEffected: 'sp', amount: lobbyingCost(gs) },
+      { paramEffected: 'ep', amount: lobbyingCost(gs) },
+      { paramEffected: 'rp', amount: lobbyingCost(gs) },
     ],
   },
 ]
