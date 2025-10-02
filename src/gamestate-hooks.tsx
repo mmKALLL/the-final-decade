@@ -203,18 +203,18 @@ export function reduceEffect(effectStack: EffectStack, gs: GameState, depth: num
   return reduceEffect(effectStack.slice(1), updatedGs, depth)
 }
 
-export function getMoneyGain(gs: GameState): { total: number; wages: number; passive: number; multiplier: number; totalWages: number } {
+export function getMoneyGain(gs: GameState): { total: number; wages: number; income: number; wageMultiplier: number; totalWages: number } {
   const wages = gs.humans.reduce((acc, human) => acc + human.wage, 0)
-  const multiplier = Math.max((200 - gs.trust) / 100, 0)
-  const totalWages = Math.round(wages * multiplier)
-  const passive = gs.income
+  const wageMultiplier = Math.max((200 - gs.trust) / 100, 0)
+  const totalWages = Math.round(wages * wageMultiplier)
+  const income = gs.income
 
   return {
-    passive,
+    income,
     wages,
-    multiplier,
+    wageMultiplier,
     totalWages,
-    total: passive - totalWages,
+    total: income - totalWages,
   }
 }
 

@@ -14,16 +14,12 @@ export function ResourceDisplay() {
   // Create more compact category names for mobile with descriptions
   const compactCategories = {
     [language === 'jp-FI' ? 'フィナンシャル' : 'Finance']: {
-      // [paramToLabel('money', language)]: {
-      //   value: gs.money,
-      //   desc: language === 'jp-FI' ? '採用やアクションのための資金' : 'Funds for hiring and actions',
-      // },
-      [language === 'jp-FI' ? '収入' : 'Total income']: {
-        value: moneyGain.total,
-        desc: language === 'jp-FI' ? '毎ターンのお金の変化' : 'Change to money each turn',
+      [language === 'jp-FI' ? '収入' : 'Income']: {
+        value: moneyGain.income,
+        desc: language === 'jp-FI' ? '毎ターンのお金の変化' : 'Passive change to money each turn',
       },
       [language === 'jp-FI' ? '給料' : 'wages']: {
-        value: `-${moneyGain.wages} * ${moneyGain.multiplier.toFixed(2)} = -${moneyGain.totalWages}`,
+        value: `-${moneyGain.wages} * ${moneyGain.wageMultiplier.toFixed(2)} = -${moneyGain.totalWages}`,
         desc: language === 'jp-FI' ? '毎ターン人間に支払われるお金' : 'Money paid to humans each turn',
       },
     },
