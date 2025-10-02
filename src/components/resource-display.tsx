@@ -1,5 +1,5 @@
 import { getMoneyGain, useGameState } from '../gamestate-hooks'
-import { calculateResourceProduction, paramToLabel } from '../util'
+import { calculateResourceProduction, paramToLabel, withPlusSign } from '../util'
 import { formatValue } from '../util'
 import { InfoTooltip } from './info-tooltip'
 
@@ -14,8 +14,8 @@ export function ResourceDisplay() {
   // Create more compact category names for mobile with descriptions
   const compactCategories = {
     [language === 'jp-FI' ? 'フィナンシャル' : 'Finance']: {
-      [language === 'jp-FI' ? '収入' : 'Income']: {
-        value: moneyGain.income,
+      [language === 'jp-FI' ? '収入' : 'Passive income']: {
+        value: withPlusSign(moneyGain.income),
         desc: language === 'jp-FI' ? '毎ターンのお金の変化' : 'Passive change to money each turn',
       },
       [language === 'jp-FI' ? '給料' : 'wages']: {
@@ -47,7 +47,7 @@ export function ResourceDisplay() {
         desc: language === 'jp-FI' ? 'ブレークスルーのためのリサーチポイント' : 'Research Points for breakthroughs',
       },
       [language === 'jp-FI' ? 'ロビー活動コスト' : 'lobbying cost']: {
-        value: gs.influence + '%',
+        value: 200 - gs.influence + '%',
         desc: language === 'jp-FI' ? '公共の団結を高めるためのコスト' : 'Cost of improving public unity',
       },
     },
