@@ -36,8 +36,8 @@ export type GameState = {
   // 0-200. Trust towards your organization. Gain or lose depending on whether your engineering is more focused alignment or capabilities. If you have high trust you'll get better contracts and recruits
   trust: number
 
-  // 0-200. Influence is a percentage multiplier to the effect of your social actions (like increasing public unity). It is bought using money. It reduces both monetary and SP cost of unity lobbying.
-  influence: number
+  // 0-200. Influence is a percentage multiplier to the effect of your social actions (like increasing public unity). It is bought using money. It reduces both monetary and SP cost of unity lobbying. Removed on 2025-10-03
+  // influence: number
 
   // The various turn-based actions have an passive and active component - passive is gained each turn, active when a turn is used to take that action
   money: number

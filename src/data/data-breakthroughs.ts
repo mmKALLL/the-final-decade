@@ -75,8 +75,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'SocialEngineering',
     name: { 'en-US': 'Social Engineering', 'jp-FI': 'ソーシャルエンジニアリング' },
     description: {
-      'en-US': (l) => `When you finish a contract, gain +${l * 3} influence`,
-      'jp-FI': (l) => `契約を終了するたびに${l * 3}影響力を獲得する`,
+      'en-US': (l) => `When you finish a contract, gain +${l * 8} 💬`,
+      'jp-FI': (l) => `契約を終了するたびに${l * 8}💬を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -84,7 +84,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + 3 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 8 * level }),
       },
     ],
   },
@@ -147,8 +147,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'EngineeringAdvisor',
     name: { 'en-US': 'Engineering Advisor', 'jp-FI': 'エンジニアリングアドバイザー' },
     description: {
-      'en-US': (l) => `Gain ${l * 10} 🔧 every time you finish a contract`,
-      'jp-FI': (l) => `契約を終了するたびに${l * 10}🔧を獲得する`,
+      'en-US': (l) => `Gain ${l * 8} 🔧 every time you finish a contract`,
+      'jp-FI': (l) => `契約を終了するたびに${l * 8}🔧を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -156,7 +156,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 10 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 8 * level }),
       },
     ],
   },
@@ -440,7 +440,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: 'InfluenceIncubator',
     name: { 'en-US': 'Influence Incubator', 'jp-FI': '影響力インキュベーター' },
     description: {
-      'en-US': (l) => `When you recruit a human, gain +${5 * l} influence`,
+      'en-US': (l) => `When you recruit a human, gain +${5 * l} outcome`,
       'jp-FI': (l) => `人材を雇うたびに影響力+${5 * l}`,
     },
     rarity: 'uncommon',
@@ -449,7 +449,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'recruitHuman',
-        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + 5 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 5 * level }),
       },
     ],
   },
@@ -490,8 +490,8 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: 'ViralVideos',
     name: { 'en-US': 'Viral Videos', 'jp-FI': 'バイラルビデオ' },
     description: {
-      'en-US': (l) => `Gain ${l} influence each turn`,
-      'jp-FI': (l) => `毎ターン影響力+${l}`,
+      'en-US': (l) => `Gain ${l} outcome each turn`,
+      'jp-FI': (l) => `毎ターンASI結果+${l}`,
     },
     rarity: 'uncommon',
     level: 0,
@@ -499,7 +499,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + level }),
       },
     ],
   },
@@ -735,8 +735,8 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'HypeEngine',
     name: { 'en-US': 'Hype Engine', 'jp-FI': 'ハイプエンジン' },
     description: {
-      'en-US': (l) => `When you make a new breakthrough, gain ${l * 8} influence`,
-      'jp-FI': (l) => `新しいブレークスルーを作るたびに影響力+${l * 8}`,
+      'en-US': (l) => `When you make a new breakthrough, gain ${l * 8} outcome`,
+      'jp-FI': (l) => `新しいブレークスルーを作るたびにASI結果+${l * 8}`,
     },
     rarity: 'rare',
     level: 0,
@@ -744,7 +744,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'researchBreakthrough',
-        apply: (gs: GameState, level: number) => ({ ...gs, influence: gs.influence + 8 * level }),
+        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
       },
     ],
   },
@@ -920,7 +920,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'EncodedProphecy',
     name: { 'en-US': 'Encoded Prophecy', 'jp-FI': '暗号化された予言' },
     description: {
-      'en-US': (l) => `At the start of each year: +5 trust / influence / outcome`,
+      'en-US': (l) => `At the end of each year: +10 trust / outcome (from next year onwards)`,
       'jp-FI': (l) => `毎年終わりに信頼+5、影響力+5、ASI結果+5`,
     },
     rarity: 'epic',
@@ -933,9 +933,8 @@ export const epicBreakthroughs: Breakthrough[] = [
           if (gs.turn % 12 === 0) {
             return {
               ...gs,
-              trust: gs.trust + 5,
-              influence: gs.influence + 5,
-              asiOutcome: gs.asiOutcome + 5,
+              trust: gs.trust + 10,
+              asiOutcome: gs.asiOutcome + 10,
             }
           }
           return gs
@@ -959,8 +958,8 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'HypnoDrones',
     name: { 'en-US': 'Hypno Drones', 'jp-FI': 'ヒプノドローン' },
     description: {
-      'en-US': (l) => `Gain +5 💬 and -1 influence each turn`,
-      'jp-FI': (l) => `毎ターン💬+5、影響力-1`,
+      'en-US': (l) => `Gain +5 💬 and -1 outcome each turn`,
+      'jp-FI': (l) => `毎ターン💬+5、ASI結果-1`,
     },
     rarity: 'epic',
     level: 0,
@@ -971,7 +970,7 @@ export const epicBreakthroughs: Breakthrough[] = [
         apply: (gs: GameState, l: number) => ({
           ...gs,
           sp: gs.sp + 5 * l,
-          influence: gs.influence - l,
+          asiOutcome: gs.asiOutcome - l,
         }),
       },
     ],
@@ -1039,8 +1038,8 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'StrategicExpansion',
     name: { 'en-US': 'Strategic Expansion', 'jp-FI': '戦略的拡大' },
     description: {
-      'en-US': (l) => `Gain +10 🔧 when you finish a contract`,
-      'jp-FI': (l) => `契約を終了するたびに🔧+10`,
+      'en-US': (l) => `Gain +15 🔧 when you finish a contract`,
+      'jp-FI': (l) => `契約を終了するたびに🔧+15`,
     },
     rarity: 'epic',
     level: 0,
@@ -1048,7 +1047,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     actionEventHandlers: [
       {
         trigger: 'contractSuccess',
-        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 10 }),
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 15 }),
       },
     ],
   },
