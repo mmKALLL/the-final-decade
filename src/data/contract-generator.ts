@@ -29,6 +29,7 @@ export function generateContract(gs: GameState, type?: ContractType): Contract {
   const onSuccess: Effect = [
     // Accept effects = monetary reward from completing the contract; the name is historical
     ...getAcceptEffects(difficulty, successEffects, contractType),
+    ...getGuaranteedEffects(difficulty, contractType),
     ...getSuccessEffects(difficulty, successEffects, contractType),
   ]
 
@@ -88,27 +89,29 @@ function getAcceptEffects(difficulty: number, totalEffects: number, contractType
   return [{ paramEffected: 'money', amount: getContractMoneyValue(difficulty, totalEffects, contractType) }]
 }
 
-function getSuccessEffects(difficulty: number, totalEffects: number, contractType: ContractType): Effect {
-  const guaranteedEffect =
-    contractType === 'product'
-      ? [
-          {
-            paramEffected: 'income',
-            amount: Math.max(1, getRandomInt(1, 3) + Math.floor(1.5 * (difficulty / 100)) - 2),
-          } as const,
-        ]
-      : contractType === 'safety'
-      ? [
-          {
-            paramEffected: 'asiOutcome',
-            amount: Math.floor(3 * (difficulty / 100)),
-          } as const,
-        ]
-      : contractType === 'capabilities'
-      ? []
-      : assertNever(contractType)
+function getGuaranteedEffects(difficulty: number, contractType: ContractType): Effect {
+  return contractType === 'product'
+    ? [
+        {
+          paramEffected: 'income',
+          amount: Math.max(1, getRandomInt(1, 3) + Math.floor(2 * (difficulty / 100)) - 2),
+        } as const,
+      ]
+    : contractType === 'safety'
+    ? [
+        {
+          paramEffected: 'asiOutcome',
+          amount: Math.floor(3 * (difficulty / 100)),
+        } as const,
+      ]
+    : contractType === 'capabilities'
+    ? []
+    : assertNever(contractType)
+}
 
-  if (totalEffects <= 0) return guaranteedEffect
+function getSuccessEffects(difficulty: number, totalEffects: number, contractType: ContractType): Effect {
+  if (totalEffects <= 0) return []
+
   const effectPool =
     contractType === 'product'
       ? getProductSuccessEffects(difficulty)
@@ -117,7 +120,7 @@ function getSuccessEffects(difficulty: number, totalEffects: number, contractTyp
       : contractType === 'safety'
       ? getSafetySuccessEffects(difficulty)
       : assertNever(contractType)
-  return [...guaranteedEffect, ...getEffectsFromPool(totalEffects, effectPool)]
+  return getEffectsFromPool(totalEffects, effectPool)
 }
 
 // function getFailureEffects(difficulty: number, totalEffects: number, isSecondaryContract: boolean, trust: number): Effect {
@@ -155,9 +158,9 @@ interface WeightedSingleEffect {
 // Function to get product-focused success effects
 function getProductSuccessEffects(difficulty: number): WeightedSingleEffect[] {
   return [
-    { weight: difficulty > 260 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(100, difficulty, 0.5) } },
-    { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(50, difficulty, 0.5) } },
-    { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'ep', amount: getRandomValue(4, difficulty, 0.05) } },
+    { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(80, difficulty, 0.5) } },
+    { weight: difficulty > 260 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(80, difficulty, 0.5) } },
+    { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.06) } },
     {
       weight: 4,
       effect: { paramEffected: 'asiOutcome', amount: getRandomValue(3, difficulty, 0.05) }, // The compliment of the effect native to the contract type
@@ -169,19 +172,17 @@ function getProductSuccessEffects(difficulty: number): WeightedSingleEffect[] {
         amount: getRandomInt(2, 3),
       },
     },
-    { weight: difficulty > 200 ? 2 : 1, effect: { paramEffected: 'publicUnity', amount: 1 } },
+    { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'publicUnity', amount: 1 } },
   ]
 }
 
 // Function to get capability-focused success effects
 function getCapabilitySuccessEffects(difficulty: number): WeightedSingleEffect[] {
   return [
-    { weight: difficulty >= 200 ? 0 : 4, effect: { paramEffected: 'sp', amount: getRandomValue(4, difficulty, 0.05) } },
-    { weight: difficulty >= 200 ? 0 : 4, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.05) } },
+    { weight: difficulty > 200 ? 0 : 4, effect: { paramEffected: 'sp', amount: getRandomValue(4, difficulty, 0.05) } },
     { weight: difficulty > 200 ? 4 : 0, effect: { paramEffected: 'sp', amount: getRandomValue(4, difficulty, 0.08) } },
-    { weight: difficulty > 200 ? 4 : 0, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.08) } },
-    { weight: 3, effect: { paramEffected: 'up', amount: getRandomInt(1, 4) } },
-    { weight: 4, effect: { paramEffected: 'income', amount: getRandomValue(1, difficulty, 0.02) } },
+    { weight: 5, effect: { paramEffected: 'up', amount: getRandomInt(1, 4) } },
+    { weight: 4, effect: { paramEffected: 'income', amount: getRandomValue(1, difficulty, 0.03) } },
     { weight: difficulty > 200 ? 2 : 1, effect: { paramEffected: 'humanSelection', amount: getRandomValue(50, difficulty, 0.5) } },
     { weight: difficulty > 260 ? 3 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(100, difficulty, 0.5) } },
   ]
