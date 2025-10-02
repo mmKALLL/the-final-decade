@@ -11,9 +11,6 @@ export function GameEndStats() {
           💰 {gs.money} ー 💬 {gs.sp} ー 🔧 {gs.ep} ー 🧪 {gs.rp} ー ⚙️ {gs.up}
         </li>
         <li>
-          {gs.language === 'en-US' ? 'Influence' : '影響力'}: {gs.influence}
-        </li>
-        <li>
           {gs.language === 'en-US' ? 'Trust' : '信頼'}: {gs.trust}
         </li>
         <li>

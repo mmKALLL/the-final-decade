@@ -34,7 +34,7 @@ export const spHumans: Human[] = [
     spGeneration: 2,
     epGeneration: 0,
     rpGeneration: 0,
-    specialEffect: [{ paramEffected: 'influence', amount: -5 }],
+    specialEffect: [{ paramEffected: 'asiOutcome', amount: -5 }],
   },
   {
     name: { 'en-US': 'Sora Yamamoto', 'jp-FI': '山本 空' },
@@ -206,7 +206,7 @@ export const spHumans: Human[] = [
     spGeneration: 5,
     epGeneration: 0,
     rpGeneration: 0,
-    specialEffect: [{ paramEffected: 'influence', amount: 15 }],
+    specialEffect: [{ paramEffected: 'asiOutcome', amount: 15 }],
   },
   {
     name: { 'en-US': 'Alessandro Ferreti', 'jp-FI': 'アレッサンドロ・フェレッティ' },
@@ -231,7 +231,7 @@ export const spHumans: Human[] = [
     epGeneration: 2,
     rpGeneration: 0,
     specialEffect: [
-      { paramEffected: 'influence', amount: 15 },
+      { paramEffected: 'asiOutcome', amount: 15 },
       { paramEffected: 'trust', amount: 15 },
     ],
   },
@@ -379,7 +379,7 @@ export const epHumans: Human[] = [
     spGeneration: 0,
     epGeneration: 2,
     rpGeneration: 0,
-    specialEffect: [{ paramEffected: 'influence', amount: -5 }],
+    specialEffect: [{ paramEffected: 'asiOutcome', amount: -5 }],
   },
   {
     name: { 'en-US': 'Marcus Lee', 'jp-FI': 'マーカス・リー' },
@@ -467,7 +467,7 @@ export const epHumans: Human[] = [
     spGeneration: 0,
     epGeneration: 5,
     rpGeneration: 0,
-    specialEffect: [{ paramEffected: 'influence', amount: 15 }],
+    specialEffect: [{ paramEffected: 'asiOutcome', amount: 15 }],
   },
   {
     name: { 'en-US': 'Anastasia Petrov', 'jp-FI': 'アナスタシア・ペトロフ' },
@@ -633,12 +633,12 @@ export const rpHumans: Human[] = [
     name: { 'en-US': 'Theodore Vasquez', 'jp-FI': 'テオテオ・バスケス' },
     rarity: 'uncommon',
     type: 'rp',
-    wage: 2,
+    wage: 1,
     rank: 'volunteer',
     spGeneration: 0,
     epGeneration: 0,
     rpGeneration: 2,
-    specialEffect: [{ paramEffected: 'influence', amount: -5 }],
+    specialEffect: [{ paramEffected: 'asiOutcome', amount: -5 }],
   },
   {
     name: { 'en-US': 'Amara Okafor', 'jp-FI': 'アマラ・オカフォー' },
