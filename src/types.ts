@@ -178,7 +178,6 @@ export type Param =
   | 'trust'
   | 'publicUnity'
   | 'asiOutcome'
-  | 'influence'
   | 'rp'
   | 'ep'
   | 'sp'

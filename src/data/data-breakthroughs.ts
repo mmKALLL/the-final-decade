@@ -92,15 +92,21 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'FakeNews',
     name: { 'en-US': 'Fake News', 'jp-FI': 'フェイクニュース' },
     description: {
-      'en-US': (l) => 'Gain 20 influence, but lose 10 trust',
-      'jp-FI': (l) => '20の影響力を得るが、10の信頼を失う',
+      'en-US': (l) => `When you do government lobbying, gain +${l * 30} 💬, but increase wages by 5%`,
+      'jp-FI': (l) => `ロビー活動を行うと、+${l * 30}💬を獲得するが、賃金が5%増加する`,
     },
     rarity: 'common',
     level: 0,
     maxLevel: 3,
-    effect: [
-      { paramEffected: 'influence', amount: 20 },
-      { paramEffected: 'trust', amount: -10 },
+    actionEventHandlers: [
+      {
+        trigger: 'increaseUnity',
+        apply: (gs: GameState, level: number) => ({
+          ...gs,
+          sp: gs.sp + 30 * level,
+          trust: gs.trust - 5,
+        }),
+      },
     ],
   },
   {
@@ -175,7 +181,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'InterpretabilityModel',
     name: { 'en-US': 'Interpretability Model', 'jp-FI': '解釈可能性モデル' },
     description: {
-      'en-US': (l) => `When you finish a contract, gain +${l * 3} ASI outcome`,
+      'en-US': (l) => `When you finish a contract, gain +${l * 3} outcome`,
       'jp-FI': (l) => `契約を終了するたびに+${l * 3}%ASI報酬を獲得する`,
     },
     rarity: 'common',
@@ -258,7 +264,7 @@ export const commonBreakthroughs: Breakthrough[] = [
   //   id: 'AdversarialRedTeaming',
   //   name: { 'en-US': 'Adversarial Red-Teaming', 'jp-FI': '敵対的レッドチーミング' },
   //   description: {
-  //     'en-US': (l) => `When you increase ASI outcome, gain +${l * 12} 💬`,
+  //     'en-US': (l) => `When you increase outcome, gain +${l * 12} 💬`,
   //     'jp-FI': (l) => `ASI結果を増加させると、💬+${l * 12}`,
   //   },
   //   rarity: 'common',
@@ -292,15 +298,15 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'AngelInvestors',
     name: { 'en-US': 'Angel Investors', 'jp-FI': 'エンジェル投資家' },
     description: {
-      'en-US': (l) => `Gain ${150 * l} money, but lose ${l * 10} influence`,
-      'jp-FI': (l) => `${150 * l}kのお金を得るが、${l * 10}の影響力を失う`,
+      'en-US': (l) => `Gain ${150 * l} money, but wages are 10% higher`,
+      'jp-FI': (l) => `${150 * l}kのお金を得るが、賃金が10%増加する`,
     },
     rarity: 'common',
     level: 0,
     maxLevel: 3,
     effect: [
       { paramEffected: 'money', amount: 150 },
-      { paramEffected: 'influence', amount: -10 },
+      { paramEffected: 'trust', amount: -10 },
     ],
   },
   {
@@ -417,7 +423,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
   //   id: 'EchoChamberCollapse',
   //   name: { 'en-US': 'Echo Chamber Collapse', 'jp-FI': 'エコーチェンバー崩壊' },
   //   description: {
-  //     'en-US': (l) => `When you increase trust, gain +${l * 8} ASI outcome`,
+  //     'en-US': (l) => `When you increase trust, gain +${l * 8} outcome`,
   //     'jp-FI': (l) => `信頼を増加させると、ASI結果+${l * 8}`,
   //   },
   //   rarity: 'uncommon',
@@ -501,7 +507,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
   //   id: 'AmplifiedOversight',
   //   name: { 'en-US': 'Amplified Oversight', 'jp-FI': '増幅された監視' },
   //   description: {
-  //     'en-US': (l) => `When you increase ASI outcome, gain ${l * 8} 💬 and 🧪`,
+  //     'en-US': (l) => `When you increase outcome, gain ${l * 8} 💬 and 🧪`,
   //     'jp-FI': (l) => `ASI結果が増加すると、🧪と💬+${l * 8}`,
   //   },
   //   rarity: 'uncommon',
@@ -552,7 +558,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: 'AlignmentAgenda',
     name: { 'en-US': 'Alignment Agenda', 'jp-FI': 'アラインメントアジェンダ' },
     description: {
-      'en-US': (l) => `Gain ${l} ASI outcome each turn`,
+      'en-US': (l) => `Gain ${l} outcome each turn`,
       'jp-FI': (l) => `毎ターンASI結果+${l}`,
     },
     rarity: 'uncommon',
@@ -652,14 +658,14 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'LethalityList',
     name: { 'en-US': 'List of Lethalities', 'jp-FI': '致命性リスト' },
     description: {
-      'en-US': (l) => `Gain ${l * 40} influence, but public unity -${l}`,
+      'en-US': (l) => `Gain ${l * 40} outcome, but public unity -${l}`,
       'jp-FI': (l) => `影響力が${l * 40}増加するが、公衆団結-${l}`,
     },
     rarity: 'rare',
     level: 0,
     maxLevel: 2,
     effect: [
-      { paramEffected: 'influence', amount: 40 },
+      { paramEffected: 'asiOutcome', amount: 40 },
       { paramEffected: 'publicUnity', amount: -1 },
     ],
   },
@@ -815,18 +821,14 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'IdealisticWorldview',
     name: { 'en-US': 'Idealistic Worldview', 'jp-FI': '理想主義的世界観' },
     description: {
-      'en-US': (l) => `🧪 gain from humans is doubled, but you can no longer gain influence`,
-      'jp-FI': (l) => `信頼獲得が0、🧪は2倍`,
+      'en-US': (l) => `🧪 gain from humans is doubled, but wages are increased by 50%`,
+      'jp-FI': (l) => `人材からの🧪獲得が2倍になるが、賃金が50%増加する`,
     },
     rarity: 'rare',
     level: 0,
     maxLevel: 1,
+    functionEffect: (gs: GameState) => ({ ...gs, trust: gs.trust - 50 }),
     modifiers: [
-      {
-        param: 'influence',
-        type: ModifierType.Multiply,
-        apply: (v: number) => v * 0,
-      },
       {
         param: 'rp',
         type: ModifierType.Multiply,
@@ -838,7 +840,7 @@ export const rareBreakthroughs: Breakthrough[] = [
   //   id: 'InnerCorrigibility',
   //   name: { 'en-US': 'Inner Corrigibility', 'jp-FI': '内部修正可能性' },
   //   description: {
-  //     'en-US': (l) => `When you increase trust, gain ${l * 8} ASI outcome`,
+  //     'en-US': (l) => `When you increase trust, gain ${l * 8} outcome`,
   //     'jp-FI': (l) => `信頼を増加させると、ASI結果+${l * 8}`,
   //   },
   //   rarity: 'rare',
@@ -876,7 +878,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'ShardTheory',
     name: { 'en-US': 'Shard Theory', 'jp-FI': 'シャード理論' },
     description: {
-      'en-US': (l) => `Public unity no longer affects ASI outcome`,
+      'en-US': (l) => `Public unity no longer affects outcome`,
       'jp-FI': (l) => `公衆団結はASI結果に影響しない`,
     },
     rarity: 'rare',
@@ -903,22 +905,22 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'UnitedIntervention',
     name: { 'en-US': 'United Intervention', 'jp-FI': 'ユニティ介入' },
     description: {
-      'en-US': (l) => `+3 public unity, but lose 30 influence`,
-      'jp-FI': (l) => `公衆団結+3、影響力-30`,
+      'en-US': (l) => `+3 public unity, but -30 income`,
+      'jp-FI': (l) => `公衆団結+3、収入-30`,
     },
     rarity: 'epic',
     level: 0,
     maxLevel: 1,
     effect: [
       { paramEffected: 'publicUnity', amount: 3 },
-      { paramEffected: 'influence', amount: -30 },
+      { paramEffected: 'income', amount: -30 },
     ],
   },
   {
     id: 'EncodedProphecy',
     name: { 'en-US': 'Encoded Prophecy', 'jp-FI': '暗号化された予言' },
     description: {
-      'en-US': (l) => `At the start of each year: +5 trust / influence / ASI outcome`,
+      'en-US': (l) => `At the start of each year: +5 trust / influence / outcome`,
       'jp-FI': (l) => `毎年終わりに信頼+5、影響力+5、ASI結果+5`,
     },
     rarity: 'epic',
@@ -1016,7 +1018,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'RecursiveSelfImprovement',
     name: { 'en-US': 'Recursive Self-Improvement', 'jp-FI': '再帰的自己改善' },
     description: {
-      'en-US': (l) => `Gain +5 🔧 and -1 ASI outcome each turn`,
+      'en-US': (l) => `Gain +5 🔧 and -1 outcome each turn`,
       'jp-FI': (l) => `毎ターン🔧+5、ASI結果-1`,
     },
     rarity: 'epic',
@@ -1037,13 +1039,18 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'StrategicExpansion',
     name: { 'en-US': 'Strategic Expansion', 'jp-FI': '戦略的拡大' },
     description: {
-      'en-US': (l) => `Gain 25 influence`,
-      'jp-FI': (l) => `影響力+25`,
+      'en-US': (l) => `Gain +10 🔧 when you finish a contract`,
+      'jp-FI': (l) => `契約を終了するたびに🔧+10`,
     },
     rarity: 'epic',
     level: 0,
     maxLevel: 1,
-    effect: [{ paramEffected: 'influence', amount: 25 }],
+    actionEventHandlers: [
+      {
+        trigger: 'contractSuccess',
+        apply: (gs: GameState, level: number) => ({ ...gs, ep: gs.ep + 10 }),
+      },
+    ],
   },
   {
     id: 'ArtificialConsciousness',
@@ -1070,7 +1077,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'SingularityTheorem',
     name: { 'en-US': 'Singularity Theorem', 'jp-FI': 'シンギュラリティ定理' },
     description: {
-      'en-US': (l) => `When you research a breakthrough, gain ${l * 10} ASI outcome`,
+      'en-US': (l) => `When you research a breakthrough, gain ${l * 10} outcome`,
       'jp-FI': (l) => `研究を行うたびにASI結果+${l * 10}`,
     },
     rarity: 'epic',
@@ -1109,7 +1116,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'Control Policy',
     name: { 'en-US': 'Control Policy', 'jp-FI': 'アラインメント配当' },
     description: {
-      'en-US': (l) => `Gain 25 ASI outcome`,
+      'en-US': (l) => `Gain 25 outcome`,
       'jp-FI': (l) => `ASI結果+25`,
     },
     rarity: 'epic',
@@ -1147,8 +1154,8 @@ export const epicBreakthroughs: Breakthrough[] = [
     effect: [{ paramEffected: 'up', amount: 8 }],
   },
   {
-    id: 'TheFinalGrant',
-    name: { 'en-US': 'The Final Grant', 'jp-FI': '最終的な助成金' },
+    id: 'TheUltimateGrant',
+    name: { 'en-US': 'The Ultimate Grant', 'jp-FI': '最終的な助成金' },
     description: {
       'en-US': (l) => `Gain 250 money`,
       'jp-FI': (l) => `お金+250`,
