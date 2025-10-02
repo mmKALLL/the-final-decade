@@ -11,37 +11,37 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
 
   return (
     <div className="contract-section">
+      <InfoTooltip>
+        <>
+          <p style={{ fontWeight: 'bold' }}>Contracts</p>
+          <p>Contracts are tasks you can complete to earn resources and advantages.</p>
+          <p>
+            <span style={{ fontWeight: 'bold' }}>Success:</span> What you gain when completing the contract
+          </p>
+          <p>
+            <span style={{ fontWeight: 'bold' }}>Costs:</span> Resources required to complete the contract
+          </p>
+          <p>
+            <span style={{ fontWeight: 'bold' }}>Requirements:</span> Conditions that must be met
+          </p>
+          <hr style={{ border: '0.5px solid rgba(80, 80, 120, 0.3)', margin: '0.5rem 0' }} />
+          <p>Contract types:</p>
+          <p>
+            <span style={{ color: 'rgba(100, 60, 80, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Product:</span> Uses some 💬, has
+            broad effects
+          </p>
+          <p>
+            <span style={{ color: 'rgba(60, 60, 100, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Capability:</span> Very lucrative,
+            but reduces trust
+          </p>
+          <p>
+            <span style={{ color: 'rgba(60, 100, 80, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Safety:</span> Uses some 🧪,
+            improves trust
+          </p>
+        </>
+      </InfoTooltip>
       <div className="section-header">
         <h2>Contracts - {editable ? 'tap to complete' : 'view only'}</h2>
-        <InfoTooltip>
-          <>
-            <p style={{ fontWeight: 'bold' }}>Contracts</p>
-            <p>Contracts are tasks you can complete to earn resources and advantages.</p>
-            <p>
-              <span style={{ fontWeight: 'bold' }}>Success:</span> What you gain when completing the contract
-            </p>
-            <p>
-              <span style={{ fontWeight: 'bold' }}>Costs:</span> Resources required to complete the contract
-            </p>
-            <p>
-              <span style={{ fontWeight: 'bold' }}>Requirements:</span> Conditions that must be met
-            </p>
-            <hr style={{ border: '0.5px solid rgba(80, 80, 120, 0.3)', margin: '0.5rem 0' }} />
-            <p>Contract types:</p>
-            <p>
-              <span style={{ color: 'rgba(40, 60, 60, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Safety:</span> Uses some 🧪,
-              improves trust
-            </p>
-            <p>
-              <span style={{ color: 'rgba(40, 40, 80, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Capability:</span> Very
-              lucrative, but reduces trust
-            </p>
-            <p>
-              <span style={{ color: 'rgba(60, 40, 60, 1)' }}>■</span> <span style={{ fontWeight: 'bold' }}>Product:</span> Uses some 💬, has
-              broad effects
-            </p>
-          </>
-        </InfoTooltip>
       </div>
       {contracts.length === 0 && (
         <p className="contract-empty">

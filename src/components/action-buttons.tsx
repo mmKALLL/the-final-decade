@@ -13,13 +13,11 @@ export function ActionButtons() {
           <>
             <p style={{ fontWeight: 'bold' }}>Action Types</p>
             <p>
-              <span style={{ fontWeight: 'bold' }}>First-order:</span> Basic resource-generating actions that only have an opportunity cost
+              <span style={{ fontWeight: 'bold' }}>Direct actions:</span> Basic resource-generating actions that only have an opportunity
+              cost
             </p>
             <p>
-              <span style={{ fontWeight: 'bold' }}>Second-order:</span> Strategic actions to help you produce resources automatically
-            </p>
-            <p>
-              <span style={{ fontWeight: 'bold' }}>Third-order:</span> Long-term impact actions affecting game outcome
+              <span style={{ fontWeight: 'bold' }}>Scaling actions:</span> Strategic actions to help you produce resources automatically
             </p>
             <hr style={{ border: '0.5px solid rgba(80, 80, 120, 0.3)', margin: '0.5rem 0' }} />
             <p>Click on any action button to perform that action. All actions cost one turn (month), and have the written effect.</p>
