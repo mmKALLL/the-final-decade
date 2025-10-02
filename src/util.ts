@@ -136,26 +136,24 @@ export const seniorityMultipliers: Record<HumanRank, number> = {
   medior: 1,
   senior: 1.1,
   lead: 1.25,
+  coach: 1.4,
 }
 
 // Calculate team multipliers based on senior and lead ranks
 export const calculateTeamMultipliers = (gs: GameState): Record<HumanType, number> => {
-  const seniors = gs.humans.filter((human) => human.rank === 'senior')
-  const leads = gs.humans.filter((human) => human.rank === 'lead')
+  const spHumans = gs.humans.filter((human) => human.type === 'sp')
+  const epHumans = gs.humans.filter((human) => human.type === 'ep')
+  const rpHumans = gs.humans.filter((human) => human.type === 'rp')
 
-  const spSeniors = seniors.filter((h) => h.type === 'sp').length
-  const epSeniors = seniors.filter((h) => h.type === 'ep').length
-  const rpSeniors = seniors.filter((h) => h.type === 'rp').length
+  const spMultipliers = spHumans.map((human) => seniorityMultipliers[human.rank])
+  const epMultipliers = epHumans.map((human) => seniorityMultipliers[human.rank])
+  const rpMultipliers = rpHumans.map((human) => seniorityMultipliers[human.rank])
 
-  const spLeads = leads.filter((h) => h.type === 'sp').length
-  const epLeads = leads.filter((h) => h.type === 'ep').length
-  const rpLeads = leads.filter((h) => h.type === 'rp').length
-
-  // Seniors give 10% boost per senior, Leads give 25% boost per lead. The boosts are multiplicative.
+  // Seniors give 10% boost each, Leads give 25% boost each, Coaches give 40% boost each. The boosts are additive.
   return {
-    sp: Math.pow(1.1, spSeniors) * Math.pow(1.25, spLeads),
-    ep: Math.pow(1.1, epSeniors) * Math.pow(1.25, epLeads),
-    rp: Math.pow(1.1, rpSeniors) * Math.pow(1.25, rpLeads),
+    sp: 1 + (spMultipliers.reduce((acc, mult) => acc + (mult - 1), 0) || 0),
+    ep: 1 + (epMultipliers.reduce((acc, mult) => acc + (mult - 1), 0) || 0),
+    rp: 1 + (rpMultipliers.reduce((acc, mult) => acc + (mult - 1), 0) || 0),
   }
 }
 

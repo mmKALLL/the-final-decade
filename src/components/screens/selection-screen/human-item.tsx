@@ -44,6 +44,7 @@ export const HumanItem = ({ human, onSelect }: { human: Human; onSelect: () => v
                 junior: 'ジュニア',
                 medior: 'ミディア',
                 senior: 'シニア',
+                coach: 'コーチ',
                 lead: 'リード',
               }[human.rank]
             : human.rank}

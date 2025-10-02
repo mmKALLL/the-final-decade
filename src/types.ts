@@ -92,7 +92,7 @@ export type GameState = {
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'epic'
 
 export type HumanType = 'sp' | 'ep' | 'rp'
-export type HumanRank = 'volunteer' | 'junior' | 'medior' | 'senior' | 'lead' // seniors and leads multiply the output of others, but at high cost
+export type HumanRank = 'volunteer' | 'junior' | 'medior' | 'senior' | 'coach' | 'lead' // seniors, coaches, and leads multiply the output of others, but at high cost
 
 export type Human = {
   name: Label
