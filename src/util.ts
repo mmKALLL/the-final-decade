@@ -4,11 +4,11 @@ export const getRandomInt = (min: number, max: number) => Math.floor(Math.random
 export const getYear = (turn: number) => Math.floor(turn / 12) + 1
 export const getYearForDisplay = (turn: number) => 2025 + Math.floor(turn / 12)
 
-export const isGameOver = (gs: GameState): boolean => gs.money <= 0 || gs.asiOutcome <= 0 || gs.trust <= 0 || gs.influence <= 0
+export const isGameOver = (gs: GameState): boolean => gs.money <= 0 || gs.asiOutcome <= 0 || gs.trust <= 0
 export const isGameWon = (gs: GameState): boolean => (getYear(gs.turn) >= 6 && gs.asiOutcome >= 100) || gs.publicUnity >= 100
 
 export const levelUpCost = (breakthrough: Breakthrough) => breakthrough.level + 3 // 4, 5, 6, ...
-export const lobbyingCost = (gs: GameState) => Math.floor(Math.min(0, -100 + gs.influence / 2))
+export const lobbyingCost = (gs: GameState) => 50 // Math.floor(Math.min(0, -100 + gs.influence / 2))
 
 export const assertNever = (x: never): never => {
   throw new Error('Unexpected object: ' + x)
@@ -32,7 +32,6 @@ export const paramToLabel = (p: Param, language: Language): string => {
       case 'trust':            return '信頼'
       case 'publicUnity':      return '公共団結'
       case 'asiOutcome':       return 'ASI結果'
-      case 'influence':        return '影響力'
       case 'sp':               return '💬'
       case 'ep':               return '🔧'
       case 'rp':               return '🧪'
@@ -49,7 +48,6 @@ export const paramToLabel = (p: Param, language: Language): string => {
       case 'trust':            return 'trust'
       case 'publicUnity':      return 'unity'
       case 'asiOutcome':       return 'outcome'
-      case 'influence':        return 'lobbying cost'
       case 'sp':               return '💬'
       case 'ep':               return '🔧'
       case 'rp':               return '🧪'

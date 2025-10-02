@@ -46,10 +46,6 @@ export function ResourceDisplay() {
         value: `${resourceProduction.rp.base} * ${resourceProduction.rp.multiplier} = ${resourceProduction.rp.total}`,
         desc: language === 'jp-FI' ? 'ブレークスルーのためのリサーチポイント' : 'Research Points for breakthroughs',
       },
-      [language === 'jp-FI' ? 'ロビー活動コスト' : 'lobbying cost']: {
-        value: 200 - gs.influence + '%',
-        desc: language === 'jp-FI' ? '公共の団結を高めるためのコスト' : 'Cost of improving public unity',
-      },
     },
   }
 

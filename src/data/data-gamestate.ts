@@ -14,7 +14,6 @@ const baseGameState: GameState = {
   income: 0,
   asiOutcome: 50,
   publicUnity: -1,
-  influence: 100,
   trust: 100,
 
   sp: 20 * (debug ? 10 : 1),

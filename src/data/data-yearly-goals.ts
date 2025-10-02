@@ -149,14 +149,11 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2028,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '💬 -100, unity -1', 'jp-FI': '💬 -100、公共団結 -1' },
-    requirementDescription: { 'en-US': 'Trust >= 180, Influence >= 140', 'jp-FI': '信頼 >= 180、影響力 >= 140' },
+    costDescription: { 'en-US': '💬 -120, unity -1', 'jp-FI': '💬 -120、公共団結 -1' },
+    requirementDescription: { 'en-US': 'Outcome >= 80', 'jp-FI': 'ASI結果 >= 80' },
     onSuccess: [],
-    requirements: [
-      { paramEffected: 'trust', amount: 180 },
-      { paramEffected: 'influence', amount: 140 },
-    ],
-    costs: [{ paramEffected: 'sp', amount: -100 }],
+    requirements: [{ paramEffected: 'asiOutcome', amount: 80 }],
+    costs: [{ paramEffected: 'sp', amount: -120 }],
   },
   {
     name: { 'en-US': 'Autonomous Nation Genesis', 'jp-FI': '自律国家の誕生' },
