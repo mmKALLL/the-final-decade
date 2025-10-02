@@ -329,7 +329,7 @@ body {
 .selection-section {
   background-color: rgba(30, 30, 50, 0.7);
   border-radius: 0;
-  padding: 0.2rem 0.4rem;
+  padding: 0.2rem 0.6rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   margin: 0.75rem 0;
 }
