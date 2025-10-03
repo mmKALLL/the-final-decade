@@ -920,7 +920,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'EncodedProphecy',
     name: { 'en-US': 'Encoded Prophecy', 'jp-FI': '暗号化された予言' },
     description: {
-      'en-US': (l) => `At the end of each year: +10 trust / outcome (from next year onwards)`,
+      'en-US': (l) => `At the start of each year: +10 trust, +10 outcome`,
       'jp-FI': (l) => `毎年終わりに信頼+5、影響力+5、ASI結果+5`,
     },
     rarity: 'epic',
