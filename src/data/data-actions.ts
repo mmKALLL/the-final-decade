@@ -96,7 +96,10 @@ const convertRequirementsToCondition = (requirements: Effect): ((gs: GameState) 
   return (gs: GameState) =>
     requirements.every(
       (req) =>
-        req.paramEffected !== 'humanSelection' && req.paramEffected !== 'breakthroughSelection' && gs[req.paramEffected] >= req.amount
+        req.paramEffected !== 'humanSelection' &&
+        req.paramEffected !== 'breakthroughSelection' &&
+        gs[req.paramEffected] >= req.amount &&
+        (req.condition?.(gs, req.paramEffected, req.amount) ?? true)
     )
 }
 
