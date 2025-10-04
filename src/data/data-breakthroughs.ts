@@ -416,7 +416,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     },
     rarity: 'uncommon',
     level: 0,
-    maxLevel: 3,
+    maxLevel: 1,
     effect: [{ paramEffected: 'publicUnity', amount: 1 }],
   },
   {
@@ -490,18 +490,13 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: 'ViralVideos',
     name: { 'en-US': 'Viral Videos', 'jp-FI': 'バイラルビデオ' },
     description: {
-      'en-US': (l) => `Gain ${l} outcome each turn`,
-      'jp-FI': (l) => `毎ターンASI結果+${l}`,
+      'en-US': (l) => `Gain ${l * 5} income`,
+      'jp-FI': (l) => `収入が${l * 5}増加する`,
     },
     rarity: 'uncommon',
     level: 0,
     maxLevel: 3,
-    actionEventHandlers: [
-      {
-        trigger: 'turnEnd',
-        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + level }),
-      },
-    ],
+    effect: [{ paramEffected: 'income', amount: 5 }],
   },
   {
     id: 'AmplifiedOversight',
@@ -735,16 +730,20 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'HypeEngine',
     name: { 'en-US': 'Hype Engine', 'jp-FI': 'ハイプエンジン' },
     description: {
-      'en-US': (l) => `When you make a breakthrough, gain ${l * 8} outcome`,
+      'en-US': (l) => `When you make a breakthrough, recruit a common human`,
       'jp-FI': (l) => `ブレークスルーを作るたびにASI結果+${l * 8}`,
     },
     rarity: 'rare',
     level: 0,
-    maxLevel: 2,
+    maxLevel: 1,
     actionEventHandlers: [
       {
         trigger: 'researchBreakthrough',
-        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
+        apply: (gs: GameState, level: number) => ({
+          ...gs,
+          currentScreen: 'selection',
+          humanSelections: [...gs.humanSelections, generateHumanSelection(gs, 100, 'common')],
+        }),
       },
     ],
   },
@@ -958,19 +957,19 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'HypnoDrones',
     name: { 'en-US': 'Hypno Drones', 'jp-FI': 'ヒプノドローン' },
     description: {
-      'en-US': (l) => `Gain +5 💬 and -1 outcome each turn`,
+      'en-US': (l) => `Gain +5 💬 / turn, but -1 unity`,
       'jp-FI': (l) => `毎ターン💬+5、ASI結果-1`,
     },
     rarity: 'epic',
     level: 0,
     maxLevel: 1,
+    effect: [{ paramEffected: 'publicUnity', amount: -1 }],
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
         apply: (gs: GameState, l: number) => ({
           ...gs,
           sp: gs.sp + 5 * l,
-          asiOutcome: gs.asiOutcome - l,
         }),
       },
     ],
@@ -1017,19 +1016,19 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'ShardTheory',
     name: { 'en-US': 'Shard Theory', 'jp-FI': 'シャード理論' },
     description: {
-      'en-US': (l) => `Gain +5 🔧 and -1 outcome each turn`,
+      'en-US': (l) => `Gain +5 🔧 / turn, but -1 unity`,
       'jp-FI': (l) => `毎ターン🔧+5、ASI結果-1`,
     },
     rarity: 'epic',
     level: 0,
     maxLevel: 1,
+    effect: [{ paramEffected: 'publicUnity', amount: -1 }],
     actionEventHandlers: [
       {
         trigger: 'turnEnd',
         apply: (gs: GameState, l: number) => ({
           ...gs,
           ep: gs.ep + 5 * l,
-          asiOutcome: gs.asiOutcome - l,
         }),
       },
     ],
