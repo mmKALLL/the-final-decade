@@ -132,7 +132,7 @@ function getProductSuccessEffects(difficulty: number): WeightedSingleEffect[] {
   return [
     { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(80, difficulty, 0.5) } },
     { weight: difficulty > 260 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(80, difficulty, 0.5) } },
-    { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.06) } },
+    { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'ep', amount: getRandomValue(4, difficulty, 0.06) } },
     {
       weight: 4,
       effect: { paramEffected: 'asiOutcome', amount: getRandomValue(3, difficulty, 0.05) }, // The compliment of the effect native to the contract type
@@ -151,8 +151,7 @@ function getProductSuccessEffects(difficulty: number): WeightedSingleEffect[] {
 // Function to get capability-focused success effects
 function getCapabilitySuccessEffects(difficulty: number): WeightedSingleEffect[] {
   return [
-    { weight: difficulty > 200 ? 0 : 4, effect: { paramEffected: 'sp', amount: getRandomValue(4, difficulty, 0.05) } },
-    { weight: difficulty > 200 ? 4 : 0, effect: { paramEffected: 'sp', amount: getRandomValue(4, difficulty, 0.08) } },
+    { weight: difficulty > 200 ? 2 : 3, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.08) } },
     { weight: 5, effect: { paramEffected: 'up', amount: getRandomInt(1, 4) } },
     { weight: 4, effect: { paramEffected: 'income', amount: getRandomValue(1, difficulty, 0.03) } },
     { weight: difficulty > 200 ? 2 : 1, effect: { paramEffected: 'humanSelection', amount: getRandomValue(50, difficulty, 0.5) } },
@@ -165,10 +164,10 @@ function getSafetySuccessEffects(difficulty: number): WeightedSingleEffect[] {
   return [
     { weight: difficulty > 260 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(100, difficulty, 0.5) } },
     { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(50, difficulty, 0.5) } },
-    { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'ep', amount: getRandomValue(4, difficulty, 0.05) } },
+    { weight: difficulty > 200 ? 1 : 3, effect: { paramEffected: 'sp', amount: getRandomValue(5, difficulty, 0.05) } },
     {
-      weight: 4,
-      effect: { paramEffected: 'trust', amount: getRandomValue(3, difficulty, 0.05) }, // The compliment of the effect native to the contract type
+      weight: 3,
+      effect: { paramEffected: 'trust', amount: getRandomValue(difficulty > 150 ? 5 : 3, difficulty, 0.05) }, // The compliment of the effect native to the contract type
     },
     {
       weight: difficulty > 150 ? 2 : 1,
