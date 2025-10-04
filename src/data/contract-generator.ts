@@ -4,9 +4,6 @@ import { assertNever, getRandomInt, paramToLabel, pickListOfWeighted, withPlusSi
 export const refreshContracts = (gs: GameState): GameState => ({
   ...gs,
   contracts: [generateContract(gs, 'product'), generateContract(gs, 'capabilities'), generateContract(gs, 'safety')],
-  // Array(gs.maxContracts)
-  //   .fill(null)
-  //   .map(() => generateContract(gs)),
 })
 
 function getYearIndex(turn: number): number {
@@ -33,9 +30,6 @@ export function generateContract(gs: GameState, type?: ContractType): Contract {
     ...getSuccessEffects(difficulty, successEffects, contractType),
   ]
 
-  // Apply contract modifiers from the game state
-  const modifiedOnSuccess = onSuccess.map((e) => applyContractModifiers(gs, e))
-
   // Requirements scale exponentially with difficulty. They are mapped to costs for now
   const totalRequirement = Math.round(Math.pow(((isSecondaryContract ? 100 : 120) + difficulty) / 100, 1.75))
   const secondaryRequirement = totalRequirement >= 2 && isSecondaryContract ? Math.round(totalRequirement * (0.5 + Math.random() * 0.3)) : 0
@@ -56,12 +50,12 @@ export function generateContract(gs: GameState, type?: ContractType): Contract {
     type: contractType,
     rarity,
     successDescription: {
-      'en-US': effectListToString(modifiedOnSuccess, 'en-US'),
-      'jp-FI': effectListToString(modifiedOnSuccess, 'jp-FI'),
+      'en-US': effectListToString(onSuccess, 'en-US'),
+      'jp-FI': effectListToString(onSuccess, 'jp-FI'),
     },
     requirementDescription: { 'en-US': effectListToString(requirements, 'en-US'), 'jp-FI': effectListToString(requirements, 'jp-FI') },
     costDescription: { 'en-US': effectListToString(costs, 'en-US'), 'jp-FI': effectListToString(costs, 'jp-FI') },
-    onSuccess: modifiedOnSuccess,
+    onSuccess,
     requirements,
     costs,
   }
@@ -101,7 +95,7 @@ function getGuaranteedEffects(difficulty: number, contractType: ContractType): E
     ? [
         {
           paramEffected: 'asiOutcome',
-          amount: Math.floor(3 * (difficulty / 100)),
+          amount: Math.floor(getRandomInt(2, 4) * (difficulty / 100)),
         } as const,
       ]
     : contractType === 'capabilities'
@@ -123,30 +117,8 @@ function getSuccessEffects(difficulty: number, totalEffects: number, contractTyp
   return getEffectsFromPool(totalEffects, effectPool)
 }
 
-// function getFailureEffects(difficulty: number, totalEffects: number, isSecondaryContract: boolean, trust: number): Effect {
-//   if (totalEffects === 0) return []
-//   const effectPool = isSecondaryContract
-//     ? getAlignmentFailureEffects(difficulty, trust, totalEffects, isSecondaryContract)
-//     : getCapabilityFailureEffects(difficulty, trust, totalEffects, isSecondaryContract)
-//   return getEffectsFromPool(totalEffects, effectPool)
-// }
-
 function getEffectsFromPool(totalEffects: number, effectPool: WeightedSingleEffect[]): Effect {
   return pickListOfWeighted(totalEffects, effectPool).map((e) => e.effect)
-}
-
-// This function was originally for applying contract modifiers from GS, but those are not implemented yet
-function applyContractModifiers(_gs: GameState, effect: SingleEffect, _isForFailure: boolean = false): SingleEffect {
-  return effect
-  // return {
-  //   paramEffected: effect.paramEffected,
-  //   amount: applyParamModifiers(
-  //     effect,
-  //     isForFailure ? {} : gs.contractAddModifiers,
-  //     gs.contractMultModifiers,
-  //     isForFailure ? {} : gs.contractFunctionModifiers
-  //   ),
-  // }
 }
 
 // Example weighted effect structure for success/failure pools

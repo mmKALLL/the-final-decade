@@ -21,6 +21,8 @@ export const hintNews = [
 
   'The necessity of an "AI race" is an illusion. Only OpenAI is pushing the cutting edge; China understands that there\'s no business benefit from pouring a trillion dollars into a technology they can get at 1/100 of the cost a year later.',
 
+  'This game is an accurate simulation of the gamble that OpenAI is taking with our future.',
+
   // AI generated
   "AI finally learns sarcasm. Now no one can tell if it's serious - or sentient.",
   'AI researcher claims to have solved alignment. Human researchers have no way to verify its proof.',
