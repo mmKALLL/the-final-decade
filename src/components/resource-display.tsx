@@ -76,7 +76,7 @@ export function ResourceDisplay() {
   }
 
   return (
-    <div className="game-state-section">
+    <div className="game-state-section section">
       <InfoTooltip>
         <>
           <p>{language === 'jp-FI' ? '統計の色は危険レベルを示します：' : 'Stat colors indicate danger levels:'}</p>

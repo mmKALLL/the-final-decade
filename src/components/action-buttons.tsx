@@ -8,7 +8,7 @@ export function ActionButtons() {
 
   return (
     <>
-      <div className="action-section">
+      <div className="action-section section">
         <InfoTooltip>
           <>
             <p style={{ fontWeight: 'bold' }}>Action Types</p>
@@ -23,7 +23,6 @@ export function ActionButtons() {
             <p>Click on any action button to perform that action. All actions cost one turn (month), and have the written effect.</p>
           </>
         </InfoTooltip>
-
         <div className="section-header"></div>
         <h2>Direct actions:</h2>
         <div className="action-buttons">

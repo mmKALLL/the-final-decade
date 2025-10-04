@@ -10,7 +10,7 @@ export const ContractList = ({ editable }: { editable: boolean }) => {
   const { contracts, language } = gs
 
   return (
-    <div className="contract-section">
+    <div className="contract-section section">
       <InfoTooltip>
         <>
           <p style={{ fontWeight: 'bold' }}>Contracts</p>

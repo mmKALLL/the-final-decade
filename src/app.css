@@ -218,7 +218,6 @@ body {
   border-radius: 0;
   padding: 0.6rem;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  position: relative;
 }
 
 .info-tooltip {
@@ -732,6 +731,10 @@ body {
 /* End of Breakthrough section styling */
 
 /* Section header with tooltip */
+.section {
+  position: relative; /* For tooltip positioning */
+}
+
 .section-header {
   display: flex;
   justify-content: space-between;
