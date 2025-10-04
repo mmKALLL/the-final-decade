@@ -46,6 +46,10 @@ export function ResourceDisplay() {
         value: `${resourceProduction.rp.base} * ${resourceProduction.rp.multiplier} = ${resourceProduction.rp.total}`,
         desc: language === 'jp-FI' ? 'ブレークスルーのためのリサーチポイント' : 'Research Points for breakthroughs',
       },
+      humans: {
+        value: `${gs.humans.length}`,
+        desc: language === 'jp-FI' ? '人間の数' : 'Number of humans on your team',
+      },
     },
   }
 
