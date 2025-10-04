@@ -153,7 +153,7 @@ export type EventId =
 
   // Second-order actions
   | 'recruitHuman'
-  | 'finetuneSystems'
+  | 'buildUpgrades'
   | 'researchBreakthrough'
   | 'increaseUnity'
 

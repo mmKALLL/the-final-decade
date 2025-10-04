@@ -198,7 +198,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'ResearchAdvisor',
     name: { 'en-US': 'Research Advisor', 'jp-FI': '研究アドバイザー' },
     description: {
-      'en-US': (l) => `Gain ${l * 12} 🧪 every time you research a breakthrough`,
+      'en-US': (l) => `Gain ${l * 12} 🧪 every time you make a breakthrough`,
       'jp-FI': (l) => `研究を行うたびに${l * 12}🧪を獲得する`,
     },
     rarity: 'common',
@@ -260,23 +260,23 @@ export const commonBreakthroughs: Breakthrough[] = [
       },
     ],
   },
-  // {
-  //   id: 'AdversarialRedTeaming',
-  //   name: { 'en-US': 'Adversarial Red-Teaming', 'jp-FI': '敵対的レッドチーミング' },
-  //   description: {
-  //     'en-US': (l) => `When you increase outcome, gain +${l * 12} 💬`,
-  //     'jp-FI': (l) => `ASI結果を増加させると、💬+${l * 12}`,
-  //   },
-  //   rarity: 'common',
-  //   level: 0,
-  //   maxLevel: 3,
-  //   actionEventHandlers: [
-  //     {
-  //       trigger: 'increaseAsiOutcome',
-  //       apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 12 * level }),
-  //     },
-  //   ],
-  // },
+  {
+    id: 'AdversarialRedTeaming',
+    name: { 'en-US': 'Adversarial Red-Teaming', 'jp-FI': '敵対的レッドチーミング' },
+    description: {
+      'en-US': (l) => `When you finish a contract, gain +${l * 8} 🧪`,
+      'jp-FI': (l) => `契約を終了するたびに、🧪+${l * 8}`,
+    },
+    rarity: 'common',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'contractSuccess',
+        apply: (gs: GameState, level: number) => ({ ...gs, rp: gs.rp + 8 * level }),
+      },
+    ],
+  },
   {
     id: 'InstrumentalityProject',
     name: { 'en-US': 'Instrumentality Project', 'jp-FI': 'インストルメンタリティプロジェクト' },
@@ -313,8 +313,8 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'QualiaOfHarmony',
     name: { 'en-US': 'Qualia of Harmony', 'jp-FI': '調和のクオリア' },
     description: {
-      'en-US': (l) => `When you do government lobbying, get +${15 * l} 💬`,
-      'jp-FI': (l) => `治安を安定するたびに+${15 * l}💬を獲得する`,
+      'en-US': (l) => `When you do government lobbying, get +${20 * l} 💬`,
+      'jp-FI': (l) => `治安を安定するたびに+${20 * l}💬を獲得する`,
     },
     rarity: 'common',
     level: 0,
@@ -324,7 +324,7 @@ export const commonBreakthroughs: Breakthrough[] = [
         trigger: 'increaseUnity',
         apply: (gs: GameState, l: number) => ({
           ...gs,
-          sp: gs.sp + 15 * l,
+          sp: gs.sp + 20 * l,
         }),
       },
     ],
@@ -419,26 +419,9 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     maxLevel: 3,
     effect: [{ paramEffected: 'publicUnity', amount: 1 }],
   },
-  // {
-  //   id: 'EchoChamberCollapse',
-  //   name: { 'en-US': 'Echo Chamber Collapse', 'jp-FI': 'エコーチェンバー崩壊' },
-  //   description: {
-  //     'en-US': (l) => `When you increase trust, gain +${l * 8} outcome`,
-  //     'jp-FI': (l) => `信頼を増加させると、ASI結果+${l * 8}`,
-  //   },
-  //   rarity: 'uncommon',
-  //   level: 0,
-  //   maxLevel: 3,
-  //   actionEventHandlers: [
-  //     {
-  //       trigger: 'increaseTrust',
-  //       apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
-  //     },
-  //   ],
-  // },
   {
-    id: 'InfluenceIncubator',
-    name: { 'en-US': 'Influence Incubator', 'jp-FI': '影響力インキュベーター' },
+    id: 'EchoChamberCollapse',
+    name: { 'en-US': 'Echo Chamber Collapse', 'jp-FI': 'エコーチェンバー崩壊' },
     description: {
       'en-US': (l) => `When you recruit a human, gain +${5 * l} outcome`,
       'jp-FI': (l) => `人材を雇うたびに影響力+${5 * l}`,
@@ -450,6 +433,23 @@ export const uncommonBreakthroughs: Breakthrough[] = [
       {
         trigger: 'recruitHuman',
         apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 5 * level }),
+      },
+    ],
+  },
+  {
+    id: 'InfluenceIncubator',
+    name: { 'en-US': 'Influence Incubator', 'jp-FI': '影響力インキュベーター' },
+    description: {
+      'en-US': (l) => `When you recruit a human, gain +${l * 1} income`,
+      'jp-FI': (l) => `人材を雇うたびに収入+${l * 1}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'recruitHuman',
+        apply: (gs: GameState, level: number) => ({ ...gs, income: gs.income + 1 * level }),
       },
     ],
   },
@@ -503,23 +503,23 @@ export const uncommonBreakthroughs: Breakthrough[] = [
       },
     ],
   },
-  // {
-  //   id: 'AmplifiedOversight',
-  //   name: { 'en-US': 'Amplified Oversight', 'jp-FI': '増幅された監視' },
-  //   description: {
-  //     'en-US': (l) => `When you increase outcome, gain ${l * 8} 💬 and 🧪`,
-  //     'jp-FI': (l) => `ASI結果が増加すると、🧪と💬+${l * 8}`,
-  //   },
-  //   rarity: 'uncommon',
-  //   level: 0,
-  //   maxLevel: 3,
-  //   actionEventHandlers: [
-  //     {
-  //       trigger: 'increaseAsiOutcome',
-  //       apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 8 * level, rp: gs.rp + 8 * level }),
-  //     },
-  //   ],
-  // },
+  {
+    id: 'AmplifiedOversight',
+    name: { 'en-US': 'Amplified Oversight', 'jp-FI': '増幅された監視' },
+    description: {
+      'en-US': (l) => `When you build upgrades, gain ${l * 8} 💬 and 🧪`,
+      'jp-FI': (l) => `アップグレードを構築するたびに💬と🧪+${l * 8}`,
+    },
+    rarity: 'uncommon',
+    level: 0,
+    maxLevel: 3,
+    actionEventHandlers: [
+      {
+        trigger: 'buildUpgrades',
+        apply: (gs: GameState, level: number) => ({ ...gs, sp: gs.sp + 8 * level, rp: gs.rp + 8 * level }),
+      },
+    ],
+  },
   {
     id: 'OverclockedSimulations',
     name: { 'en-US': 'Overclocked Simulations', 'jp-FI': '過剰クロックシミュレーション' },
@@ -735,8 +735,8 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'HypeEngine',
     name: { 'en-US': 'Hype Engine', 'jp-FI': 'ハイプエンジン' },
     description: {
-      'en-US': (l) => `When you make a new breakthrough, gain ${l * 8} outcome`,
-      'jp-FI': (l) => `新しいブレークスルーを作るたびにASI結果+${l * 8}`,
+      'en-US': (l) => `When you make a breakthrough, gain ${l * 8} outcome`,
+      'jp-FI': (l) => `ブレークスルーを作るたびにASI結果+${l * 8}`,
     },
     rarity: 'rare',
     level: 0,
@@ -836,23 +836,23 @@ export const rareBreakthroughs: Breakthrough[] = [
       },
     ],
   },
-  // {
-  //   id: 'InnerCorrigibility',
-  //   name: { 'en-US': 'Inner Corrigibility', 'jp-FI': '内部修正可能性' },
-  //   description: {
-  //     'en-US': (l) => `When you increase trust, gain ${l * 8} outcome`,
-  //     'jp-FI': (l) => `信頼を増加させると、ASI結果+${l * 8}`,
-  //   },
-  //   rarity: 'rare',
-  //   level: 0,
-  //   maxLevel: 2,
-  //   actionEventHandlers: [
-  //     {
-  //       trigger: 'increaseTrust',
-  //       apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
-  //     },
-  //   ],
-  // },
+  {
+    id: 'InnerCorrigibility',
+    name: { 'en-US': 'Inner Corrigibility', 'jp-FI': '内部修正可能性' },
+    description: {
+      'en-US': (l) => `When you make a breakthrough, gain ${l * 8} outcome`,
+      'jp-FI': (l) => `新しいブレークスルーを作るたびにASI結果+${l * 8}`,
+    },
+    rarity: 'rare',
+    level: 0,
+    maxLevel: 2,
+    actionEventHandlers: [
+      {
+        trigger: 'researchBreakthrough',
+        apply: (gs: GameState, level: number) => ({ ...gs, asiOutcome: gs.asiOutcome + 8 * level }),
+      },
+    ],
+  },
   {
     id: 'TechnicalAISafetyConference',
     name: { 'en-US': 'Technical AI Safety Conference', 'jp-FI': '技術的AI安全会議' },
@@ -875,8 +875,8 @@ export const rareBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: 'ShardTheory',
-    name: { 'en-US': 'Shard Theory', 'jp-FI': 'シャード理論' },
+    id: 'RecursiveSelfImprovement',
+    name: { 'en-US': 'Recursive Self-Improvement', 'jp-FI': '再帰的自己改善' },
     description: {
       'en-US': (l) => `Public unity no longer affects outcome`,
       'jp-FI': (l) => `公衆団結はASI結果に影響しない`,
@@ -1014,8 +1014,8 @@ export const epicBreakthroughs: Breakthrough[] = [
     ],
   },
   {
-    id: 'RecursiveSelfImprovement',
-    name: { 'en-US': 'Recursive Self-Improvement', 'jp-FI': '再帰的自己改善' },
+    id: 'ShardTheory',
+    name: { 'en-US': 'Shard Theory', 'jp-FI': 'シャード理論' },
     description: {
       'en-US': (l) => `Gain +5 🔧 and -1 outcome each turn`,
       'jp-FI': (l) => `毎ターン🔧+5、ASI結果-1`,
@@ -1076,7 +1076,7 @@ export const epicBreakthroughs: Breakthrough[] = [
     id: 'SingularityTheorem',
     name: { 'en-US': 'Singularity Theorem', 'jp-FI': 'シンギュラリティ定理' },
     description: {
-      'en-US': (l) => `When you research a breakthrough, gain ${l * 10} outcome`,
+      'en-US': (l) => `When you make a breakthrough, gain ${l * 10} outcome`,
       'jp-FI': (l) => `研究を行うたびにASI結果+${l * 10}`,
     },
     rarity: 'epic',

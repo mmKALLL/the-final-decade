@@ -48,8 +48,8 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     }),
   },
   {
-    eventId: 'finetuneSystems',
-    name: { 'en-US': 'Fine-tune systems', 'jp-FI': 'システムを微調整する' },
+    eventId: 'buildUpgrades',
+    name: { 'en-US': 'Build upgrades', 'jp-FI': 'アップグレードを構築する' },
     turnCost: 1,
     turnsInvested: 0,
     effect: [
