@@ -14,11 +14,11 @@ export function ResourceDisplay() {
   // Create more compact category names for mobile with descriptions
   const compactCategories = {
     [language === 'jp-FI' ? 'フィナンシャル' : 'Finance']: {
-      [language === 'jp-FI' ? '収入' : 'Passive income']: {
+      [language === 'jp-FI' ? '収入' : 'Income']: {
         value: withPlusSign(moneyGain.income),
         desc: language === 'jp-FI' ? '毎ターンのお金の変化' : 'Passive change to money each turn',
       },
-      [language === 'jp-FI' ? '給料' : 'wages']: {
+      [language === 'jp-FI' ? '給料' : 'Wages']: {
         value: `-${moneyGain.wages} * ${moneyGain.wageMultiplier.toFixed(2)} = -${moneyGain.totalWages}`,
         desc: language === 'jp-FI' ? '毎ターン人間に支払われるお金' : 'Money paid to humans each turn',
       },
