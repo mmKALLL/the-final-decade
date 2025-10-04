@@ -30,7 +30,7 @@ export function ResourceDisplay() {
       },
       [paramToLabel('publicUnity', language)]: {
         value: gs.publicUnity,
-        desc: language === 'jp-FI' ? '毎ターンのASI結果への変化' : 'Change to ASI outcome each turn',
+        desc: language === 'jp-FI' ? '毎ターンのASI結果への変化' : 'Change to outcome each turn',
       },
     },
     [language === 'jp-FI' ? 'チーム' : 'Team']: {
