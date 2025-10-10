@@ -30,13 +30,17 @@ export function generateContract(gs: GameState, type?: ContractType): Contract {
     ...getSuccessEffects(difficulty, successEffects, contractType),
   ]
 
-  // Requirements scale exponentially with difficulty. They are mapped to costs for now
-  const totalRequirement = Math.round(Math.pow((100 + difficulty) / 100, 1.75))
+  // Requirements scale exponentially with difficulty. They are mapped to costs for now. 1 requirement = 5 resources
+  const typeRequirementMultiplier =
+    contractType === 'product' ? 1.0 : contractType === 'capabilities' ? 1.0 : contractType === 'safety' ? 0.9 : assertNever(contractType)
+  const totalRequirement = Math.round(Math.pow((typeRequirementMultiplier * (100 + difficulty)) / 100, 1.75))
   const secondaryRequirement = totalRequirement >= 2 && isSecondaryContract ? Math.round(totalRequirement * (0.5 + Math.random() * 0.3)) : 0
 
-  const primaryCosts: Effect = [{ paramEffected: 'ep', amount: -(totalRequirement - secondaryRequirement) * 5 }]
+  const primaryCosts: Effect = [{ paramEffected: 'ep', amount: Math.min(-5, -(totalRequirement - secondaryRequirement) * 5) }]
   const secondaryCosts: Effect =
-    secondaryRequirement > 0 ? [{ paramEffected: contractType === 'safety' ? 'rp' : 'sp', amount: -secondaryRequirement * 5 }] : []
+    secondaryRequirement > 0
+      ? [{ paramEffected: contractType === 'safety' ? 'rp' : 'sp', amount: Math.min(-5, -secondaryRequirement * 5) }]
+      : []
 
   const capabilityCosts: Effect = [
     { paramEffected: Math.random() < 0.4 ? 'trust' : 'asiOutcome', amount: Math.ceil(-4 * (difficulty / 100)) },
@@ -136,6 +140,10 @@ function getProductSuccessEffects(difficulty: number): WeightedSingleEffect[] {
     {
       weight: 4,
       effect: { paramEffected: 'asiOutcome', amount: getRandomValue(3, difficulty, 0.05) }, // The compliment of the effect native to the contract type
+    },
+    {
+      weight: 2,
+      effect: { paramEffected: 'trust', amount: getRandomValue(difficulty > 150 ? 4 : 2, difficulty, 0.05) },
     },
     {
       weight: difficulty > 150 ? 2 : 1,
