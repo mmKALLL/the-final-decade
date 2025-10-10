@@ -31,7 +31,7 @@ export function generateContract(gs: GameState, type?: ContractType): Contract {
   ]
 
   // Requirements scale exponentially with difficulty. They are mapped to costs for now
-  const totalRequirement = Math.round(Math.pow(((isSecondaryContract ? 100 : 120) + difficulty) / 100, 1.75))
+  const totalRequirement = Math.round(Math.pow((100 + difficulty) / 100, 1.75))
   const secondaryRequirement = totalRequirement >= 2 && isSecondaryContract ? Math.round(totalRequirement * (0.5 + Math.random() * 0.3)) : 0
 
   const primaryCosts: Effect = [{ paramEffected: 'ep', amount: -(totalRequirement - secondaryRequirement) * 5 }]
@@ -88,14 +88,14 @@ function getGuaranteedEffects(difficulty: number, contractType: ContractType): E
     ? [
         {
           paramEffected: 'income',
-          amount: Math.max(1, getRandomInt(1, 3) + Math.floor(2 * (difficulty / 100)) - 2),
+          amount: Math.max(1, getRandomInt(0, 3) + Math.floor(2 * (difficulty / 100)) - 2),
         } as const,
       ]
     : contractType === 'safety'
     ? [
         {
           paramEffected: 'asiOutcome',
-          amount: Math.floor(getRandomInt(2, 4) * (difficulty / 100)),
+          amount: getRandomInt(0, 1) + Math.floor(getRandomInt(2, 4) * (difficulty / 100)),
         } as const,
       ]
     : contractType === 'capabilities'
@@ -173,7 +173,7 @@ function getSafetySuccessEffects(difficulty: number): WeightedSingleEffect[] {
       weight: difficulty > 150 ? 2 : 1,
       effect: {
         paramEffected: 'up',
-        amount: getRandomInt(2, 3),
+        amount: getRandomInt(1, 3),
       },
     },
     { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'publicUnity', amount: 1 } },
