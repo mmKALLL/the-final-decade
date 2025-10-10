@@ -6,6 +6,7 @@ import { generateBreakthroughSelection, generateHumanSelection } from './data/da
 import { refreshContracts } from './data/contract-generator'
 import { calculateResourceProduction, isGameOver } from './util'
 import { convertContractToAction } from './data/data-actions'
+import { save } from './saving-util'
 
 export const GameStateContext = createContext(initialGameState)
 export const DispatchContext = createContext((_action: Action) => {})
@@ -57,6 +58,7 @@ export function reduceAction(gs: GameState, action: Action): GameState {
   // Handle turn advancement if needed
   if (action.turnCost != 0) {
     updatedGs = handleTurn(updatedGs)
+    save(updatedGs) // NOTE: Save the game state after every turn, make sure no updates happen after this point!
   }
 
   return updatedGs
