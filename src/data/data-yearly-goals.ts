@@ -1,4 +1,5 @@
 import { GameState, YearlyContract } from '../types'
+import { paramToLabel } from '../util'
 
 // General curve (with 3 common humans and 1 breakthrough start):
 
@@ -8,7 +9,7 @@ import { GameState, YearlyContract } from '../types'
 // 2028: 330
 // 2029: 500
 
-// General curve (with 2/1 common/uncommon humans and 2 breakthroughs start):
+// General curve (with 3 uncommon humans and 2 breakthroughs start):
 
 // 2025: 70
 // 2026: 140
@@ -28,39 +29,33 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2025,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '💬 -50, unity -1', 'jp-FI': '💬 -50、公共団結 -1' },
-    requirementDescription: { 'en-US': 'humans >= 5', 'jp-FI': '人間 >= 5' },
+    costDescription: { 'en-US': '💬 -30, unity -1', 'jp-FI': '💬 -30、公共団結 -1' },
+    requirementDescription: { 'en-US': 'humans >= 6', 'jp-FI': '人間 >= 6' },
     onSuccess: [],
-    requirements: [{ condition: (gs: GameState) => gs.humans.length >= 5, paramEffected: 'asiOutcome', amount: 0 }],
-    costs: [{ paramEffected: 'sp', amount: -50 }],
+    requirements: [{ condition: (gs: GameState) => gs.humans.length >= 6, paramEffected: 'asiOutcome', amount: 0 }],
+    costs: [{ paramEffected: 'sp', amount: -30 }],
   },
   {
-    name: { 'en-US': 'Agentic Researchers', 'jp-FI': 'エージェント型研究AI' },
+    name: { 'en-US': 'AI Workforce Automation', 'jp-FI': 'AIによる労働力の自動化' },
     rarity: 'epic',
     year: 2025,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '🔧 -20, unity -2', 'jp-FI': '🔧 -20、公共団結 -2' },
-    requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
+    costDescription: { 'en-US': '🔧 -40, unity -1', 'jp-FI': '🔧 -40、公共団結 -1' },
+    requirementDescription: { 'en-US': `${paramToLabel('income', 'en-US')} >= 4`, 'jp-FI': `${paramToLabel('income', 'jp-FI')} >= 4` },
     onSuccess: [],
-    requirements: [],
-    costs: [
-      { paramEffected: 'ep', amount: -20 },
-      { paramEffected: 'publicUnity', amount: -1 },
-    ],
+    requirements: [{ paramEffected: 'income', amount: 4 }],
+    costs: [{ paramEffected: 'ep', amount: -40 }],
   },
   {
-    name: { 'en-US': 'Interpretability Divestment', 'jp-FI': '解釈可能性の放棄' },
+    name: { 'en-US': 'Interpretability Investment', 'jp-FI': '解釈可能性の投資' },
     rarity: 'epic',
     year: 2025,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '🧪 -20, income -6, unity -1', 'jp-FI': '🧪 -20、収入 -6、公共団結 -1' },
-    requirementDescription: { 'en-US': '🧪 >= 60', 'jp-FI': '🧪 >= 60' },
+    costDescription: { 'en-US': '🧪 -50, unity -1', 'jp-FI': '🧪 -50、公共団結 -1' },
+    requirementDescription: { 'en-US': '🧪 >= 100', 'jp-FI': '🧪 >= 100' },
     onSuccess: [],
-    requirements: [{ paramEffected: 'rp', amount: 60 }],
-    costs: [
-      { paramEffected: 'rp', amount: -20 },
-      { paramEffected: 'income', amount: -6 },
-    ],
+    requirements: [{ paramEffected: 'rp', amount: 100 }],
+    costs: [{ paramEffected: 'rp', amount: -50 }],
   },
 
   // === 2026 ===
@@ -77,7 +72,7 @@ export const yearlyContracts: YearlyContract[] = [
     costs: [{ paramEffected: 'sp', amount: -60 }],
   },
   {
-    name: { 'en-US': 'AI Workforce Automation', 'jp-FI': 'AIによる労働力の自動化' },
+    name: { 'en-US': 'Agentic Researchers', 'jp-FI': 'エージェント型研究者' },
     rarity: 'epic',
     year: 2026,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
@@ -91,48 +86,45 @@ export const yearlyContracts: YearlyContract[] = [
     ],
   },
   {
-    name: { 'en-US': 'Quantum Computing Breakthrough', 'jp-FI': '量子コンピュータの飛躍' },
+    name: { 'en-US': 'Cheap Superposition Analysis', 'jp-FI': '安価な重ね合わせ分析' },
     rarity: 'epic',
     year: 2026,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '🧪 -140, unity -1', 'jp-FI': '🧪 -140、公共団結 -1' },
-    requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
+    costDescription: { 'en-US': '🧪 -100, unity -1', 'jp-FI': '🧪 -100、公共団結 -1' },
+    requirementDescription: { 'en-US': `${paramToLabel('up', 'en-US')} >= 5`, 'jp-FI': `${paramToLabel('up', 'jp-FI')} >= 5` },
     onSuccess: [],
-    requirements: [],
-    costs: [{ paramEffected: 'rp', amount: -140 }],
+    requirements: [{ paramEffected: 'up', amount: 5 }],
+    costs: [{ paramEffected: 'rp', amount: -100 }],
   },
 
   // === 2027 ===
   {
-    name: { 'en-US': 'Corporate AI Arms Race', 'jp-FI': '企業間AI軍拡競争' },
+    name: { 'en-US': 'National AI Arms Race', 'jp-FI': '国家間AI軍拡競争' },
     rarity: 'epic',
     year: 2027,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '💬 -80, unity -1', 'jp-FI': '💬 -80、公共団結 -1' },
-    requirementDescription: { 'en-US': 'unity >= 0, trust >= 120', 'jp-FI': '公共団結 >= 0、信頼 >= 120' },
+    costDescription: { 'en-US': '💬 -140, unity -1', 'jp-FI': '💬 -140、公共団結 -1' },
+    requirementDescription: { 'en-US': 'humans >= 12', 'jp-FI': '人間 >= 12' },
     onSuccess: [],
-    requirements: [
-      { paramEffected: 'publicUnity', amount: 0 },
-      { paramEffected: 'trust', amount: 120 },
-    ],
-    costs: [{ paramEffected: 'sp', amount: -80 }],
+    requirements: [{ condition: (gs: GameState) => gs.humans.length >= 12, paramEffected: 'asiOutcome', amount: 0 }],
+    costs: [{ paramEffected: 'sp', amount: -140 }],
   },
   {
     name: { 'en-US': 'The Great Security Blackout', 'jp-FI': '大規模セキュリティブラックアウト' },
     rarity: 'epic',
     year: 2027,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '🔧 -120, unity -3', 'jp-FI': '🔧 -120、公共団結 -3' },
+    costDescription: { 'en-US': '🔧 -160, income -16, unity -1', 'jp-FI': '🔧 -160、収入 -16、公共団結 -1' },
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
     requirements: [],
     costs: [
-      { paramEffected: 'ep', amount: -120 },
-      { paramEffected: 'publicUnity', amount: -2 },
+      { paramEffected: 'ep', amount: -160 },
+      { paramEffected: 'income', amount: -16 },
     ],
   },
   {
-    name: { 'en-US': 'Cheap Superposition Analysis', 'jp-FI': '安価な重ね合わせ分析' },
+    name: { 'en-US': 'Quantum Computing Breakthrough', 'jp-FI': '量子コンピュータの飛躍' },
     rarity: 'epic',
     year: 2027,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
@@ -149,24 +141,27 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2028,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '💬 -150, unity -1', 'jp-FI': '💬 -150、公共団結 -1' },
-    requirementDescription: { 'en-US': 'humans >= 12, outcome >= 70', 'jp-FI': '人間 >= 12、ASI結果 >= 70' },
+    costDescription: { 'en-US': '💬 -200, outcome -40, unity -1', 'jp-FI': '💬 -200、ASI結果 -40、公共団結 -1' },
+    requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
-    requirements: [{ condition: (gs: GameState) => gs.humans.length >= 12, paramEffected: 'asiOutcome', amount: 70 }],
-    costs: [{ paramEffected: 'sp', amount: -150 }],
+    requirements: [],
+    costs: [
+      { paramEffected: 'sp', amount: -200 },
+      { paramEffected: 'asiOutcome', amount: -40 },
+    ],
   },
   {
     name: { 'en-US': 'Autonomous Nation Genesis', 'jp-FI': '自律国家の誕生' },
     rarity: 'epic',
     year: 2028,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': 'Money -600, 🔧 -100, unity -1', 'jp-FI': 'お金 -600、🔧 -100、公共団結 -1' },
+    costDescription: { 'en-US': '🔧 -240, unity -3', 'jp-FI': '🔧 -240、公共団結 -3' },
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
     requirements: [],
     costs: [
-      { paramEffected: 'money', amount: -600 },
-      { paramEffected: 'ep', amount: -100 },
+      { paramEffected: 'ep', amount: -240 },
+      { paramEffected: 'publicUnity', amount: -2 },
     ],
   },
   {
@@ -174,11 +169,17 @@ export const yearlyContracts: YearlyContract[] = [
     rarity: 'epic',
     year: 2028,
     successDescription: { 'en-US': 'Epic breakthrough', 'jp-FI': '壮絶な突破' },
-    costDescription: { 'en-US': '🧪 -340, unity -1', 'jp-FI': '🧪 -340、公共団結 -1' },
+    costDescription: {
+      'en-US': `🧪 -280, ${paramToLabel('up', 'en-US')} -10, unity -1`,
+      'jp-FI': `🧪 -280、${paramToLabel('up', 'jp-FI')} -10、公共団結 -1`,
+    },
     requirementDescription: { 'en-US': '(none)', 'jp-FI': '(なし)' },
     onSuccess: [],
     requirements: [],
-    costs: [{ paramEffected: 'rp', amount: -340 }],
+    costs: [
+      { paramEffected: 'rp', amount: -280 },
+      { paramEffected: 'up', amount: -10 },
+    ],
   },
 
   // === 2029 ===
@@ -189,14 +190,28 @@ export const yearlyContracts: YearlyContract[] = [
     successDescription: { 'en-US': 'Peaceful singularity', 'jp-FI': '平和的なシンギュラリティ' },
     costDescription: { 'en-US': 'Humans are gone forever', 'jp-FI': '人類の絶滅' },
     requirementDescription: {
-      'en-US': 'outcome >= 100, unity >= 5',
-      'jp-FI': 'ASI結果 >= 100, 公共団結 >= 5',
+      'en-US': `outcome >= 100, ${paramToLabel('up', 'en-US')} >= 20`,
+      'jp-FI': `ASI結果 >= 100, ${paramToLabel('up', 'jp-FI')} >= 20`,
     },
     onSuccess: [],
     requirements: [
       { paramEffected: 'asiOutcome', amount: 100 },
-      { paramEffected: 'publicUnity', amount: 5 },
+      { paramEffected: 'up', amount: 15 },
     ],
+    costs: [],
+  },
+  {
+    name: { 'en-US': 'ASI Prevention', 'jp-FI': 'ASIの防止' },
+    rarity: 'epic',
+    year: 2029,
+    successDescription: { 'en-US': 'Peaceful prosperity', 'jp-FI': '平和的な繁栄' },
+    costDescription: { 'en-US': 'Humans are gone forever', 'jp-FI': '人類の絶滅' },
+    requirementDescription: {
+      'en-US': 'unity >= 5',
+      'jp-FI': '公共団結 >= 5',
+    },
+    onSuccess: [],
+    requirements: [{ paramEffected: 'publicUnity', amount: 5 }],
     costs: [],
   },
 ]
