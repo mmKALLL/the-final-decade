@@ -30,7 +30,6 @@ const baseGameState: GameState = {
 
   maxContracts: 3,
   yearlyContracts: generateYearlyContracts(),
-  additionalActions: [],
 }
 
 export const initialGameState: GameState = {

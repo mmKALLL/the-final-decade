@@ -61,7 +61,7 @@ export type GameState = {
   maxContracts: number
   yearlyContracts: Contract[]
 
-  additionalActions: Action[] // Any actions that are granted by breakthroughs
+  // additionalActions: Action[] // Any actions that are granted by breakthroughs
 
   // recentActions: Action[]
   // recentGS: GameState[]
@@ -104,7 +104,7 @@ export type Human = {
   spGeneration: number
   epGeneration: number
   rpGeneration: number
-  specialEffect?: Effect
+  specialEffect?: ParamEffect[] // NOTE: Don't allow functions in humans, makes save file serialization simpler
   guaranteed?: boolean // Used for testing, always prepends the human into selctions
 }
 
@@ -220,9 +220,9 @@ export type Action = {
 export type SingleEffect = {
   source?: string
   condition?: (gs: GameState, paramEffected: Param, baseAmount: number) => boolean
-  paramEffected: Param
-  amount: number
-}
+} & ParamEffect
+
+type ParamEffect = { paramEffected: Param; amount: number }
 
 export type Effect = SingleEffect[]
 export type EffectStack = (SingleEffect & { depth: number })[]
