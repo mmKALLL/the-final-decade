@@ -1,9 +1,9 @@
 import { BreakthroughList } from '../breakthrough-list'
 import { ContractList } from '../contract-list'
 import { ResourceDisplay } from '../resource-display'
-import { LanguageToggle } from '../language-toggle'
 import { ActionButtons } from '../action-buttons'
 import { YearlyGoalList } from '../yearly-goal-list'
+import { Footer } from '../footer'
 
 export const MainScreen = () => {
   return (
@@ -13,7 +13,7 @@ export const MainScreen = () => {
       <ContractList editable={true} />
       <BreakthroughList editable={true} />
       <YearlyGoalList />
-      <LanguageToggle />
+      <Footer />
     </div>
   )
 }

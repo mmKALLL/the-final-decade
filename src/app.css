@@ -462,29 +462,14 @@ body {
 }
 
 /* End of Contract list styling */
-/* Footer for language toggle */
+/* Footer for language toggle and resetting */
 .game-footer {
-  background-color: rgba(40, 40, 60, 0.9);
   padding: 0.5rem;
-  border-top: 1px solid rgba(100, 100, 150, 0.3);
   text-align: center;
+  background-color: #1e1e32b3;
+  display: flex;
+  gap: 16px;
 }
-
-.footer-button {
-  background-color: transparent;
-  border: 1px solid rgba(100, 100, 150, 0.5);
-  color: #e2e8f0;
-  padding: 0.3rem 0.6rem;
-  border-radius: 3px;
-  font-size: 0.7rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.footer-button:hover {
-  background-color: rgba(100, 100, 150, 0.2);
-}
-/* End of Footer for language toggle */
 
 /* Improve button component */
 .button {

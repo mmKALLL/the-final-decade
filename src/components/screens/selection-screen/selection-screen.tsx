@@ -5,9 +5,9 @@ import { BreakthroughItem } from './breakthrough-item'
 import { Human, Breakthrough } from '../../../types'
 import { ContractList } from '../../contract-list'
 import { ResourceDisplay } from '../../resource-display'
-import { LanguageToggle } from '../../language-toggle'
 import { BreakthroughList } from '../../breakthrough-list'
 import { YearlyGoalList } from '../../yearly-goal-list'
+import { Footer } from '../../footer'
 
 export const SelectionScreen = () => {
   const { gs, dispatch } = useGameState()
@@ -66,7 +66,7 @@ export const SelectionScreen = () => {
       <ContractList editable={false} />
       <BreakthroughList editable={false} />
       <YearlyGoalList />
-      <LanguageToggle />
+      <Footer />
     </>
   )
 
