@@ -28,7 +28,7 @@ export function TopBar() {
         <div className="date-display">{getDateFromTurn(gs.turn)}</div>
         <div className="top-bar-resource-wrapper">
           <div className="resource-pill">
-            <span className="resource-icon">💰</span>
+            <span className="resource-icon">{paramToLabel('money', gs.language)}</span>
             <span className="resource-value">
               {gs.money}
               <span className="income-indicator" style={{ color: colorByGain(moneyGain) }}>

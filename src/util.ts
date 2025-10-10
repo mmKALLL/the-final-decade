@@ -8,7 +8,7 @@ export const isGameOver = (gs: GameState): boolean => gs.money <= 0 || gs.asiOut
 export const isGameWon = (gs: GameState): boolean => (getYear(gs.turn) >= 6 && gs.asiOutcome >= 100) || gs.publicUnity >= 100
 
 export const levelUpCost = (breakthrough: Breakthrough) => breakthrough.level + 3 // 4, 5, 6, ...
-export const lobbyingCost = (gs: GameState) => -50 // Math.floor(Math.min(0, -100 + gs.influence / 2))
+export const lobbyingCost = (gs: GameState) => -40 // Math.floor(Math.min(0, -100 + gs.influence / 2))
 
 export const assertNever = (x: never): never => {
   throw new Error('Unexpected object: ' + x)
@@ -28,7 +28,7 @@ export const paramToLabel = (p: Param, language: Language): string => {
     switch (p) {
       case 'turn':             return 'ターン'
       case 'money':            return '💰'
-      case 'income':           return '受動的収入'
+      case 'income':           return '💰/ターン'
       case 'trust':            return '信頼'
       case 'publicUnity':      return '公共団結'
       case 'asiOutcome':       return 'ASI結果'

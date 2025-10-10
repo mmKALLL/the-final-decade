@@ -75,10 +75,10 @@ export const secondOrderActions: (gs: GameState) => Action[] = (gs) => [
     turnCost: 1,
     turnsInvested: 0,
     effect: [
-      { paramEffected: 'publicUnity', amount: 1 },
       { paramEffected: 'sp', amount: lobbyingCost(gs) },
       { paramEffected: 'ep', amount: lobbyingCost(gs) },
       { paramEffected: 'rp', amount: lobbyingCost(gs) },
+      { paramEffected: 'publicUnity', amount: 1 },
     ],
   },
 ]
