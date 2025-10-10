@@ -723,7 +723,7 @@ export const rareBreakthroughs: Breakthrough[] = [
     },
     rarity: 'rare',
     level: 0,
-    maxLevel: 2,
+    maxLevel: 5,
     functionEffect: (gs: GameState) => ({ ...gs, ep: gs.ep + 60 }),
   },
   {
