@@ -93,8 +93,8 @@ export function generateActionDescription(action: Action, language: 'en-US' | 'j
 
 export function generateYearlyContracts(): YearlyContract[] {
   // return [2025, 2026, 2027, 2028].map((year) => {
-  return [2026, 2027, 2028, 2029].map((year) => {
-    // return [2025, 2026, 2027, 2028, 2029].map((year) => {
+  // return [2026, 2027, 2028, 2029].map((year) => {
+  return [2025, 2026, 2027, 2028, 2029].map((year) => {
     const currentYearContracts = yearlyContracts.filter((contract) => contract.year === year)
     return currentYearContracts[Math.floor(Math.random() * currentYearContracts.length)]
   })
