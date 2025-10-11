@@ -5,6 +5,8 @@ declare global {
   }
 }
 
+export type LossReason = null | 'money' | 'trust' | 'asiOutcome' | 'yearly goal' | 'other'
+
 export type Config = {
   language: Language
   playerId: string | undefined
@@ -12,7 +14,7 @@ export type Config = {
     date: string
     turns: number
     victory: boolean
-    lossReason: null | 'money' | 'trust' | 'asiOutcome' | 'yearly goal' | 'other'
+    lossReason: LossReason
     gs: Partial<GameState> & { humanCount: number; breakthroughCount: number }
   }[]
 }

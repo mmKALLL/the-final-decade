@@ -1,6 +1,6 @@
 import { breakthroughs } from './data/data-breakthroughs'
 import { initialConfig } from './data/data-gamestate'
-import type { Breakthrough, Config, GameState } from './types'
+import type { Breakthrough, Config, GameState, LossReason } from './types'
 import { pick } from './util'
 
 const purgeBreakthroughFunctions = (breakthrough: Partial<Breakthrough>) => {
@@ -67,7 +67,20 @@ export const clearSave = (gs: GameState): void => {
   // Update run history before resetting
   const config = loadConfig()
   if (config && gs.turn > 4) {
-    saveConfig({
+    const lossReason: LossReason =
+      gs.currentScreen === 'victory'
+        ? null
+        : gs.asiOutcome <= 0
+        ? 'asiOutcome'
+        : gs.money <= 0
+        ? 'money'
+        : gs.trust <= 0
+        ? 'trust'
+        : gs.turn % 12 === 0
+        ? 'yearly goal'
+        : 'other'
+
+    const newConfig = {
       ...config,
       runHistory: [
         ...config.runHistory,
@@ -75,18 +88,7 @@ export const clearSave = (gs: GameState): void => {
           date: new Date().toISOString(),
           turns: gs.turn,
           victory: gs.currentScreen === 'victory',
-          lossReason:
-            gs.currentScreen === 'victory'
-              ? null
-              : gs.asiOutcome <= 0
-              ? 'asiOutcome'
-              : gs.money <= 0
-              ? 'money'
-              : gs.trust <= 0
-              ? 'trust'
-              : gs.turn % 12 === 0
-              ? 'yearly goal'
-              : 'other',
+          lossReason,
           gs: {
             ...pick(
               gs,
@@ -108,11 +110,13 @@ export const clearSave = (gs: GameState): void => {
           },
         },
       ],
-    })
+    }
 
-    console.log('Updated run history, total runs:', config.runHistory.length)
-    console.log(config.runHistory)
-    console.log(config.runHistory.at(-1))
+    saveConfig(newConfig)
+
+    console.log('Updated run history, total runs:', newConfig.runHistory.length)
+    console.log(newConfig.runHistory)
+    console.log(newConfig.runHistory.at(-1))
   }
 
   localStorage.removeItem('gameState')
