@@ -1,4 +1,4 @@
-import { Contract, ContractType, Effect, GameState, Label, Language, SingleEffect } from '../types'
+import { Contract, ContractType, Effect, GameState, Label, Language, ParamEffect } from '../types'
 import { assertNever, getRandomInt, paramToLabel, pickListOfWeighted, withPlusSign } from '../util'
 
 export const refreshContracts = (gs: GameState): GameState => ({
@@ -23,7 +23,7 @@ export function generateContract(gs: GameState, type?: ContractType): Contract {
   const successEffects = rarity === 'epic' ? 3 : rarity === 'rare' ? 2 : rarity === 'uncommon' ? 1 : 0
 
   // Generate action effects
-  const onSuccess: Effect = [
+  const onSuccess: ParamEffect[] = [
     // Accept effects = monetary reward from completing the contract; the name is historical
     ...getAcceptEffects(difficulty, successEffects, contractType),
     ...getGuaranteedEffects(difficulty, contractType),
@@ -83,11 +83,11 @@ function getContractMoneyValue(difficulty: number, totalEffects: number, contrac
   return Math.round((contractTypeMultiplier * effectMultiplier * value) / 5) * 5 // Round to nearest 5
 }
 
-function getAcceptEffects(difficulty: number, totalEffects: number, contractType: ContractType): Effect {
+function getAcceptEffects(difficulty: number, totalEffects: number, contractType: ContractType): ParamEffect[] {
   return [{ paramEffected: 'money', amount: getContractMoneyValue(difficulty, totalEffects, contractType) }]
 }
 
-function getGuaranteedEffects(difficulty: number, contractType: ContractType): Effect {
+function getGuaranteedEffects(difficulty: number, contractType: ContractType): ParamEffect[] {
   return contractType === 'product'
     ? [
         {
@@ -121,18 +121,18 @@ function getSuccessEffects(difficulty: number, totalEffects: number, contractTyp
   return getEffectsFromPool(totalEffects, effectPool)
 }
 
-function getEffectsFromPool(totalEffects: number, effectPool: WeightedSingleEffect[]): Effect {
+function getEffectsFromPool(totalEffects: number, effectPool: WeightedParamEffect[]): Effect {
   return pickListOfWeighted(totalEffects, effectPool).map((e) => e.effect)
 }
 
 // Example weighted effect structure for success/failure pools
-interface WeightedSingleEffect {
+interface WeightedParamEffect {
   weight: number
-  effect: SingleEffect
+  effect: ParamEffect
 }
 
 // Function to get product-focused success effects
-function getProductSuccessEffects(difficulty: number): WeightedSingleEffect[] {
+function getProductSuccessEffects(difficulty: number): WeightedParamEffect[] {
   return [
     { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(80, difficulty, 0.5) } },
     { weight: difficulty > 260 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(80, difficulty, 0.5) } },
@@ -157,7 +157,7 @@ function getProductSuccessEffects(difficulty: number): WeightedSingleEffect[] {
 }
 
 // Function to get capability-focused success effects
-function getCapabilitySuccessEffects(difficulty: number): WeightedSingleEffect[] {
+function getCapabilitySuccessEffects(difficulty: number): WeightedParamEffect[] {
   return [
     { weight: difficulty > 200 ? 2 : 3, effect: { paramEffected: 'rp', amount: getRandomValue(4, difficulty, 0.08) } },
     { weight: 5, effect: { paramEffected: 'up', amount: getRandomInt(1, 4) } },
@@ -168,7 +168,7 @@ function getCapabilitySuccessEffects(difficulty: number): WeightedSingleEffect[]
 }
 
 // Function to get safety-focused success effects
-function getSafetySuccessEffects(difficulty: number): WeightedSingleEffect[] {
+function getSafetySuccessEffects(difficulty: number): WeightedParamEffect[] {
   return [
     { weight: difficulty > 260 ? 2 : 0, effect: { paramEffected: 'humanSelection', amount: getRandomValue(100, difficulty, 0.5) } },
     { weight: difficulty > 200 ? 2 : 0, effect: { paramEffected: 'breakthroughSelection', amount: getRandomValue(50, difficulty, 0.5) } },
@@ -189,7 +189,14 @@ function getSafetySuccessEffects(difficulty: number): WeightedSingleEffect[] {
 }
 
 function effectListToString(effects: Effect, language: Language): string {
-  return effects.map((e) => `${paramToLabel(e.paramEffected, language)} ${withPlusSign(e.amount)}`).join(', ')
+  return effects
+    .map(
+      (e) =>
+        `${paramToLabel(e.paramEffected, language)} ${
+          e.paramEffected !== 'humanSelection' && e.paramEffected !== 'breakthroughSelection' ? withPlusSign(e.amount) : ''
+        }`.trimEnd() // Remove extra space in case paramEffected was humanSelection
+    )
+    .join(', ')
 }
 
 export function getRandomContractName(type: ContractType): Label {

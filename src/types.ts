@@ -60,6 +60,7 @@ export type GameState = {
 
   maxContracts: number
   yearlyContracts: Contract[]
+  finishedContracts: number
 
   // additionalActions: Action[] // Any actions that are granted by breakthroughs
 
@@ -202,7 +203,8 @@ export type Contract = {
   costs: Effect
 }
 
-export type YearlyContract = Contract & {
+export type YearlyContract = Omit<Contract, 'type'> & {
+  type?: undefined // A bit hacky, but allows determining if contract is yearly even without ContractType union
   year: number
 }
 
@@ -222,7 +224,7 @@ export type SingleEffect = {
   condition?: (gs: GameState, paramEffected: Param, baseAmount: number) => boolean
 } & ParamEffect
 
-type ParamEffect = { paramEffected: Param; amount: number }
+export type ParamEffect = { paramEffected: Param; amount: number }
 
 export type Effect = SingleEffect[]
 export type EffectStack = (SingleEffect & { depth: number })[]

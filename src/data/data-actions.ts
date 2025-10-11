@@ -114,6 +114,7 @@ export const convertContractToAction = (contract: Contract, index: number): Acti
   functionEffect: (gs) => {
     return {
       ...gs,
+      ...(contract.type && { finishedContracts: gs.finishedContracts + 1 }), // Only count for non-yearly contracts
       contracts: [...gs.contracts.slice(0, index), ...gs.contracts.slice(index + 1)],
     }
   },
