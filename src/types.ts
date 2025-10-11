@@ -5,6 +5,12 @@ declare global {
   }
 }
 
+export type Config = {
+  language: Language
+  playerId: string | undefined
+  runHistory: { date: string; turns: number; victory: boolean; gs: Partial<GameState> }[]
+}
+
 export type CurrentScreen =
   | 'mainMenu' // unused
   | 'gameOver'

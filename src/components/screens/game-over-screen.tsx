@@ -35,7 +35,7 @@ export const GameOverScreen = () => {
           : 'ASIの競争はあなた抜きで続き、未来は不確実なままです。'}
       </p>
       <GameEndStats />
-      <button className="restart-button" onClick={clearSaveAndReset}>
+      <button className="restart-button" onClick={() => clearSaveAndReset(gs)}>
         {gs.language === 'en-US' ? 'Try Again' : 'もう一回'}
       </button>
     </div>

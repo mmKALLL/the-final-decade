@@ -1,14 +1,16 @@
 import { useState } from 'preact/hooks'
 import { clearSaveAndReset } from '../saving-util'
 import { LanguageToggle } from './language-toggle'
+import { useGameState } from '../gamestate-hooks'
 
 export const Footer = () => {
+  const { gs } = useGameState()
   const [deleteClickCount, setDeleteClickCount] = useState(0)
 
   const handleSaveDelete = () => {
     setDeleteClickCount((prev) => prev + 1)
     if (deleteClickCount >= 1) {
-      clearSaveAndReset()
+      clearSaveAndReset(gs)
       setDeleteClickCount(0)
     }
   }

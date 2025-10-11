@@ -21,7 +21,7 @@ export const VictoryScreen = () => {
       </p>
 
       <GameEndStats />
-      <button className="restart-button" onClick={clearSaveAndReset}>
+      <button className="restart-button" onClick={() => clearSaveAndReset(gs)}>
         {gs.language === 'en-US' ? 'Play Again' : 'もう一回プレイする'}
       </button>
     </div>

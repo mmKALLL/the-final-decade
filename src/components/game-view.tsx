@@ -5,15 +5,19 @@ import { GameEndScreen } from './screens/game-end-screen'
 import { MainScreen } from './screens/main-screen'
 import { SelectionScreen } from './screens/selection-screen/selection-screen'
 import { TopBar } from './top-bar'
-import { load } from '../saving-util'
+import { loadConfig, loadGame } from '../saving-util'
 
 export function GameView() {
   const { gs, dispatch } = useGameState()
 
   useEffect(() => {
-    const loadedSave = load()
+    const loadedSave = loadGame()
     console.log('Loaded save:', loadedSave)
-    if (loadedSave) {
+
+    const config = loadConfig()
+    console.log('Loaded config:', config)
+
+    if (loadedSave || config) {
       dispatch({
         eventId: 'internalStateChange',
         name: { 'en-US': 'Game loaded', 'jp-FI': 'ゲームがロードされました' },
@@ -24,6 +28,7 @@ export function GameView() {
           return {
             ...gs,
             ...loadedSave,
+            ...config,
           }
         },
       })

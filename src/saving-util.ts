@@ -1,5 +1,6 @@
 import { breakthroughs } from './data/data-breakthroughs'
-import type { Breakthrough, GameState } from './types'
+import { initialConfig } from './data/data-gamestate'
+import type { Breakthrough, Config, GameState } from './types'
 
 const purgeBreakthroughFunctions = (breakthrough: Partial<Breakthrough>) => {
   // Delete everything that may contain a function; crucially, selected state and current level are not touched
@@ -39,13 +40,18 @@ const fromSaveToGameState = (save: string): GameState => {
   return parsed
 }
 
-export const save = (gameState: GameState): void => {
+export const saveGame = (gameState: GameState): void => {
   const serializedState = JSON.stringify(fromGameStateToSave(gameState))
   console.log('saved game on turn', gameState.turn)
   localStorage.setItem('gameState', serializedState)
+
+  const config = loadConfig()
+  if (config) {
+    saveConfig({ ...config, language: gameState.language })
+  }
 }
 
-export const load = (): GameState | null => {
+export const loadGame = (): GameState | null => {
   const serializedState = localStorage.getItem('gameState')
   if (!serializedState) return null
 
@@ -57,7 +63,36 @@ export const load = (): GameState | null => {
   }
 }
 
-export const clearSaveAndReset = (): void => {
+export const clearSaveAndReset = (gs: GameState): void => {
+  // Update run history before resetting
+  const config = loadConfig()
+  if (config && gs.turn > 4) {
+    saveConfig({
+      ...config,
+      runHistory: [
+        ...config.runHistory,
+        { date: new Date().toISOString(), turns: gs.turn, victory: gs.currentScreen === 'victory', gs: fromGameStateToSave(gs) },
+      ],
+    })
+  }
+
   localStorage.removeItem('gameState')
   window.location.reload() // Reload to reset the game state
+}
+
+export const saveConfig = (config: Config): void => {
+  const serializedConfig = JSON.stringify(config)
+  localStorage.setItem('config', serializedConfig)
+}
+
+export const loadConfig = (): Config | null => {
+  const serializedConfig = localStorage.getItem('config')
+  if (!serializedConfig) return initialConfig
+
+  try {
+    return JSON.parse(serializedConfig)
+  } catch (e) {
+    console.error('Error loading config:', e)
+    return null
+  }
 }
