@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks'
-import { clearSaveAndReset } from '../saving-util'
+import { clearSaveAndReset } from '../savegame-util'
 import { LanguageToggle } from './language-toggle'
 import { useGameState } from '../gamestate-hooks'
 

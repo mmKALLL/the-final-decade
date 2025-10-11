@@ -1,5 +1,5 @@
 import { useGameState } from '../../gamestate-hooks'
-import { clearSaveAndReset } from '../../saving-util'
+import { clearSaveAndReset } from '../../savegame-util'
 import { getDateFromTurn } from '../../util'
 import { GameEndStats } from './game-end-stats'
 

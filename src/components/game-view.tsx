@@ -5,7 +5,7 @@ import { GameEndScreen } from './screens/game-end-screen'
 import { MainScreen } from './screens/main-screen'
 import { SelectionScreen } from './screens/selection-screen/selection-screen'
 import { TopBar } from './top-bar'
-import { loadConfig, loadGame } from '../saving-util'
+import { loadConfig, loadGame } from '../savegame-util'
 
 export function GameView() {
   const { gs, dispatch } = useGameState()
