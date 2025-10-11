@@ -5,7 +5,6 @@ export const getYear = (turn: number) => Math.floor(turn / 12) + 1
 export const getYearForDisplay = (turn: number) => 2025 + Math.floor(turn / 12)
 
 export const isGameOver = (gs: GameState): boolean => gs.money <= 0 || gs.asiOutcome <= 0 || gs.trust <= 0
-export const isGameWon = (gs: GameState): boolean => (getYear(gs.turn) >= 6 && gs.asiOutcome >= 100) || gs.publicUnity >= 100
 
 export const levelUpCost = (breakthrough: Breakthrough) => breakthrough.level + 3 // 4, 5, 6, ...
 export const lobbyingCost = (gs: GameState) => -40 // Math.floor(Math.min(0, -100 + gs.influence / 2))

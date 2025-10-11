@@ -1,5 +1,4 @@
 import { useGameState } from '../../gamestate-hooks'
-import { clearSaveAndReset } from '../../savegame-util'
 import { GameEndStats } from './game-end-stats'
 
 // Victory Screen Component
@@ -21,7 +20,7 @@ export const VictoryScreen = () => {
       </p>
 
       <GameEndStats />
-      <button className="restart-button" onClick={() => clearSaveAndReset(gs)}>
+      <button className="restart-button" onClick={() => window.location.reload()}>
         {gs.language === 'en-US' ? 'Play Again' : 'もう一回プレイする'}
       </button>
     </div>

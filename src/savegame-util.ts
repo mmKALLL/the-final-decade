@@ -43,7 +43,6 @@ const fromSaveToGameState = (save: string): GameState => {
 
 export const saveGame = (gameState: GameState): void => {
   const serializedState = JSON.stringify(fromGameStateToSave(gameState))
-  console.log('saved game on turn', gameState.turn)
   localStorage.setItem('gameState', serializedState)
 
   const config = loadConfig()
@@ -64,7 +63,7 @@ export const loadGame = (): GameState | null => {
   }
 }
 
-export const clearSaveAndReset = (gs: GameState): void => {
+export const clearSave = (gs: GameState): void => {
   // Update run history before resetting
   const config = loadConfig()
   if (config && gs.turn > 4) {
@@ -76,6 +75,18 @@ export const clearSaveAndReset = (gs: GameState): void => {
           date: new Date().toISOString(),
           turns: gs.turn,
           victory: gs.currentScreen === 'victory',
+          lossReason:
+            gs.currentScreen === 'victory'
+              ? null
+              : gs.asiOutcome <= 0
+              ? 'asiOutcome'
+              : gs.money <= 0
+              ? 'money'
+              : gs.trust <= 0
+              ? 'trust'
+              : gs.turn % 12 === 0
+              ? 'yearly goal'
+              : 'other',
           gs: {
             ...pick(
               gs,
@@ -99,10 +110,16 @@ export const clearSaveAndReset = (gs: GameState): void => {
       ],
     })
 
-    console.log('Updated run history, total runs:', config.runHistory.length + 1)
+    console.log('Updated run history, total runs:', config.runHistory.length)
+    console.log(config.runHistory)
+    console.log(config.runHistory.at(-1))
   }
 
   localStorage.removeItem('gameState')
+}
+
+export const clearSaveAndReset = (gs: GameState): void => {
+  clearSave(gs)
   window.location.reload() // Reload to reset the game state
 }
 

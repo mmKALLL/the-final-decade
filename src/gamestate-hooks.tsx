@@ -6,7 +6,7 @@ import { generateBreakthroughSelection, generateHumanSelection } from './data/da
 import { refreshContracts } from './data/contract-generator'
 import { calculateResourceProduction, isGameOver } from './util'
 import { convertContractToAction } from './data/data-actions'
-import { saveGame } from './savegame-util'
+import { clearSave, saveGame } from './savegame-util'
 
 export const GameStateContext = createContext(initialGameState)
 export const DispatchContext = createContext((_action: Action) => {})
@@ -60,7 +60,11 @@ export function reduceAction(gs: GameState, action: Action): GameState {
     updatedGs = handleTurn(updatedGs)
   }
 
-  saveGame(updatedGs) // NOTE: Save the game state after every turn, make sure no updates happen after this point!
+  saveGame(updatedGs) // NOTE: Save the game state after every action, make sure no updates happen after this point!
+
+  if (updatedGs.currentScreen === 'game-over' || updatedGs.currentScreen === 'victory') {
+    clearSave(updatedGs) // Store run stats and clear save
+  }
 
   return updatedGs
 }

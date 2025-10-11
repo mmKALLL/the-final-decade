@@ -12,6 +12,7 @@ export type Config = {
     date: string
     turns: number
     victory: boolean
+    lossReason: null | 'money' | 'trust' | 'asiOutcome' | 'yearly goal' | 'other'
     gs: Partial<GameState> & { humanCount: number; breakthroughCount: number }
   }[]
 }
