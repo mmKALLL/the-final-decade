@@ -33,7 +33,7 @@ export function generateContract(gs: GameState, type?: ContractType): Contract {
   // Requirements scale exponentially with difficulty. They are mapped to costs for now. 1 requirement = 5 resources
   const typeRequirementMultiplier =
     contractType === 'product' ? 1.0 : contractType === 'capabilities' ? 1.0 : contractType === 'safety' ? 0.9 : assertNever(contractType)
-  const totalRequirement = Math.round(Math.pow((typeRequirementMultiplier * (100 + difficulty)) / 100, 1.75))
+  const totalRequirement = Math.round(Math.pow((typeRequirementMultiplier * (100 + difficulty)) / 100, 1.85))
   const secondaryRequirement = totalRequirement >= 2 && isSecondaryContract ? Math.round(totalRequirement * (0.5 + Math.random() * 0.3)) : 0
 
   const primaryCosts: Effect = [{ paramEffected: 'ep', amount: Math.min(-5, -(totalRequirement - secondaryRequirement) * 5) }]
