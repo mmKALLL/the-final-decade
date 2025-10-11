@@ -110,6 +110,24 @@ export function pickListOfWeighted<T extends { weight: number }>(elementsToPick:
   })
 }
 
+type PickFunction = {
+  <T extends object, K extends [...(keyof T)[]]>(obj: T, ...keys: K):
+    | {
+        [K2 in K[number]]: T[K2]
+      }
+    | {}
+}
+
+export const pick: PickFunction = (source?, ...keys) => {
+  if (!source) return {}
+
+  const target = {} as { [K in keyof typeof source]: (typeof source)[K] }
+  keys.forEach((key) => {
+    if (source[key] !== undefined) target[key] = source[key]
+  })
+  return target
+}
+
 export const rarityColors = {
   common: '#CCC',
   uncommon: '#00BFFF',

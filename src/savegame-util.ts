@@ -1,6 +1,7 @@
 import { breakthroughs } from './data/data-breakthroughs'
 import { initialConfig } from './data/data-gamestate'
 import type { Breakthrough, Config, GameState } from './types'
+import { pick } from './util'
 
 const purgeBreakthroughFunctions = (breakthrough: Partial<Breakthrough>) => {
   // Delete everything that may contain a function; crucially, selected state and current level are not touched
@@ -71,9 +72,34 @@ export const clearSaveAndReset = (gs: GameState): void => {
       ...config,
       runHistory: [
         ...config.runHistory,
-        { date: new Date().toISOString(), turns: gs.turn, victory: gs.currentScreen === 'victory', gs: fromGameStateToSave(gs) },
+        {
+          date: new Date().toISOString(),
+          turns: gs.turn,
+          victory: gs.currentScreen === 'victory',
+          gs: {
+            ...pick(
+              gs,
+              'turn',
+              'currentScreen',
+              'money',
+              'income',
+              'trust',
+              'asiOutcome',
+              'publicUnity',
+              'sp',
+              'ep',
+              'rp',
+              'up',
+              'finishedContracts'
+            ),
+            humanCount: gs.humans.length,
+            breakthroughCount: gs.breakthroughs.length,
+          },
+        },
       ],
     })
+
+    console.log('Updated run history, total runs:', config.runHistory.length + 1)
   }
 
   localStorage.removeItem('gameState')

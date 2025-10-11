@@ -8,7 +8,12 @@ declare global {
 export type Config = {
   language: Language
   playerId: string | undefined
-  runHistory: { date: string; turns: number; victory: boolean; gs: Partial<GameState> }[]
+  runHistory: {
+    date: string
+    turns: number
+    victory: boolean
+    gs: Partial<GameState> & { humanCount: number; breakthroughCount: number }
+  }[]
 }
 
 export type CurrentScreen =
