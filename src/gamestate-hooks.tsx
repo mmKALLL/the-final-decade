@@ -252,7 +252,7 @@ export function handleTurn(gs: GameState): GameState {
 
   // Check if this is the end of a year (turn divisible by 12)
   if (updatedGs.turn % 12 === 0) {
-    return handleEndOfYear(updatedGs)
+    updatedGs = handleEndOfYear(updatedGs)
   }
 
   // Handle game over triggers
