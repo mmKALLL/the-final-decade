@@ -1,5 +1,5 @@
 import { useGameState } from '../../gamestate-hooks'
-import { clearSave } from '../../saving-util'
+import { clearSaveAndReset } from '../../saving-util'
 import { getDateFromTurn } from '../../util'
 import { GameEndStats } from './game-end-stats'
 
@@ -35,7 +35,7 @@ export const GameOverScreen = () => {
           : 'ASIの競争はあなた抜きで続き、未来は不確実なままです。'}
       </p>
       <GameEndStats />
-      <button className="restart-button" onClick={clearSave}>
+      <button className="restart-button" onClick={clearSaveAndReset}>
         {gs.language === 'en-US' ? 'Try Again' : 'もう一回'}
       </button>
     </div>

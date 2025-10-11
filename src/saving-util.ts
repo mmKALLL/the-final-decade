@@ -57,7 +57,7 @@ export const load = (): GameState | null => {
   }
 }
 
-export const clearSave = (): void => {
+export const clearSaveAndReset = (): void => {
   localStorage.removeItem('gameState')
   window.location.reload() // Reload to reset the game state
 }

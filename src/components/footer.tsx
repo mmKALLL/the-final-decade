@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks'
-import { clearSave } from '../saving-util'
+import { clearSaveAndReset } from '../saving-util'
 import { LanguageToggle } from './language-toggle'
 
 export const Footer = () => {
@@ -8,7 +8,7 @@ export const Footer = () => {
   const handleSaveDelete = () => {
     setDeleteClickCount((prev) => prev + 1)
     if (deleteClickCount >= 1) {
-      clearSave()
+      clearSaveAndReset()
       setDeleteClickCount(0)
     }
   }
