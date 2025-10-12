@@ -65,6 +65,13 @@ export type GameState = {
   rp: number
   up: number
 
+  spGain: number
+  epGain: number
+  rpGain: number
+  spMultiplier: number // If source is needed later, adding lists of strings as separate props might be easier
+  epMultiplier: number
+  rpMultiplier: number
+
   humans: Human[]
   contracts: Contract[]
   breakthroughs: Breakthrough[]
@@ -116,9 +123,9 @@ export type Human = {
   type: HumanType
   wage: number
   rank: HumanRank
-  spGeneration: number
-  epGeneration: number
-  rpGeneration: number
+  spGain: number
+  epGain: number
+  rpGain: number
   specialEffect?: ParamEffect[] // NOTE: Don't allow functions in humans, makes save file serialization simpler
   guaranteed?: boolean // Used for testing, always prepends the human into selctions
 }
@@ -143,9 +150,10 @@ export type Breakthrough = {
 export enum ModifierType {
   Add = 'add',
   Multiply = 'multiply',
-  Function = 'function',
+  // Function = 'function',
 }
 
+// For add type, the output is added to base gain. For multiply type, the output is _added_ to spMultiplier etc.
 export type ModifierFunction = (value: number, level: number) => number
 export type CurriedModifier = (value: number) => number
 

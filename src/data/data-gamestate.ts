@@ -21,6 +21,13 @@ const baseGameState: GameState = {
   rp: 20 * (debug ? 10 : 1),
   up: 0,
 
+  spGain: 0,
+  epGain: 0,
+  rpGain: 0,
+  spMultiplier: 1,
+  epMultiplier: 1,
+  rpMultiplier: 1,
+
   humans: [],
   breakthroughs: [],
   contracts: [],

@@ -92,7 +92,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'FakeNews',
     name: { 'en-US': 'Fake News', 'jp-FI': 'フェイクニュース' },
     description: {
-      'en-US': (l) => `When you do government lobbying, gain +${l * 30} 💬, but increase wages by 5%`,
+      'en-US': (l) => `When you do lobbying, gain +${l * 30} 💬, but wages +5%`,
       'jp-FI': (l) => `ロビー活動を行うと、+${l * 30}💬を獲得するが、賃金が5%増加する`,
     },
     rarity: 'common',
@@ -313,7 +313,7 @@ export const commonBreakthroughs: Breakthrough[] = [
     id: 'QualiaOfHarmony',
     name: { 'en-US': 'Qualia of Harmony', 'jp-FI': '調和のクオリア' },
     description: {
-      'en-US': (l) => `When you do government lobbying, get +${20 * l} 💬`,
+      'en-US': (l) => `When you do lobbying, get +${20 * l} 💬`,
       'jp-FI': (l) => `治安を安定するたびに+${20 * l}💬を獲得する`,
     },
     rarity: 'common',
@@ -587,7 +587,7 @@ export const uncommonBreakthroughs: Breakthrough[] = [
     id: 'CallOfDuty',
     name: { 'en-US': 'Dutiful Diligence', 'jp-FI': 'コール・オブ・デューティ' },
     description: {
-      'en-US': (l) => `When you do government lobbying, select a new human`,
+      'en-US': (l) => `When you do lobbying, select a new human`,
       'jp-FI': (l) => `政府ロビー活動を行うと、新しい人材を選択`,
     },
     rarity: 'uncommon',
@@ -724,14 +724,14 @@ export const rareBreakthroughs: Breakthrough[] = [
     rarity: 'rare',
     level: 0,
     maxLevel: 5,
-    functionEffect: (gs: GameState) => ({ ...gs, ep: gs.ep + 60 }),
+    effect: [{ paramEffected: 'ep', amount: 60 }],
   },
   {
     id: 'HypeEngine',
     name: { 'en-US': 'Hype Engine', 'jp-FI': 'ハイプエンジン' },
     description: {
       'en-US': (l) => `When you make a breakthrough, recruit a common human`,
-      'jp-FI': (l) => `ブレークスルーを作るたびにASI結果+${l * 8}`,
+      'jp-FI': (l) => `研究を行うたびに一般的な人材を雇う`,
     },
     rarity: 'rare',
     level: 0,
@@ -820,20 +820,13 @@ export const rareBreakthroughs: Breakthrough[] = [
     id: 'IdealisticWorldview',
     name: { 'en-US': 'Idealistic Worldview', 'jp-FI': '理想主義的世界観' },
     description: {
-      'en-US': (l) => `🧪 gain from humans is doubled, but wages are increased by 50%`,
-      'jp-FI': (l) => `人材からの🧪獲得が2倍になるが、賃金が50%増加する`,
+      'en-US': (l) => `🧪 multiplier +100%, but wage multiplier +50%`,
+      'jp-FI': (l) => `🧪乗数+100%、ただし賃金乗数+50%`,
     },
     rarity: 'rare',
     level: 0,
     maxLevel: 1,
-    functionEffect: (gs: GameState) => ({ ...gs, trust: gs.trust - 50 }),
-    modifiers: [
-      {
-        param: 'rp',
-        type: ModifierType.Multiply,
-        apply: (v: number) => v * 2,
-      },
-    ],
+    functionEffect: (gs: GameState) => ({ ...gs, trust: gs.trust - 50, rpMultiplier: gs.rpMultiplier + 1 }),
   },
   {
     id: 'InnerCorrigibility',

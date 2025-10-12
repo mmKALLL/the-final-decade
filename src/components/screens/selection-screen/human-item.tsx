@@ -65,7 +65,7 @@ export const HumanItem = ({ human, onSelect }: { human: Human; onSelect: () => v
       </div>
       <span className="human-item-stats" style={{ lineHeight: 1.5 }}>
         💰 -{human.wage} / {language === 'jp-FI' ? '月' : 'month'} <br />
-        💬 {human.spGeneration} / 🔧 {human.epGeneration} / 🧪 {human.rpGeneration}
+        💬 {human.spGain} / 🔧 {human.epGain} / 🧪 {human.rpGain}
         {human.specialEffect && (
           <>
             <br />

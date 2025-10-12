@@ -136,7 +136,7 @@ function applyModifiers(gs: GameState, param: Param, value: number): number {
   // Group modifiers by type
   const addModifiers = modifiers.filter(({ mod }) => mod.type === ModifierType.Add)
   const multiplyModifiers = modifiers.filter(({ mod }) => mod.type === ModifierType.Multiply)
-  const functionModifiers = modifiers.filter(({ mod }) => mod.type === ModifierType.Function)
+  // const functionModifiers = modifiers.filter(({ mod }) => mod.type === ModifierType.Function)
 
   // Apply modifiers in the correct order: add -> multiply -> function
   let modifiedValue = value
@@ -152,9 +152,9 @@ function applyModifiers(gs: GameState, param: Param, value: number): number {
   })
 
   // Apply function modifiers
-  functionModifiers.forEach(({ mod, level }) => {
-    modifiedValue = mod.apply(modifiedValue, level)
-  })
+  // functionModifiers.forEach(({ mod, level }) => {
+  //   modifiedValue = mod.apply(modifiedValue, level)
+  // })
 
   return Math.floor(modifiedValue)
 }
